@@ -121,13 +121,7 @@ public class Game {
 		if (playersInPenaltyBox[currentPlayerID]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				purses[currentPlayerID]++;
-				System.out.println(players.get(currentPlayerID)
-						+ " now has "
-						+ purses[currentPlayerID]
-						+ " Gold Coins.");
-				
-				boolean winner = hasPlayerWon();
+				boolean winner = addCoin();
 				currentPlayerID++;
 				if (currentPlayerID == players.size()) currentPlayerID = 0;
 				
@@ -137,26 +131,27 @@ public class Game {
 				if (currentPlayerID == players.size()) currentPlayerID = 0;
 				return true;
 			}
-			
-			
-			
+
 		} else {
-		
 			System.out.println("Answer was corrent!!!!");
-			purses[currentPlayerID]++;
-			System.out.println(players.get(currentPlayerID)
-					+ " now has "
-					+ purses[currentPlayerID]
-					+ " Gold Coins.");
-			
-			boolean winner = hasPlayerWon();
+			boolean winner = addCoin();
 			currentPlayerID++;
 			if (currentPlayerID == players.size()) currentPlayerID = 0;
 			
 			return winner;
 		}
 	}
-	
+
+	private boolean addCoin() {
+		purses[currentPlayerID]++;
+		System.out.println(players.get(currentPlayerID)
+				+ " now has "
+				+ purses[currentPlayerID]
+				+ " Gold Coins.");
+
+		return hasPlayerWon();
+	}
+
 	public boolean handleIncorrectAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayerID)+ " was sent to the penalty box");
