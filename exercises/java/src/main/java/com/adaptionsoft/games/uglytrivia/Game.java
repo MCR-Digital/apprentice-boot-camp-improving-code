@@ -31,23 +31,23 @@ public class Game {
 	}
 	
 	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
+		return (getNumberOfPlayers() >= 2);
 	}
 
 	public boolean add(String playerName) {
 		
 		
 	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
-	    inPenaltyBox[howManyPlayers()] = false;
+	    places[getNumberOfPlayers()] = 0;
+	    purses[getNumberOfPlayers()] = 0;
+	    inPenaltyBox[getNumberOfPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
 	
-	public int howManyPlayers() {
+	public int getNumberOfPlayers() {
 		return players.size();
 	}
 
