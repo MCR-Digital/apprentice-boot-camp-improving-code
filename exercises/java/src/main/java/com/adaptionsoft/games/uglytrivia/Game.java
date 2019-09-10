@@ -117,42 +117,42 @@ public class Game {
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				coinPurses[currentPlayer]++;
-				System.out.println(players.get(currentPlayer) 
+				System.out.println(players.get(currentPlayer)
 						+ " now has "
 						+ coinPurses[currentPlayer]
 						+ " Gold Coins.");
-				
+
 				boolean winner = didPlayerWin();
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
-				
+
 				return winner;
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
-			
-			
-			
+
+
+
 		} else {
-		
+
 			System.out.println("Answer was corrent!!!!");
 			coinPurses[currentPlayer]++;
-			System.out.println(players.get(currentPlayer) 
+			System.out.println(players.get(currentPlayer)
 					+ " now has "
 					+ coinPurses[currentPlayer]
 					+ " Gold Coins.");
-			
+
 			boolean winner = didPlayerWin();
 			currentPlayer++;
 			if (currentPlayer == players.size()) currentPlayer = 0;
-			
+
 			return winner;
 		}
 	}
 	
-	public boolean wrongAnswer(){
+	public boolean questionWasAnsweredWrong(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
