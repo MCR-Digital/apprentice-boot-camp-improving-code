@@ -7,7 +7,7 @@ public class Game {
     ArrayList players = new ArrayList();
     int[] playerBoardPosition = new int[6];
     int[] playerCoinCount = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+    boolean[] isPlayerInPenaltyBox = new boolean[6];
     
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -15,7 +15,7 @@ public class Game {
     LinkedList rockQuestions = new LinkedList();
     
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    boolean isPlayerGettingOutOfPenaltyBox;
     
     public  Game(){
     	for (int i = 0; i < 50; i++) {
@@ -40,7 +40,7 @@ public class Game {
 	    players.add(playerName);
 	    playerBoardPosition[howManyPlayers()] = 0;
 	    playerCoinCount[howManyPlayers()] = 0;
-	    inPenaltyBox[howManyPlayers()] = false;
+	    isPlayerInPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
@@ -55,9 +55,9 @@ public class Game {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
-		if (inPenaltyBox[currentPlayer]) {
+		if (isPlayerInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
+				isPlayerGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 				playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] + roll;
@@ -70,7 +70,7 @@ public class Game {
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
+				isPlayerGettingOutOfPenaltyBox = false;
 				}
 			
 		} else {
@@ -113,8 +113,8 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[currentPlayer]){
-			if (isGettingOutOfPenaltyBox) {
+		if (isPlayerInPenaltyBox[currentPlayer]){
+			if (isPlayerGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				playerCoinCount[currentPlayer]++;
 				System.out.println(players.get(currentPlayer) 
@@ -155,7 +155,7 @@ public class Game {
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
+		isPlayerInPenaltyBox[currentPlayer] = true;
 		
 		currentPlayer++;
 		if (currentPlayer == players.size()) currentPlayer = 0;
