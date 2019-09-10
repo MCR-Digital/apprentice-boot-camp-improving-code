@@ -18,5 +18,7 @@ namespace TriviaGame
         public int Place { get; set; }
 
         public int Coins { get; set; }
+
+        public bool IsInPenaltyBox { get; set; }
     }
 }

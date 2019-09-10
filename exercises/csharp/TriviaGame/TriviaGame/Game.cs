@@ -7,14 +7,10 @@ namespace TriviaGame
 {
     public class Game
     {
-        private const int MAX_PLAYER_COUNT = 6;
         private const int MIN_PLAYER_COUNT = 2;
-
         private const int MAX_QUESTIONS = 50;
 
         List<Player> players = new List<Player>();
-
-        bool[] inPenaltyBox = new bool[MAX_PLAYER_COUNT];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -47,12 +43,10 @@ namespace TriviaGame
 
         public bool AddPlayer(Player player)
         {
-
             player.Place = 0;
             player.Coins = 0;
+            player.IsInPenaltyBox = false;
             players.Add(player);
-
-            inPenaltyBox[PlayerCount] = false;
 
             Console.WriteLine(player.Name + " was added");
             Console.WriteLine("They are player number " + players.Count);
@@ -80,7 +74,7 @@ namespace TriviaGame
             Console.WriteLine(CurrentPlayer.Name + " is the current player");
             Console.WriteLine("They have rolled a " + rollNumber);
 
-            if (inPenaltyBox[currentPlayerIndex])
+            if (CurrentPlayer.IsInPenaltyBox)
             {
                 if (rollNumber % 2 != 0)
                 {
@@ -164,7 +158,7 @@ namespace TriviaGame
 
         public bool wasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayerIndex])
+            if (CurrentPlayer.IsInPenaltyBox)
             {
                 if (isGettingOutOfPenaltyBox)
                 {
@@ -210,7 +204,7 @@ namespace TriviaGame
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(CurrentPlayer.Name + " was sent to the penalty box");
-            inPenaltyBox[currentPlayerIndex] = true;
+            CurrentPlayer.IsInPenaltyBox = true;
 
             NextPlayer();
             return true;
