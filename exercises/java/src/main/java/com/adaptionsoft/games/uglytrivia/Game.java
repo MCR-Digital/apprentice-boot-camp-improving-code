@@ -11,6 +11,7 @@ public class Game {
 	private static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
 	private static final int MAX_NUMBER_OF_PLAYERS = 6;
 	private static final int NUMBER_OF_QUESTIONS = 50;
+	private static final int PLAYER_ONE_ID = 0;
 
 	ArrayList players = new ArrayList();
     int[] places = new int[MAX_NUMBER_OF_PLAYERS];
@@ -22,7 +23,7 @@ public class Game {
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
     
-    int currentPlayerID = 0;
+    int currentPlayerID = PLAYER_ONE_ID;
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
@@ -167,7 +168,7 @@ public class Game {
 	}
 
 	private void resetBackToPlayerOne() {
-		currentPlayerID = 0;
+		currentPlayerID = PLAYER_ONE_ID;
 	}
 
 	private boolean addCoin() {
