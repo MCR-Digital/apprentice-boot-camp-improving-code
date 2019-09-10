@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-	private static final String POP = "Pop";
+    private static final String POP = "Pop";
 	private static final String SCIENCE = "Science";
 	private static final String SPORTS = "Sports";
 	private static final String ROCK = "Rock";
+    private static final int MINIMUM_PLAYERS = 2;
+    private static final int END_SPACE = 11;
+    private static final int NUMBER_OF_SPACES = 12;
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -36,7 +39,7 @@ public class Game {
 	}
 
 	public boolean isPlayable() {
-		return (numberOfPlayers() >= 2);
+		return (numberOfPlayers() >= MINIMUM_PLAYERS);
 	}
 
 	public boolean addPlayer(String playerName) {
@@ -76,7 +79,7 @@ public class Game {
 
     private void takeTurn(int currentRoll) {
         locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + currentRoll;
-        if (locationOnBoard[currentPlayer] > 11) locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] - 12;
+        if (locationOnBoard[currentPlayer] > END_SPACE) locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] - NUMBER_OF_SPACES;
 
         System.out.println(allPlayers.get(currentPlayer)
                 + "'s new location is "
