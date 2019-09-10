@@ -19,6 +19,7 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
     private final int maxAmountOfQuestions = 50;
 
+    private final int maximumPlaceOnBoard = 11;
     private final int startingPlaceOnTheBoard = 0;
     private final int startingAmountOfCoins = 0;
 
@@ -71,7 +72,11 @@ public class Game {
     private void outcomeOfCorrectAnswer(int numberOnDiceAfterRoll) {
 
         placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] + numberOnDiceAfterRoll;
-        if (placeOnTheBoard[currentPlayer] > 11) placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] - 12;
+
+
+        if (placeOnTheBoard[currentPlayer] > maximumPlaceOnBoard) {
+            placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] - 12;
+        }
 
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
