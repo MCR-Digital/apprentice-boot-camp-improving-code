@@ -49,7 +49,7 @@ namespace TriviaGame
         {
 
             player.Place = 0;
-            player.Purse = 0;
+            player.Coins = 0;
             players.Add(player);
 
             inPenaltyBox[PlayerCount] = false;
@@ -169,10 +169,10 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    CurrentPlayer.Purse++;
+                    CurrentPlayer.Coins++;
                     Console.WriteLine(CurrentPlayer.Name
                             + " now has "
-                            + CurrentPlayer.Purse
+                            + CurrentPlayer.Coins
                             + " Gold Coins.");
 
                     bool winner = GetCurrentPlayerWinStatus();
@@ -193,10 +193,10 @@ namespace TriviaGame
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                CurrentPlayer.Purse++;
+                CurrentPlayer.Coins++;
                 Console.WriteLine(CurrentPlayer.Name
                         + " now has "
-                        + CurrentPlayer.Purse
+                        + CurrentPlayer.Coins
                         + " Gold Coins.");
 
                 bool winner = GetCurrentPlayerWinStatus();
@@ -219,7 +219,7 @@ namespace TriviaGame
 
         private bool GetCurrentPlayerWinStatus()
         {
-            return !(CurrentPlayer.Purse == 6);
+            return !(CurrentPlayer.Coins == 6);
         }
 
         private void NextPlayer()
