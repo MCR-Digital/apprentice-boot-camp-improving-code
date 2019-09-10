@@ -42,7 +42,7 @@ public class Game {
 		return (getNumberOfPlayers() >= MINIMUM_NUMBER_OF_PLAYERS);
 	}
 
-	public boolean add(String playerName) {
+	public boolean addPlayer(String playerName) {
 		
 		
 	    players.add(playerName);
