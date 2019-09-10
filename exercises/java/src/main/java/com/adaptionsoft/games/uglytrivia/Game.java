@@ -64,7 +64,7 @@ public class Game {
 		System.out.println(players.get(currentPlayerID) + " is the current player");
 		System.out.println("They have rolled a " + rolledNumber);
 		
-		if (isPlayerInPenaltyBox()) {
+		if (isPlayerInPenaltyBox(currentPlayerID)) {
 			if (rolledNumber % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
@@ -139,7 +139,7 @@ public class Game {
 	}
 
 	public boolean handleCorrectAnswer() {
-		if (isPlayerInPenaltyBox()){
+		if (isPlayerInPenaltyBox(currentPlayerID)){
 			if (isGettingOutOfPenaltyBox) {
 				boolean winner = addCoin(currentPlayerID);
 				currentPlayerID++;
@@ -163,8 +163,8 @@ public class Game {
 		}
 	}
 
-	private boolean isPlayerInPenaltyBox() {
-		return playersInPenaltyBox[currentPlayerID];
+	private boolean isPlayerInPenaltyBox(int playerID) {
+		return playersInPenaltyBox[playerID];
 	}
 
 	private void resetBackToPlayerOne() {
