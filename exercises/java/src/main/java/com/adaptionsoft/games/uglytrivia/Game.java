@@ -12,6 +12,10 @@ public class Game {
 	private static final int LAST_POSITION = 11;
 	private static final int RESET_POSITION = 12;
 	private static final int PENALTY_CHECK_VALUE = 2;
+	public static final String CATEGORY_POP = "Pop";
+	public static final String CATEGORY_SCIENCE = "Science";
+	public static final String CATEGORY_SPORTS = "Sports";
+	public static final String CATEGORY_ROCK = "Rock";
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
@@ -91,28 +95,28 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (getCategory().equals("Pop"))
+		if (getCategory().equals(CATEGORY_POP))
 			System.out.println(popQuestionsList.removeFirst());
-		if (getCategory().equals("Science"))
+		if (getCategory().equals(CATEGORY_SCIENCE))
 			System.out.println(scienceQuestionsList.removeFirst());
-		if (getCategory().equals("Sports"))
+		if (getCategory().equals(CATEGORY_SPORTS))
 			System.out.println(sportsQuestionsList.removeFirst());
-		if (getCategory().equals("Rock"))
+		if (getCategory().equals(CATEGORY_ROCK))
 			System.out.println(rockQuestionsList.removeFirst());
 	}
 	
 	
 	private String getCategory() {
-		if (playerLocations[currentPlayer] == 0) return "Pop";
-		if (playerLocations[currentPlayer] == 4) return "Pop";
-		if (playerLocations[currentPlayer] == 8) return "Pop";
-		if (playerLocations[currentPlayer] == 1) return "Science";
-		if (playerLocations[currentPlayer] == 5) return "Science";
-		if (playerLocations[currentPlayer] == 9) return "Science";
-		if (playerLocations[currentPlayer] == 2) return "Sports";
-		if (playerLocations[currentPlayer] == 6) return "Sports";
-		if (playerLocations[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		if (playerLocations[currentPlayer] == 0) return CATEGORY_POP;
+		if (playerLocations[currentPlayer] == 4) return CATEGORY_POP;
+		if (playerLocations[currentPlayer] == 8) return CATEGORY_POP;
+		if (playerLocations[currentPlayer] == 1) return CATEGORY_SCIENCE;
+		if (playerLocations[currentPlayer] == 5) return CATEGORY_SCIENCE;
+		if (playerLocations[currentPlayer] == 9) return CATEGORY_SCIENCE;
+		if (playerLocations[currentPlayer] == 2) return CATEGORY_SPORTS;
+		if (playerLocations[currentPlayer] == 6) return CATEGORY_SPORTS;
+		if (playerLocations[currentPlayer] == 10) return CATEGORY_SPORTS;
+		return CATEGORY_ROCK;
 	}
 
 	public boolean wasAnsweredCorrectly() {
