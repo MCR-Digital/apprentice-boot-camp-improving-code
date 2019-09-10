@@ -36,8 +36,6 @@ public class Game {
     }
 
     public boolean addPlayer(String playerName) {
-
-
         players.add(playerName);
         places[howManyPlayers()] = 0;
         purses[howManyPlayers()] = 0;
@@ -56,21 +54,21 @@ public class Game {
         System.out.println(players.get(currentPlayerPlace) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (inPenaltyBox[currentPlayerPlace]) {
-            if (roll % 2 != 0) {
-                isGettingOutOfPenaltyBox = true;
-                System.out.println(players.get(currentPlayerPlace) + " is getting out of the penalty box");
-                updatePlayerLocationAndCategory(roll);
-                askQuestion();
-            } else {
-                System.out.println(players.get(currentPlayerPlace) + " is not getting out of the penalty box");
-                isGettingOutOfPenaltyBox = false;
-            }
+        boolean rollIsEven = roll % 2 == 0;
+        boolean inPenaltyBox = this.inPenaltyBox[currentPlayerPlace];
+
+        if (inPenaltyBox && !rollIsEven){
+            isGettingOutOfPenaltyBox = true;
+            System.out.println(players.get(currentPlayerPlace) + " is getting out of the penalty box");
+            updatePlayerLocationAndCategory(roll);
+            askQuestion();
+        } else if (inPenaltyBox) {
+            System.out.println(players.get(currentPlayerPlace) + " is not getting out of the penalty box");
+            isGettingOutOfPenaltyBox = false;
         } else {
             updatePlayerLocationAndCategory(roll);
             askQuestion();
         }
-
     }
 
     private void updatePlayerLocationAndCategory(int roll) {
@@ -106,17 +104,21 @@ public class Game {
     private String currentCategory() {
         int playerPlace = places[currentPlayerPlace];
 
-        if (playerPlace > 7 ) {
+        if (playerPlace > 7) {
             playerPlace = playerPlace - 8;
         } else if (playerPlace > 3) {
             playerPlace = playerPlace - 4;
         }
 
         switch (playerPlace) {
-            case 0: return POP;
-            case 1: return SCIENCE;
-            case 2: return  SPORTS;
-            default: return ROCK;
+            case 0:
+                return POP;
+            case 1:
+                return SCIENCE;
+            case 2:
+                return SPORTS;
+            default:
+                return ROCK;
         }
     }
 
