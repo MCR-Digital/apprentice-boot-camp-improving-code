@@ -47,7 +47,7 @@ public class Game {
 	    isInPenaltyBox[numberOfPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + allPlayers.size());
+	    System.out.println("They are player number " + numberOfPlayers());
 		return true;
 	}
 
@@ -153,7 +153,7 @@ public class Game {
     }
 
 	private void resetToFirstPlayer() {
-		if (currentPlayer == allPlayers.size()) {
+		if (currentPlayer == numberOfPlayers()) {
 			currentPlayer = 0;
 		}
 	}
