@@ -31,14 +31,8 @@ public class Game {
 	public String createRockQuestion(int index){
 		return "Rock Question " + index;
 	}
-	
-	public boolean isPlayable() {
-		return (numberOfPlayers() >= 2);
-	}
 
 	public boolean addPlayer(String playerName) {
-
-		
 	    players.add(playerName);
 	    positionOnBoard[numberOfPlayers()] = 0;
 	    score[numberOfPlayers()] = 0;
@@ -65,7 +59,6 @@ public class Game {
 				movePlayer(diceRoll);
                 displayPlayerPosition();
 				askQuestion();
-
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
@@ -76,7 +69,6 @@ public class Game {
             displayPlayerPosition();
 			askQuestion();
 		}
-		
 	}
 
     private boolean isOdd(int diceRoll) {
@@ -111,8 +103,7 @@ public class Game {
 		if (currentCategory().equals("Rock"))
 			System.out.println(rockQuestions.removeFirst());		
 	}
-	
-	
+
 	private String currentCategory() {
 		if (positionOnBoard[currentPlayer] == 0) return "Pop";
 		if (positionOnBoard[currentPlayer] == 4) return "Pop";
@@ -125,8 +116,6 @@ public class Game {
 		if (positionOnBoard[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
-
-	
 
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
@@ -147,10 +136,9 @@ public class Game {
     private boolean isWinnerOnEndOfTurn() {
         updateScore();
         boolean winner = isWinner();
-
         currentPlayer++;
-        setNextPlayer();
 
+        setNextPlayer();
         return winner;
     }
 
