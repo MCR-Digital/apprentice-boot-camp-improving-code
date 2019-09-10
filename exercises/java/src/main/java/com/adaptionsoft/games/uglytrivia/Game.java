@@ -56,7 +56,7 @@ public class Game {
 		System.out.println("They have rolled a " + diceRoll);
 		
 		if (inPenaltyBox[playerPosition]) {
-			if (diceRoll % 2 != 0) {
+			if (isOdd(diceRoll)) {
 				isGettingOutOfPenaltyBox = true;
 				System.out.println(players.get(playerPosition) + " is getting out of the penalty box");
 
@@ -76,6 +76,10 @@ public class Game {
 		}
 		
 	}
+
+    private boolean isOdd(int diceRoll) {
+        return diceRoll % 2 != 0;
+    }
 
     private void displayPlayerPosition() {
         System.out.println(players.get(playerPosition)
