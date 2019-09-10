@@ -16,6 +16,7 @@ public class Game {
     LinkedList rockQuestions = new LinkedList();
 
     HashMap<String, LinkedList> topicQuestionMap = new HashMap<>();
+    String[] board= {"Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock"};
     
     int currentPlayer = 0;
     boolean isPlayerGettingOutOfPenaltyBox;
