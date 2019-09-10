@@ -71,11 +71,11 @@ public class Game {
     }
 
     private void outcomeOfCorrectAnswer(int numberOnDiceAfterRoll) {
-
         placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] + numberOnDiceAfterRoll;
-        if (placeOnTheBoard[currentPlayer] > maximumPlaceOnTheBoard)
-            placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] - 12;
 
+        if (placeOnTheBoard[currentPlayer] > maximumPlaceOnTheBoard) {
+            placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] - 12;
+        }
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
                 + placeOnTheBoard[currentPlayer]);
@@ -98,7 +98,6 @@ public class Game {
     private String currentQuestionCategory() {
         if (placeOnTheBoard[currentPlayer] % 4 == 0) return "Pop";
         if (placeOnTheBoard[currentPlayer] == 1) return "Science";
-        boolean winner = winningPlayer();
         if (placeOnTheBoard[currentPlayer] == 5) return "Science";
         if (placeOnTheBoard[currentPlayer] == 9) return "Science";
         if (placeOnTheBoard[currentPlayer] % 2 == 0) return "Sports";
