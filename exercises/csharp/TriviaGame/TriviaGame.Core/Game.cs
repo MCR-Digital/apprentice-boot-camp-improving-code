@@ -98,8 +98,7 @@ namespace TriviaGame.Core
 
     private void AdvancePlace(int roll)
     {
-      places[currentPlayer] = places[currentPlayer] + roll;
-      if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+      places[currentPlayer] = (places[currentPlayer] + roll) % 12;
     }
 
     private void AskQuestion()
