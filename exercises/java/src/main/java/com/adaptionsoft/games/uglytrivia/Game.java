@@ -56,11 +56,9 @@ public class Game {
 		
 		if (playersInPenaltyBox[currentPlayer]) {
 			penaltyCheck(roll);
-
 		} else {
 			updatePlayerLocation(roll);
 		}
-		
 	}
 
 	private void penaltyCheck(final int roll) {
