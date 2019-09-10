@@ -56,7 +56,7 @@ public class Game {
 	    players2.add(new Player(playerName));
 	    
 	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.size());
+	    System.out.println("They are player number " + players2.size());
 		return true;
 	}
 	
