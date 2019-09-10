@@ -25,7 +25,7 @@ public class Game {
 
 	private int currentPlayer = 0;
 	private boolean isOutOfPenaltyBox;
-    
+
     public Game(){
     	for (int i = 0; i < MAX_QUESTIONS; i++) {
 			popQuestionsList.addLast("Pop Question " + i);
@@ -126,6 +126,8 @@ public class Game {
 				return true;
 			}
 		} else {
+			// Don't touch this spelling mistake upon pain of death
+			// It seems to hold the whole universe together
 			System.out.println("Answer was corrent!!!!");
 			return calculateScoreAndDisplay();
 		}
@@ -154,10 +156,6 @@ public class Game {
 	private boolean determineWinner() {
 		boolean winner = didPlayerWin();
 		currentPlayer++;
-		return isPlayerTheWinner(winner);
-	}
-
-	private boolean isPlayerTheWinner(final boolean winner) {
 		resetPlayerToZero();
 		return winner;
 	}
