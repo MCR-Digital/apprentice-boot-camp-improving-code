@@ -135,16 +135,23 @@ namespace TriviaGame
 
         private string GetCurrentCategory()
         {
-            if (CurrentPlayer.Place == 0) return "Pop";
-            if (CurrentPlayer.Place == 4) return "Pop";
-            if (CurrentPlayer.Place == 8) return "Pop";
-            if (CurrentPlayer.Place == 1) return "Science";
-            if (CurrentPlayer.Place == 5) return "Science";
-            if (CurrentPlayer.Place == 9) return "Science";
-            if (CurrentPlayer.Place == 2) return "Sports";
-            if (CurrentPlayer.Place == 6) return "Sports";
-            if (CurrentPlayer.Place == 10) return "Sports";
-            return "Rock";
+            switch (CurrentPlayer.Place)
+            {
+                case 0:
+                case 4:
+                case 8:
+                    return "Pop";
+                case 1:
+                case 5:
+                case 9:
+                    return "Science";
+                case 2:
+                case 6:
+                case 10:
+                    return "Sports";
+                default:
+                    return "Rock";
+            }
         }
 
         public bool wasCorrectlyAnswered()
@@ -155,10 +162,7 @@ namespace TriviaGame
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     CurrentPlayer.Coins++;
-                    Console.WriteLine(CurrentPlayer.Name
-                            + " now has "
-                            + CurrentPlayer.Coins
-                            + " Gold Coins.");
+                    PrintCurrentPlayerCoins();
 
                     bool winner = GetCurrentPlayerWinStatus();
                     MoveToNextPlayer();
@@ -179,16 +183,18 @@ namespace TriviaGame
 
                 Console.WriteLine("Answer was corrent!!!!");
                 CurrentPlayer.Coins++;
-                Console.WriteLine(CurrentPlayer.Name
-                        + " now has "
-                        + CurrentPlayer.Coins
-                        + " Gold Coins.");
+                PrintCurrentPlayerCoins();
 
                 bool winner = GetCurrentPlayerWinStatus();
                 MoveToNextPlayer();
 
                 return winner;
             }
+        }
+
+        private void PrintCurrentPlayerCoins()
+        {
+            Console.WriteLine(CurrentPlayer.Name + " now has " + CurrentPlayer.Coins + " Gold Coins.");
         }
 
         public bool GiveCurrentPlayerWrongAnswer()
