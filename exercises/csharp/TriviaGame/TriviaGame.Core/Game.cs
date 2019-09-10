@@ -11,6 +11,9 @@ namespace TriviaGame.Core
     public const int MINIMUM_PLAYERS = 2;
     public const int MAX_QUESTIONS_PER_CATEGORY = 50;
 
+    public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
+    public int NumberOfPlayers => _players.Count;
+
     private readonly string[] _categories = new string[] { "Pop", "Science", "Sports", "Rock" };
     private readonly List<string> _players = new List<string>();
     private readonly int[] _places = new int[6];
@@ -21,32 +24,18 @@ namespace TriviaGame.Core
     private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
 
-    private int _currentPlayer = 0;
-    private bool _isLeavingPenaltyBox;
-
-    public Game()
-    {
-      for (int index = 0; index < MAX_QUESTIONS_PER_CATEGORY; index++)
-      {
-        _popQuestions.AddLast("Pop Question " + index);
-        _scienceQuestions.AddLast(("Science Question " + index));
-        _sportsQuestions.AddLast(("Sports Question " + index));
-        _rockQuestions.AddLast("Rock Question " + index);
-      }
-    }
-
-    public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
-    public int NumberOfPlayers => _players.Count;
-
     private bool _hasPlayerWon => !(CurrentPlayersGoldCoins == 6);
     private string _currentPlayerName => _players[_currentPlayer];
     private string _currentCategory => _categories[CurrentPlayerPlace % 4];
 
+    private int _currentPlayer = 0;
+    private bool _isLeavingPenaltyBox;
     private bool IsCurrentPlayerInPenaltyBox
     {
       get => _inPenaltyBox[_currentPlayer];
       set => _inPenaltyBox[_currentPlayer] = value;
     }
+
     private int CurrentPlayerPlace
     {
       get => _places[_currentPlayer];
@@ -57,6 +46,17 @@ namespace TriviaGame.Core
     {
       get => _purses[_currentPlayer];
       set => _purses[_currentPlayer] = value;
+    }
+
+    public Game()
+    {
+      for (int index = 0; index < MAX_QUESTIONS_PER_CATEGORY; index++)
+      {
+        _popQuestions.AddLast("Pop Question " + index);
+        _scienceQuestions.AddLast(("Science Question " + index));
+        _sportsQuestions.AddLast(("Sports Question " + index));
+        _rockQuestions.AddLast("Rock Question " + index);
+      }
     }
 
     public bool AddPlayer(String playerName)
