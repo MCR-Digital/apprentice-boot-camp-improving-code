@@ -103,11 +103,7 @@ public class Game {
         if (placeOnBoardIsMultipleOfFour) return "Pop";
         if (placeOnBoardIsScience()) return "Science";
         if (placeOnBoardIsMultipleOfTwo) return "Sports";
-
-        else {
-            return "Rock";
-
-        }
+        return "Rock";
     }
 
     private boolean placeOnBoardIsScience() {
