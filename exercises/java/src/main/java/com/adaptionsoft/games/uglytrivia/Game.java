@@ -52,8 +52,8 @@ public class Game {
 		if (playersInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
 				isOutOfPenaltyBox = true;
-				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+
 				updatePlayerLocation(roll);
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
@@ -107,42 +107,35 @@ public class Game {
 		if (playersInPenaltyBox[currentPlayer]){
 			if (isOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				playerPurses[currentPlayer]++;
-				System.out.println(players.get(currentPlayer) 
-						+ " now has "
-						+ playerPurses[currentPlayer]
-						+ " Gold Coins.");
-				
-				boolean winner = didPlayerWin();
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				
-				return winner;
+				return calculateScoreAndDisplay();
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
-			
-			
-			
 		} else {
-		
 			System.out.println("Answer was corrent!!!!");
-			playerPurses[currentPlayer]++;
-			System.out.println(players.get(currentPlayer) 
-					+ " now has "
-					+ playerPurses[currentPlayer]
-					+ " Gold Coins.");
-			
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-			
-			return winner;
+			return calculateScoreAndDisplay();
 		}
 	}
-	
+
+	private boolean calculateScoreAndDisplay() {
+		playerPurses[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ playerPurses[currentPlayer]
+				+ " Gold Coins.");
+
+		boolean winner = didPlayerWin();
+		currentPlayer++;
+		return isPlayerTheWinner(winner);
+	}
+
+	private boolean isPlayerTheWinner(final boolean winner) {
+		if (currentPlayer == players.size()) currentPlayer = 0;
+		return winner;
+	}
+
 	public boolean wasAnsweredIncorrectly(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
