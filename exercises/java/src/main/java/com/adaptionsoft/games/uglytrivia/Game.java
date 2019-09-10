@@ -122,7 +122,7 @@ public class Game {
 						+ purses[currentPlayerID]
 						+ " Gold Coins.");
 				
-				boolean winner = didPlayerWin();
+				boolean winner = hasPlayerWon();
 				currentPlayerID++;
 				if (currentPlayerID == players.size()) currentPlayerID = 0;
 				
@@ -144,7 +144,7 @@ public class Game {
 					+ purses[currentPlayerID]
 					+ " Gold Coins.");
 			
-			boolean winner = didPlayerWin();
+			boolean winner = hasPlayerWon();
 			currentPlayerID++;
 			if (currentPlayerID == players.size()) currentPlayerID = 0;
 			
@@ -163,7 +163,7 @@ public class Game {
 	}
 
 
-	private boolean didPlayerWin() {
+	private boolean hasPlayerWon() {
 		return !(purses[currentPlayerID] == 6);
 	}
 }
