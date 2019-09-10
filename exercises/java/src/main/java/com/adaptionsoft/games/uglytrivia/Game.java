@@ -13,6 +13,7 @@ public class Game {
     private LinkedList scienceQuestions = new LinkedList();
     private LinkedList sportsQuestions = new LinkedList();
     private LinkedList rockQuestions = new LinkedList();
+    int amountOfPlayers = players.size();
 
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
@@ -29,18 +30,15 @@ public class Game {
     public boolean addingPlayer(String playerName) {
 
         players.add(playerName);
-        placeOnTheBoard[amountOfPlayers()] = 0;
-        coinPurses[amountOfPlayers()] = 0;
-        inPenaltyBox[amountOfPlayers()] = false;
+        placeOnTheBoard[amountOfPlayers] = 0;
+        coinPurses[amountOfPlayers] = 0;
+        inPenaltyBox[amountOfPlayers] = false;
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
         return true;
     }
 
-    private int amountOfPlayers() {
-        return players.size();
-    }
 
     public void rollTheDice(int numberOnDiceAfterRoll) {
         System.out.println(players.get(currentPlayer) + " is the current player");
