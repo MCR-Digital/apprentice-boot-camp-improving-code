@@ -157,7 +157,7 @@ namespace TriviaGame
                             + purses[currentPlayer]
                             + " Gold Coins.");
 
-                    bool winner = didPlayerWin();
+                    bool winner = GetCurrentPlayerWinStatus();
                     currentPlayer++;
                     if (currentPlayer == players.Count) currentPlayer = 0;
 
@@ -183,7 +183,7 @@ namespace TriviaGame
                         + purses[currentPlayer]
                         + " Gold Coins.");
 
-                bool winner = didPlayerWin();
+                bool winner = GetCurrentPlayerWinStatus();
                 currentPlayer++;
                 if (currentPlayer == players.Count) currentPlayer = 0;
 
@@ -203,7 +203,7 @@ namespace TriviaGame
         }
 
 
-        private bool didPlayerWin()
+        private bool GetCurrentPlayerWinStatus()
         {
             return !(purses[currentPlayer] == 6);
         }
