@@ -70,9 +70,17 @@ namespace TriviaGame
             }
         }
 
+        public Player CurrentPlayer
+        {
+            get
+            {
+                return players[currentPlayerIndex];
+            }
+        }
+
         public void RollDice(int rollNumber)
         {
-            Console.WriteLine(players[currentPlayerIndex].Name + " is the current player");
+            Console.WriteLine(CurrentPlayer.Name + " is the current player");
             Console.WriteLine("They have rolled a " + rollNumber);
 
             if (inPenaltyBox[currentPlayerIndex])
@@ -81,10 +89,10 @@ namespace TriviaGame
                 {
                     isGettingOutOfPenaltyBox = true;
 
-                    Console.WriteLine(players[currentPlayerIndex].Name + " is getting out of the penalty box");
+                    Console.WriteLine(CurrentPlayer.Name + " is getting out of the penalty box");
                     MoveCurrentPlayer(rollNumber);
 
-                    Console.WriteLine(players[currentPlayerIndex].Name
+                    Console.WriteLine(CurrentPlayer.Name
                             + "'s new location is "
                             + playerPlaces[currentPlayerIndex]);
                     Console.WriteLine("The category is " + GetCurrentCategory());
@@ -92,7 +100,7 @@ namespace TriviaGame
                 }
                 else
                 {
-                    Console.WriteLine(players[currentPlayerIndex].Name + " is not getting out of the penalty box");
+                    Console.WriteLine(CurrentPlayer.Name + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
 
@@ -101,7 +109,7 @@ namespace TriviaGame
             {
                 MoveCurrentPlayer(rollNumber);
 
-                Console.WriteLine(players[currentPlayerIndex].Name
+                Console.WriteLine(CurrentPlayer.Name
                         + "'s new location is "
                         + playerPlaces[currentPlayerIndex]);
                 Console.WriteLine("The category is " + GetCurrentCategory());
@@ -165,7 +173,7 @@ namespace TriviaGame
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     playerPurses[currentPlayerIndex]++;
-                    Console.WriteLine(players[currentPlayerIndex].Name
+                    Console.WriteLine(CurrentPlayer.Name
                             + " now has "
                             + playerPurses[currentPlayerIndex]
                             + " Gold Coins.");
@@ -189,7 +197,7 @@ namespace TriviaGame
 
                 Console.WriteLine("Answer was corrent!!!!");
                 playerPurses[currentPlayerIndex]++;
-                Console.WriteLine(players[currentPlayerIndex].Name
+                Console.WriteLine(CurrentPlayer.Name
                         + " now has "
                         + playerPurses[currentPlayerIndex]
                         + " Gold Coins.");
@@ -204,7 +212,7 @@ namespace TriviaGame
         public bool GiveCurrentPlayerWrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayerIndex].Name + " was sent to the penalty box");
+            Console.WriteLine(CurrentPlayer.Name + " was sent to the penalty box");
             inPenaltyBox[currentPlayerIndex] = true;
 
             NextPlayer();
