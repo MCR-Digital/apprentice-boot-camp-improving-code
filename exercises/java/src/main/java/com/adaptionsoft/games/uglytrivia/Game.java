@@ -110,7 +110,7 @@ public class Game {
 				return calculateScoreAndDisplay();
 			} else {
 				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
+				resetPlayerToZero();
 				return true;
 			}
 		} else {
@@ -132,7 +132,7 @@ public class Game {
 	}
 
 	private boolean isPlayerTheWinner(final boolean winner) {
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		resetPlayerToZero();
 		return winner;
 	}
 
@@ -142,10 +142,13 @@ public class Game {
 		playersInPenaltyBox[currentPlayer] = true;
 		
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		resetPlayerToZero();
 		return true;
 	}
 
+	private void resetPlayerToZero() {
+		if (currentPlayer == players.size()) currentPlayer = 0;
+	}
 
 	private boolean didPlayerWin() {
 		return !(playerPurses[currentPlayer] == 6);
