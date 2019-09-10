@@ -96,7 +96,7 @@ public class Game {
 
 	private void movePlayer(int rolledNumber) {
 		places[currentPlayerID] = getCurrentPlayerPosition() + rolledNumber;
-		if (currentPlayerPassedFinalTile()) {
+		if (hasCurrentPlayerPassedFinalTile()) {
 			continueMoveFromStartOfBoard();
 		}
 	}
@@ -105,7 +105,7 @@ public class Game {
 		places[currentPlayerID] = getCurrentPlayerPosition() - 12;
 	}
 
-	private boolean currentPlayerPassedFinalTile() {
+	private boolean hasCurrentPlayerPassedFinalTile() {
 		return getCurrentPlayerPosition() > 11;
 	}
 
