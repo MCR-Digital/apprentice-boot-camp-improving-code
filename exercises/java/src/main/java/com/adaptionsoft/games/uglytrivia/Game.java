@@ -157,12 +157,14 @@ public class Game {
     }
 
     private void resetToFirstPlayer() {
-		if (currentPlayer == numberOfPlayers()) {
-			currentPlayer = 0;
+        int firstPlayer = 0;
+        if (currentPlayer == numberOfPlayers()) {
+            this.currentPlayer = firstPlayer;
 		}
 	}
 
 	private boolean didPlayerWin() {
-		return !(goldCoins[currentPlayer] == 6);
+        int maxGoldCoins = 6;
+        return !(goldCoins[currentPlayer] == maxGoldCoins);
 	}
 }
