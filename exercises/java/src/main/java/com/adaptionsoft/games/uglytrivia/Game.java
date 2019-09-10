@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	private static final String POP = "Pop";
+	private static final String SCIENCE = "Science";
+	private static final String SPORTS = "Sports";
+	private static final String ROCK = "Rock";
+
+	ArrayList players = new ArrayList();
     int[] locationOnBoard = new int[6];
     int[] goldCoins = new int[6];
     boolean[] isInPenaltyBox = new boolean[6];
@@ -19,15 +24,15 @@ public class Game {
 
     public  Game(){
     	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
+			popQuestions.addLast(POP + " Question " + i);
+			scienceQuestions.addLast((SCIENCE + " Question " + i));
+			sportsQuestions.addLast((SPORTS + " Question " + i));
 			rockQuestions.addLast(createRockQuestion(i));
     	}
     }
 
 	public String createRockQuestion(int index){
-		return "Rock Question " + index;
+		return ROCK + " Question " + index;
 	}
 
 	public boolean isPlayable() {
@@ -81,28 +86,28 @@ public class Game {
     }
 
     private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (currentCategory() == POP)
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (currentCategory() == SCIENCE)
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (currentCategory() == SPORTS)
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (currentCategory() == ROCK)
 			System.out.println(rockQuestions.removeFirst());
 	}
 
 
 	private String currentCategory() {
-		if (locationOnBoard[currentPlayer] == 0) return "Pop";
-		if (locationOnBoard[currentPlayer] == 4) return "Pop";
-		if (locationOnBoard[currentPlayer] == 8) return "Pop";
-		if (locationOnBoard[currentPlayer] == 1) return "Science";
-		if (locationOnBoard[currentPlayer] == 5) return "Science";
-		if (locationOnBoard[currentPlayer] == 9) return "Science";
-		if (locationOnBoard[currentPlayer] == 2) return "Sports";
-		if (locationOnBoard[currentPlayer] == 6) return "Sports";
-		if (locationOnBoard[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		if (locationOnBoard[currentPlayer] == 0) return POP;
+		if (locationOnBoard[currentPlayer] == 4) return POP;
+		if (locationOnBoard[currentPlayer] == 8) return POP;
+		if (locationOnBoard[currentPlayer] == 1) return SCIENCE;
+		if (locationOnBoard[currentPlayer] == 5) return SCIENCE;
+		if (locationOnBoard[currentPlayer] == 9) return SCIENCE;
+		if (locationOnBoard[currentPlayer] == 2) return SPORTS;
+		if (locationOnBoard[currentPlayer] == 6) return SPORTS;
+		if (locationOnBoard[currentPlayer] == 10) return SPORTS;
+		return ROCK;
 	}
 
 	public boolean isCorrectlyAnswered() {
