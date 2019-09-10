@@ -141,7 +141,7 @@ public class Game {
 	public boolean handleCorrectAnswer() {
 		if (isPlayerInPenaltyBox()){
 			if (isGettingOutOfPenaltyBox) {
-				boolean winner = addCoin();
+				boolean winner = addCoin(currentPlayerID);
 				currentPlayerID++;
 				if (isLastPlayerInList()) resetBackToPlayerOne();
 
@@ -153,7 +153,7 @@ public class Game {
 			}
 
 		} else {
-			boolean winner = addCoin();
+			boolean winner = addCoin(currentPlayerID);
 			currentPlayerID++;
 			if (isLastPlayerInList()) {
 				resetBackToPlayerOne();
@@ -171,12 +171,12 @@ public class Game {
 		currentPlayerID = PLAYER_ONE_ID;
 	}
 
-	private boolean addCoin() {
+	private boolean addCoin(int playerID) {
 		System.out.println("Answer was correct!!!!");
 		purses[currentPlayerID]++;
-		System.out.println(players.get(currentPlayerID)
+		System.out.println(players.get(playerID)
 				+ " now has "
-				+ getPlayerPurse(currentPlayerID)
+				+ getPlayerPurse(playerID)
 				+ " Gold Coins.");
 
 		return hasPlayerWon();
