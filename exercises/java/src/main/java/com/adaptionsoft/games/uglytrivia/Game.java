@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
+
 	private static final int MAX_PLAYERS = 6;
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
 	private static final int MAX_QUESTIONS = 50;
 	private static final int LAST_POSITION = 11;
 	private static final int RESET_POSITION = 12;
-	public static final int PENALTY_CHECK_VALUE = 2;
+	private static final int PENALTY_CHECK_VALUE = 2;
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
@@ -49,8 +50,8 @@ public class Game {
 		return true;
 	}
 	
-	public int getAmountOfPlayers() {
-		return players.size();
+	private int getAmountOfPlayers() {
+    	return players.size();
 	}
 
 	public void roll(int roll) {
