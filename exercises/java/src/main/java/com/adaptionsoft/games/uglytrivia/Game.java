@@ -12,10 +12,11 @@ public class Game {
 	private static final int LAST_POSITION = 11;
 	private static final int RESET_POSITION = 12;
 	private static final int PENALTY_CHECK_VALUE = 2;
-	public static final String CATEGORY_POP = "Pop";
-	public static final String CATEGORY_SCIENCE = "Science";
-	public static final String CATEGORY_SPORTS = "Sports";
-	public static final String CATEGORY_ROCK = "Rock";
+
+	private static final String CATEGORY_POP = "Pop";
+	private static final String CATEGORY_SCIENCE = "Science";
+	private static final String CATEGORY_SPORTS = "Sports";
+	private static final String CATEGORY_ROCK = "Rock";
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
