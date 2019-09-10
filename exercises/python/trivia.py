@@ -3,7 +3,7 @@
 class Game:
     def __init__(self):
         self.players = []
-        self.places = [0] * 6
+        self.places_in_game = [0] * 6
         self.purses = [0] * 6
         self.in_penalty_box = [0] * 6
 
@@ -13,7 +13,7 @@ class Game:
         self.rock_questions = []
 
         self.current_player = 0
-        self.is_getting_out_of_penalty_box = False
+        self.out_of_penalty_box = False
 
         for i in range(50):
             self.pop_questions.append("Pop Question %s" % i)
@@ -25,11 +25,12 @@ class Game:
         return "Rock Question %s" % index
 
     def is_playable(self):
-        return self.how_many_players >= 2
+        lowest_number_of_players = 2
+        return self.how_many_players >= lowest_number_of_players
 
     def add(self, player_name):
         self.players.append(player_name)
-        self.places[self.how_many_players] = 0
+        self.places_in_game[self.how_many_players] = 0
         self.purses[self.how_many_players] = 0
         self.in_penalty_box[self.how_many_players] = False
 
@@ -42,60 +43,61 @@ class Game:
     def how_many_players(self):
         return len(self.players)
 
-    def roll(self, roll):
+    def roll(self, roll_of_die):
         print("%s is the current player" % self.players[self.current_player])
-        print("They have rolled a %s" % roll)
+        print("They have rolled a %s" % roll_of_die)
 
+        last_place_on_board = 11
         if self.in_penalty_box[self.current_player]:
-            if roll % 2 != 0:
-                self.is_getting_out_of_penalty_box = True
+            if roll_of_die % 2 != 0:
+                self.out_of_penalty_box = True
 
                 print("%s is getting out of the penalty box" % self.players[self.current_player])
-                self.places[self.current_player] = self.places[self.current_player] + roll
-                if self.places[self.current_player] > 11:
-                    self.places[self.current_player] = self.places[self.current_player] - 12
+                self.places_in_game[self.current_player] = self.places_in_game[self.current_player] + roll_of_die
+                if self.places_in_game[self.current_player] > last_place_on_board:
+                    self.places_in_game[self.current_player] = self.places_in_game[self.current_player] - 12
 
                 print(self.players[self.current_player] + \
                             '\'s new location is ' + \
-                            str(self.places[self.current_player]))
-                print("The category is %s" % self._current_category)
+                      str(self.places_in_game[self.current_player]))
+                print("The category is %s" % self._current_game_category)
                 self._ask_question()
             else:
                 print("%s is not getting out of the penalty box" % self.players[self.current_player])
-                self.is_getting_out_of_penalty_box = False
+                self.out_of_penalty_box = False
         else:
-            self.places[self.current_player] = self.places[self.current_player] + roll
-            if self.places[self.current_player] > 11:
-                self.places[self.current_player] = self.places[self.current_player] - 12
+            self.places_in_game[self.current_player] = self.places_in_game[self.current_player] + roll_of_die
+            if self.places_in_game[self.current_player] > last_place_on_board:
+                self.places_in_game[self.current_player] = self.places_in_game[self.current_player] - 12
 
             print(self.players[self.current_player] + \
                         '\'s new location is ' + \
-                        str(self.places[self.current_player]))
-            print("The category is %s" % self._current_category)
+                  str(self.places_in_game[self.current_player]))
+            print("The category is %s" % self._current_game_category)
             self._ask_question()
 
     def _ask_question(self):
-        if self._current_category == 'Pop': print(self.pop_questions.pop(0))
-        if self._current_category == 'Science': print(self.science_questions.pop(0))
-        if self._current_category == 'Sports': print(self.sports_questions.pop(0))
-        if self._current_category == 'Rock': print(self.rock_questions.pop(0))
+        if self._current_game_category == 'Pop': print(self.pop_questions.pop(0))
+        if self._current_game_category == 'Science': print(self.science_questions.pop(0))
+        if self._current_game_category == 'Sports': print(self.sports_questions.pop(0))
+        if self._current_game_category == 'Rock': print(self.rock_questions.pop(0))
 
     @property
-    def _current_category(self):
-        if self.places[self.current_player] == 0: return 'Pop'
-        if self.places[self.current_player] == 4: return 'Pop'
-        if self.places[self.current_player] == 8: return 'Pop'
-        if self.places[self.current_player] == 1: return 'Science'
-        if self.places[self.current_player] == 5: return 'Science'
-        if self.places[self.current_player] == 9: return 'Science'
-        if self.places[self.current_player] == 2: return 'Sports'
-        if self.places[self.current_player] == 6: return 'Sports'
-        if self.places[self.current_player] == 10: return 'Sports'
+    def _current_game_category(self):
+        if self.places_in_game[self.current_player] == 0: return 'Pop'
+        if self.places_in_game[self.current_player] == 4: return 'Pop'
+        if self.places_in_game[self.current_player] == 8: return 'Pop'
+        if self.places_in_game[self.current_player] == 1: return 'Science'
+        if self.places_in_game[self.current_player] == 5: return 'Science'
+        if self.places_in_game[self.current_player] == 9: return 'Science'
+        if self.places_in_game[self.current_player] == 2: return 'Sports'
+        if self.places_in_game[self.current_player] == 6: return 'Sports'
+        if self.places_in_game[self.current_player] == 10: return 'Sports'
         return 'Rock'
 
     def was_correctly_answered(self):
         if self.in_penalty_box[self.current_player]:
-            if self.is_getting_out_of_penalty_box:
+            if self.out_of_penalty_box:
                 print('Answer was correct!!!!')
                 self.purses[self.current_player] += 1
                 print(self.players[self.current_player] + \
