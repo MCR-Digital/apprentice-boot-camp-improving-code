@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	public static final int TOTAL_NUMBER_OF_BOARD_SQUARES = 12;
+	public static final int SCORE_TO_WIN = 6;
+	ArrayList players = new ArrayList();
     int[] positionOnBoard = new int[6];
     int[] score = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -95,18 +97,18 @@ public class Game {
     }
 
     private void returnToBeginningOfBoard() {
-        positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - 12;
+        positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - TOTAL_NUMBER_OF_BOARD_SQUARES;
     }
 
     private void askQuestion() {
 		System.out.println("The category is " + currentCategory());
-		if (currentCategory() == "Pop")
+		if (currentCategory().equals("Pop"))
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (currentCategory().equals("Science") )
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (currentCategory().equals("Sports"))
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (currentCategory().equals("Rock"))
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
@@ -124,6 +126,8 @@ public class Game {
 		return "Rock";
 	}
 
+	
+
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
@@ -134,9 +138,7 @@ public class Game {
 				setNextPlayer();
 				return true;
 			}
-
 		} else {
-		
 			System.out.println("Answer was corrent!!!!");
             return isWinnerOnEndOfTurn();
         }
@@ -144,9 +146,8 @@ public class Game {
 
     private boolean isWinnerOnEndOfTurn() {
         updateScore();
-
-
         boolean winner = isWinner();
+
         currentPlayer++;
         setNextPlayer();
 
@@ -176,6 +177,6 @@ public class Game {
 	}
 
 	private boolean isWinner() {
-		return !(score[currentPlayer] == 6);
+		return !(score[currentPlayer] == SCORE_TO_WIN);
 	}
 }
