@@ -191,7 +191,7 @@ namespace TriviaGame
             }
         }
 
-        public bool wrongAnswer()
+        public bool GiveCurrentPlayerWrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
