@@ -47,11 +47,13 @@ public class Game {
 
 
     public void rollTheDice(int numberOnDiceAfterRoll) {
+        boolean oddNumberRolled = numberOnDiceAfterRoll % 2 != 0;
+
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + numberOnDiceAfterRoll);
 
         if (inPenaltyBox[currentPlayer]) {
-            if (numberOnDiceAfterRoll % 2 != 0) {
+            if (oddNumberRolled) {
                 isGettingOutOfPenaltyBox = true;
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
                 outcomeOfCorrectAnswer(numberOnDiceAfterRoll);
