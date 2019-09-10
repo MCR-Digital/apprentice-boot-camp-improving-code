@@ -6,6 +6,7 @@ import java.util.LinkedList;
 public class Game {
 	private static final String POP = "Pop";
 	private static final String SCIENCE = "Science";
+	private static final String SPORTS = "Sports";
 
 	ArrayList players = new ArrayList();
     int[] places = new int[6];
@@ -95,7 +96,7 @@ public class Game {
 			System.out.println(popQuestions.removeFirst());
 		if (getCurrentCategory() == SCIENCE)
 			System.out.println(scienceQuestions.removeFirst());
-		if (getCurrentCategory() == "Sports")
+		if (getCurrentCategory() == SPORTS)
 			System.out.println(sportsQuestions.removeFirst());
 		if (getCurrentCategory() == "Rock")
 			System.out.println(rockQuestions.removeFirst());		
@@ -109,9 +110,9 @@ public class Game {
 		if (places[currentPlayerID] == 1) return SCIENCE;
 		if (places[currentPlayerID] == 5) return SCIENCE;
 		if (places[currentPlayerID] == 9) return SCIENCE;
-		if (places[currentPlayerID] == 2) return "Sports";
-		if (places[currentPlayerID] == 6) return "Sports";
-		if (places[currentPlayerID] == 10) return "Sports";
+		if (places[currentPlayerID] == 2) return SPORTS;
+		if (places[currentPlayerID] == 6) return SPORTS;
+		if (places[currentPlayerID] == 10) return SPORTS;
 		return "Rock";
 	}
 
