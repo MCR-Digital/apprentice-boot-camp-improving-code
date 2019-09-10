@@ -31,7 +31,7 @@ namespace TriviaGame
             }
         }
 
-        public String CreateRockQuestion(int index)
+        public string CreateRockQuestion(int index)
         {
             return "Rock Question " + index;
         }
@@ -142,7 +142,7 @@ namespace TriviaGame
         }
 
 
-        private String GetCurrentCategory()
+        private string GetCurrentCategory()
         {
             if (CurrentPlayer.Place == 0) return "Pop";
             if (CurrentPlayer.Place == 4) return "Pop";
