@@ -8,6 +8,11 @@ public class Game {
 	private static final String SPORTS = "Sports";
 	private static final String ROCK = "Rock";
 
+    private LinkedList<String> popQuestions = new LinkedList<>();
+    private LinkedList<String> scienceQuestions = new LinkedList<>();
+    private LinkedList<String> sportsQuestions = new LinkedList<>();
+    private LinkedList<String> rockQuestions = new LinkedList<>();
+
     private static final int END_SPACE = 11;
     private static final int NUMBER_OF_SPACES = 12;
     private static final int BOARD_STARTING_LOCATION = 0;
@@ -15,13 +20,8 @@ public class Game {
     private static final int TOTAL_NUMBER_OF_QUESTIONS = 50;
 
     private Map<Integer, String> categoriesToSpaces = new HashMap<>();
-
-    private LinkedList<String> popQuestions = new LinkedList<>();
-    private LinkedList<String> scienceQuestions = new LinkedList<>();
-    private LinkedList<String> sportsQuestions = new LinkedList<>();
-    private LinkedList<String> rockQuestions = new LinkedList<>();
-
 	private ArrayList<String> allPlayers = new ArrayList<>();
+
     private int[] locationOnBoard = new int[6];
     private int[] goldCoins = new int[6];
     private boolean[] isInPenaltyBox = new boolean[6];
