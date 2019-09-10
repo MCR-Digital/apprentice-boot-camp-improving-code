@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
-    int[] placeOnTheBoard = new int[6];
-    int[] coinPurses = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
+    private ArrayList players = new ArrayList();
+    private int[] placeOnTheBoard = new int[6];
+    private int[] coinPurses = new int[6];
+    private boolean[] inPenaltyBox = new boolean[6];
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private LinkedList popQuestions = new LinkedList();
+    private LinkedList scienceQuestions = new LinkedList();
+    private LinkedList sportsQuestions = new LinkedList();
+    private LinkedList rockQuestions = new LinkedList();
 
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayer = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int index = 0; index < 50; index++) {
@@ -38,7 +38,7 @@ public class Game {
         return true;
     }
 
-    public int amountOfPlayers() {
+    private int amountOfPlayers() {
         return players.size();
     }
 
@@ -107,7 +107,6 @@ public class Game {
                 return true;
             }
 
-
         } else {
 
             System.out.println("Answer was corrent!!!!");
@@ -130,6 +129,7 @@ public class Game {
     }
 
     public boolean questionWasAnsweredWrong() {
+
         System.out.println("Question was incorrectly answered");
         System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
@@ -138,7 +138,6 @@ public class Game {
         if (currentPlayer == players.size()) currentPlayer = 0;
         return true;
     }
-
 
     private boolean winningPlayer() {
         return !(coinPurses[currentPlayer] == 6);
