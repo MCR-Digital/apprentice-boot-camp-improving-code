@@ -99,7 +99,6 @@ public class Game {
         boolean placeOnBoardIsMultipleOfFour = placeOnTheBoard[currentPlayer] % 4 == 0;
         boolean placeOnBoardIsMultipleOfTwo = placeOnTheBoard[currentPlayer] % 2 == 0;
 
-
         if (placeOnBoardIsMultipleOfFour) return "Pop";
         if (placeOnBoardIsScience()) return "Science";
         if (placeOnBoardIsMultipleOfTwo) return "Sports";
@@ -117,12 +116,14 @@ public class Game {
                 return correctQuestionAnswer();
             } else {
                 currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
+
+                if (currentPlayer == players.size()) {
+                    currentPlayer = 0;
+                }
                 return true;
             }
 
         } else {
-
             System.out.println("Answer was corrent!!!!");
             return correctQuestionAnswer();
         }
@@ -151,7 +152,9 @@ public class Game {
         inPenaltyBox[currentPlayer] = true;
 
         currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        if (currentPlayer == players.size()) {
+            currentPlayer = 0;
+        }
         return true;
     }
 
