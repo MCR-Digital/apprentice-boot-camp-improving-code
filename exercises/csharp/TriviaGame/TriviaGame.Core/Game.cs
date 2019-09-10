@@ -145,29 +145,17 @@ namespace TriviaGame.Core
         return true;
       }
 
-      if (inPenaltyBox[currentPlayer])
-      {
-        Console.WriteLine("Answer was correct!!!!");
-        purses[currentPlayer]++;
-        PrintPlayerScore();
+      var congratulationsMessage = inPenaltyBox[currentPlayer]
+        ? "Answer was correct!!!!"
+        : "Answer was corrent!!!!";
 
-        bool winner = HasPlayerWon();
-        MoveToNextPlayer();
+      Console.WriteLine(congratulationsMessage);
+      purses[currentPlayer]++;
+      PrintPlayerScore();
+      var winner = HasPlayerWon();
+      MoveToNextPlayer();
 
-        return winner;
-      }
-      else
-      {
-
-        Console.WriteLine("Answer was corrent!!!!");
-        purses[currentPlayer]++;
-        PrintPlayerScore();
-
-        bool winner = HasPlayerWon();
-        MoveToNextPlayer();
-
-        return winner;
-      }
+      return winner;
     }
 
     public bool OnIncorrectAnswer()
