@@ -36,10 +36,11 @@ public class Game {
 
 	public boolean addPlayer(String playerName) {
 		
-		
+		int initialPlayerBoardPosition = 0;
+		int initialPlayerCoinCount = 0;
 	    players.add(playerName);
-	    playerBoardPosition[howManyPlayers()] = 0;
-	    playerCoinCount[howManyPlayers()] = 0;
+	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
+	    playerCoinCount[howManyPlayers()] = initialPlayerCoinCount;
 	    isPlayerInPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
@@ -56,7 +57,7 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 		
 		if (isPlayerInPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (isOdd(roll)) {
 				isPlayerGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
@@ -71,6 +72,10 @@ public class Game {
 			updatePosition(roll);
 		}
 		
+	}
+
+	private boolean isOdd(int roll) {
+		return roll % 2 != 0;
 	}
 
 	private void updatePosition(int roll) {
