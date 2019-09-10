@@ -74,6 +74,10 @@ namespace TriviaGame
 					+ PlayerPositionOnBoard[currentPlayer]);
 		}
 
+		private bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
+		{
+			return rollValue % 2 != 0;
+		}
 
         public void MakeMoveBasedOnRoll(int roll)
         {
@@ -82,7 +86,7 @@ namespace TriviaGame
 
             if (PlayerPenaltyBoxStatus[currentPlayer])
             {
-                if (roll % 2 != 0)
+                if (CheckIfPlayerGetsOutOfPenalty(roll))
                 {
                     isGettingOutOfPenaltyBox = true;
 
