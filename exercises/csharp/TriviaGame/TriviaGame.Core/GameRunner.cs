@@ -24,20 +24,8 @@ namespace TriviaGame.Core
 
       do
       {
-
         newGame.OnDieRoll(rand.Next(5) + 1);
-
-        if (rand.Next(9) == 7)
-        {
-          notAWinner = newGame.OnIncorrectAnswer();
-        }
-        else
-        {
-          notAWinner = newGame.OnCorrectAnswer();
-        }
-
-
-
+        notAWinner = newGame.OnAnswer(rand.Next(9) != 7);
       } while (notAWinner);
 
     }
