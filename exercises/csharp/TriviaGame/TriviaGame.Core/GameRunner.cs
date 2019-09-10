@@ -14,26 +14,26 @@ namespace TriviaGame.Core
 
     public static void Main(String[] args)
     {
-      Game aGame = new Game();
+      Game newGame = new Game();
 
-      aGame.AddPlayer("Chet");
-      aGame.AddPlayer("Pat");
-      aGame.AddPlayer("Sue");
+      newGame.AddPlayer("Chet");
+      newGame.AddPlayer("Pat");
+      newGame.AddPlayer("Sue");
 
       Random rand = new Random(Int32.Parse(args[0]));
 
       do
       {
 
-        aGame.RollDie(rand.Next(5) + 1);
+        newGame.OnDieRoll(rand.Next(5) + 1);
 
         if (rand.Next(9) == 7)
         {
-          notAWinner = aGame.wrongAnswer();
+          notAWinner = newGame.WrongAnswer();
         }
         else
         {
-          notAWinner = aGame.wasCorrectlyAnswered();
+          notAWinner = newGame.WasCorrectlyAnswered();
         }
 
 
