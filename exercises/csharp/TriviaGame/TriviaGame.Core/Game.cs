@@ -9,6 +9,8 @@ namespace TriviaGame.Core
   {
     int NUMBER_OF_BOARD_SQUARES = 12;
     int MINIMUM_PLAYERS = 2;
+    string[] CATEGORIES = new string[] { "Pop", "Science", "Sports", "Rock" };
+
     List<string> _players = new List<string>();
 
     int[] _places = new int[6];
@@ -24,6 +26,7 @@ namespace TriviaGame.Core
     int _currentPlayer = 0;
     bool _isLeavingPenaltyBox;
 
+
     public Game()
     {
       for (int index = 0; index < 50; index++)
@@ -38,8 +41,9 @@ namespace TriviaGame.Core
     public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
     public int NumberOfPlayers => _players.Count;
 
-    private bool HasPlayerWon => !(CurrentPlayersGoldCoins == 6);
-    private string CurrentPlayerName => _players[_currentPlayer];
+    private bool _hasPlayerWon => !(CurrentPlayersGoldCoins == 6);
+    private string _currentPlayerName => _players[_currentPlayer];
+    private string _currentCategory => CATEGORIES[CurrentPlayerPlace % 4];
 
     private bool IsCurrentPlayerInPenaltyBox
     {
@@ -73,13 +77,13 @@ namespace TriviaGame.Core
 
     public void OnDieRoll(int roll)
     {
-      Console.WriteLine(CurrentPlayerName + " is the current player");
+      Console.WriteLine(_currentPlayerName + " is the current player");
       Console.WriteLine("They have rolled a " + roll);
 
       if (IsCurrentPlayerInPenaltyBox)
       {
         var isRollOdd = roll % 2 != 0;
-        Console.WriteLine(CurrentPlayerName + $" is{(isRollOdd ? " " : " not ")}getting out of the penalty box");
+        Console.WriteLine(_currentPlayerName + $" is{(isRollOdd ? " " : " not ")}getting out of the penalty box");
         _isLeavingPenaltyBox = isRollOdd;
 
         if (!isRollOdd)
@@ -95,10 +99,10 @@ namespace TriviaGame.Core
 
     private void PrintLocation()
     {
-      Console.WriteLine(CurrentPlayerName
+      Console.WriteLine(_currentPlayerName
                 + "'s new location is "
                 + CurrentPlayerPlace);
-      Console.WriteLine("The category is " + CurrentCategory());
+      Console.WriteLine("The category is " + _currentCategory);
     }
 
     private void AdvancePlace(int roll)
@@ -108,37 +112,25 @@ namespace TriviaGame.Core
 
     private void AskQuestion()
     {
-      if (CurrentCategory() == "Pop")
+      if (_currentCategory == "Pop")
       {
         Console.WriteLine(_popQuestions.First());
         _popQuestions.RemoveFirst();
       }
-      if (CurrentCategory() == "Science")
+      if (_currentCategory == "Science")
       {
         Console.WriteLine(_scienceQuestions.First());
         _scienceQuestions.RemoveFirst();
       }
-      if (CurrentCategory() == "Sports")
+      if (_currentCategory == "Sports")
       {
         Console.WriteLine(_sportsQuestions.First());
         _sportsQuestions.RemoveFirst();
       }
-      if (CurrentCategory() == "Rock")
+      if (_currentCategory == "Rock")
       {
         Console.WriteLine(_rockQuestions.First());
         _rockQuestions.RemoveFirst();
-      }
-    }
-
-
-    private String CurrentCategory()
-    {
-      switch (CurrentPlayerPlace % 4)
-      {
-        case 0: return "Pop";
-        case 1: return "Science";
-        case 2: return "Sports";
-        default: return "Rock";
       }
     }
 
@@ -166,7 +158,7 @@ namespace TriviaGame.Core
       Console.WriteLine(congratulationsMessage);
       CurrentPlayersGoldCoins++;
       PrintPlayerScore();
-      var winner = HasPlayerWon;
+      var winner = _hasPlayerWon;
 
       return winner;
     }
@@ -174,14 +166,14 @@ namespace TriviaGame.Core
     public bool OnIncorrectAnswer()
     {
       Console.WriteLine("Question was incorrectly answered");
-      Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
+      Console.WriteLine(_currentPlayerName + " was sent to the penalty box");
       IsCurrentPlayerInPenaltyBox = true;
       return true;
     }
 
     private void PrintPlayerScore()
     {
-      Console.WriteLine(CurrentPlayerName
+      Console.WriteLine(_currentPlayerName
                       + " now has "
                       + CurrentPlayersGoldCoins
                       + " Gold Coins.");
