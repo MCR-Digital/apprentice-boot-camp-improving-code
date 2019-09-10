@@ -69,7 +69,7 @@ public class Game {
 
 				System.out.println(players.get(currentPlayerID)
 						+ "'s new location is " 
-						+ places[currentPlayerID]);
+						+ getCurrentPlayerPosition());
 				System.out.println("The category is " + getCurrentCategory());
 				askQuestion();
 			} else {
@@ -83,7 +83,7 @@ public class Game {
 
 			System.out.println(players.get(currentPlayerID)
 					+ "'s new location is " 
-					+ places[currentPlayerID]);
+					+ getCurrentPlayerPosition());
 			System.out.println("The category is " + getCurrentCategory());
 			askQuestion();
 		}
@@ -91,18 +91,18 @@ public class Game {
 	}
 
 	private void movePlayer(int rolledNumber) {
-		places[currentPlayerID] = places[currentPlayerID] + rolledNumber;
+		places[currentPlayerID] = getCurrentPlayerPosition() + rolledNumber;
 		if (currentPlayerPassedFinalTile()) {
 			continueMoveFromStartOfBoard();
 		}
 	}
 
 	private void continueMoveFromStartOfBoard() {
-		places[currentPlayerID] = places[currentPlayerID] - 12;
+		places[currentPlayerID] = getCurrentPlayerPosition() - 12;
 	}
 
 	private boolean currentPlayerPassedFinalTile() {
-		return places[currentPlayerID] > 11;
+		return getCurrentPlayerPosition() > 11;
 	}
 
 	private void askQuestion() {
@@ -118,16 +118,20 @@ public class Game {
 	
 	
 	private String getCurrentCategory() {
-		if (places[currentPlayerID] == 0) return POP;
-		if (places[currentPlayerID] == 4) return POP;
-		if (places[currentPlayerID] == 8) return POP;
-		if (places[currentPlayerID] == 1) return SCIENCE;
-		if (places[currentPlayerID] == 5) return SCIENCE;
-		if (places[currentPlayerID] == 9) return SCIENCE;
-		if (places[currentPlayerID] == 2) return SPORTS;
-		if (places[currentPlayerID] == 6) return SPORTS;
-		if (places[currentPlayerID] == 10) return SPORTS;
+		if (getCurrentPlayerPosition() == 0) return POP;
+		if (getCurrentPlayerPosition() == 4) return POP;
+		if (getCurrentPlayerPosition() == 8) return POP;
+		if (getCurrentPlayerPosition() == 1) return SCIENCE;
+		if (getCurrentPlayerPosition() == 5) return SCIENCE;
+		if (getCurrentPlayerPosition() == 9) return SCIENCE;
+		if (getCurrentPlayerPosition() == 2) return SPORTS;
+		if (getCurrentPlayerPosition() == 6) return SPORTS;
+		if (getCurrentPlayerPosition() == 10) return SPORTS;
 		return ROCK;
+	}
+
+	private int getCurrentPlayerPosition() {
+		return places[currentPlayerID];
 	}
 
 	public boolean handleCorrectAnswer() {
