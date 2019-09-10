@@ -126,37 +126,32 @@ public class Game {
 		return genre;
 	}
 
+	private void addCoin() {
+		purses[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ purses[currentPlayer]
+				+ " Gold Coins.");
+	}
+
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				purses[currentPlayer]++;
-				System.out.println(players.get(currentPlayer) 
-						+ " now has "
-						+ purses[currentPlayer]
-						+ " Gold Coins.");
+				addCoin();
 				
 				boolean winner = didPlayerWin();
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
+				goToNextPlayer();
 				
 				return winner;
-			} else {
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				return true;
 			}
-			
-			
+
+			goToNextPlayer();
+			return true;
 			
 		} else {
-		
 			System.out.println("Answer was corrent!!!!");
-			purses[currentPlayer]++;
-			System.out.println(players.get(currentPlayer) 
-					+ " now has "
-					+ purses[currentPlayer]
-					+ " Gold Coins.");
+			addCoin();
 			
 			boolean winner = didPlayerWin();
 			currentPlayer++;
@@ -164,6 +159,11 @@ public class Game {
 			
 			return winner;
 		}
+	}
+
+	private void goToNextPlayer() {
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
 	}
 	
 	public boolean wrongAnswer(){
