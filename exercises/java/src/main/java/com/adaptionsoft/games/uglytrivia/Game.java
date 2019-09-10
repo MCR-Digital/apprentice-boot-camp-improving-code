@@ -113,10 +113,10 @@ public class Game {
 				String message = "Answer was correct!!!!";
 				updatePlayerCoinCount(message);
 
-				boolean winner = didPlayerWin();
+				boolean didPlayerWin = didPlayerWin();
 				changeCurrentPlayer();
 
-				return winner;
+				return didPlayerWin;
 			} else {
 				changeCurrentPlayer();
 				return true;
@@ -127,12 +127,15 @@ public class Game {
 		} else {
 
 			String message = "Answer was corrent!!!!";
+			// player win state
+			// rewards, checks for winner and moves
+			// didPlayerWinAfterUpdate
 			updatePlayerCoinCount(message);
 
-			boolean winner = didPlayerWin();
+			boolean didPlayerWin = didPlayerWin();
 			changeCurrentPlayer();
 
-			return winner;
+			return didPlayerWin;
 		}
 	}
 
