@@ -14,8 +14,6 @@ namespace TriviaGame
 
         List<Player> players = new List<Player>();
 
-        int[] playerPurses = new int[MAX_PLAYER_COUNT];
-
         bool[] inPenaltyBox = new bool[MAX_PLAYER_COUNT];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
@@ -51,9 +49,9 @@ namespace TriviaGame
         {
 
             player.Place = 0;
+            player.Purse = 0;
             players.Add(player);
 
-            playerPurses[PlayerCount] = 0;
             inPenaltyBox[PlayerCount] = false;
 
             Console.WriteLine(player.Name + " was added");
@@ -171,10 +169,10 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    playerPurses[currentPlayerIndex]++;
+                    CurrentPlayer.Purse++;
                     Console.WriteLine(CurrentPlayer.Name
                             + " now has "
-                            + playerPurses[currentPlayerIndex]
+                            + CurrentPlayer.Purse
                             + " Gold Coins.");
 
                     bool winner = GetCurrentPlayerWinStatus();
@@ -195,10 +193,10 @@ namespace TriviaGame
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                playerPurses[currentPlayerIndex]++;
+                CurrentPlayer.Purse++;
                 Console.WriteLine(CurrentPlayer.Name
                         + " now has "
-                        + playerPurses[currentPlayerIndex]
+                        + CurrentPlayer.Purse
                         + " Gold Coins.");
 
                 bool winner = GetCurrentPlayerWinStatus();
@@ -221,7 +219,7 @@ namespace TriviaGame
 
         private bool GetCurrentPlayerWinStatus()
         {
-            return !(playerPurses[currentPlayerIndex] == 6);
+            return !(CurrentPlayer.Purse == 6);
         }
 
         private void NextPlayer()

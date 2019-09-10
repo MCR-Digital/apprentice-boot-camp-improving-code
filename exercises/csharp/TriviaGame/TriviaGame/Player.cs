@@ -16,5 +16,7 @@ namespace TriviaGame
         public string Name { get; }
 
         public int Place { get; set; }
+
+        public int Purse { get; set; }
     }
 }
