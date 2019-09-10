@@ -66,7 +66,6 @@ public class Game {
         } else {
             outcomeOfCorrectAnswer(numberOnDiceAfterRoll);
         }
-
     }
 
     private void outcomeOfCorrectAnswer(int numberOnDiceAfterRoll) {
