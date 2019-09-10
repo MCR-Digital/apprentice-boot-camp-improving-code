@@ -8,8 +8,9 @@ public class Game {
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
 	private static final int MAX_QUESTIONS = 50;
-	public static final int LAST_POSITION = 11;
-	public static final int RESET_POSITION = 12;
+	private static final int LAST_POSITION = 11;
+	private static final int RESET_POSITION = 12;
+	public static final int PENALTY_CHECK_VALUE = 2;
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
@@ -64,9 +65,9 @@ public class Game {
 	}
 
 	private void penaltyCheck(final int roll) {
-		if (roll % 2 != 0) {
-			isOutOfPenaltyBox = true;
+		if (roll % PENALTY_CHECK_VALUE != 0) {
 			System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+			isOutOfPenaltyBox = true;
 
 			updatePlayerLocation(roll);
 		} else {
