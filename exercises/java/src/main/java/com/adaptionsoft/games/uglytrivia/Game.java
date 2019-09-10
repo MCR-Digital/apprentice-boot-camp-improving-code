@@ -106,7 +106,8 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		return board[playerBoardPosition[currentPlayer]];
+    	int currentPosition = playerBoardPosition[currentPlayer];
+		return board[currentPosition];
 	}
 
 	public boolean wasCorrectlyAnswered() {
