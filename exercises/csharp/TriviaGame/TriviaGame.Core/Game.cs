@@ -39,7 +39,7 @@ namespace TriviaGame.Core
     public int NumberOfPlayers => _players.Count;
     private bool HasPlayerWon => !(_purses[_currentPlayer] == 6);
     private string CurrentPlayerName => _players[_currentPlayer];
-    private bool IsCurrentPlayerInPenalty
+    private bool IsCurrentPlayerInPenaltyBox
     {
       get => _inPenaltyBox[_currentPlayer];
       set => _inPenaltyBox[_currentPlayer] = value;
@@ -68,10 +68,10 @@ namespace TriviaGame.Core
       Console.WriteLine(CurrentPlayerName + " is the current player");
       Console.WriteLine("They have rolled a " + roll);
 
-      if (IsCurrentPlayerInPenalty)
+      if (IsCurrentPlayerInPenaltyBox)
       {
         var isRollOdd = roll % 2 != 0;
-        Console.WriteLine(CurrentPlayerName + $" is{(isRollOdd ? "" : " not")} getting out of the penalty box");
+        Console.WriteLine(CurrentPlayerName + $" is{(isRollOdd ? " " : " not ")}getting out of the penalty box");
         _isLeavingPenaltyBox = isRollOdd;
 
         if (!isRollOdd)
@@ -125,27 +125,33 @@ namespace TriviaGame.Core
 
     private String CurrentCategory()
     {
-      if (CurrentPlayerPlace == 0) return "Pop";
-      if (CurrentPlayerPlace == 4) return "Pop";
-      if (CurrentPlayerPlace == 8) return "Pop";
-      if (CurrentPlayerPlace == 1) return "Science";
-      if (CurrentPlayerPlace == 5) return "Science";
-      if (CurrentPlayerPlace == 9) return "Science";
-      if (CurrentPlayerPlace == 2) return "Sports";
-      if (CurrentPlayerPlace == 6) return "Sports";
-      if (CurrentPlayerPlace == 10) return "Sports";
-      return "Rock";
+      switch (CurrentPlayerPlace % 4)
+      {
+        case 0: return "Pop";
+        case 1: return "Science";
+        case 2: return "Sports";
+        default: return "Rock";
+      }
+    }
+
+    public bool OnAnswer(bool isCorrect)
+    {
+      IsCurrentPlayerInPenaltyBox = !isCorrect;
+
+
+
+      return true;
     }
 
     public bool OnCorrectAnswer()
     {
-      if (IsCurrentPlayerInPenalty && !_isLeavingPenaltyBox)
+      if (IsCurrentPlayerInPenaltyBox && !_isLeavingPenaltyBox)
       {
         MoveToNextPlayer();
         return true;
       }
 
-      var congratulationsMessage = IsCurrentPlayerInPenalty
+      var congratulationsMessage = IsCurrentPlayerInPenaltyBox
         ? "Answer was correct!!!!"
         : "Answer was corrent!!!!";
 
@@ -162,7 +168,7 @@ namespace TriviaGame.Core
     {
       Console.WriteLine("Question was incorrectly answered");
       Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
-      IsCurrentPlayerInPenalty = true;
+      IsCurrentPlayerInPenaltyBox = true;
 
       MoveToNextPlayer();
       return true;
@@ -178,7 +184,7 @@ namespace TriviaGame.Core
 
     private void MoveToNextPlayer()
     {
-      _currentPlayer = (_currentPlayer + 1) % _players.Count;
+      _currentPlayer = (_currentPlayer + 1) % NumberOfPlayers;
     }
   }
 }
