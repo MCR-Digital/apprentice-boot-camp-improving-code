@@ -14,6 +14,7 @@ public class Game {
     private static final int NUMBER_OF_SPACES = 12;
     public static final int BOARD_STARTING_LOCATION = 0;
     public static final int ZERO_COINS = 0;
+    public static final int TOTAL_NUMBER_OF_QUESTIONS = 50;
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -29,11 +30,11 @@ public class Game {
     boolean isExitingPenaltyBox;
 
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast(POP + " Question " + i);
-			scienceQuestions.addLast((SCIENCE + " Question " + i));
-			sportsQuestions.addLast((SPORTS + " Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int index = 0; index < TOTAL_NUMBER_OF_QUESTIONS; index++) {
+			popQuestions.addLast(POP + " Question " + index);
+			scienceQuestions.addLast((SCIENCE + " Question " + index));
+			sportsQuestions.addLast((SPORTS + " Question " + index));
+			rockQuestions.addLast(createRockQuestion(index));
     	}
     }
 
