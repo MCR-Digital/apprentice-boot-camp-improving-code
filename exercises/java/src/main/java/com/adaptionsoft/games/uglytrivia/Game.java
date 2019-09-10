@@ -13,8 +13,8 @@ public class Game {
     private LinkedList<String> scienceQuestions = new LinkedList<>();
     private LinkedList<String> sportsQuestions = new LinkedList<>();
     private LinkedList<String> rockQuestions = new LinkedList<>();
-    int amountOfPlayers = players.size();
 
+    private int amountOfPlayers = players.size();
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
