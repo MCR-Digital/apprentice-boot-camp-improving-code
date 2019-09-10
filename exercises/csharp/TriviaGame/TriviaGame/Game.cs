@@ -40,7 +40,7 @@ namespace TriviaGame
 
         public bool isPlayable()
         {
-            return (howManyPlayers() >= 2);
+            return (GetPlayerCount() >= 2);
         }
 
         public bool AddPlayer(String playerName)
@@ -48,16 +48,16 @@ namespace TriviaGame
 
 
             players.Add(playerName);
-            places[howManyPlayers()] = 0;
-            purses[howManyPlayers()] = 0;
-            inPenaltyBox[howManyPlayers()] = false;
+            places[GetPlayerCount()] = 0;
+            purses[GetPlayerCount()] = 0;
+            inPenaltyBox[GetPlayerCount()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
         }
 
-        public int howManyPlayers()
+        public int GetPlayerCount()
         {
             return players.Count;
         }
