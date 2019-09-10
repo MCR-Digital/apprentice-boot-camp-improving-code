@@ -23,9 +23,9 @@ public class GameRunner {
 			triviaGame.takeTurn(randomNumber.nextInt(5) + 1);
 			
 			if (randomNumber.nextInt(9) == 7) {
-				notAWinner = triviaGame.wrongAnswer();
+				notAWinner = triviaGame.isWrongAnswer();
 			} else {
-				notAWinner = triviaGame.wasCorrectlyAnswered();
+				notAWinner = triviaGame.isCorrectAnswer();
 			}
 			
 			
