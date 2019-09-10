@@ -142,7 +142,7 @@ namespace TriviaGame.Core
       return "Rock";
     }
 
-    public bool WasCorrectlyAnswered()
+    public bool OnCorrectAnswer()
     {
       if (inPenaltyBox[currentPlayer])
       {
@@ -189,7 +189,7 @@ namespace TriviaGame.Core
       }
     }
 
-    public bool WrongAnswer()
+    public bool OnIncorrectAnswer()
     {
       Console.WriteLine("Question was incorrectly answered");
       Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
