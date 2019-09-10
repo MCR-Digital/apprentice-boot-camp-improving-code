@@ -39,6 +39,13 @@ namespace TriviaGame.Core
     public int NumberOfPlayers => _players.Count;
     private bool HasPlayerWon => !(_purses[_currentPlayer] == 6);
     private string CurrentPlayerName => _players[_currentPlayer];
+    private bool IsCurrentPlayerInPenalty => _inPenaltyBox[_currentPlayer];
+
+    private int CurrentPlayerPlace
+    {
+      get => _places[_currentPlayer];
+      set => _places[_currentPlayer] = value;
+    }
 
     public bool AddPlayer(String playerName)
     {
@@ -58,7 +65,7 @@ namespace TriviaGame.Core
       Console.WriteLine(CurrentPlayerName + " is the current player");
       Console.WriteLine("They have rolled a " + roll);
 
-      if (_inPenaltyBox[_currentPlayer])
+      if (IsCurrentPlayerInPenalty)
       {
         if (roll % 2 != 0)
         {
@@ -87,13 +94,13 @@ namespace TriviaGame.Core
     {
       Console.WriteLine(CurrentPlayerName
                 + "'s new location is "
-                + _places[_currentPlayer]);
+                + CurrentPlayerPlace);
       Console.WriteLine("The category is " + CurrentCategory());
     }
 
     private void AdvancePlace(int roll)
     {
-      _places[_currentPlayer] = (_places[_currentPlayer] + roll) % NUMBER_OF_BOARD_SQUARES;
+      CurrentPlayerPlace = (CurrentPlayerPlace + roll) % NUMBER_OF_BOARD_SQUARES;
     }
 
     private void AskQuestion()
@@ -123,21 +130,21 @@ namespace TriviaGame.Core
 
     private String CurrentCategory()
     {
-      if (_places[_currentPlayer] == 0) return "Pop";
-      if (_places[_currentPlayer] == 4) return "Pop";
-      if (_places[_currentPlayer] == 8) return "Pop";
-      if (_places[_currentPlayer] == 1) return "Science";
-      if (_places[_currentPlayer] == 5) return "Science";
-      if (_places[_currentPlayer] == 9) return "Science";
-      if (_places[_currentPlayer] == 2) return "Sports";
-      if (_places[_currentPlayer] == 6) return "Sports";
-      if (_places[_currentPlayer] == 10) return "Sports";
+      if (CurrentPlayerPlace == 0) return "Pop";
+      if (CurrentPlayerPlace == 4) return "Pop";
+      if (CurrentPlayerPlace == 8) return "Pop";
+      if (CurrentPlayerPlace == 1) return "Science";
+      if (CurrentPlayerPlace == 5) return "Science";
+      if (CurrentPlayerPlace == 9) return "Science";
+      if (CurrentPlayerPlace == 2) return "Sports";
+      if (CurrentPlayerPlace == 6) return "Sports";
+      if (CurrentPlayerPlace == 10) return "Sports";
       return "Rock";
     }
 
     public bool OnCorrectAnswer()
     {
-      if (_inPenaltyBox[_currentPlayer] && !_isGettingOutOfPenaltyBox)
+      if (IsCurrentPlayerInPenalty && !_isGettingOutOfPenaltyBox)
       {
         MoveToNextPlayer();
         return true;
