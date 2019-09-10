@@ -19,6 +19,8 @@ namespace TriviaGame.Core
     private readonly int[] _places = new int[6];
     private readonly int[] _purses = new int[6];
     private readonly bool[] _inPenaltyBox = new bool[6];
+    private readonly Dictionary<string, List<string>> _questions = new Dictionary<string, List<string>>();
+
     private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
@@ -50,6 +52,13 @@ namespace TriviaGame.Core
 
     public Game()
     {
+      _questions = _categories.ToDictionary(
+        category => category,
+        category => Enumerable
+          .Repeat($"{category} Question ", MAX_QUESTIONS_PER_CATEGORY)
+          .Select((question, index) => question + index)
+          .ToList());
+
       for (int index = 0; index < MAX_QUESTIONS_PER_CATEGORY; index++)
       {
         _popQuestions.AddLast("Pop Question " + index);
@@ -94,40 +103,23 @@ namespace TriviaGame.Core
       AskQuestion();
     }
 
-    private void PrintLocation()
-    {
-      Console.WriteLine(_currentPlayerName
-                + "'s new location is "
-                + CurrentPlayerPlace);
-      Console.WriteLine("The category is " + _currentCategory);
-    }
-
     private void AdvancePlace(int roll)
     {
       CurrentPlayerPlace = (CurrentPlayerPlace + roll) % NUMBER_OF_BOARD_SQUARES;
     }
 
+    private void MoveToNextPlayer()
+    {
+      _currentPlayer = (_currentPlayer + 1) % NumberOfPlayers;
+    }
+
     private void AskQuestion()
     {
-      if (_currentCategory == "Pop")
+      var questions = _questions[_currentCategory];
+      if (questions.Count() > 0)
       {
-        Console.WriteLine(_popQuestions.First());
-        _popQuestions.RemoveFirst();
-      }
-      if (_currentCategory == "Science")
-      {
-        Console.WriteLine(_scienceQuestions.First());
-        _scienceQuestions.RemoveFirst();
-      }
-      if (_currentCategory == "Sports")
-      {
-        Console.WriteLine(_sportsQuestions.First());
-        _sportsQuestions.RemoveFirst();
-      }
-      if (_currentCategory == "Rock")
-      {
-        Console.WriteLine(_rockQuestions.First());
-        _rockQuestions.RemoveFirst();
+        System.Console.WriteLine(questions.First());
+        questions.RemoveAt(0);
       }
     }
 
@@ -176,9 +168,12 @@ namespace TriviaGame.Core
                       + " Gold Coins.");
     }
 
-    private void MoveToNextPlayer()
+    private void PrintLocation()
     {
-      _currentPlayer = (_currentPlayer + 1) % NumberOfPlayers;
+      Console.WriteLine(_currentPlayerName
+                + "'s new location is "
+                + CurrentPlayerPlace);
+      Console.WriteLine("The category is " + _currentCategory);
     }
   }
 }
