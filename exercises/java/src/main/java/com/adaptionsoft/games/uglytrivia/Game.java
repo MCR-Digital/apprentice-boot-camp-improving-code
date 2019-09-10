@@ -117,7 +117,7 @@ public class Game {
 		return ROCK;
 	}
 
-	public boolean wasCorrectlyAnswered() {
+	public boolean handleCorrectAnswer() {
 		if (playersInPenaltyBox[currentPlayerID]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
