@@ -13,7 +13,7 @@ namespace TriviaGame
         List<string> players = new List<string>();
 
         int[] places = new int[MAX_PLAYER_COUNT];
-        int[] purses = new int[MAX_PLAYER_COUNT];
+        int[] playerPurses = new int[MAX_PLAYER_COUNT];
 
         bool[] inPenaltyBox = new bool[MAX_PLAYER_COUNT];
 
@@ -52,7 +52,7 @@ namespace TriviaGame
 
             players.Add(playerName);
             places[GetPlayerCount()] = 0;
-            purses[GetPlayerCount()] = 0;
+            playerPurses[GetPlayerCount()] = 0;
             inPenaltyBox[GetPlayerCount()] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -154,10 +154,10 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    purses[currentPlayerIndex]++;
+                    playerPurses[currentPlayerIndex]++;
                     Console.WriteLine(players[currentPlayerIndex]
                             + " now has "
-                            + purses[currentPlayerIndex]
+                            + playerPurses[currentPlayerIndex]
                             + " Gold Coins.");
 
                     bool winner = GetCurrentPlayerWinStatus();
@@ -180,10 +180,10 @@ namespace TriviaGame
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                purses[currentPlayerIndex]++;
+                playerPurses[currentPlayerIndex]++;
                 Console.WriteLine(players[currentPlayerIndex]
                         + " now has "
-                        + purses[currentPlayerIndex]
+                        + playerPurses[currentPlayerIndex]
                         + " Gold Coins.");
 
                 bool winner = GetCurrentPlayerWinStatus();
@@ -208,7 +208,7 @@ namespace TriviaGame
 
         private bool GetCurrentPlayerWinStatus()
         {
-            return !(purses[currentPlayerIndex] == 6);
+            return !(playerPurses[currentPlayerIndex] == 6);
         }
     }
 
