@@ -56,7 +56,7 @@ public class Game {
 		return true;
 	}
 	
-	public int getNumberOfPlayers() {
+	private int getNumberOfPlayers() {
 		return players.size();
 	}
 
