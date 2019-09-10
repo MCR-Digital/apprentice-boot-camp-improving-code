@@ -86,23 +86,23 @@ public class Game {
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
 				+ playerLocations[currentPlayer]);
-		System.out.println("The category is " + currentCategory());
+		System.out.println("The category is " + getCategory());
 		askQuestion();
 	}
 
 	private void askQuestion() {
-		if (currentCategory().equals("Pop"))
+		if (getCategory().equals("Pop"))
 			System.out.println(popQuestionsList.removeFirst());
-		if (currentCategory().equals("Science"))
+		if (getCategory().equals("Science"))
 			System.out.println(scienceQuestionsList.removeFirst());
-		if (currentCategory().equals("Sports"))
+		if (getCategory().equals("Sports"))
 			System.out.println(sportsQuestionsList.removeFirst());
-		if (currentCategory().equals("Rock"))
+		if (getCategory().equals("Rock"))
 			System.out.println(rockQuestionsList.removeFirst());
 	}
 	
 	
-	private String currentCategory() {
+	private String getCategory() {
 		if (playerLocations[currentPlayer] == 0) return "Pop";
 		if (playerLocations[currentPlayer] == 4) return "Pop";
 		if (playerLocations[currentPlayer] == 8) return "Pop";
