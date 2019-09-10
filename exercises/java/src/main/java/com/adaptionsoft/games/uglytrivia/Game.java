@@ -9,11 +9,12 @@ public class Game {
 	private static final String SPORTS = "Sports";
 	private static final String ROCK = "Rock";
 	private static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
+	private static final int MAX_NUMBER_OF_PLAYERS = 6;
 
 	ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
-    boolean[] playersInPenaltyBox = new boolean[6];
+    int[] places = new int[MAX_NUMBER_OF_PLAYERS];
+    int[] purses  = new int[MAX_NUMBER_OF_PLAYERS];
+    boolean[] playersInPenaltyBox = new boolean[MAX_NUMBER_OF_PLAYERS];
     
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
