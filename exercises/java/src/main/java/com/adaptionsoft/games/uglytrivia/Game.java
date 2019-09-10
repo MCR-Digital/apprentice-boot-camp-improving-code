@@ -6,27 +6,27 @@ import java.util.LinkedList;
 public class Game {
     ArrayList players = new ArrayList();
     int[] playerLocations = new int[6];
-    int[] playerCoins = new int[6];
+    int[] playerPurses = new int[6];
     boolean[] playersInPenaltyBox = new boolean[6];
     
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    LinkedList popQuestionsList = new LinkedList();
+    LinkedList scienceQuestionsList = new LinkedList();
+    LinkedList sportsQuestionsList = new LinkedList();
+    LinkedList rockQuestionsList = new LinkedList();
     
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
     	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+			popQuestionsList.addLast("Pop Question " + i);
+			scienceQuestionsList.addLast(("Science Question " + i));
+			sportsQuestionsList.addLast(("Sports Question " + i));
+			rockQuestionsList.addLast(generateRockQuestion(i));
     	}
     }
 
-	public String createRockQuestion(int index){
+	public String generateRockQuestion(int index){
 		return "Rock Question " + index;
 	}
 	
@@ -39,7 +39,7 @@ public class Game {
 		
 	    players.add(playerName);
 	    playerLocations[howManyPlayers()] = 0;
-	    playerCoins[howManyPlayers()] = 0;
+	    playerPurses[howManyPlayers()] = 0;
 	    playersInPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
@@ -89,13 +89,13 @@ public class Game {
 
 	private void askQuestion() {
 		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
+			System.out.println(popQuestionsList.removeFirst());
 		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
+			System.out.println(scienceQuestionsList.removeFirst());
 		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
+			System.out.println(sportsQuestionsList.removeFirst());
 		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());		
+			System.out.println(rockQuestionsList.removeFirst());
 	}
 	
 	
@@ -116,10 +116,10 @@ public class Game {
 		if (playersInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				playerCoins[currentPlayer]++;
+				playerPurses[currentPlayer]++;
 				System.out.println(players.get(currentPlayer) 
 						+ " now has "
-						+ playerCoins[currentPlayer]
+						+ playerPurses[currentPlayer]
 						+ " Gold Coins.");
 				
 				boolean winner = didPlayerWin();
@@ -138,10 +138,10 @@ public class Game {
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-			playerCoins[currentPlayer]++;
+			playerPurses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
 					+ " now has "
-					+ playerCoins[currentPlayer]
+					+ playerPurses[currentPlayer]
 					+ " Gold Coins.");
 			
 			boolean winner = didPlayerWin();
@@ -164,6 +164,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(playerCoins[currentPlayer] == 6);
+		return !(playerPurses[currentPlayer] == 6);
 	}
 }
