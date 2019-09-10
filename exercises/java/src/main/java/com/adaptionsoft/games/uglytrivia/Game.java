@@ -8,6 +8,7 @@ public class Game {
 	private static final String SCIENCE = "Science";
 	private static final String SPORTS = "Sports";
 	private static final String ROCK = "Rock";
+	private static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
 
 	ArrayList players = new ArrayList();
     int[] places = new int[6];
@@ -36,7 +37,7 @@ public class Game {
 	}
 	
 	public boolean isPlayable() {
-		return (getNumberOfPlayers() >= 2);
+		return (getNumberOfPlayers() >= MINIMUM_NUMBER_OF_PLAYERS);
 	}
 
 	public boolean add(String playerName) {
