@@ -13,6 +13,7 @@ public class Game {
     private static final int END_SPACE = 11;
     private static final int NUMBER_OF_SPACES = 12;
     public static final int BOARD_STARTING_LOCATION = 0;
+    public static final int ZERO_COINS = 0;
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -48,7 +49,7 @@ public class Game {
 
 	    allPlayers.add(playerName);
 	    locationOnBoard[numberOfPlayers()] = BOARD_STARTING_LOCATION;
-	    goldCoins[numberOfPlayers()] = 0;
+	    goldCoins[numberOfPlayers()] = ZERO_COINS;
 	    isInPenaltyBox[numberOfPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
