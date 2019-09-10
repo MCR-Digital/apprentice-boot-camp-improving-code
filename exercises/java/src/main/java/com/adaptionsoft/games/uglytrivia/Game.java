@@ -92,7 +92,17 @@ public class Game {
 
 	private void movePlayer(int rolledNumber) {
 		places[currentPlayerID] = places[currentPlayerID] + rolledNumber;
-		if (places[currentPlayerID] > 11) places[currentPlayerID] = places[currentPlayerID] - 12;
+		if (currentPlayerPassedFinalTile()) {
+			continueMoveFromStartOfBoard();
+		}
+	}
+
+	private void continueMoveFromStartOfBoard() {
+		places[currentPlayerID] = places[currentPlayerID] - 12;
+	}
+
+	private boolean currentPlayerPassedFinalTile() {
+		return places[currentPlayerID] > 11;
 	}
 
 	private void askQuestion() {
