@@ -22,13 +22,9 @@ public class Game {
 			popQuestions.addLast("Pop Question " + index);
 			scienceQuestions.addLast(("Science Question " + index));
 			sportsQuestions.addLast(("Sports Question " + index));
-			rockQuestions.addLast(createRockQuestion(index));
+			rockQuestions.addLast(("Rock Question " + index));
     	}
     }
-
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
-	}
 	
 	public boolean isPlayable() {
 		return (amountOfPlayers() >= 2);
