@@ -51,16 +51,16 @@ public class Game {
 		return players.size();
 	}
 
-	public void playerTurn(int roll) {
+	public void playerTurn(int diceRoll) {
 		System.out.println(players.get(playerPosition) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		System.out.println("They have rolled a " + diceRoll);
 		
 		if (inPenaltyBox[playerPosition]) {
-			if (roll % 2 != 0) {
+			if (diceRoll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(playerPosition) + " is getting out of the penalty box");
-				positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + roll;
+				positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + diceRoll;
 				if (positionOnBoard[playerPosition] > 11) positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
 				
 				System.out.println(players.get(playerPosition)
@@ -75,7 +75,7 @@ public class Game {
 			
 		} else {
 		
-			positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + roll;
+			positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + diceRoll;
 			if (positionOnBoard[playerPosition] > 11) positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
 			
 			System.out.println(players.get(playerPosition)
