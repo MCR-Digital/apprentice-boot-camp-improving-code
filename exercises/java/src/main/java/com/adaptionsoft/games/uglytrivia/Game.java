@@ -18,23 +18,19 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
-    	}
+    	createQuestions();
     }
 
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
-	}
-	
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
+	private void createQuestions(){
+		for (int question = 0; question < 50; question++) {
+			popQuestions.addLast("Pop Question " + question);
+			scienceQuestions.addLast("Science Question " + question);
+			sportsQuestions.addLast("Sports Question " + question);
+			rockQuestions.addLast("Rock Question " + question);
+		}
 	}
 
-	public boolean add(String playerName) {
+	public boolean addPlayer(String playerName) {
 		
 		
 	    players.add(playerName);
@@ -51,7 +47,7 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	public void moveOnRoll(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
