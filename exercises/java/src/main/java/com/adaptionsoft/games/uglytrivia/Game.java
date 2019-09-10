@@ -12,6 +12,7 @@ public class Game {
     private static final int MINIMUM_PLAYERS = 2;
     private static final int END_SPACE = 11;
     private static final int NUMBER_OF_SPACES = 12;
+    public static final int BOARD_STARTING_LOCATION = 0;
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -46,7 +47,7 @@ public class Game {
 	public boolean addPlayer(String playerName) {
 
 	    allPlayers.add(playerName);
-	    locationOnBoard[numberOfPlayers()] = 0;
+	    locationOnBoard[numberOfPlayers()] = BOARD_STARTING_LOCATION;
 	    goldCoins[numberOfPlayers()] = 0;
 	    isInPenaltyBox[numberOfPlayers()] = false;
 
@@ -64,8 +65,8 @@ public class Game {
 		System.out.println("They have rolled a " + currentRoll);
 
 		if (isInPenaltyBox[currentPlayer]) {
-            boolean oddNumberedRoll = currentRoll % 2 != 0;
-            if (oddNumberedRoll) {
+            boolean oddRoll = currentRoll % 2 != 0;
+            if (oddRoll) {
 				isExitingPenaltyBox = true;
 				System.out.println(allPlayers.get(currentPlayer) + " is getting out of the penalty box");
                 takeTurn(currentRoll);
