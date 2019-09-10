@@ -23,8 +23,8 @@ public class Game {
     private LinkedList sportsQuestions = new LinkedList();
     private LinkedList rockQuestions = new LinkedList();
     
-    int currentPlayerID = PLAYER_ONE_ID;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayerID = PLAYER_ONE_ID;
+    private boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
     	for (int index = 0; index < NUMBER_OF_QUESTIONS; index++) {
