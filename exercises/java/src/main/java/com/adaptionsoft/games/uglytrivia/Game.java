@@ -17,10 +17,10 @@ public class Game {
     private int amountOfPlayers = players.size();
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
-    private final int maxAmountOfQuestions = 50;
-    private final int maximumPlaceOnTheBoard = 11;
-    private final int startingPlaceOnTheBoard = 0;
-    private final int startingAmountOfCoins = 0;
+    private static final int maxAmountOfQuestions = 50;
+    private static final int maximumPlaceOnTheBoard = 11;
+    private static final int startingPlaceOnTheBoard = 0;
+    private static final int startingAmountOfCoins = 0;
 
     public Game() {
         for (int index = 0; index < maxAmountOfQuestions; index++) {
