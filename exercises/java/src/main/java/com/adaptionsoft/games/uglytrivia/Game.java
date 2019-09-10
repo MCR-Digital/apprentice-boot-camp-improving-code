@@ -61,7 +61,7 @@ public class Game {
 	}
 	
 	public int howManyPlayers() {
-		return players.size();
+		return players2.size();
 	}
 
 	public void roll(int roll) {
