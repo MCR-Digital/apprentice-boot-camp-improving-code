@@ -80,7 +80,7 @@ namespace TriviaGame
                     Console.WriteLine(players[currentPlayer]
                             + "'s new location is "
                             + places[currentPlayer]);
-                    Console.WriteLine("The category is " + currentCategory());
+                    Console.WriteLine("The category is " + GetCurrentCategory());
                     askQuestion();
                 }
                 else
@@ -99,7 +99,7 @@ namespace TriviaGame
                 Console.WriteLine(players[currentPlayer]
                         + "'s new location is "
                         + places[currentPlayer]);
-                Console.WriteLine("The category is " + currentCategory());
+                Console.WriteLine("The category is " + GetCurrentCategory());
                 askQuestion();
             }
 
@@ -107,22 +107,22 @@ namespace TriviaGame
 
         private void askQuestion()
         {
-            if (currentCategory() == "Pop")
+            if (GetCurrentCategory() == "Pop")
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (currentCategory() == "Science")
+            if (GetCurrentCategory() == "Science")
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (currentCategory() == "Sports")
+            if (GetCurrentCategory() == "Sports")
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (currentCategory() == "Rock")
+            if (GetCurrentCategory() == "Rock")
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -130,7 +130,7 @@ namespace TriviaGame
         }
 
 
-        private String currentCategory()
+        private String GetCurrentCategory()
         {
             if (places[currentPlayer] == 0) return "Pop";
             if (places[currentPlayer] == 4) return "Pop";
