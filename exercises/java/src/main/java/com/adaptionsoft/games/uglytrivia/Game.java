@@ -17,9 +17,9 @@ public class Game {
     private int amountOfPlayers = players.size();
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
+    private final int maxAmountOfQuestions = 50;
 
     public Game() {
-        int maxAmountOfQuestions = 50;
         for (int index = 0; index < maxAmountOfQuestions; index++) {
             popQuestions.addLast(("Pop Question " + index));
             scienceQuestions.addLast(("Science Question " + index));
@@ -37,6 +37,7 @@ public class Game {
     }
 
     private void setUpForEachPlayer() {
+
         placeOnTheBoard[amountOfPlayers] = 0;
         coinPurses[amountOfPlayers] = 0;
         inPenaltyBox[amountOfPlayers] = false;
