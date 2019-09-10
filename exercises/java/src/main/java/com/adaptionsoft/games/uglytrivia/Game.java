@@ -19,6 +19,9 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
     private final int maxAmountOfQuestions = 50;
 
+    private final int startingPlaceOnTheBoard = 0;
+    private final int startingAmountOfCoins = 0;
+
     public Game() {
         for (int index = 0; index < maxAmountOfQuestions; index++) {
             popQuestions.addLast(("Pop Question " + index));
@@ -37,9 +40,8 @@ public class Game {
     }
 
     private void setUpForEachPlayer() {
-
-        placeOnTheBoard[amountOfPlayers] = 0;
-        coinPurses[amountOfPlayers] = 0;
+        placeOnTheBoard[amountOfPlayers] = startingPlaceOnTheBoard;
+        coinPurses[amountOfPlayers] = startingAmountOfCoins;
         inPenaltyBox[amountOfPlayers] = false;
     }
 
@@ -143,6 +145,7 @@ public class Game {
     }
 
     private boolean winningPlayer() {
-        return !(coinPurses[currentPlayer] == 6);
+        int winningAmountOfCoins = 6;
+        return !(coinPurses[currentPlayer] == winningAmountOfCoins);
     }
 }
