@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-	private static final int MAX_NUMBER_OF_QUESTIONS = 50;
+	private static final int MAX_CATEGORY_QUESTIONS = 50;
+	public static final String POP_QUESTION = "Pop Question ";
+	public static final String SCIENCE_QUESTION = "Science Question ";
+	public static final String SPORTS_QUESTION = "Sports Question ";
+	public static final String ROCK_QUESTION = "Rock Question ";
 
 	private ArrayList players = new ArrayList();
     private int[] places = new int[6];
@@ -16,20 +20,20 @@ public class Game {
     private LinkedList <String> sportsQuestions = new LinkedList<>();
     private LinkedList <String> rockQuestions = new LinkedList<>();
     
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayer = 0;
+    private boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int index = 0; index < MAX_NUMBER_OF_QUESTIONS; index++) {
-			popQuestions.addLast("Pop Question " + index);
-			scienceQuestions.addLast(("Science Question " + index));
-			sportsQuestions.addLast(("Sports Question " + index));
+    	for (int index = 0; index < MAX_CATEGORY_QUESTIONS; index++) {
+			popQuestions.addLast(POP_QUESTION + index);
+			scienceQuestions.addLast(SCIENCE_QUESTION + index);
+			sportsQuestions.addLast((SPORTS_QUESTION + index));
 			rockQuestions.addLast(createRockQuestion(index));
     	}
     }
 
 	public String createRockQuestion(int index){
-		return "Rock Question " + index;
+		return ROCK_QUESTION + index;
 	}
 	
 	public boolean isPlayable() {
