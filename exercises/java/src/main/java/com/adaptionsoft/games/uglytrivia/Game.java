@@ -14,14 +14,13 @@ public class Game {
     int[] purses = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
-    //List of questions for the game
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
 
     int currentPlayerPlace = 0;
-    boolean isGettingOutOfPenaltyBox; //false by default
+    boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int i = 0; i < 50; i++) {
@@ -57,10 +56,7 @@ public class Game {
         System.out.println(players.get(currentPlayerPlace) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        // 1. Is the player in the penalty box - yes or no
-        // 2. If the player is in the penalty box
         if (inPenaltyBox[currentPlayerPlace]) {
-            //If the roll is not even,
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
                 System.out.println(players.get(currentPlayerPlace) + " is getting out of the penalty box");
@@ -80,7 +76,6 @@ public class Game {
     private void updatePlayerLocationAndCategory(int roll) {
         places[currentPlayerPlace] = places[currentPlayerPlace] + roll;
 
-        //If the place of the current player is greater than 11, it takes its current place - 12
         if (places[currentPlayerPlace] > 11)
             places[currentPlayerPlace] = places[currentPlayerPlace] - 12;
 
