@@ -36,13 +36,12 @@ namespace TriviaGame
             return (PlayerCount >= MIN_PLAYER_COUNT);
         }
 
-        public bool AddPlayer(Player player)
+        public void AddPlayer(Player player)
         {
             players.Add(player);
 
             Console.WriteLine(player.Name + " was added");
             Console.WriteLine("They are player number " + players.Count);
-            return true;
         }
 
         public int PlayerCount
