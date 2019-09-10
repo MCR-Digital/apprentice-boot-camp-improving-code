@@ -1,8 +1,6 @@
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TriviaGame
 {
@@ -10,7 +8,7 @@ namespace TriviaGame
     {
         private readonly List<string> players = new List<string>();
                 
-        private readonly int[] places = new int[6];
+        private readonly int[] spaces = new int[6];
         private readonly int[] purses = new int[6];
 
         private readonly bool[] inPenaltyBox = new bool[6];
@@ -30,8 +28,7 @@ namespace TriviaGame
         private const int TotalPlaces = 12;
         private const int TotalQuestions = 50;
         private const int WinAmount = 6;
-
-
+        
         public Game()
         {
             for (int questionNumber = 0; questionNumber < TotalQuestions; questionNumber++)
@@ -51,7 +48,7 @@ namespace TriviaGame
         public bool AddPlayer(string playerName)
         {
             players.Add(playerName);
-            places[GetTotalPlayers()] = 0;
+            spaces[GetTotalPlayers()] = 0;
             purses[GetTotalPlayers()] = 0;
             inPenaltyBox[GetTotalPlayers()] = false;
 
@@ -86,11 +83,11 @@ namespace TriviaGame
 
         private void MovePlayer(int roll)
         {
-            places[currentPlayer] = (places[currentPlayer] + roll) % TotalPlaces;
+            spaces[currentPlayer] = (spaces[currentPlayer] + roll) % TotalPlaces;
 
             Console.WriteLine(players[currentPlayer]
                               + "'s new location is "
-                              + places[currentPlayer]);
+                              + spaces[currentPlayer]);
             Console.WriteLine("The category is " + GetCurrentCategory());
             AskQuestion();
         }
@@ -103,12 +100,11 @@ namespace TriviaGame
             questionCategories[cat].RemoveFirst();
         }
 
-
         private Category GetCurrentCategory()
         {
-            var remainder = places[currentPlayer] % TotalCategories;
+            var spaceType = spaces[currentPlayer] % TotalCategories;
 
-            switch (remainder)
+            switch (spaceType)
             {
                 case 0:
                     return Category.Pop;
@@ -131,7 +127,7 @@ namespace TriviaGame
 
             Console.WriteLine("Answer was correct!!!!");
             AddCoin();
-            
+
             var continueGame = CheckShouldContinueGame();
             ToNextPlayer();
 
@@ -144,15 +140,13 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            ToNextPlayer();
             return true;
         }
-
-
+        
         private bool CheckShouldContinueGame()
         {
-            return !(purses[currentPlayer] == WinAmount);
+            return purses[currentPlayer] != WinAmount;
         }
 
         private void ToNextPlayer()

@@ -33,6 +33,7 @@ namespace TriviaGame
                 {
                     notAWinner = currentGame.CheckForWinner();
                 }
+
             } while (notAWinner);
         }
     }
