@@ -39,8 +39,11 @@ namespace TriviaGame.Core
     public int NumberOfPlayers => _players.Count;
     private bool HasPlayerWon => !(_purses[_currentPlayer] == 6);
     private string CurrentPlayerName => _players[_currentPlayer];
-    private bool IsCurrentPlayerInPenalty => _inPenaltyBox[_currentPlayer];
-
+    private bool IsCurrentPlayerInPenalty
+    {
+      get => _inPenaltyBox[_currentPlayer];
+      set => _inPenaltyBox[_currentPlayer] = value;
+    }
     private int CurrentPlayerPlace
     {
       get => _places[_currentPlayer];
@@ -150,7 +153,7 @@ namespace TriviaGame.Core
         return true;
       }
 
-      var congratulationsMessage = _inPenaltyBox[_currentPlayer]
+      var congratulationsMessage = IsCurrentPlayerInPenalty
         ? "Answer was correct!!!!"
         : "Answer was corrent!!!!";
 
@@ -167,7 +170,7 @@ namespace TriviaGame.Core
     {
       Console.WriteLine("Question was incorrectly answered");
       Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
-      _inPenaltyBox[_currentPlayer] = true;
+      IsCurrentPlayerInPenalty = true;
 
       MoveToNextPlayer();
       return true;
