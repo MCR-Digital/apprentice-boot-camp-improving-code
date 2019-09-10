@@ -66,35 +66,31 @@ public class Game {
             //If the roll is not even,
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
-
                 System.out.println(players.get(currentPlayerPlace) + " is getting out of the penalty box");
-                places[currentPlayerPlace] = places[currentPlayerPlace] + roll;
-
-                //If the place of the current player is greater than 11, it takes its current place - 12
-                if (places[currentPlayerPlace] > 11)
-                    places[currentPlayerPlace] = places[currentPlayerPlace] - 12;
-                System.out.println(players.get(currentPlayerPlace)
-                        + "'s new location is "
-                        + places[currentPlayerPlace]);
-                System.out.println("The category is " + currentCategory());
+                updatePlayerLocationAndCategory(roll);
                 askQuestion();
             } else {
                 System.out.println(players.get(currentPlayerPlace) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
-
         } else {
-
-            places[currentPlayerPlace] = places[currentPlayerPlace] + roll;
-            if (places[currentPlayerPlace] > 11) places[currentPlayerPlace] = places[currentPlayerPlace] - 12;
-
-            System.out.println(players.get(currentPlayerPlace)
-                    + "'s new location is "
-                    + places[currentPlayerPlace]);
-            System.out.println("The category is " + currentCategory());
+            updatePlayerLocationAndCategory(roll);
             askQuestion();
         }
 
+    }
+
+    private void updatePlayerLocationAndCategory(int roll) {
+        places[currentPlayerPlace] = places[currentPlayerPlace] + roll;
+
+        //If the place of the current player is greater than 11, it takes its current place - 12
+        if (places[currentPlayerPlace] > 11)
+            places[currentPlayerPlace] = places[currentPlayerPlace] - 12;
+
+        System.out.println(players.get(currentPlayerPlace)
+                + "'s new location is "
+                + places[currentPlayerPlace]);
+        System.out.println("The category is " + currentCategory());
     }
 
     private void askQuestion() {
