@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
+    int[] positionOnBoard = new int[6];
+    int[] score = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
     
     LinkedList popQuestions = new LinkedList();
@@ -38,8 +38,8 @@ public class Game {
 		
 		
 	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
+	    positionOnBoard[howManyPlayers()] = 0;
+	    score[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
@@ -60,12 +60,12 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(playerPosition) + " is getting out of the penalty box");
-				places[playerPosition] = places[playerPosition] + roll;
-				if (places[playerPosition] > 11) places[playerPosition] = places[playerPosition] - 12;
+				positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + roll;
+				if (positionOnBoard[playerPosition] > 11) positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
 				
 				System.out.println(players.get(playerPosition)
 						+ "'s new location is " 
-						+ places[playerPosition]);
+						+ positionOnBoard[playerPosition]);
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -75,12 +75,12 @@ public class Game {
 			
 		} else {
 		
-			places[playerPosition] = places[playerPosition] + roll;
-			if (places[playerPosition] > 11) places[playerPosition] = places[playerPosition] - 12;
+			positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + roll;
+			if (positionOnBoard[playerPosition] > 11) positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
 			
 			System.out.println(players.get(playerPosition)
 					+ "'s new location is " 
-					+ places[playerPosition]);
+					+ positionOnBoard[playerPosition]);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
@@ -100,15 +100,15 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (places[playerPosition] == 0) return "Pop";
-		if (places[playerPosition] == 4) return "Pop";
-		if (places[playerPosition] == 8) return "Pop";
-		if (places[playerPosition] == 1) return "Science";
-		if (places[playerPosition] == 5) return "Science";
-		if (places[playerPosition] == 9) return "Science";
-		if (places[playerPosition] == 2) return "Sports";
-		if (places[playerPosition] == 6) return "Sports";
-		if (places[playerPosition] == 10) return "Sports";
+		if (positionOnBoard[playerPosition] == 0) return "Pop";
+		if (positionOnBoard[playerPosition] == 4) return "Pop";
+		if (positionOnBoard[playerPosition] == 8) return "Pop";
+		if (positionOnBoard[playerPosition] == 1) return "Science";
+		if (positionOnBoard[playerPosition] == 5) return "Science";
+		if (positionOnBoard[playerPosition] == 9) return "Science";
+		if (positionOnBoard[playerPosition] == 2) return "Sports";
+		if (positionOnBoard[playerPosition] == 6) return "Sports";
+		if (positionOnBoard[playerPosition] == 10) return "Sports";
 		return "Rock";
 	}
 
@@ -116,10 +116,10 @@ public class Game {
 		if (inPenaltyBox[playerPosition]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				purses[playerPosition]++;
+				score[playerPosition]++;
 				System.out.println(players.get(playerPosition)
 						+ " now has "
-						+ purses[playerPosition]
+						+ score[playerPosition]
 						+ " Gold Coins.");
 				
 				boolean winner = isWinner();
@@ -138,10 +138,10 @@ public class Game {
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-			purses[playerPosition]++;
+			score[playerPosition]++;
 			System.out.println(players.get(playerPosition)
 					+ " now has "
-					+ purses[playerPosition]
+					+ score[playerPosition]
 					+ " Gold Coins.");
 			
 			boolean winner = isWinner();
@@ -164,6 +164,6 @@ public class Game {
 
 
 	private boolean isWinner() {
-		return !(purses[playerPosition] == 6);
+		return !(score[playerPosition] == 6);
 	}
 }
