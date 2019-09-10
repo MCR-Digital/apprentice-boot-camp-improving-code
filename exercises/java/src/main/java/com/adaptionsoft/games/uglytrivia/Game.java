@@ -15,9 +15,9 @@ public class Game {
     LinkedList rockQuestionsList = new LinkedList();
     
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    boolean isOutOfPenaltyBox;
     
-    public  Game(){
+    public Game(){
     	for (int i = 0; i < 50; i++) {
 			popQuestionsList.addLast("Pop Question " + i);
 			scienceQuestionsList.addLast(("Science Question " + i));
@@ -30,13 +30,11 @@ public class Game {
 		return "Rock Question " + index;
 	}
 	
-	public boolean isPlayable() {
+	public boolean sufficientPlayersToPlay() {
 		return (getAmountOfPlayers() >= 2);
 	}
 
 	public boolean addPlayerToGame(String playerName) {
-		
-		
 	    players.add(playerName);
 	    playerLocations[getAmountOfPlayers()] = 0;
 	    playerPurses[getAmountOfPlayers()] = 0;
@@ -57,7 +55,7 @@ public class Game {
 		
 		if (playersInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
+				isOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 				playerLocations[currentPlayer] = playerLocations[currentPlayer] + roll;
@@ -70,7 +68,7 @@ public class Game {
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
+				isOutOfPenaltyBox = false;
 				}
 			
 		} else {
@@ -114,7 +112,7 @@ public class Game {
 
 	public boolean wasAnsweredCorrectly() {
 		if (playersInPenaltyBox[currentPlayer]){
-			if (isGettingOutOfPenaltyBox) {
+			if (isOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				playerPurses[currentPlayer]++;
 				System.out.println(players.get(currentPlayer) 
