@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
-    int[] playerLocations = new int[6];
-    int[] playerPurses = new int[6];
-    boolean[] playersInPenaltyBox = new boolean[6];
-    
-    LinkedList popQuestionsList = new LinkedList();
-    LinkedList scienceQuestionsList = new LinkedList();
-    LinkedList sportsQuestionsList = new LinkedList();
-    LinkedList rockQuestionsList = new LinkedList();
-    
-    int currentPlayer = 0;
-    boolean isOutOfPenaltyBox;
+    private ArrayList players = new ArrayList();
+	private int[] playerLocations = new int[6];
+	private int[] playerPurses = new int[6];
+	private boolean[] playersInPenaltyBox = new boolean[6];
+
+	private LinkedList popQuestionsList = new LinkedList();
+	private LinkedList scienceQuestionsList = new LinkedList();
+	private LinkedList sportsQuestionsList = new LinkedList();
+	private LinkedList rockQuestionsList = new LinkedList();
+
+	private int currentPlayer = 0;
+	private boolean isOutOfPenaltyBox;
     
     public Game(){
     	for (int i = 0; i < 50; i++) {
@@ -61,7 +61,6 @@ public class Game {
 				}
 			
 		} else {
-
 			updatePlayerLocation(roll);
 		}
 		
