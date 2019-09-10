@@ -24,18 +24,13 @@ namespace TriviaGame.Core
 
     public Game()
     {
-      for (int i = 0; i < 50; i++)
+      for (int index = 0; index < 50; index++)
       {
-        popQuestions.AddLast("Pop Question " + i);
-        scienceQuestions.AddLast(("Science Question " + i));
-        sportsQuestions.AddLast(("Sports Question " + i));
-        rockQuestions.AddLast(CreateRockQuestion(i));
+        popQuestions.AddLast("Pop Question " + index);
+        scienceQuestions.AddLast(("Science Question " + index));
+        sportsQuestions.AddLast(("Sports Question " + index));
+        rockQuestions.AddLast("Rock Question " + index);
       }
-    }
-
-    public String CreateRockQuestion(int index)
-    {
-      return "Rock Question " + index;
     }
 
     public bool IsPlayable()
