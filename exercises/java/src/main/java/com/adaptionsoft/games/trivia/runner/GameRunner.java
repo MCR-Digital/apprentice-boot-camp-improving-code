@@ -20,7 +20,7 @@ public class GameRunner {
 	
 		do {
 			
-			aGame.roll(randomNumber.nextInt(5) + 1);
+			aGame.rollDice(randomNumber.nextInt(5) + 1);
 			
 			if (randomNumber.nextInt(9) == 7) {
 				notAWinner = aGame.isIncorrectlyAnswered();

@@ -55,33 +55,34 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	public void rollDice(int currentRoll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		System.out.println("They have rolled a " + currentRoll);
 
 		if (isInPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (currentRoll % 2 != 0) {
 				isExitingPenaltyBox = true;
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                takeTurn(roll);
+                takeTurn(currentRoll);
             } else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isExitingPenaltyBox = false;
 			}
 		} else {
-            takeTurn(roll);
+            takeTurn(currentRoll);
         }
 
 	}
 
-    private void takeTurn(int roll) {
-        locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + roll;
+    private void takeTurn(int currentRoll) {
+        locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + currentRoll;
         if (locationOnBoard[currentPlayer] > 11) locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] - 12;
 
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
                 + locationOnBoard[currentPlayer]);
         System.out.println("The category is " + currentCategory());
+
         askQuestion();
     }
 
@@ -120,11 +121,8 @@ public class Game {
 				resetToFirstPlayer();
 				return true;
 			}
-
-
-
-		} else {
-
+		}
+		else {
 			System.out.println("Answer was corrent!!!!");
             return hasPlayerWon();
         }
