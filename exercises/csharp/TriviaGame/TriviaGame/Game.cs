@@ -91,20 +91,20 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayer]
                               + "'s new location is "
                               + places[currentPlayer]);
-            Console.WriteLine("The category is " + CurrentCategory());
+            Console.WriteLine("The category is " + GetCurrentCategory());
             AskQuestion();
         }
 
         private void AskQuestion()
         {
-            var cat = CurrentCategory();
+            var cat = GetCurrentCategory();
 
             Console.WriteLine(questionCategories[cat].First());
             questionCategories[cat].RemoveFirst();
         }
 
 
-        private Category CurrentCategory()
+        private Category GetCurrentCategory()
         {
             var remainder = places[currentPlayer] % TotalCategories;
 
