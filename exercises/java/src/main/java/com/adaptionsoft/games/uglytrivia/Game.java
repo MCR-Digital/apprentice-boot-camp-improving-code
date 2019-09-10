@@ -15,12 +15,22 @@ public class Game {
 	private LinkedList<String>  sportsQuestions = new LinkedList<>();
 	private LinkedList<String>  rockQuestions = new LinkedList<>();
 
+	private ArrayList<String> board = new ArrayList<>();
+
 	private int currentPlayer = 0;
 	private boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
+    	setBoardUp();
     	createQuestions();
     }
+
+    private void setBoardUp() {
+    	board.add("Pop");
+    	board.add("Science");
+    	board.add("Sports");
+    	board.add("Rock");
+	}
 
 	private void createQuestions(){
 		for (int question = 0; question < maxNumOfQuestions; question++) {
@@ -57,7 +67,7 @@ public class Game {
 
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 
-				updatePlayerStatus(rollValue);
+				movePlayer(rollValue);
 				askQuestion();
 
 				return;
@@ -66,13 +76,13 @@ public class Game {
 			isGettingOutOfPenaltyBox = false;
 			
 		} else {
-			updatePlayerStatus(rollValue);
+			movePlayer(rollValue);
 			askQuestion();
 		}
 		
 	}
 
-	private void updatePlayerStatus(int rollValue) {
+	private void movePlayer(int rollValue) {
 		places[currentPlayer] = places[currentPlayer] + rollValue;
 		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
@@ -95,35 +105,12 @@ public class Game {
 		if (currentCategory().equals("Rock"))
 			System.out.println(rockQuestions.removeFirst());		
 	}
-	
-	
+
+
 	private String currentCategory() {
-    	String genre;
+    	int categoryIndex = places[currentPlayer] % 4;
 
-    	switch(places[currentPlayer]) {
-			case 0:
-			case 4:
-			case 8:
-				genre = "Pop";
-				break;
-
-			case 1:
-			case 5:
-			case 9:
-				genre ="Science";
-				break;
-
-			case 2:
-			case 6:
-			case 10:
-				genre = "Sports";
-				break;
-
-			default:
-				genre = "Rock";
-		}
-
-		return genre;
+    	return board.get(categoryIndex);
 	}
 
 	private void addCoin() {
@@ -139,7 +126,7 @@ public class Game {
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				addCoin();
-				
+
 				boolean winner = didPlayerWin();
 				goToNextPlayer();
 				
