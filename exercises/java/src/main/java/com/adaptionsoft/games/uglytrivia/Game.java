@@ -133,7 +133,6 @@ public class Game {
 	public boolean handleCorrectAnswer() {
 		if (playersInPenaltyBox[currentPlayerID]){
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
 				boolean winner = addCoin();
 				currentPlayerID++;
 				if (isLastPlayerInList()) resetBackToPlayerOne();
@@ -146,7 +145,6 @@ public class Game {
 			}
 
 		} else {
-			System.out.println("Answer was correct!!!!");
 			boolean winner = addCoin();
 			currentPlayerID++;
 			if (isLastPlayerInList()) {
@@ -162,6 +160,7 @@ public class Game {
 	}
 
 	private boolean addCoin() {
+		System.out.println("Answer was correct!!!!");
 		purses[currentPlayerID]++;
 		System.out.println(players.get(currentPlayerID)
 				+ " now has "
