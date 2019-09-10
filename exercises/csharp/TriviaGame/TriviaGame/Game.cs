@@ -1,4 +1,5 @@
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,17 +15,24 @@ namespace TriviaGame
 
         bool[] inPenaltyBox = new bool[6];
 
-        private Dictionary<string, LinkedList<string>> questionCategories = new Dictionary<string, LinkedList<string>>();
+        private Dictionary<string, LinkedList<string>> questionCategories = new Dictionary<string, LinkedList<string>>
+        {
+            { "Pop", new LinkedList<string>() },
+            { "Science", new LinkedList<string>() },
+            { "Sports", new LinkedList<string>() },
+            { "Rock", new LinkedList<string>() }
+        };
 
-        int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        private int currentPlayer;
+        private bool isGettingOutOfPenaltyBox;
+
+        private const int TotalCategories = 4;
+        private const int TotalPlaces = 12;
+        private const int WinAmount = 6;
+
 
         public Game()
         {
-            questionCategories.Add("Pop", new LinkedList<string>());
-            questionCategories.Add("Science", new LinkedList<string>());
-            questionCategories.Add("Sports", new LinkedList<string>());
-            questionCategories.Add("Rock", new LinkedList<string>());
 
             for (int questionNo = 0; questionNo < 50; questionNo++)
             {
@@ -78,8 +86,7 @@ namespace TriviaGame
 
         private void MovePlayer(int roll)
         {
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+            places[currentPlayer] = (places[currentPlayer] + roll) % TotalPlaces;
 
             Console.WriteLine(players[currentPlayer]
                               + "'s new location is "
@@ -99,7 +106,7 @@ namespace TriviaGame
 
         private String CurrentCategory()
         {
-            var remainder = places[currentPlayer] % questionCategories.Count;
+            var remainder = places[currentPlayer] % TotalCategories;
 
             switch (remainder)
             {
@@ -155,7 +162,7 @@ namespace TriviaGame
 
         private bool CheckShouldContinueGame()
         {
-            return !(purses[currentPlayer] == 6);
+            return !(purses[currentPlayer] == WinAmount);
         }
 
         private void ToNextPlayer()
