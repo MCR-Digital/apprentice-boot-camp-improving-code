@@ -128,8 +128,8 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				score[currentPlayer]++;
-				System.out.println(players.get(currentPlayer)
+                updateScore();
+                System.out.println(players.get(currentPlayer)
 						+ " now has "
 						+ score[currentPlayer]
 						+ " Gold Coins.");
@@ -150,8 +150,8 @@ public class Game {
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-			score[currentPlayer]++;
-			System.out.println(players.get(currentPlayer)
+            updateScore();
+            System.out.println(players.get(currentPlayer)
 					+ " now has "
 					+ score[currentPlayer]
 					+ " Gold Coins.");
@@ -164,7 +164,11 @@ public class Game {
 		}
 	}
 
-	private void setNextPlayer() {
+    private void updateScore() {
+        score[currentPlayer]++;
+    }
+
+    private void setNextPlayer() {
 		if (currentPlayer == players.size()) currentPlayer = 0;
 	}
 
