@@ -100,17 +100,7 @@ public class Game {
         if (inPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
-                coinPurses[currentPlayer]++;
-                System.out.println(players.get(currentPlayer)
-                        + " now has "
-                        + coinPurses[currentPlayer]
-                        + " Gold Coins.");
-
-                boolean winner = winningPlayer();
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
-
-                return winner;
+                return correctQuestionAnswer();
             } else {
                 currentPlayer++;
                 if (currentPlayer == players.size()) currentPlayer = 0;
@@ -121,18 +111,22 @@ public class Game {
         } else {
 
             System.out.println("Answer was corrent!!!!");
-            coinPurses[currentPlayer]++;
-            System.out.println(players.get(currentPlayer)
-                    + " now has "
-                    + coinPurses[currentPlayer]
-                    + " Gold Coins.");
-
-            boolean winner = winningPlayer();
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
-
-            return winner;
+            return correctQuestionAnswer();
         }
+    }
+
+    private boolean correctQuestionAnswer() {
+        coinPurses[currentPlayer]++;
+        System.out.println(players.get(currentPlayer)
+                + " now has "
+                + coinPurses[currentPlayer]
+                + " Gold Coins.");
+
+        boolean winner = winningPlayer();
+        currentPlayer++;
+        if (currentPlayer == players.size()) currentPlayer = 0;
+
+        return winner;
     }
 
     public boolean questionWasAnsweredWrong() {
