@@ -8,14 +8,14 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
+        private readonly List<string> players = new List<string>();
+                
+        private readonly int[] places = new int[6];
+        private readonly int[] purses = new int[6];
 
-        int[] places = new int[6];
-        int[] purses = new int[6];
+        private readonly bool[] inPenaltyBox = new bool[6];
 
-        bool[] inPenaltyBox = new bool[6];
-
-        private Dictionary<string, LinkedList<string>> questionCategories = new Dictionary<string, LinkedList<string>>
+        private readonly Dictionary<string, LinkedList<string>> questionCategories = new Dictionary<string, LinkedList<string>>
         {
             { "Pop", new LinkedList<string>() },
             { "Science", new LinkedList<string>() },
@@ -28,18 +28,18 @@ namespace TriviaGame
 
         private const int TotalCategories = 4;
         private const int TotalPlaces = 12;
+        private const int TotalQuestions = 50;
         private const int WinAmount = 6;
 
 
         public Game()
         {
-
-            for (int questionNo = 0; questionNo < 50; questionNo++)
+            for (int questionNumber = 0; questionNumber < TotalQuestions; questionNumber++)
             {
-                questionCategories["Pop"].AddLast("Pop Question " + questionNo);
-                questionCategories["Science"].AddLast(("Science Question " + questionNo));
-                questionCategories["Sports"].AddLast(("Sports Question " + questionNo));
-                questionCategories["Rock"].AddLast("Rock Question " + questionNo);
+                questionCategories["Pop"].AddLast("Pop Question " + questionNumber);
+                questionCategories["Science"].AddLast(("Science Question " + questionNumber));
+                questionCategories["Sports"].AddLast(("Sports Question " + questionNumber));
+                questionCategories["Rock"].AddLast("Rock Question " + questionNumber);
             }
         }
 
@@ -48,7 +48,7 @@ namespace TriviaGame
             return (GetTotalPlayers() >= 2);
         }
 
-        public bool AddPlayer(String playerName)
+        public bool AddPlayer(string playerName)
         {
             players.Add(playerName);
             places[GetTotalPlayers()] = 0;
@@ -104,7 +104,7 @@ namespace TriviaGame
         }
 
 
-        private String CurrentCategory()
+        private string CurrentCategory()
         {
             var remainder = places[currentPlayer] % TotalCategories;
 
