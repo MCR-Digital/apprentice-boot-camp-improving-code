@@ -80,9 +80,10 @@ public class Game {
 	}
 
 	private void updatePosition(int roll) {
+    	int numberOfBoardPositions = 12;
 		playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] + roll;
-		if (playerBoardPosition[currentPlayer] > 11)
-			playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - 12;
+		if (playerBoardPosition[currentPlayer] >= numberOfBoardPositions)
+			playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - numberOfBoardPositions;
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
