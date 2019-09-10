@@ -14,22 +14,24 @@ namespace TriviaGame
 
         bool[] inPenaltyBox = new bool[6];
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        private Dictionary<string, LinkedList<string>> questions = new Dictionary<string, LinkedList<string>>();
 
         int currentPlayer = 0;
-        bool isNotInPenaltyBox;
+        bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
+            questions.Add("Pop", new LinkedList<string>());
+            questions.Add("Science", new LinkedList<string>());
+            questions.Add("Sports", new LinkedList<string>());
+            questions.Add("Rock", new LinkedList<string>());
+
             for (int questionNo = 0; questionNo < 50; questionNo++)
             {
-                popQuestions.AddLast("Pop Question " + questionNo);
-                scienceQuestions.AddLast(("Science Question " + questionNo));
-                sportsQuestions.AddLast(("Sports Question " + questionNo));
-                rockQuestions.AddLast("Rock Question " + questionNo);
+                questions["Pop"].AddLast("Pop Question " + questionNo);
+                questions["Science"].AddLast(("Science Question " + questionNo));
+                questions["Sports"].AddLast(("Sports Question " + questionNo));
+                questions["Rock"].AddLast("Rock Question " + questionNo);
             }
         }
 
@@ -64,7 +66,7 @@ namespace TriviaGame
             {
                 if (roll % 2 != 0)
                 {
-                    isNotInPenaltyBox = true;
+                    isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
                     places[currentPlayer] = places[currentPlayer] + roll;
@@ -79,7 +81,7 @@ namespace TriviaGame
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isNotInPenaltyBox = false;
+                    isGettingOutOfPenaltyBox = false;
                 }
 
             }
@@ -98,84 +100,59 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
-            {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Science")
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Sports")
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Rock")
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
-            }
+            var cat = CurrentCategory();
+
+            Console.WriteLine(questions[cat].First());
+            questions[cat].RemoveFirst();
         }
 
 
         private String CurrentCategory()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            switch (places[currentPlayer])
+            {
+                case 0:
+                case 4:
+                case 8:
+                    return "Pop";
+                case 1:
+                case 5:
+                case 9:
+                    return "Science";
+                case 2:
+                case 6:
+                case 10:
+                    return "Sports";
+                default:
+                    return "Rock";
+            }
         }
 
         public bool WasCorrectlyAnswered()
         {
+            var winner = false;
             if (inPenaltyBox[currentPlayer])
             {
-                if (isNotInPenaltyBox)
+                if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    purses[currentPlayer]++;
-                    Console.WriteLine(players[currentPlayer]
-                            + " now has "
-                            + purses[currentPlayer]
-                            + " Gold Coins.");
+                    AddCoin();
 
-                    bool winner = DidPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
-
+                    winner = DidPlayerWin();
+                    ToNextPlayer();
                     return winner;
                 }
-                else
-                {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
-                    return true;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Answer was corrent!!!!");
-                purses[currentPlayer]++;
-                Console.WriteLine(players[currentPlayer]
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
 
-                bool winner = DidPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
-
-                return winner;
+                ToNextPlayer();
+                return true;
             }
+            Console.WriteLine("Answer was corrent!!!!");
+            AddCoin();
+            
+            winner = DidPlayerWin();
+            ToNextPlayer();
+
+            return winner;
         }
 
         public bool WrongAnswer()
@@ -193,6 +170,21 @@ namespace TriviaGame
         private bool DidPlayerWin()
         {
             return !(purses[currentPlayer] == 6);
+        }
+
+        private void ToNextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
+        }
+
+        private void AddCoin()
+        {
+            purses[currentPlayer]++;
+            Console.WriteLine(players[currentPlayer]
+                              + " now has "
+                              + purses[currentPlayer]
+                              + " Gold Coins.");
         }
     }
 
