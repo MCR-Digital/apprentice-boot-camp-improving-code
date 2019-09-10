@@ -110,13 +110,9 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (isPlayerInPenaltyBox[currentPlayer]){
 			if (isPlayerGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				playerCoinCount[currentPlayer]++;
-				System.out.println(players.get(currentPlayer) 
-						+ " now has "
-						+ playerCoinCount[currentPlayer]
-						+ " Gold Coins.");
-				
+				String message = "Answer was correct!!!!";
+				updatePlayerCoinCount(message);
+
 				boolean winner = didPlayerWin();
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
@@ -131,14 +127,10 @@ public class Game {
 			
 			
 		} else {
-		
-			System.out.println("Answer was corrent!!!!");
-			playerCoinCount[currentPlayer]++;
-			System.out.println(players.get(currentPlayer) 
-					+ " now has "
-					+ playerCoinCount[currentPlayer]
-					+ " Gold Coins.");
-			
+
+			String message = "Answer was corrent!!!!";
+			updatePlayerCoinCount(message);
+
 			boolean winner = didPlayerWin();
 			currentPlayer++;
 			if (currentPlayer == players.size()) currentPlayer = 0;
@@ -146,7 +138,16 @@ public class Game {
 			return winner;
 		}
 	}
-	
+
+	private void updatePlayerCoinCount(String message) {
+		System.out.println(message);
+		playerCoinCount[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ playerCoinCount[currentPlayer]
+				+ " Gold Coins.");
+	}
+
 	public boolean wasIncorrectlyAnswered(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
