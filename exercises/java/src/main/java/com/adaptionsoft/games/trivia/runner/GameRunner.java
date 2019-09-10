@@ -7,12 +7,12 @@ import com.adaptionsoft.games.uglytrivia.Game;
 
 public class GameRunner {
 
-	private static boolean notAWinner;
+	private static boolean isNoWinner;
 
 	public static void main(String[] args) {
 		Game aGame = new Game();
 		
-		aGame.add("Chet");
+		aGame.add("Sandra");
 		aGame.add("Pat");
 		aGame.add("Sue");
 		
@@ -23,14 +23,14 @@ public class GameRunner {
 			aGame.roll(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+				isNoWinner = aGame.wrongAnswer();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				isNoWinner = aGame.wasCorrectlyAnswered();
 			}
 			
 			
 			
-		} while (notAWinner);
+		} while (isNoWinner);
 		
 	}
 }
