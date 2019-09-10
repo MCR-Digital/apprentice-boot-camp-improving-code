@@ -51,7 +51,7 @@ public class Game {
     	return playerNames.size();
 	}
 
-	public void roll(int roll) {
+	public void takeTurn(int roll) {
 		System.out.println(playerNames.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		

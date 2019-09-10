@@ -10,22 +10,22 @@ public class GameRunner {
 	private static boolean notAWinner;
 
 	public static void main(String[] args) {
-		Game aGame = new Game();
+		Game triviaGame = new Game();
 		
-		aGame.addPlayerToGame("Chet");
-		aGame.addPlayerToGame("Pat");
-		aGame.addPlayerToGame("Sue");
+		triviaGame.addPlayerToGame("Chet");
+		triviaGame.addPlayerToGame("Pat");
+		triviaGame.addPlayerToGame("Sue");
 		
-		Random rand = new Random(Integer.parseInt(args[0]));
+		Random randomNumber = new Random(Integer.parseInt(args[0]));
 	
 		do {
 			
-			aGame.roll(rand.nextInt(5) + 1);
+			triviaGame.takeTurn(randomNumber.nextInt(5) + 1);
 			
-			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+			if (randomNumber.nextInt(9) == 7) {
+				notAWinner = triviaGame.wrongAnswer();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				notAWinner = triviaGame.wasCorrectlyAnswered();
 			}
 			
 			
