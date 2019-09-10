@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] boardPosition = new int[6];
+    int[] playerBoardPosition = new int[6];
     int[] playerCoinCount = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
     
@@ -38,7 +38,7 @@ public class Game {
 		
 		
 	    players.add(playerName);
-	    boardPosition[howManyPlayers()] = 0;
+	    playerBoardPosition[howManyPlayers()] = 0;
 	    playerCoinCount[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 	    
@@ -60,12 +60,12 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				boardPosition[currentPlayer] = boardPosition[currentPlayer] + roll;
-				if (boardPosition[currentPlayer] > 11) boardPosition[currentPlayer] = boardPosition[currentPlayer] - 12;
+				playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] + roll;
+				if (playerBoardPosition[currentPlayer] > 11) playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - 12;
 				
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
-						+ boardPosition[currentPlayer]);
+						+ playerBoardPosition[currentPlayer]);
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -75,12 +75,12 @@ public class Game {
 			
 		} else {
 		
-			boardPosition[currentPlayer] = boardPosition[currentPlayer] + roll;
-			if (boardPosition[currentPlayer] > 11) boardPosition[currentPlayer] = boardPosition[currentPlayer] - 12;
+			playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] + roll;
+			if (playerBoardPosition[currentPlayer] > 11) playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - 12;
 			
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
-					+ boardPosition[currentPlayer]);
+					+ playerBoardPosition[currentPlayer]);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
@@ -100,15 +100,15 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (boardPosition[currentPlayer] == 0) return "Pop";
-		if (boardPosition[currentPlayer] == 4) return "Pop";
-		if (boardPosition[currentPlayer] == 8) return "Pop";
-		if (boardPosition[currentPlayer] == 1) return "Science";
-		if (boardPosition[currentPlayer] == 5) return "Science";
-		if (boardPosition[currentPlayer] == 9) return "Science";
-		if (boardPosition[currentPlayer] == 2) return "Sports";
-		if (boardPosition[currentPlayer] == 6) return "Sports";
-		if (boardPosition[currentPlayer] == 10) return "Sports";
+		if (playerBoardPosition[currentPlayer] == 0) return "Pop";
+		if (playerBoardPosition[currentPlayer] == 4) return "Pop";
+		if (playerBoardPosition[currentPlayer] == 8) return "Pop";
+		if (playerBoardPosition[currentPlayer] == 1) return "Science";
+		if (playerBoardPosition[currentPlayer] == 5) return "Science";
+		if (playerBoardPosition[currentPlayer] == 9) return "Science";
+		if (playerBoardPosition[currentPlayer] == 2) return "Sports";
+		if (playerBoardPosition[currentPlayer] == 6) return "Sports";
+		if (playerBoardPosition[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
 
