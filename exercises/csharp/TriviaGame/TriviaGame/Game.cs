@@ -43,7 +43,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (GetPlayerCount() >= 2);
+            return (PlayerCount >= 2);
         }
 
         public bool AddPlayer(String playerName)
@@ -51,18 +51,21 @@ namespace TriviaGame
 
 
             playerNames.Add(playerName);
-            playerPlaces[GetPlayerCount()] = 0;
-            playerPurses[GetPlayerCount()] = 0;
-            inPenaltyBox[GetPlayerCount()] = false;
+            playerPlaces[PlayerCount] = 0;
+            playerPurses[PlayerCount] = 0;
+            inPenaltyBox[PlayerCount] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + playerNames.Count);
             return true;
         }
 
-        public int GetPlayerCount()
+        public int PlayerCount
         {
-            return playerNames.Count;
+            get
+            {
+                return playerNames.Count;
+            }
         }
 
         public void RollDice(int rollNumber)
