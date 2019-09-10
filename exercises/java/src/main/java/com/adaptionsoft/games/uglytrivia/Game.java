@@ -8,6 +8,8 @@ public class Game {
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
 	private static final int MAX_QUESTIONS = 50;
+	public static final int LAST_POSITION = 11;
+	public static final int RESET_POSITION = 12;
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
@@ -75,8 +77,8 @@ public class Game {
 
 	private void updatePlayerLocation(final int roll) {
 		playerLocations[currentPlayer] += roll;
-		if (playerLocations[currentPlayer] > 11) {
-			playerLocations[currentPlayer] -= 12;
+		if (playerLocations[currentPlayer] > LAST_POSITION) {
+			playerLocations[currentPlayer] -= RESET_POSITION;
 		}
 
 		System.out.println(players.get(currentPlayer)
