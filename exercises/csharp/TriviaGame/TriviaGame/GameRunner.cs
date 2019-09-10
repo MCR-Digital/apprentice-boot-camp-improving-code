@@ -29,7 +29,6 @@ namespace TriviaGame
 
             do
             {
-
                 aGame.MakeMoveBasedOnRoll(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
@@ -40,9 +39,6 @@ namespace TriviaGame
                 {
                     notAWinner = aGame.WasCorrectlyAnswered();
                 }
-
-
-
             } while (notAWinner);
 
         }

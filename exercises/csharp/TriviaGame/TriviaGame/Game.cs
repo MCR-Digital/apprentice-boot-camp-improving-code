@@ -23,6 +23,8 @@ namespace TriviaGame
 		private int numberOfPositionsOnBoard = 12;
         private bool isGettingOutOfPenaltyBox;
 
+		
+
         public Game()
         {
             for (int i = 0; i < numberOfPositionsOnBoard - 1; i++)
@@ -74,7 +76,7 @@ namespace TriviaGame
 
 					CalculateNewPositionOnBoard(rollValue);
 
-                    AskQuestion();
+                    AskQuestion(CheckCurrentCategory());
                 }
                 else
                 {
@@ -85,36 +87,9 @@ namespace TriviaGame
             else
             {
 				CalculateNewPositionOnBoard(rollValue);				
-                AskQuestion();
+                AskQuestion(CheckCurrentCategory());
             }
 
-        }
-
-        private void AskQuestion()
-        {
-			var currentCategory = ReturnCurrentCategory();
-
-			Console.WriteLine("The category is " + currentCategory);
-			if (currentCategory == "Pop")
-            {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
-            }
-            if (currentCategory == "Science")
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (currentCategory == "Sports")
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (currentCategory == "Rock")
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
-            }
         }
 
         public bool WasCorrectlyAnswered()
@@ -164,18 +139,20 @@ namespace TriviaGame
             }
         }
 
-        public bool WrongAnswer()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            PlayerPenaltyBoxStatus[currentPlayer] = true;
+		public bool WrongAnswer()
+		{
+			Console.WriteLine("Question was incorrectly answered");
+			Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+			PlayerPenaltyBoxStatus[currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
-            return true;
-        }
+			currentPlayer++;
+			if (currentPlayer == players.Count) currentPlayer = 0;
+			return true;
+		}
 
 		#region "private helper methods"
+		
+
 		private void CalculateNewPositionOnBoard(int spacesToMove)
 		{
 			PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] + spacesToMove;
@@ -183,11 +160,7 @@ namespace TriviaGame
 			{
 				PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] - numberOfPositionsOnBoard;
 			}
-
-
-			Console.WriteLine(players[currentPlayer]
-					+ "'s new location is "
-					+ PlayerPositionOnBoard[currentPlayer]);
+			Console.WriteLine(players[currentPlayer] + "'s new location is " + PlayerPositionOnBoard[currentPlayer]);
 		}
 
 		private bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
@@ -200,7 +173,7 @@ namespace TriviaGame
 			return !(PlayerPurses[currentPlayer] == MaxPlayers);
 		}
 
-		private string ReturnCurrentCategory()
+		private string CheckCurrentCategory()
 		{
 			var categories = new Dictionary<int, string>
 			{
@@ -219,6 +192,32 @@ namespace TriviaGame
 			};
 
 			return categories[PlayerPositionOnBoard[currentPlayer]];
+		}
+
+		private void AskQuestion(string currentCategory)
+		{
+			Console.WriteLine("The category is " + currentCategory);
+
+			if (currentCategory == "Pop")
+			{
+				Console.WriteLine(popQuestions.First());
+				popQuestions.RemoveFirst();
+			}
+			if (currentCategory == "Science")
+			{
+				Console.WriteLine(scienceQuestions.First());
+				scienceQuestions.RemoveFirst();
+			}
+			if (currentCategory == "Sports")
+			{
+				Console.WriteLine(sportsQuestions.First());
+				sportsQuestions.RemoveFirst();
+			}
+			if (currentCategory == "Rock")
+			{
+				Console.WriteLine(rockQuestions.First());
+				rockQuestions.RemoveFirst();
+			}
 		}
 		#endregion
 	}
