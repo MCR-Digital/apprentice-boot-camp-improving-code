@@ -7,7 +7,7 @@ public class Game {
 	private static final int MAX_PLAYERS = 6;
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
-	public static final int MAX_QUESTIONS = 50;
+	private static final int MAX_QUESTIONS = 50;
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
@@ -55,20 +55,24 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 		
 		if (playersInPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
-				isOutOfPenaltyBox = true;
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+			penaltyCheck(roll);
 
-				updatePlayerLocation(roll);
-			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isOutOfPenaltyBox = false;
-				}
-			
 		} else {
 			updatePlayerLocation(roll);
 		}
 		
+	}
+
+	private void penaltyCheck(final int roll) {
+		if (roll % 2 != 0) {
+			isOutOfPenaltyBox = true;
+			System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+
+			updatePlayerLocation(roll);
+		} else {
+			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+			isOutOfPenaltyBox = false;
+			}
 	}
 
 	private void updatePlayerLocation(final int roll) {
