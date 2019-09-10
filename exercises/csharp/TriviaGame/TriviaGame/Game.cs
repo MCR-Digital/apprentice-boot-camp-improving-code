@@ -11,24 +11,20 @@ namespace TriviaGame
         private const int MAX_QUESTIONS = 50;
 
         List<Player> players = new List<Player>();
-
-        List<Question> popQuestions = new List<Question>();
-        List<Question> scienceQuestions = new List<Question>();
-        List<Question> sportsQuestions = new List<Question>();
-        List<Question> rockQuestions = new List<Question>();
+        Dictionary<Category, QuestionDeck> questions;
 
         int currentPlayerIndex = 0;
         bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
-            for (int i = 0; i < MAX_QUESTIONS; i++)
+            questions = new Dictionary<Category, QuestionDeck>()
             {
-                popQuestions.Add(new Question { Category = Category.Pop, Number = i });
-                scienceQuestions.Add(new Question { Category = Category.Science, Number = i });
-                sportsQuestions.Add(new Question { Category = Category.Sports, Number = i });
-                rockQuestions.Add(new Question { Category = Category.Rock, Number = i });
-            }
+                { Category.Pop, new QuestionDeck(Category.Pop, MAX_QUESTIONS) },
+                { Category.Science, new QuestionDeck(Category.Science, MAX_QUESTIONS) },
+                { Category.Sports, new QuestionDeck(Category.Sports, MAX_QUESTIONS) },
+                { Category.Rock, new QuestionDeck(Category.Rock, MAX_QUESTIONS) },
+            };
         }
 
         public bool IsPlayable()
@@ -108,28 +104,9 @@ namespace TriviaGame
 
         private void PrintQuestionAndRemoveFromList()
         {
-            if (GetCurrentCategory() == Category.Pop)
-            {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveAt(0);
-            }
-            if (GetCurrentCategory() == Category.Science)
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveAt(0);
-            }
-            if (GetCurrentCategory() == Category.Sports)
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveAt(0);
-            }
-            if (GetCurrentCategory() == Category.Rock)
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveAt(0);
-            }
-
-
+            var currentCategory = GetCurrentCategory();
+            var currentQuestion = questions[currentCategory].GetNext();
+            Console.WriteLine(currentQuestion);
         }
 
 
