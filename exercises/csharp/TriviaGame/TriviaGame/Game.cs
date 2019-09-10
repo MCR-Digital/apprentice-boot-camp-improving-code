@@ -35,22 +35,22 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= 2);
+            return (GetTotalPlayers() >= 2);
         }
 
-        public bool Add(String playerName)
+        public bool AddPlayer(String playerName)
         {
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[GetTotalPlayers()] = 0;
+            purses[GetTotalPlayers()] = 0;
+            inPenaltyBox[GetTotalPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
         }
 
-        public int HowManyPlayers()
+        public int GetTotalPlayers()
         {
             return players.Count;
         }
@@ -85,7 +85,6 @@ namespace TriviaGame
             }
             else
             {
-
                 places[currentPlayer] = places[currentPlayer] + roll;
                 if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
@@ -95,7 +94,6 @@ namespace TriviaGame
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
-
         }
 
         private void AskQuestion()
@@ -162,13 +160,9 @@ namespace TriviaGame
                     if (currentPlayer == players.Count) currentPlayer = 0;
                     return true;
                 }
-
-
-
             }
             else
             {
-
                 Console.WriteLine("Answer was corrent!!!!");
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
