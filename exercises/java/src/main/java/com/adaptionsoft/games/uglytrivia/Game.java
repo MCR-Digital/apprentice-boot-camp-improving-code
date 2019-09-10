@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	public static final int MAX_NUMBER_OF_QUESTIONS = 50;
+
+	ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -18,11 +20,11 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int index = 0; index < MAX_NUMBER_OF_QUESTIONS; index++) {
+			popQuestions.addLast("Pop Question " + index);
+			scienceQuestions.addLast(("Science Question " + index));
+			sportsQuestions.addLast(("Sports Question " + index));
+			rockQuestions.addLast(createRockQuestion(index));
     	}
     }
 
@@ -49,16 +51,16 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	public void rollDice(int rollValue) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		System.out.println("They have rolled a " + rollValue);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (rollValue % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				places[currentPlayer] = places[currentPlayer] + roll;
+				places[currentPlayer] = places[currentPlayer] + rollValue;
 				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 				
 				System.out.println(players.get(currentPlayer) 
@@ -73,7 +75,7 @@ public class Game {
 			
 		} else {
 		
-			places[currentPlayer] = places[currentPlayer] + roll;
+			places[currentPlayer] = places[currentPlayer] + rollValue;
 			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 			
 			System.out.println(players.get(currentPlayer) 
