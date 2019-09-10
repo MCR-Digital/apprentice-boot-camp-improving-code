@@ -4,25 +4,26 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+	private ArrayList<String> players = new ArrayList<>();
+	private int[] places = new int[6];
+	private int[] purses  = new int[6];
+	private boolean[] inPenaltyBox  = new boolean[6];
+	private int maxNumOfQuestions = 50;
     
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
-    
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private LinkedList<String> popQuestions = new LinkedList<>();
+	private LinkedList<String>  scienceQuestions = new LinkedList<>();
+	private LinkedList<String>  sportsQuestions = new LinkedList<>();
+	private LinkedList<String>  rockQuestions = new LinkedList<>();
+
+	private int currentPlayer = 0;
+	private boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
     	createQuestions();
     }
 
 	private void createQuestions(){
-		for (int question = 0; question < 50; question++) {
+		for (int question = 0; question < maxNumOfQuestions; question++) {
 			popQuestions.addLast("Pop Question " + question);
 			scienceQuestions.addLast("Science Question " + question);
 			sportsQuestions.addLast("Sports Question " + question);
@@ -30,33 +31,32 @@ public class Game {
 		}
 	}
 
-	public boolean addPlayer(String playerName) {
-		
-		
+	public void addPlayer(String playerName) {
 	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
-	    inPenaltyBox[howManyPlayers()] = false;
+		int numOfPlayers = howManyPlayers();
+
+		places[numOfPlayers] = 0;
+	    purses[numOfPlayers] = 0;
+	    inPenaltyBox[numOfPlayers] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
-		return true;
 	}
 	
-	public int howManyPlayers() {
+	private int howManyPlayers() {
 		return players.size();
 	}
 
-	public void moveOnRoll(int roll) {
+	public void moveOnRoll(int rollValue) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		System.out.println("They have rolled a " + rollValue);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (rollValue % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				places[currentPlayer] = places[currentPlayer] + roll;
+				places[currentPlayer] = places[currentPlayer] + rollValue;
 				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 				
 				System.out.println(players.get(currentPlayer) 
@@ -71,7 +71,7 @@ public class Game {
 			
 		} else {
 		
-			places[currentPlayer] = places[currentPlayer] + roll;
+			places[currentPlayer] = places[currentPlayer] + rollValue;
 			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 			
 			System.out.println(players.get(currentPlayer) 
