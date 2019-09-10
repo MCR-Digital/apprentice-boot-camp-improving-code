@@ -174,14 +174,10 @@ namespace TriviaGame
                     MoveToNextPlayer();
                     return true;
                 }
-
-
-
             }
             else
             {
-
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine("Answer was correct!!!!");
                 CurrentPlayer.Coins++;
                 PrintCurrentPlayerCoins();
 
