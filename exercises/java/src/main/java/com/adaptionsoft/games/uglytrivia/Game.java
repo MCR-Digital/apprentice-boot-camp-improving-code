@@ -60,10 +60,9 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(playerPosition) + " is getting out of the penalty box");
-				positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + diceRoll;
-				if (positionOnBoard[playerPosition] > 11) positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
-				
-				System.out.println(players.get(playerPosition)
+                movePlayer(diceRoll);
+
+                System.out.println(players.get(playerPosition)
 						+ "'s new location is " 
 						+ positionOnBoard[playerPosition]);
 				System.out.println("The category is " + currentCategory());
@@ -74,11 +73,10 @@ public class Game {
 				}
 			
 		} else {
-		
-			positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + diceRoll;
-			if (positionOnBoard[playerPosition] > 11) positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
-			
-			System.out.println(players.get(playerPosition)
+
+            movePlayer(diceRoll);
+
+            System.out.println(players.get(playerPosition)
 					+ "'s new location is " 
 					+ positionOnBoard[playerPosition]);
 			System.out.println("The category is " + currentCategory());
@@ -87,7 +85,13 @@ public class Game {
 		
 	}
 
-	private void askQuestion() {
+    private void movePlayer(int diceRoll) {
+        positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + diceRoll;
+        if (positionOnBoard[playerPosition] > 11)
+            positionOnBoard[playerPosition] = positionOnBoard[playerPosition] - 12;
+    }
+
+    private void askQuestion() {
 		if (currentCategory() == "Pop")
 			System.out.println(popQuestions.removeFirst());
 		if (currentCategory() == "Science")
