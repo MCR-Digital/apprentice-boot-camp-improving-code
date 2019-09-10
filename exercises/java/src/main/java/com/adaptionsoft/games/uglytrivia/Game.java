@@ -112,17 +112,12 @@ public class Game {
 
     public boolean wasCorrectlyAnswered() {
 
-        if (inPenaltyBox[currentPlayer]) {
-            if (isGettingOutOfPenaltyBox) {
-                System.out.println("Answer was correct!!!!");
-                return updatePlayerPurse();
-            } else {
-                nextPlayerTurn();
-                return true;
-            }
-        } else {
+        if(isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]) {
             System.out.println("Answer was correct!!!!");
             return updatePlayerPurse();
+        } else {
+            nextPlayerTurn();
+            return true;
         }
     }
 
