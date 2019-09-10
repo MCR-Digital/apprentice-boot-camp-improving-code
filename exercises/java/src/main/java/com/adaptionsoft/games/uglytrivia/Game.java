@@ -55,7 +55,6 @@ public class Game {
             }
 
         } else {
-
             outcomeOfCorrectAnswer(numberOnDiceAfterRoll);
         }
 
@@ -74,13 +73,13 @@ public class Game {
     }
 
     private void askQuestion() {
-        if (currentQuestionCategory() == "Pop")
+        if (currentQuestionCategory().equals("Pop"))
             System.out.println(popQuestions.removeFirst());
-        if (currentQuestionCategory() == "Science")
+        if (currentQuestionCategory().equals("Science"))
             System.out.println(scienceQuestions.removeFirst());
-        if (currentQuestionCategory() == "Sports")
+        if (currentQuestionCategory().equals("Sports"))
             System.out.println(sportsQuestions.removeFirst());
-        if (currentQuestionCategory() == "Rock")
+        if (currentQuestionCategory().equals("Rock"))
             System.out.println(rockQuestions.removeFirst());
     }
 
@@ -121,7 +120,9 @@ public class Game {
 
         boolean winner = winningPlayer();
         currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        if (currentPlayer == players.size()) {
+            currentPlayer = 0;
+        }
 
         return winner;
     }
