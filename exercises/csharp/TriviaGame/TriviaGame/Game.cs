@@ -79,44 +79,40 @@ namespace TriviaGame
 			return rollValue % 2 != 0;
 		}
 
-        public void MakeMoveBasedOnRoll(int roll)
+        public void MakeMoveBasedOnRoll(int rollValue)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            Console.WriteLine("They have rolled a " + rollValue);
 
             if (PlayerPenaltyBoxStatus[currentPlayer])
             {
-                if (CheckIfPlayerGetsOutOfPenalty(roll))
+                if (CheckIfPlayerGetsOutOfPenalty(rollValue))
                 {
                     isGettingOutOfPenaltyBox = true;
-
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
 
-					CalculateNewPositionOnBoard(roll);
+					CalculateNewPositionOnBoard(rollValue);
 
-					Console.WriteLine("The category is " + ReturnCurrentCategory());
-                    askQuestion();
+                    AskQuestion();
                 }
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
-
             }
             else
             {
-				CalculateNewPositionOnBoard(roll);
-
-				Console.WriteLine("The category is " + ReturnCurrentCategory());
-                askQuestion();
+				CalculateNewPositionOnBoard(rollValue);				
+                AskQuestion();
             }
 
         }
 
-        private void askQuestion()
+        private void AskQuestion()
         {
-            if (ReturnCurrentCategory() == "Pop")
+			Console.WriteLine("The category is " + ReturnCurrentCategory());
+			if (ReturnCurrentCategory() == "Pop")
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
