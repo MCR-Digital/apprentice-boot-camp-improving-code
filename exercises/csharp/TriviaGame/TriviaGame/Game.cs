@@ -15,16 +15,16 @@ namespace TriviaGame
 
         private readonly bool[] inPenaltyBox = new bool[6];
 
-        private readonly Dictionary<string, LinkedList<string>> questionCategories = new Dictionary<string, LinkedList<string>>
+        private readonly Dictionary<Category, LinkedList<string>> questionCategories = new Dictionary<Category, LinkedList<string>>
         {
-            { "Pop", new LinkedList<string>() },
-            { "Science", new LinkedList<string>() },
-            { "Sports", new LinkedList<string>() },
-            { "Rock", new LinkedList<string>() }
+            { Category.Pop, new LinkedList<string>() },
+            { Category.Science, new LinkedList<string>() },
+            { Category.Sports, new LinkedList<string>() },
+            { Category.Rock, new LinkedList<string>() }
         };
 
         private int currentPlayer;
-        private bool isGettingOutOfPenaltyBox;
+        private bool skipPlayersTurn;
 
         private const int TotalCategories = 4;
         private const int TotalPlaces = 12;
@@ -36,10 +36,10 @@ namespace TriviaGame
         {
             for (int questionNumber = 0; questionNumber < TotalQuestions; questionNumber++)
             {
-                questionCategories["Pop"].AddLast("Pop Question " + questionNumber);
-                questionCategories["Science"].AddLast(("Science Question " + questionNumber));
-                questionCategories["Sports"].AddLast(("Sports Question " + questionNumber));
-                questionCategories["Rock"].AddLast("Rock Question " + questionNumber);
+                questionCategories[Category.Pop].AddLast("Pop Question " + questionNumber);
+                questionCategories[Category.Science].AddLast(("Science Question " + questionNumber));
+                questionCategories[Category.Sports].AddLast(("Sports Question " + questionNumber));
+                questionCategories[Category.Rock].AddLast("Rock Question " + questionNumber);
             }
         }
 
@@ -75,10 +75,10 @@ namespace TriviaGame
                 if (roll % 2 == 0)
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    skipPlayersTurn = true;
                     return;
                 }
-                isGettingOutOfPenaltyBox = true;
+                skipPlayersTurn = false;
                 Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
             }
             MovePlayer(roll);
@@ -104,45 +104,35 @@ namespace TriviaGame
         }
 
 
-        private string CurrentCategory()
+        private Category CurrentCategory()
         {
             var remainder = places[currentPlayer] % TotalCategories;
 
             switch (remainder)
             {
                 case 0:
-                    return "Pop";
+                    return Category.Pop;
                 case 1:
-                    return "Science";
+                    return Category.Science;
                 case 2:
-                    return "Sports";
+                    return Category.Sports;
                 default:
-                    return "Rock";
+                    return Category.Rock;
             }
         }
 
         public bool CheckForWinner()
         {
-            var continueGame = true;
-            if (inPenaltyBox[currentPlayer])
+            if (inPenaltyBox[currentPlayer] && skipPlayersTurn)
             {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    Console.WriteLine("Answer was correct!!!!");
-                    AddCoin();
-
-                    continueGame = CheckShouldContinueGame();
-                    ToNextPlayer();
-                    return continueGame;
-                }
-
                 ToNextPlayer();
                 return true;
             }
-            Console.WriteLine("Answer was corrent!!!!");
+
+            Console.WriteLine("Answer was correct!!!!");
             AddCoin();
             
-            continueGame = CheckShouldContinueGame();
+            var continueGame = CheckShouldContinueGame();
             ToNextPlayer();
 
             return continueGame;
@@ -179,7 +169,13 @@ namespace TriviaGame
                               + purses[currentPlayer]
                               + " Gold Coins.");
         }
-
     }
 
+    public enum Category
+    {
+        Pop,
+        Science,
+        Sports,
+        Rock
+    }
 }
