@@ -5,7 +5,6 @@ namespace TriviaGame.Core
 {
   public class GoldenMaster
   {
-
     public static string GetResult(int i)
     {
       string result = null;

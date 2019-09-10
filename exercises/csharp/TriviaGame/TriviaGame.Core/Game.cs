@@ -29,40 +29,38 @@ namespace TriviaGame.Core
         popQuestions.AddLast("Pop Question " + i);
         scienceQuestions.AddLast(("Science Question " + i));
         sportsQuestions.AddLast(("Sports Question " + i));
-        rockQuestions.AddLast(createRockQuestion(i));
+        rockQuestions.AddLast(CreateRockQuestion(i));
       }
     }
 
-    public String createRockQuestion(int index)
+    public String CreateRockQuestion(int index)
     {
       return "Rock Question " + index;
     }
 
-    public bool isPlayable()
+    public bool IsPlayable()
     {
-      return (howManyPlayers() >= 2);
+      return (GetNumberOfPlayers() >= 2);
     }
 
-    public bool add(String playerName)
+    public bool AddPlayer(String playerName)
     {
-
-
       players.Add(playerName);
-      places[howManyPlayers()] = 0;
-      purses[howManyPlayers()] = 0;
-      inPenaltyBox[howManyPlayers()] = false;
+      places[GetNumberOfPlayers()] = 0;
+      purses[GetNumberOfPlayers()] = 0;
+      inPenaltyBox[GetNumberOfPlayers()] = false;
 
       Console.WriteLine(playerName + " was added");
       Console.WriteLine("They are player number " + players.Count);
       return true;
     }
 
-    public int howManyPlayers()
+    public int GetNumberOfPlayers()
     {
       return players.Count;
     }
 
-    public void roll(int roll)
+    public void RollDie(int roll)
     {
       Console.WriteLine(players[currentPlayer] + " is the current player");
       Console.WriteLine("They have rolled a " + roll);
@@ -81,7 +79,7 @@ namespace TriviaGame.Core
                   + "'s new location is "
                   + places[currentPlayer]);
           Console.WriteLine("The category is " + currentCategory());
-          askQuestion();
+          AskQuestion();
         }
         else
         {
@@ -100,12 +98,12 @@ namespace TriviaGame.Core
                 + "'s new location is "
                 + places[currentPlayer]);
         Console.WriteLine("The category is " + currentCategory());
-        askQuestion();
+        AskQuestion();
       }
 
     }
 
-    private void askQuestion()
+    private void AskQuestion()
     {
       if (currentCategory() == "Pop")
       {
