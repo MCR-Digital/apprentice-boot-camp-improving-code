@@ -25,10 +25,6 @@ public class Game {
 			rockQuestions.addLast(("Rock Question " + index));
     	}
     }
-	
-	public boolean isPlayable() {
-		return (amountOfPlayers() >= 2);
-	}
 
 	public boolean addingPlayer(String playerName) {
 		
