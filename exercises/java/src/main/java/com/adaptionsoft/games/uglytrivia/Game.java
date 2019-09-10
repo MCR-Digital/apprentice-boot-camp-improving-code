@@ -99,16 +99,12 @@ public class Game {
 
 
 	private String currentCategory() {
-		if (locationOnBoard[currentPlayer] == 0) return POP;
-		if (locationOnBoard[currentPlayer] == 4) return POP;
-		if (locationOnBoard[currentPlayer] == 8) return POP;
-		if (locationOnBoard[currentPlayer] == 1) return SCIENCE;
-		if (locationOnBoard[currentPlayer] == 5) return SCIENCE;
-		if (locationOnBoard[currentPlayer] == 9) return SCIENCE;
-		if (locationOnBoard[currentPlayer] == 2) return SPORTS;
-		if (locationOnBoard[currentPlayer] == 6) return SPORTS;
-		if (locationOnBoard[currentPlayer] == 10) return SPORTS;
-		return ROCK;
+        switch (locationOnBoard[currentPlayer]) {
+            case 0: case 4: case 8: return POP;
+            case 1: case 5: case 9: return SCIENCE;
+            case 2: case 6: case 10: return SPORTS;
+            default: return ROCK;
+        }
 	}
 
 	public boolean isCorrectlyAnswered() {
