@@ -25,7 +25,7 @@ namespace TriviaGame
             do
             {
 
-                aGame.roll(rand.Next(5) + 1);
+                aGame.MakeMoveBasedOnRoll(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {

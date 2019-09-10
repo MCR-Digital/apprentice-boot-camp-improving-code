@@ -35,15 +35,15 @@ namespace TriviaGame
 		
         public bool DoesGameHaveMinimumPlayersRequired()
         {
-            return (howManyPlayers() >= 2);
+            return (NumberOfPlayers() >= 2);
         }
 
         public bool GeneratePlayerList(string playerName)
         {
             players.Add(playerName);
-            places[howManyPlayers()] = 0;
-            purses[howManyPlayers()] = 0;
-            inPenaltyBox[howManyPlayers()] = false;
+            places[NumberOfPlayers()] = 0;
+            purses[NumberOfPlayers()] = 0;
+            inPenaltyBox[NumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
@@ -51,12 +51,12 @@ namespace TriviaGame
             return DoesGameHaveMinimumPlayersRequired();
         }
 
-        public int howManyPlayers()
+        public int NumberOfPlayers()
         {
             return players.Count;
         }
 
-        public void roll(int roll)
+        public void MakeMoveBasedOnRoll(int roll)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
