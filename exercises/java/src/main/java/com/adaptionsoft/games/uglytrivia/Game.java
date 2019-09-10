@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    private ArrayList players = new ArrayList();
+    private ArrayList<String> players = new ArrayList<>();
     private int[] placeOnTheBoard = new int[6];
     private int[] coinPurses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
@@ -27,7 +27,7 @@ public class Game {
         }
     }
 
-    public boolean addingPlayer(String playerName) {
+    public void addingPlayer(String playerName) {
 
         players.add(playerName);
         placeOnTheBoard[amountOfPlayers] = 0;
@@ -36,7 +36,6 @@ public class Game {
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
-        return true;
     }
 
 
