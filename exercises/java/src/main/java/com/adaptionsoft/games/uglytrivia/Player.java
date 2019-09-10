@@ -24,6 +24,10 @@ public class Player {
         return isInPenaltyBox;
     }
 
+    public void setInPenaltyBox(boolean inPenaltyBox) {
+        isInPenaltyBox = inPenaltyBox;
+    }
+
     public String getName() {
         return name;
     }
