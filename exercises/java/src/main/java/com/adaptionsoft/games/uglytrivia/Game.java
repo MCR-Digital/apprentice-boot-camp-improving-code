@@ -104,14 +104,20 @@ public class Game {
 
 
     private String currentCategory() {
-
         int playerPlace = places[currentPlayerPlace];
 
-        if (playerPlace == 0 || playerPlace == 4 || playerPlace == 8) return POP;
-        if (playerPlace == 1 || playerPlace == 5 || playerPlace == 9) return SCIENCE;
-        if (playerPlace == 2 || playerPlace == 6 || playerPlace == 10) return SPORTS;
+        if (playerPlace > 7 ) {
+            playerPlace = playerPlace - 8;
+        } else if (playerPlace > 3) {
+            playerPlace = playerPlace - 4;
+        }
 
-        return ROCK;
+        switch (playerPlace) {
+            case 0: return POP;
+            case 1: return SCIENCE;
+            case 2: return  SPORTS;
+            default: return ROCK;
+        }
     }
 
     public boolean wasCorrectlyAnswered() {
