@@ -8,6 +8,8 @@ namespace TriviaGame
     public class Game
     {
         private const int MAX_PLAYER_COUNT = 6;
+        private const int MIN_PLAYER_COUNT = 2;
+
         private const int MAX_QUESTIONS = 50;
 
         List<string> playerNames = new List<string>();
@@ -43,7 +45,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (PlayerCount >= 2);
+            return (PlayerCount >= MIN_PLAYER_COUNT);
         }
 
         public bool AddPlayer(String playerName)
@@ -215,7 +217,7 @@ namespace TriviaGame
         private void NextPlayer()
         {
             currentPlayerIndex++;
-            if (currentPlayerIndex == playerNames.Count) currentPlayerIndex = 0;
+            if (currentPlayerIndex == PlayerCount) currentPlayerIndex = 0;
         }
     }
 }
