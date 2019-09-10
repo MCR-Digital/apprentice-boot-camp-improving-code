@@ -19,8 +19,8 @@ namespace TriviaGame
         private LinkedList<string> sportsQuestions = new LinkedList<string>();
         private LinkedList<string> rockQuestions = new LinkedList<string>();
 
-        int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        private int currentPlayer = 0;
+        private bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
