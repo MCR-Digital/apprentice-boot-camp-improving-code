@@ -123,12 +123,12 @@ public class Game {
 				System.out.println("Answer was correct!!!!");
 				boolean winner = addCoin();
 				currentPlayerID++;
-				if (currentPlayerID == players.size()) currentPlayerID = 0;
-				
+				if (currentPlayerID == players.size()) resetBackToPlayerOne();
+
 				return winner;
 			} else {
 				currentPlayerID++;
-				if (currentPlayerID == players.size()) currentPlayerID = 0;
+				if (currentPlayerID == players.size()) resetBackToPlayerOne();
 				return true;
 			}
 
@@ -136,10 +136,16 @@ public class Game {
 			System.out.println("Answer was corrent!!!!");
 			boolean winner = addCoin();
 			currentPlayerID++;
-			if (currentPlayerID == players.size()) currentPlayerID = 0;
-			
+			if (currentPlayerID == players.size()) {
+				resetBackToPlayerOne();
+			}
+
 			return winner;
 		}
+	}
+
+	private void resetBackToPlayerOne() {
+		currentPlayerID = 0;
 	}
 
 	private boolean addCoin() {
@@ -158,7 +164,7 @@ public class Game {
 		playersInPenaltyBox[currentPlayerID] = true;
 		
 		currentPlayerID++;
-		if (currentPlayerID == players.size()) currentPlayerID = 0;
+		if (currentPlayerID == players.size()) resetBackToPlayerOne();
 		return true;
 	}
 
