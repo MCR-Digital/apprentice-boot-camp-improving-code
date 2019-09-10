@@ -16,6 +16,7 @@ namespace TriviaGame
             }
             catch (IOException e)
             {
+				Console.WriteLine(e);
                 result = GenerateExpectedResult(i);
             }
             return result;

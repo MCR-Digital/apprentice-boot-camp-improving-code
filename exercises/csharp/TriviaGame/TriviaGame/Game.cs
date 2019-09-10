@@ -137,7 +137,6 @@ namespace TriviaGame
             if (places[currentPlayer] == 10) return "Sports";
             return "Rock";
         }
-
         public bool wasCorrectlyAnswered()
         {
             if (inPenaltyBox[currentPlayer])
@@ -170,7 +169,7 @@ namespace TriviaGame
             else
             {
 
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine("Answer was correct!!!!");
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
                         + " now has "
