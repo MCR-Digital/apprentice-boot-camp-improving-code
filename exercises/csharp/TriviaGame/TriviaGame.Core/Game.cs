@@ -22,7 +22,7 @@ namespace TriviaGame.Core
     LinkedList<string> _rockQuestions = new LinkedList<string>();
 
     int _currentPlayer = 0;
-    bool _isGettingOutOfPenaltyBox;
+    bool _isLeavingPenaltyBox;
 
     public Game()
     {
@@ -72,21 +72,17 @@ namespace TriviaGame.Core
       {
         var isRollOdd = roll % 2 != 0;
         Console.WriteLine(CurrentPlayerName + $" is{(isRollOdd ? "" : " not")} getting out of the penalty box");
-        _isGettingOutOfPenaltyBox = isRollOdd;
+        _isLeavingPenaltyBox = isRollOdd;
 
-        if (isRollOdd)
+        if (!isRollOdd)
         {
-          AdvancePlace(roll);
-          PrintLocation();
-          AskQuestion();
+          return;
         }
       }
-      else
-      {
-        AdvancePlace(roll);
-        PrintLocation();
-        AskQuestion();
-      }
+
+      AdvancePlace(roll);
+      PrintLocation();
+      AskQuestion();
     }
 
     private void PrintLocation()
@@ -143,7 +139,7 @@ namespace TriviaGame.Core
 
     public bool OnCorrectAnswer()
     {
-      if (IsCurrentPlayerInPenalty && !_isGettingOutOfPenaltyBox)
+      if (IsCurrentPlayerInPenalty && !_isLeavingPenaltyBox)
       {
         MoveToNextPlayer();
         return true;
