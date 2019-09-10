@@ -8,7 +8,6 @@ public class Game {
     ArrayList players = new ArrayList();
     ArrayList<Player> players2 = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
-    int[] playerCoinCount = new int[6];
     boolean[] isPlayerInPenaltyBox = new boolean[6];
     
     LinkedList popQuestions = new LinkedList();
@@ -47,10 +46,8 @@ public class Game {
 	public boolean addPlayer(String playerName) {
 		
 		int initialPlayerBoardPosition = 0;
-		int initialPlayerCoinCount = 0;
 	    players.add(playerName);
 	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
-	    playerCoinCount[howManyPlayers()] = initialPlayerCoinCount;
 	    isPlayerInPenaltyBox[howManyPlayers()] = false;
 
 	    players2.add(new Player(playerName));
@@ -149,10 +146,10 @@ public class Game {
 
 	private void updatePlayerCoinCount(String message) {
 		System.out.println(message);
-		playerCoinCount[currentPlayer]++;
+		players2.get(currentPlayer).incrementCoinCount();
 		System.out.println(players2.get(currentPlayer).getName()
 				+ " now has "
-				+ playerCoinCount[currentPlayer]
+				+ players2.get(currentPlayer).getCoinCount()
 				+ " Gold Coins.");
 	}
 
@@ -167,6 +164,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(playerCoinCount[currentPlayer] == 6);
+    	return !(players2.get(currentPlayer).getCoinCount() ==6);
 	}
 }

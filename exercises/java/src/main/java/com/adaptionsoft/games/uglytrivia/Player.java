@@ -16,6 +16,9 @@ public class Player {
         return coinCount;
     }
 
+    public void incrementCoinCount(){
+        coinCount ++;
+    }
 
     public boolean isInPenaltyBox() {
         return isInPenaltyBox;
