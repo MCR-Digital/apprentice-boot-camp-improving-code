@@ -1,6 +1,7 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Game {
@@ -13,6 +14,8 @@ public class Game {
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
+
+    HashMap<String, LinkedList> topicQuestionMap = new HashMap<>();
     
     int currentPlayer = 0;
     boolean isPlayerGettingOutOfPenaltyBox;
@@ -24,6 +27,10 @@ public class Game {
 			sportsQuestions.addLast(("Sports Question " + i));
 			rockQuestions.addLast(createRockQuestion(i));
     	}
+    	topicQuestionMap.put("Pop", popQuestions);
+    	topicQuestionMap.put("Science", scienceQuestions);
+    	topicQuestionMap.put("Sports", sportsQuestions);
+    	topicQuestionMap.put("Rock", rockQuestions);
     }
 
 	public String createRockQuestion(int index){
