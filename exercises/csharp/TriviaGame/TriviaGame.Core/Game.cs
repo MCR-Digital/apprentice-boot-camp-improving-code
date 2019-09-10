@@ -7,29 +7,26 @@ namespace TriviaGame.Core
 {
   public class Game
   {
-    int NUMBER_OF_BOARD_SQUARES = 12;
-    int MINIMUM_PLAYERS = 2;
-    string[] CATEGORIES = new string[] { "Pop", "Science", "Sports", "Rock" };
+    public const int NUMBER_OF_BOARD_SQUARES = 12;
+    public const int MINIMUM_PLAYERS = 2;
+    public const int MAX_QUESTIONS_PER_CATEGORY = 50;
 
-    List<string> _players = new List<string>();
+    private readonly string[] _categories = new string[] { "Pop", "Science", "Sports", "Rock" };
+    private readonly List<string> _players = new List<string>();
+    private readonly int[] _places = new int[6];
+    private readonly int[] _purses = new int[6];
+    private readonly bool[] _inPenaltyBox = new bool[6];
+    private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
+    private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
+    private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
+    private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
 
-    int[] _places = new int[6];
-    int[] _purses = new int[6];
-
-    bool[] _inPenaltyBox = new bool[6];
-
-    LinkedList<string> _popQuestions = new LinkedList<string>();
-    LinkedList<string> _scienceQuestions = new LinkedList<string>();
-    LinkedList<string> _sportsQuestions = new LinkedList<string>();
-    LinkedList<string> _rockQuestions = new LinkedList<string>();
-
-    int _currentPlayer = 0;
-    bool _isLeavingPenaltyBox;
-
+    private int _currentPlayer = 0;
+    private bool _isLeavingPenaltyBox;
 
     public Game()
     {
-      for (int index = 0; index < 50; index++)
+      for (int index = 0; index < MAX_QUESTIONS_PER_CATEGORY; index++)
       {
         _popQuestions.AddLast("Pop Question " + index);
         _scienceQuestions.AddLast(("Science Question " + index));
@@ -43,7 +40,7 @@ namespace TriviaGame.Core
 
     private bool _hasPlayerWon => !(CurrentPlayersGoldCoins == 6);
     private string _currentPlayerName => _players[_currentPlayer];
-    private string _currentCategory => CATEGORIES[CurrentPlayerPlace % 4];
+    private string _currentCategory => _categories[CurrentPlayerPlace % 4];
 
     private bool IsCurrentPlayerInPenaltyBox
     {
