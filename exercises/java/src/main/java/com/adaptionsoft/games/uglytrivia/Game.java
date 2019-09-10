@@ -74,7 +74,6 @@ public class Game {
 		} else {
             takeTurn(currentRoll);
         }
-
 	}
 
     private void takeTurn(int currentRoll) {
@@ -89,6 +88,33 @@ public class Game {
         askQuestion();
     }
 
+    public boolean isCorrectlyAnswered() {
+        if (isInPenaltyBox[currentPlayer]){
+            if (isExitingPenaltyBox) {
+                System.out.println("Answer was correct!!!!");
+                collectCoins();
+                return hasCurrentPlayerWon();
+            } else {
+                getNextPlayer();
+                return true;
+            }
+        }
+        else {
+            System.out.println("Answer was corrent!!!!");
+            collectCoins();
+            return hasCurrentPlayerWon();
+        }
+    }
+
+    public boolean isIncorrectlyAnswered(){
+        System.out.println("Question was incorrectly answered");
+        System.out.println(allPlayers.get(currentPlayer)+ " was sent to the penalty box");
+        isInPenaltyBox[currentPlayer] = true;
+
+        getNextPlayer();
+        return true;
+    }
+
     private void askQuestion() {
 		if (currentCategory() == POP)
 			System.out.println(popQuestions.removeFirst());
@@ -100,41 +126,14 @@ public class Game {
 			System.out.println(rockQuestions.removeFirst());
 	}
 
-
 	private String currentCategory() {
-        switch (locationOnBoard[currentPlayer]) {
+        int currentSpace = locationOnBoard[currentPlayer];
+        switch (currentSpace) {
             case 0: case 4: case 8: return POP;
             case 1: case 5: case 9: return SCIENCE;
             case 2: case 6: case 10: return SPORTS;
             default: return ROCK;
         }
-	}
-
-	public boolean isCorrectlyAnswered() {
-		if (isInPenaltyBox[currentPlayer]){
-			if (isExitingPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-                collectCoins();
-                return hasCurrentPlayerWon();
-            } else {
-                getNextPlayer();
-                return true;
-			}
-		}
-		else {
-			System.out.println("Answer was corrent!!!!");
-            collectCoins();
-            return hasCurrentPlayerWon();
-        }
-	}
-
-	public boolean isIncorrectlyAnswered(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(allPlayers.get(currentPlayer)+ " was sent to the penalty box");
-		isInPenaltyBox[currentPlayer] = true;
-
-        getNextPlayer();
-        return true;
 	}
 
     private boolean hasCurrentPlayerWon() {
