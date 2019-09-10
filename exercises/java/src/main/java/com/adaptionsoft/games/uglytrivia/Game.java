@@ -62,10 +62,8 @@ public class Game {
 				System.out.println(players.get(playerPosition) + " is getting out of the penalty box");
                 movePlayer(diceRoll);
 
-                System.out.println(players.get(playerPosition)
-						+ "'s new location is " 
-						+ positionOnBoard[playerPosition]);
-				System.out.println("The category is " + currentCategory());
+                displayPlayerPosition();
+                System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
 				System.out.println(players.get(playerPosition) + " is not getting out of the penalty box");
@@ -76,14 +74,18 @@ public class Game {
 
             movePlayer(diceRoll);
 
-            System.out.println(players.get(playerPosition)
-					+ "'s new location is " 
-					+ positionOnBoard[playerPosition]);
-			System.out.println("The category is " + currentCategory());
+            displayPlayerPosition();
+            System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
 		
 	}
+
+    private void displayPlayerPosition() {
+        System.out.println(players.get(playerPosition)
+                + "'s new location is "
+                + positionOnBoard[playerPosition]);
+    }
 
     private void movePlayer(int diceRoll) {
         positionOnBoard[playerPosition] = positionOnBoard[playerPosition] + diceRoll;
