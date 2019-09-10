@@ -96,11 +96,13 @@ public class Game {
 
 
     private String currentQuestionCategory() {
-        if (placeOnTheBoard[currentPlayer] % 4 == 0) return "Pop";
+        boolean placeOnBoardIsMultipleOfFour = placeOnTheBoard[currentPlayer] % 4 == 0;
+        boolean placeOnBoardIsMultipleOfTwo = placeOnTheBoard[currentPlayer] % 2 == 0;
+        if (placeOnBoardIsMultipleOfFour) return "Pop";
         if (placeOnTheBoard[currentPlayer] == 1) return "Science";
         if (placeOnTheBoard[currentPlayer] == 5) return "Science";
         if (placeOnTheBoard[currentPlayer] == 9) return "Science";
-        if (placeOnTheBoard[currentPlayer] % 2 == 0) return "Sports";
+        if (placeOnBoardIsMultipleOfTwo) return "Sports";
         return "Rock";
     }
 
