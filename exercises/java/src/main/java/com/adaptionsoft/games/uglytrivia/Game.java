@@ -14,7 +14,7 @@ public class Game {
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
     
-    int player = 0;
+    int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
@@ -52,20 +52,20 @@ public class Game {
 	}
 
 	public void playerTurn(int diceRoll) {
-		System.out.println(players.get(player) + " is the current player");
+		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + diceRoll);
 		
-		if (inPenaltyBox[player]) {
+		if (inPenaltyBox[currentPlayer]) {
 			if (isOdd(diceRoll)) {
 				isGettingOutOfPenaltyBox = true;
-				System.out.println(players.get(player) + " is getting out of the penalty box");
+				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 
 				movePlayer(diceRoll);
                 displayPlayerPosition();
 				askQuestion();
 
 			} else {
-				System.out.println(players.get(player) + " is not getting out of the penalty box");
+				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
 				}
 			
@@ -82,20 +82,20 @@ public class Game {
     }
 
     private void displayPlayerPosition() {
-        System.out.println(players.get(player)
+        System.out.println(players.get(currentPlayer)
                 + "'s new location is "
-                + positionOnBoard[player]);
+                + positionOnBoard[currentPlayer]);
     }
 
     private void movePlayer(int diceRoll) {
-        positionOnBoard[player] = positionOnBoard[player] + diceRoll;
-        if (positionOnBoard[player] > 11) {
+        positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] + diceRoll;
+        if (positionOnBoard[currentPlayer] > 11) {
             returnToBeginningOfBoard();
         }
     }
 
     private void returnToBeginningOfBoard() {
-        positionOnBoard[player] = positionOnBoard[player] - 12;
+        positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - 12;
     }
 
     private void askQuestion() {
@@ -112,36 +112,36 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (positionOnBoard[player] == 0) return "Pop";
-		if (positionOnBoard[player] == 4) return "Pop";
-		if (positionOnBoard[player] == 8) return "Pop";
-		if (positionOnBoard[player] == 1) return "Science";
-		if (positionOnBoard[player] == 5) return "Science";
-		if (positionOnBoard[player] == 9) return "Science";
-		if (positionOnBoard[player] == 2) return "Sports";
-		if (positionOnBoard[player] == 6) return "Sports";
-		if (positionOnBoard[player] == 10) return "Sports";
+		if (positionOnBoard[currentPlayer] == 0) return "Pop";
+		if (positionOnBoard[currentPlayer] == 4) return "Pop";
+		if (positionOnBoard[currentPlayer] == 8) return "Pop";
+		if (positionOnBoard[currentPlayer] == 1) return "Science";
+		if (positionOnBoard[currentPlayer] == 5) return "Science";
+		if (positionOnBoard[currentPlayer] == 9) return "Science";
+		if (positionOnBoard[currentPlayer] == 2) return "Sports";
+		if (positionOnBoard[currentPlayer] == 6) return "Sports";
+		if (positionOnBoard[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[player]){
+		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				score[player]++;
-				System.out.println(players.get(player)
+				score[currentPlayer]++;
+				System.out.println(players.get(currentPlayer)
 						+ " now has "
-						+ score[player]
+						+ score[currentPlayer]
 						+ " Gold Coins.");
 				
 				boolean winner = isWinner();
-				player++;
-				if (player == players.size()) player = 0;
+				currentPlayer++;
+				if (currentPlayer == players.size()) currentPlayer = 0;
 				
 				return winner;
 			} else {
-				player++;
-				if (player == players.size()) player = 0;
+				currentPlayer++;
+				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
 			
@@ -150,15 +150,15 @@ public class Game {
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-			score[player]++;
-			System.out.println(players.get(player)
+			score[currentPlayer]++;
+			System.out.println(players.get(currentPlayer)
 					+ " now has "
-					+ score[player]
+					+ score[currentPlayer]
 					+ " Gold Coins.");
 			
 			boolean winner = isWinner();
-			player++;
-			if (player == players.size()) player = 0;
+			currentPlayer++;
+			if (currentPlayer == players.size()) currentPlayer = 0;
 			
 			return winner;
 		}
@@ -166,16 +166,16 @@ public class Game {
 	
 	public boolean isWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(player)+ " was sent to the penalty box");
-		inPenaltyBox[player] = true;
+		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
+		inPenaltyBox[currentPlayer] = true;
 		
-		player++;
-		if (player == players.size()) player = 0;
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
 		return true;
 	}
 
 
 	private boolean isWinner() {
-		return !(score[player] == 6);
+		return !(score[currentPlayer] == 6);
 	}
 }
