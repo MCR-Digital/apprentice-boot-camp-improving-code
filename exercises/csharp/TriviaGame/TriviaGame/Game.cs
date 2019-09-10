@@ -43,7 +43,7 @@ namespace TriviaGame
             return (howManyPlayers() >= 2);
         }
 
-        public bool add(String playerName)
+        public bool AddPlayer(String playerName)
         {
 
 
