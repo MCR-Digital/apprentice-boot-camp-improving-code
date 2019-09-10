@@ -157,7 +157,7 @@ public class Game {
 		}
 	}
 	
-	public boolean wasIncorrectlyAnswered(){
+	public boolean handleIncorrectAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayerID)+ " was sent to the penalty box");
 		playersInPenaltyBox[currentPlayerID] = true;

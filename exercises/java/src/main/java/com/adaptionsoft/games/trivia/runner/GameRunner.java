@@ -23,7 +23,7 @@ public class GameRunner {
 			aGame.moveBasedOnDieRoll(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wasIncorrectlyAnswered();
+				notAWinner = aGame.handleIncorrectAnswer();
 			} else {
 				notAWinner = aGame.handleCorrectAnswer();
 			}
