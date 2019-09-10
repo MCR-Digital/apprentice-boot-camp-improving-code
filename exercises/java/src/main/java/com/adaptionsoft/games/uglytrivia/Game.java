@@ -15,7 +15,7 @@ public class Game {
 
     private ArrayList players = new ArrayList();
     private int[] playerPositions = new int[MAX_NUMBER_OF_PLAYERS];
-    private int[] purses = new int[MAX_NUMBER_OF_PLAYERS];
+    private int[] playerPurses = new int[MAX_NUMBER_OF_PLAYERS];
     private boolean[] playersInPenaltyBox = new boolean[MAX_NUMBER_OF_PLAYERS];
 
     private LinkedList popQuestions = new LinkedList();
@@ -46,7 +46,7 @@ public class Game {
     public boolean addPlayer(String playerName) {
         players.add(playerName);
         playerPositions[getNumberOfPlayers()] = 0;
-        purses[getNumberOfPlayers()] = 0;
+        playerPurses[getNumberOfPlayers()] = 0;
         playersInPenaltyBox[getNumberOfPlayers()] = false;
 
         System.out.println(playerName + " was added");
@@ -173,7 +173,7 @@ public class Game {
 
     private boolean addCoin(int playerID) {
         System.out.println("Answer was correct!!!!");
-        purses[currentPlayerID]++;
+        playerPurses[currentPlayerID]++;
         System.out.println(players.get(playerID)
                 + " now has "
                 + getPlayerPurse(playerID)
@@ -183,7 +183,7 @@ public class Game {
     }
 
     private int getPlayerPurse(int playerID) {
-        return purses[playerID];
+        return playerPurses[playerID];
     }
 
     public boolean handleIncorrectAnswer() {
