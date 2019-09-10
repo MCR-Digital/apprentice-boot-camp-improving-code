@@ -70,10 +70,7 @@ namespace TriviaGame.Core
           places[currentPlayer] = places[currentPlayer] + roll;
           if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
-          Console.WriteLine(players[currentPlayer]
-                  + "'s new location is "
-                  + places[currentPlayer]);
-          Console.WriteLine("The category is " + CurrentCategory());
+          PrintLocation();
           AskQuestion();
         }
         else
@@ -89,13 +86,18 @@ namespace TriviaGame.Core
         places[currentPlayer] = places[currentPlayer] + roll;
         if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
-        Console.WriteLine(players[currentPlayer]
-                + "'s new location is "
-                + places[currentPlayer]);
-        Console.WriteLine("The category is " + CurrentCategory());
+        PrintLocation();
         AskQuestion();
       }
 
+    }
+
+    private void PrintLocation()
+    {
+      Console.WriteLine(players[currentPlayer]
+                + "'s new location is "
+                + places[currentPlayer]);
+      Console.WriteLine("The category is " + CurrentCategory());
     }
 
     private void AskQuestion()
