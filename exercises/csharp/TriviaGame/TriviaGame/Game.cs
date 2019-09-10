@@ -8,6 +8,7 @@ namespace TriviaGame
     public class Game
     {
         private const int MAX_PLAYER_COUNT = 6;
+        private const int MAX_QUESTIONS = 50;
 
         List<string> players = new List<string>();
 
@@ -26,7 +27,7 @@ namespace TriviaGame
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < MAX_QUESTIONS; i++)
             {
                 popQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
