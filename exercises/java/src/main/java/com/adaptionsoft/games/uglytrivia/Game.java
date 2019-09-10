@@ -115,16 +115,17 @@ public class Game {
 		if (isInPenaltyBox[currentPlayer]){
 			if (isExitingPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-                return hasPlayerWon();
+                collectCoins();
+                return hasCurrentPlayerWon();
             } else {
-				currentPlayer++;
-				resetToFirstPlayer();
-				return true;
+                getNextPlayer();
+                return true;
 			}
 		}
 		else {
 			System.out.println("Answer was corrent!!!!");
-            return hasPlayerWon();
+            collectCoins();
+            return hasCurrentPlayerWon();
         }
 	}
 
@@ -133,26 +134,31 @@ public class Game {
 		System.out.println(allPlayers.get(currentPlayer)+ " was sent to the penalty box");
 		isInPenaltyBox[currentPlayer] = true;
 
-		currentPlayer++;
-		resetToFirstPlayer();
-		return true;
+        getNextPlayer();
+        return true;
 	}
 
-    private boolean hasPlayerWon() {
+    private boolean hasCurrentPlayerWon() {
+        boolean isWinner = didPlayerWin();
+        getNextPlayer();
+
+        return isWinner;
+    }
+
+    private void getNextPlayer() {
+        currentPlayer++;
+        resetToFirstPlayer();
+    }
+
+    private void collectCoins() {
         goldCoins[currentPlayer]++;
         System.out.println(allPlayers.get(currentPlayer)
                 + " now has "
                 + goldCoins[currentPlayer]
                 + " Gold Coins.");
-
-        boolean isWinner = didPlayerWin();
-        currentPlayer++;
-		resetToFirstPlayer();
-
-		return isWinner;
     }
 
-	private void resetToFirstPlayer() {
+    private void resetToFirstPlayer() {
 		if (currentPlayer == numberOfPlayers()) {
 			currentPlayer = 0;
 		}
