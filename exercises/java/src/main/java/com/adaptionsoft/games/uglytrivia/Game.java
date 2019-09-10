@@ -10,6 +10,7 @@ public class Game {
 	private static final String ROCK = "Rock";
 	private static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
 	private static final int MAX_NUMBER_OF_PLAYERS = 6;
+	private static final int NUMBER_OF_QUESTIONS = 50;
 
 	ArrayList players = new ArrayList();
     int[] places = new int[MAX_NUMBER_OF_PLAYERS];
@@ -25,7 +26,7 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
+    	for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
 			sportsQuestions.addLast(("Sports Question " + i));
