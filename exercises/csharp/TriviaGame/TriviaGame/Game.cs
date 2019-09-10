@@ -29,16 +29,16 @@ namespace TriviaGame
                 popQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
                 sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(createRockQuestion(i));
+                rockQuestions.AddLast(CreateRockQuestion(i));
             }
         }
 
-        public String createRockQuestion(int index)
+        public String CreateRockQuestion(int index)
         {
             return "Rock Question " + index;
         }
 
-        public bool isPlayable()
+        public bool IsPlayable()
         {
             return (GetPlayerCount() >= 2);
         }
@@ -62,19 +62,19 @@ namespace TriviaGame
             return players.Count;
         }
 
-        public void roll(int roll)
+        public void RollDice(int rollNumber)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            Console.WriteLine("They have rolled a " + rollNumber);
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
+                if (rollNumber % 2 != 0)
                 {
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    places[currentPlayer] = places[currentPlayer] + roll;
+                    places[currentPlayer] = places[currentPlayer] + rollNumber;
                     if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
                     Console.WriteLine(players[currentPlayer]
@@ -93,7 +93,7 @@ namespace TriviaGame
             else
             {
 
-                places[currentPlayer] = places[currentPlayer] + roll;
+                places[currentPlayer] = places[currentPlayer] + rollNumber;
                 if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
 
                 Console.WriteLine(players[currentPlayer]
