@@ -38,7 +38,7 @@ namespace TriviaGame
             return (howManyPlayers() >= 2);
         }
 
-        public bool add(string playerName)
+        public bool GeneratePlayerList(string playerName)
         {
             players.Add(playerName);
             places[howManyPlayers()] = 0;
