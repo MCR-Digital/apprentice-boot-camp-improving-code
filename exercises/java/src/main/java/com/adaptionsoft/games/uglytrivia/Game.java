@@ -8,7 +8,6 @@ public class Game {
 	private static final String SPORTS = "Sports";
 	private static final String ROCK = "Rock";
 
-    private static final int MINIMUM_PLAYERS = 2;
     private static final int END_SPACE = 11;
     private static final int NUMBER_OF_SPACES = 12;
     private static final int BOARD_STARTING_LOCATION = 0;
@@ -17,12 +16,12 @@ public class Game {
 
     private Map<Integer, String> categoriesToSpaces = new HashMap<>();
 
-    private LinkedList popQuestions = new LinkedList();
-    private LinkedList scienceQuestions = new LinkedList();
-    private LinkedList sportsQuestions = new LinkedList();
-    private LinkedList rockQuestions = new LinkedList();
+    private LinkedList<String> popQuestions = new LinkedList<>();
+    private LinkedList<String> scienceQuestions = new LinkedList<>();
+    private LinkedList<String> sportsQuestions = new LinkedList<>();
+    private LinkedList<String> rockQuestions = new LinkedList<>();
 
-	private ArrayList allPlayers = new ArrayList();
+	private ArrayList<String> allPlayers = new ArrayList<>();
     private int[] locationOnBoard = new int[6];
     private int[] goldCoins = new int[6];
     private boolean[] isInPenaltyBox = new boolean[6];
@@ -35,15 +34,7 @@ public class Game {
         assignCategoriesToBoardSpaces();
     }
 
-    public String createRockQuestion(int index){
-		return ROCK + " Question " + index;
-	}
-
-	public boolean isPlayable() {
-		return (numberOfPlayers() >= MINIMUM_PLAYERS);
-	}
-
-	public boolean addPlayer(String playerName) {
+	public void addPlayer(String playerName) {
 
 	    allPlayers.add(playerName);
 	    locationOnBoard[numberOfPlayers()] = BOARD_STARTING_LOCATION;
@@ -52,12 +43,7 @@ public class Game {
 
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + numberOfPlayers());
-		return true;
-	}
-
-	public int numberOfPlayers() {
-		return allPlayers.size();
-	}
+    }
 
 	public void rollDice(int currentRoll) {
 		System.out.println(allPlayers.get(currentPlayer) + " is the current player");
@@ -77,18 +63,6 @@ public class Game {
             takeTurn(currentRoll);
         }
 	}
-
-    private void takeTurn(int currentRoll) {
-        locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + currentRoll;
-        if (locationOnBoard[currentPlayer] > END_SPACE) locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] - NUMBER_OF_SPACES;
-
-        System.out.println(allPlayers.get(currentPlayer)
-                + "'s new location is "
-                + locationOnBoard[currentPlayer]);
-        System.out.println("The category is " + getCurrentCategory());
-
-        askQuestion();
-    }
 
     public boolean isCorrectlyAnswered() {
         if (isInPenaltyBox[currentPlayer]){
@@ -115,6 +89,26 @@ public class Game {
 
         getNextPlayer();
         return true;
+    }
+
+    private void takeTurn(int currentRoll) {
+        locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + currentRoll;
+        if (locationOnBoard[currentPlayer] > END_SPACE) locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] - NUMBER_OF_SPACES;
+
+        System.out.println(allPlayers.get(currentPlayer)
+                + "'s new location is "
+                + locationOnBoard[currentPlayer]);
+        System.out.println("The category is " + getCurrentCategory());
+
+        askQuestion();
+    }
+
+    private String createRockQuestion(int index){
+        return ROCK + " Question " + index;
+    }
+
+    private int numberOfPlayers() {
+        return allPlayers.size();
     }
 
     private void askQuestion() {
