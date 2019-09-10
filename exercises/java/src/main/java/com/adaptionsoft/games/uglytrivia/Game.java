@@ -106,13 +106,7 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (playerBoardPosition[currentPlayer] == 0 || playerBoardPosition[currentPlayer] == 4 || playerBoardPosition[currentPlayer] == 8)
-			return "Pop";
-		if (playerBoardPosition[currentPlayer] == 1 || playerBoardPosition[currentPlayer] == 5 || playerBoardPosition[currentPlayer] == 9)
-			return "Science";
-		if (playerBoardPosition[currentPlayer] == 2 || playerBoardPosition[currentPlayer] == 6 || playerBoardPosition[currentPlayer] == 10)
-			return "Sports";
-		return "Rock";
+		return board[playerBoardPosition[currentPlayer]];
 	}
 
 	public boolean wasCorrectlyAnswered() {
