@@ -145,10 +145,7 @@ namespace TriviaGame.Core
         {
           Console.WriteLine("Answer was correct!!!!");
           purses[currentPlayer]++;
-          Console.WriteLine(players[currentPlayer]
-                  + " now has "
-                  + purses[currentPlayer]
-                  + " Gold Coins.");
+          PrintPlayerScore();
 
           bool winner = HasPlayerWon();
           MoveToNextPlayer();
@@ -166,10 +163,7 @@ namespace TriviaGame.Core
 
         Console.WriteLine("Answer was corrent!!!!");
         purses[currentPlayer]++;
-        Console.WriteLine(players[currentPlayer]
-                + " now has "
-                + purses[currentPlayer]
-                + " Gold Coins.");
+        PrintPlayerScore();
 
         bool winner = HasPlayerWon();
         MoveToNextPlayer();
@@ -193,6 +187,14 @@ namespace TriviaGame.Core
     private bool HasPlayerWon()
     {
       return !(purses[currentPlayer] == 6);
+    }
+
+    private void PrintPlayerScore()
+    {
+      Console.WriteLine(players[currentPlayer]
+                      + " now has "
+                      + purses[currentPlayer]
+                      + " Gold Coins.");
     }
 
     private void MoveToNextPlayer()
