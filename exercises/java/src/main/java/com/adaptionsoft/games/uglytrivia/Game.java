@@ -13,7 +13,7 @@ public class Game {
     private static final int NUMBER_OF_QUESTIONS = 50;
     private static final int PLAYER_ONE_ID = 0;
 
-    private final String[] positions = {POP, SCIENCE, SPORTS, ROCK, POP, SCIENCE, SPORTS, ROCK, POP, SCIENCE, SPORTS, ROCK};
+    private final String[] board = {POP, SCIENCE, SPORTS, ROCK, POP, SCIENCE, SPORTS, ROCK, POP, SCIENCE, SPORTS, ROCK};
 
     private ArrayList players = new ArrayList();
     private int[] playerPositions = new int[MAX_NUMBER_OF_PLAYERS];
@@ -124,7 +124,7 @@ public class Game {
     }
 
     private String getCategoryForPosition() {
-        return positions[getCurrentPlayerPosition()];
+        return board[getCurrentPlayerPosition()];
     }
 
     private int getCurrentPlayerPosition() {
