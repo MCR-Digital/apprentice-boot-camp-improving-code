@@ -7,6 +7,7 @@ public class Game {
 	private static final String POP = "Pop";
 	private static final String SCIENCE = "Science";
 	private static final String SPORTS = "Sports";
+	private static final String ROCK = "Rock";
 
 	ArrayList players = new ArrayList();
     int[] places = new int[6];
@@ -98,7 +99,7 @@ public class Game {
 			System.out.println(scienceQuestions.removeFirst());
 		if (getCurrentCategory() == SPORTS)
 			System.out.println(sportsQuestions.removeFirst());
-		if (getCurrentCategory() == "Rock")
+		if (getCurrentCategory() == ROCK)
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
@@ -113,7 +114,7 @@ public class Game {
 		if (places[currentPlayerID] == 2) return SPORTS;
 		if (places[currentPlayerID] == 6) return SPORTS;
 		if (places[currentPlayerID] == 10) return SPORTS;
-		return "Rock";
+		return ROCK;
 	}
 
 	public boolean wasCorrectlyAnswered() {
