@@ -10,7 +10,7 @@ namespace TriviaGame
 		private const int MaxPlayers = 6;
         private List<string> players = new List<string>();
 
-        private readonly int[] PlayerPosition = new int[MaxPlayers];
+        private readonly int[] PlayerPositionOnBoard = new int[MaxPlayers];
         private readonly int[] PlayerPurses = new int[MaxPlayers];
         private readonly bool[] PlayerPenaltyBoxStatus = new bool[MaxPlayers];
 
@@ -43,7 +43,7 @@ namespace TriviaGame
 			foreach(var playerName in playerNames)
 			{
 				players.Add(playerName);
-				PlayerPosition[NumberOfPlayers()] = 0;
+				PlayerPositionOnBoard[NumberOfPlayers()] = 0;
 				PlayerPurses[NumberOfPlayers()] = 0;
 				PlayerPenaltyBoxStatus[NumberOfPlayers()] = false;
 
@@ -53,7 +53,7 @@ namespace TriviaGame
 
 			return DoesGameHaveMinimumPlayersRequired();
         }
-
+		
         public int NumberOfPlayers()
         {
             return players.Count;
@@ -71,12 +71,12 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    PlayerPosition[currentPlayer] = PlayerPosition[currentPlayer] + roll;
-                    if (PlayerPosition[currentPlayer] > 11) PlayerPosition[currentPlayer] = PlayerPosition[currentPlayer] - 12;
+                    PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] + roll;
+                    if (PlayerPositionOnBoard[currentPlayer] > 11) PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] - 12;
 
                     Console.WriteLine(players[currentPlayer]
                             + "'s new location is "
-                            + PlayerPosition[currentPlayer]);
+                            + PlayerPositionOnBoard[currentPlayer]);
                     Console.WriteLine("The category is " + currentCategory());
                     askQuestion();
                 }
@@ -90,12 +90,12 @@ namespace TriviaGame
             else
             {
 
-                PlayerPosition[currentPlayer] = PlayerPosition[currentPlayer] + roll;
-                if (PlayerPosition[currentPlayer] > 11) PlayerPosition[currentPlayer] = PlayerPosition[currentPlayer] - 12;
+                PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] + roll;
+                if (PlayerPositionOnBoard[currentPlayer] > 11) PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] - 12;
 
                 Console.WriteLine(players[currentPlayer]
                         + "'s new location is "
-                        + PlayerPosition[currentPlayer]);
+                        + PlayerPositionOnBoard[currentPlayer]);
                 Console.WriteLine("The category is " + currentCategory());
                 askQuestion();
             }
@@ -129,15 +129,15 @@ namespace TriviaGame
 
         private string currentCategory()
         {
-            if (PlayerPosition[currentPlayer] == 0) return "Pop";
-            if (PlayerPosition[currentPlayer] == 4) return "Pop";
-            if (PlayerPosition[currentPlayer] == 8) return "Pop";
-            if (PlayerPosition[currentPlayer] == 1) return "Science";
-            if (PlayerPosition[currentPlayer] == 5) return "Science";
-            if (PlayerPosition[currentPlayer] == 9) return "Science";
-            if (PlayerPosition[currentPlayer] == 2) return "Sports";
-            if (PlayerPosition[currentPlayer] == 6) return "Sports";
-            if (PlayerPosition[currentPlayer] == 10) return "Sports";
+            if (PlayerPositionOnBoard[currentPlayer] == 0) return "Pop";
+            if (PlayerPositionOnBoard[currentPlayer] == 4) return "Pop";
+            if (PlayerPositionOnBoard[currentPlayer] == 8) return "Pop";
+            if (PlayerPositionOnBoard[currentPlayer] == 1) return "Science";
+            if (PlayerPositionOnBoard[currentPlayer] == 5) return "Science";
+            if (PlayerPositionOnBoard[currentPlayer] == 9) return "Science";
+            if (PlayerPositionOnBoard[currentPlayer] == 2) return "Sports";
+            if (PlayerPositionOnBoard[currentPlayer] == 6) return "Sports";
+            if (PlayerPositionOnBoard[currentPlayer] == 10) return "Sports";
             return "Rock";
         }
         public bool wasCorrectlyAnswered()
