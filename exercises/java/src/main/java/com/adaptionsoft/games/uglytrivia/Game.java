@@ -65,7 +65,7 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayerID) + " is getting out of the penalty box");
-				places[currentPlayerID] = places[currentPlayerID] + rolledNumber;
+				movePlayer(rolledNumber);
 				if (places[currentPlayerID] > 11) places[currentPlayerID] = places[currentPlayerID] - 12;
 				
 				System.out.println(players.get(currentPlayerID)
@@ -79,8 +79,8 @@ public class Game {
 				}
 			
 		} else {
-		
-			places[currentPlayerID] = places[currentPlayerID] + rolledNumber;
+
+			movePlayer(rolledNumber);
 			if (places[currentPlayerID] > 11) places[currentPlayerID] = places[currentPlayerID] - 12;
 			
 			System.out.println(players.get(currentPlayerID)
@@ -90,6 +90,10 @@ public class Game {
 			askQuestion();
 		}
 		
+	}
+
+	private void movePlayer(int rolledNumber) {
+		places[currentPlayerID] = places[currentPlayerID] + rolledNumber;
 	}
 
 	private void askQuestion() {
