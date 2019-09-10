@@ -146,25 +146,25 @@ public class Game {
 		if (isPlayerInPenaltyBox(currentPlayerID)){
 			if (isGettingOutOfPenaltyBox) {
 				boolean winner = addCoin(currentPlayerID);
-				currentPlayerID++;
-				if (isLastPlayerInList()) resetBackToPlayerOne();
+				switchToNextPlayer();
 
 				return winner;
 			} else {
-				currentPlayerID++;
-				if (isLastPlayerInList()) resetBackToPlayerOne();
+				switchToNextPlayer();
 				return true;
 			}
 
 		} else {
 			boolean winner = addCoin(currentPlayerID);
-			currentPlayerID++;
-			if (isLastPlayerInList()) {
-				resetBackToPlayerOne();
-			}
+			switchToNextPlayer();
 
 			return winner;
 		}
+	}
+
+	private void switchToNextPlayer() {
+		currentPlayerID++;
+		if (isLastPlayerInList()) resetBackToPlayerOne();
 	}
 
 	private boolean isPlayerInPenaltyBox(int playerID) {
@@ -194,9 +194,8 @@ public class Game {
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayerID)+ " was sent to the penalty box");
 		playersInPenaltyBox[currentPlayerID] = true;
-		
-		currentPlayerID++;
-		if (isLastPlayerInList()) resetBackToPlayerOne();
+
+		switchToNextPlayer();
 		return true;
 	}
 
