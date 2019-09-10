@@ -20,17 +20,14 @@ public class GameRunner {
 	
 		do {
 			
-			aGame.roll(randomNumber.nextInt(5) + 1);
+			aGame.playerTurn(randomNumber.nextInt(5) + 1);
 			
 			if (randomNumber.nextInt(9) == 7) {
 				notAWinner = aGame.wrongAnswer();
 			} else {
 				notAWinner = aGame.wasCorrectlyAnswered();
 			}
-			
-			
-			
+
 		} while (notAWinner);
-		
 	}
 }
