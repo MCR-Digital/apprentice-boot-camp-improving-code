@@ -74,7 +74,7 @@ public class Game {
 				System.out.println(players.get(currentPlayerID)
 						+ "'s new location is " 
 						+ getCurrentPlayerPosition());
-				System.out.println("The category is " + getCurrentCategory());
+				System.out.println("The category is " + getCategoryForPosition());
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayerID) + " is not getting out of the penalty box");
@@ -88,7 +88,7 @@ public class Game {
 			System.out.println(players.get(currentPlayerID)
 					+ "'s new location is " 
 					+ getCurrentPlayerPosition());
-			System.out.println("The category is " + getCurrentCategory());
+			System.out.println("The category is " + getCategoryForPosition());
 			askQuestion();
 		}
 		
@@ -114,18 +114,18 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (getCurrentCategory() == POP)
+		if (getCategoryForPosition() == POP)
 			System.out.println(popQuestions.removeFirst());
-		if (getCurrentCategory() == SCIENCE)
+		if (getCategoryForPosition() == SCIENCE)
 			System.out.println(scienceQuestions.removeFirst());
-		if (getCurrentCategory() == SPORTS)
+		if (getCategoryForPosition() == SPORTS)
 			System.out.println(sportsQuestions.removeFirst());
-		if (getCurrentCategory() == ROCK)
+		if (getCategoryForPosition() == ROCK)
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
 	
-	private String getCurrentCategory() {
+	private String getCategoryForPosition() {
 		if (getCurrentPlayerPosition() == 0) return POP;
 		if (getCurrentPlayerPosition() == 4) return POP;
 		if (getCurrentPlayerPosition() == 8) return POP;
