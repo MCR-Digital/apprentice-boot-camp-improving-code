@@ -7,12 +7,13 @@ namespace TriviaGame
 {
     public class Game
     {
+		private const int MaxPlayers = 6;
         List<string> players = new List<string>();
 
-        int[] places = new int[6];
-        int[] purses = new int[6];
+        int[] places = new int[MaxPlayers];
+        int[] purses = new int[MaxPlayers];
 
-        bool[] inPenaltyBox = new bool[6];
+        bool[] inPenaltyBox = new bool[MaxPlayers];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -198,7 +199,7 @@ namespace TriviaGame
 
         private bool didPlayerWin()
         {
-            return !(purses[currentPlayer] == 6);
+            return !(purses[currentPlayer] == MaxPlayers);
         }
     }
 
