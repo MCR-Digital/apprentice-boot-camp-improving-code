@@ -96,7 +96,7 @@ public class Game {
             case SPORTS:
                 System.out.println(sportsQuestions.removeFirst());
                 break;
-            case ROCK:
+            default:
                 System.out.println(rockQuestions.removeFirst());
                 break;
         }
