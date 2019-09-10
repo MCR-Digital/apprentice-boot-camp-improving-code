@@ -19,7 +19,8 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        for (int index = 0; index < 50; index++) {
+        int maxAmountOfQuestions = 50;
+        for (int index = 0; index < maxAmountOfQuestions; index++) {
             popQuestions.addLast(("Pop Question " + index));
             scienceQuestions.addLast(("Science Question " + index));
             sportsQuestions.addLast(("Sports Question " + index));
@@ -30,12 +31,15 @@ public class Game {
     public void addingPlayer(String playerName) {
 
         players.add(playerName);
+        setUpForEachPlayer();
+        System.out.println(playerName + " was added");
+        System.out.println("They are player number " + players.size());
+    }
+
+    private void setUpForEachPlayer() {
         placeOnTheBoard[amountOfPlayers] = 0;
         coinPurses[amountOfPlayers] = 0;
         inPenaltyBox[amountOfPlayers] = false;
-
-        System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
     }
 
 
