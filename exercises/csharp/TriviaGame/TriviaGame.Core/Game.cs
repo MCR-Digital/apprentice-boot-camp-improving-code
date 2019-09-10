@@ -151,20 +151,15 @@ namespace TriviaGame.Core
                   + " Gold Coins.");
 
           bool winner = HasPlayerWon();
-          currentPlayer++;
-          if (currentPlayer == players.Count) currentPlayer = 0;
+          MoveToNextPlayer();
 
           return winner;
         }
         else
         {
-          currentPlayer++;
-          if (currentPlayer == players.Count) currentPlayer = 0;
+          MoveToNextPlayer();
           return true;
         }
-
-
-
       }
       else
       {
@@ -177,8 +172,7 @@ namespace TriviaGame.Core
                 + " Gold Coins.");
 
         bool winner = HasPlayerWon();
-        currentPlayer++;
-        if (currentPlayer == players.Count) currentPlayer = 0;
+        MoveToNextPlayer();
 
         return winner;
       }
@@ -199,6 +193,11 @@ namespace TriviaGame.Core
     private bool HasPlayerWon()
     {
       return !(purses[currentPlayer] == 6);
+    }
+
+    private void MoveToNextPlayer()
+    {
+      currentPlayer = (currentPlayer + 1) % players.Count;
     }
   }
 }
