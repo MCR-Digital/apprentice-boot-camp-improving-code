@@ -83,7 +83,7 @@ namespace TriviaGame
                             + "'s new location is "
                             + places[currentPlayerIndex]);
                     Console.WriteLine("The category is " + GetCurrentCategory());
-                    askQuestion();
+                    PrintQuestionAndRemoveFromList();
                 }
                 else
                 {
@@ -102,12 +102,12 @@ namespace TriviaGame
                         + "'s new location is "
                         + places[currentPlayerIndex]);
                 Console.WriteLine("The category is " + GetCurrentCategory());
-                askQuestion();
+                PrintQuestionAndRemoveFromList();
             }
 
         }
 
-        private void askQuestion()
+        private void PrintQuestionAndRemoveFromList()
         {
             if (GetCurrentCategory() == "Pop")
             {
