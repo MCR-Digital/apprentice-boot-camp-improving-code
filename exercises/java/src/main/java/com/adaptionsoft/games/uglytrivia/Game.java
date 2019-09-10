@@ -96,7 +96,7 @@ public class Game {
 		if (playerBoardPosition[currentPlayer] >= numberOfBoardPositions)
 			playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - numberOfBoardPositions;
 
-		System.out.println(players.get(currentPlayer)
+		System.out.println(players2.get(currentPlayer).getName()
 				+ "'s new location is "
 				+ playerBoardPosition[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
@@ -150,7 +150,7 @@ public class Game {
 	private void updatePlayerCoinCount(String message) {
 		System.out.println(message);
 		playerCoinCount[currentPlayer]++;
-		System.out.println(players.get(currentPlayer)
+		System.out.println(players2.get(currentPlayer).getName()
 				+ " now has "
 				+ playerCoinCount[currentPlayer]
 				+ " Gold Coins.");
@@ -158,7 +158,7 @@ public class Game {
 
 	public boolean wasIncorrectlyAnswered(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
+		System.out.println(players2.get(currentPlayer).getName()+ " was sent to the penalty box");
 		isPlayerInPenaltyBox[currentPlayer] = true;
 
 		changeCurrentPlayer();
