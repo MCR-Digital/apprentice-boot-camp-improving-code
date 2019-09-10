@@ -70,19 +70,15 @@ namespace TriviaGame.Core
 
       if (IsCurrentPlayerInPenalty)
       {
-        if (roll % 2 != 0)
-        {
-          _isGettingOutOfPenaltyBox = true;
+        var isRollOdd = roll % 2 != 0;
+        Console.WriteLine(CurrentPlayerName + $" is{(isRollOdd ? "" : " not")} getting out of the penalty box");
+        _isGettingOutOfPenaltyBox = isRollOdd;
 
-          Console.WriteLine(CurrentPlayerName + " is getting out of the penalty box");
+        if (isRollOdd)
+        {
           AdvancePlace(roll);
           PrintLocation();
           AskQuestion();
-        }
-        else
-        {
-          Console.WriteLine(CurrentPlayerName + " is not getting out of the penalty box");
-          _isGettingOutOfPenaltyBox = false;
         }
       }
       else
