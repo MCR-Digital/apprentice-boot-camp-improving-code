@@ -133,6 +133,8 @@ namespace TriviaGame
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
             }
+
+
         }
 
 
@@ -164,15 +166,13 @@ namespace TriviaGame
                             + " Gold Coins.");
 
                     bool winner = GetCurrentPlayerWinStatus();
-                    currentPlayerIndex++;
-                    if (currentPlayerIndex == playerNames.Count) currentPlayerIndex = 0;
+                    NextPlayer();
 
                     return winner;
                 }
                 else
                 {
-                    currentPlayerIndex++;
-                    if (currentPlayerIndex == playerNames.Count) currentPlayerIndex = 0;
+                    NextPlayer();
                     return true;
                 }
 
@@ -190,8 +190,7 @@ namespace TriviaGame
                         + " Gold Coins.");
 
                 bool winner = GetCurrentPlayerWinStatus();
-                currentPlayerIndex++;
-                if (currentPlayerIndex == playerNames.Count) currentPlayerIndex = 0;
+                NextPlayer();
 
                 return winner;
             }
@@ -203,8 +202,7 @@ namespace TriviaGame
             Console.WriteLine(playerNames[currentPlayerIndex] + " was sent to the penalty box");
             inPenaltyBox[currentPlayerIndex] = true;
 
-            currentPlayerIndex++;
-            if (currentPlayerIndex == playerNames.Count) currentPlayerIndex = 0;
+            NextPlayer();
             return true;
         }
 
@@ -213,6 +211,11 @@ namespace TriviaGame
         {
             return !(playerPurses[currentPlayerIndex] == 6);
         }
-    }
 
+        private void NextPlayer()
+        {
+            currentPlayerIndex++;
+            if (currentPlayerIndex == playerNames.Count) currentPlayerIndex = 0;
+        }
+    }
 }
