@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
+    ArrayList<Player> players2 = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
     int[] playerCoinCount = new int[6];
     boolean[] isPlayerInPenaltyBox = new boolean[6];
@@ -51,6 +52,8 @@ public class Game {
 	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
 	    playerCoinCount[howManyPlayers()] = initialPlayerCoinCount;
 	    isPlayerInPenaltyBox[howManyPlayers()] = false;
+
+	    players2.add(new Player(playerName));
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
