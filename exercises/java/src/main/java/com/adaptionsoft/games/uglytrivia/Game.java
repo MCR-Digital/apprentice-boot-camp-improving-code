@@ -65,17 +65,17 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		System.out.println(players.get(currentPlayer) + " is the current player");
+		System.out.println(players2.get(currentPlayer).getName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
 		if (isPlayerInPenaltyBox[currentPlayer]) {
 			if (isOdd(roll)) {
 				isPlayerGettingOutOfPenaltyBox = true;
 				
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+				System.out.println(players2.get(currentPlayer).getName() + " is getting out of the penalty box");
 				updatePosition(roll);
 			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+				System.out.println(players2.get(currentPlayer).getName() + " is not getting out of the penalty box");
 				isPlayerGettingOutOfPenaltyBox = false;
 				}
 			

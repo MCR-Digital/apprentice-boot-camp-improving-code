@@ -21,5 +21,7 @@ public class Player {
         return isInPenaltyBox;
     }
 
-
+    public String getName() {
+        return name;
+    }
 }
