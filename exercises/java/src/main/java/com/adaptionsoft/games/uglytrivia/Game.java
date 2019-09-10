@@ -117,7 +117,7 @@ public class Game {
                 return hasPlayerWon();
             } else {
 				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
+				resetToFirstPlayer();
 				return true;
 			}
 
@@ -130,13 +130,13 @@ public class Game {
         }
 	}
 
-    public boolean isIncorrectlyAnswered(){
+	public boolean isIncorrectlyAnswered(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		isInPenaltyBox[currentPlayer] = true;
 
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		resetToFirstPlayer();
 		return true;
 	}
 
@@ -149,11 +149,16 @@ public class Game {
 
         boolean isWinner = didPlayerWin();
         currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+		resetToFirstPlayer();
 
-        return isWinner;
+		return isWinner;
     }
 
+	private void resetToFirstPlayer() {
+		if (currentPlayer == players.size()) {
+			currentPlayer = 0;
+		}
+	}
 
 	private boolean didPlayerWin() {
 		return !(goldCoins[currentPlayer] == 6);
