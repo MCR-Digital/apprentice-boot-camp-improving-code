@@ -7,6 +7,8 @@ namespace TriviaGame.Core
 {
   public class Game
   {
+    int NUMBER_OF_BOARD_SQUARES = 12;
+    int MINIMUM_PLAYERS = 2;
     List<string> _players = new List<string>();
 
     int[] _places = new int[6];
@@ -33,27 +35,21 @@ namespace TriviaGame.Core
       }
     }
 
-    public bool IsPlayable()
-    {
-      return (GetNumberOfPlayers() >= 2);
-    }
+    public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
+    public int NumberOfPlayers => _players.Count;
 
     public bool AddPlayer(String playerName)
     {
       _players.Add(playerName);
-      _places[GetNumberOfPlayers()] = 0;
-      _purses[GetNumberOfPlayers()] = 0;
-      _inPenaltyBox[GetNumberOfPlayers()] = false;
+      _places[NumberOfPlayers] = 0;
+      _purses[NumberOfPlayers] = 0;
+      _inPenaltyBox[NumberOfPlayers] = false;
 
       Console.WriteLine(playerName + " was added");
       Console.WriteLine("They are player number " + _players.Count);
       return true;
     }
 
-    public int GetNumberOfPlayers()
-    {
-      return _players.Count;
-    }
 
     public void OnDieRoll(int roll)
     {
@@ -98,7 +94,7 @@ namespace TriviaGame.Core
 
     private void AdvancePlace(int roll)
     {
-      _places[_currentPlayer] = (_places[_currentPlayer] + roll) % 12;
+      _places[_currentPlayer] = (_places[_currentPlayer] + roll) % NUMBER_OF_BOARD_SQUARES;
     }
 
     private void AskQuestion()
