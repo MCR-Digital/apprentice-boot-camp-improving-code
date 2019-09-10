@@ -179,7 +179,7 @@ public class Game {
 				+ getPlayerPurse(playerID)
 				+ " Gold Coins.");
 
-		return hasPlayerWon();
+		return hasPlayerWon(currentPlayerID);
 	}
 
 	private int getPlayerPurse(int playerID) {
@@ -201,7 +201,7 @@ public class Game {
 	}
 
 
-	private boolean hasPlayerWon() {
-		return !(getPlayerPurse(currentPlayerID) == 6);
+	private boolean hasPlayerWon(int playerID) {
+		return !(getPlayerPurse(playerID) == 6);
 	}
 }
