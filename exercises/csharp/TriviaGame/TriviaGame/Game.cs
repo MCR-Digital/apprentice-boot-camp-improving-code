@@ -7,12 +7,14 @@ namespace TriviaGame
 {
     public class Game
     {
+        private const int MAX_PLAYER_COUNT = 6;
+
         List<string> players = new List<string>();
 
-        int[] places = new int[6];
-        int[] purses = new int[6];
+        int[] places = new int[MAX_PLAYER_COUNT];
+        int[] purses = new int[MAX_PLAYER_COUNT];
 
-        bool[] inPenaltyBox = new bool[6];
+        bool[] inPenaltyBox = new bool[MAX_PLAYER_COUNT];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
