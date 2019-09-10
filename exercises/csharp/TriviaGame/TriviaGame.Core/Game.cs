@@ -38,6 +38,7 @@ namespace TriviaGame.Core
     public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
     public int NumberOfPlayers => _players.Count;
     private bool HasPlayerWon => !(_purses[_currentPlayer] == 6);
+    private string CurrentPlayerName => _players[_currentPlayer];
 
     public bool AddPlayer(String playerName)
     {
@@ -47,14 +48,14 @@ namespace TriviaGame.Core
       _inPenaltyBox[NumberOfPlayers] = false;
 
       Console.WriteLine(playerName + " was added");
-      Console.WriteLine("They are player number " + _players.Count);
+      Console.WriteLine("They are player number " + NumberOfPlayers);
       return true;
     }
 
 
     public void OnDieRoll(int roll)
     {
-      Console.WriteLine(_players[_currentPlayer] + " is the current player");
+      Console.WriteLine(CurrentPlayerName + " is the current player");
       Console.WriteLine("They have rolled a " + roll);
 
       if (_inPenaltyBox[_currentPlayer])
@@ -63,17 +64,16 @@ namespace TriviaGame.Core
         {
           _isGettingOutOfPenaltyBox = true;
 
-          Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
+          Console.WriteLine(CurrentPlayerName + " is getting out of the penalty box");
           AdvancePlace(roll);
           PrintLocation();
           AskQuestion();
         }
         else
         {
-          Console.WriteLine(_players[_currentPlayer] + " is not getting out of the penalty box");
+          Console.WriteLine(CurrentPlayerName + " is not getting out of the penalty box");
           _isGettingOutOfPenaltyBox = false;
         }
-
       }
       else
       {
@@ -85,7 +85,7 @@ namespace TriviaGame.Core
 
     private void PrintLocation()
     {
-      Console.WriteLine(_players[_currentPlayer]
+      Console.WriteLine(CurrentPlayerName
                 + "'s new location is "
                 + _places[_currentPlayer]);
       Console.WriteLine("The category is " + CurrentCategory());
@@ -159,7 +159,7 @@ namespace TriviaGame.Core
     public bool OnIncorrectAnswer()
     {
       Console.WriteLine("Question was incorrectly answered");
-      Console.WriteLine(_players[_currentPlayer] + " was sent to the penalty box");
+      Console.WriteLine(CurrentPlayerName + " was sent to the penalty box");
       _inPenaltyBox[_currentPlayer] = true;
 
       MoveToNextPlayer();
@@ -168,7 +168,7 @@ namespace TriviaGame.Core
 
     private void PrintPlayerScore()
     {
-      Console.WriteLine(_players[_currentPlayer]
+      Console.WriteLine(CurrentPlayerName
                       + " now has "
                       + _purses[_currentPlayer]
                       + " Gold Coins.");
