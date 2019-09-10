@@ -125,6 +125,16 @@ public class Game {
 		}
 	}
 
+	public boolean wasAnsweredIncorrectly(){
+		System.out.println("Question was incorrectly answered");
+		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
+		playersInPenaltyBox[currentPlayer] = true;
+
+		currentPlayer++;
+		resetPlayerToZero();
+		return true;
+	}
+
 	private boolean calculateScoreAndDisplay() {
 		playerPurses[currentPlayer]++;
 		System.out.println(players.get(currentPlayer)
@@ -132,6 +142,10 @@ public class Game {
 				+ playerPurses[currentPlayer]
 				+ " Gold Coins.");
 
+		return determineWinner();
+	}
+
+	private boolean determineWinner() {
 		boolean winner = didPlayerWin();
 		currentPlayer++;
 		return isPlayerTheWinner(winner);
@@ -140,16 +154,6 @@ public class Game {
 	private boolean isPlayerTheWinner(final boolean winner) {
 		resetPlayerToZero();
 		return winner;
-	}
-
-	public boolean wasAnsweredIncorrectly(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		playersInPenaltyBox[currentPlayer] = true;
-		
-		currentPlayer++;
-		resetPlayerToZero();
-		return true;
 	}
 
 	private void resetPlayerToZero() {
