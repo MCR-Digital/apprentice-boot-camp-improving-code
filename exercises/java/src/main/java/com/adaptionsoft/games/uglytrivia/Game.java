@@ -7,6 +7,7 @@ public class Game {
 	private static final int MAX_PLAYERS = 6;
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
+	public static final int MAX_QUESTIONS = 50;
 
 	private ArrayList players = new ArrayList();
 	private int[] playerLocations = new int[MAX_PLAYERS];
@@ -22,7 +23,7 @@ public class Game {
 	private boolean isOutOfPenaltyBox;
     
     public Game(){
-    	for (int i = 0; i < 50; i++) {
+    	for (int i = 0; i < MAX_QUESTIONS; i++) {
 			popQuestionsList.addLast("Pop Question " + i);
 			scienceQuestionsList.addLast(("Science Question " + i));
 			sportsQuestionsList.addLast(("Sports Question " + i));
