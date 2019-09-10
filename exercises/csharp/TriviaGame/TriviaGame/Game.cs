@@ -60,25 +60,6 @@ namespace TriviaGame
             return players.Count;
         }
 
-		private void CalculateNewPositionOnBoard(int spacesToMove) 
-		{
-			PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] + spacesToMove;
-			if (PlayerPositionOnBoard[currentPlayer] > numberOfPositionsOnBoard - 1)
-			{
-				PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] - numberOfPositionsOnBoard;
-			}
-
-
-			Console.WriteLine(players[currentPlayer]
-					+ "'s new location is "
-					+ PlayerPositionOnBoard[currentPlayer]);
-		}
-
-		private bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
-		{
-			return rollValue % 2 != 0;
-		}
-
         public void MakeMoveBasedOnRoll(int rollValue)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
@@ -136,21 +117,7 @@ namespace TriviaGame
             }
         }
 
-        private string ReturnCurrentCategory()
-        {
-            if (PlayerPositionOnBoard[currentPlayer] == 0) return "Pop";
-            if (PlayerPositionOnBoard[currentPlayer] == 4) return "Pop";
-            if (PlayerPositionOnBoard[currentPlayer] == 8) return "Pop";
-            if (PlayerPositionOnBoard[currentPlayer] == 1) return "Science";
-            if (PlayerPositionOnBoard[currentPlayer] == 5) return "Science";
-            if (PlayerPositionOnBoard[currentPlayer] == 9) return "Science";
-            if (PlayerPositionOnBoard[currentPlayer] == 2) return "Sports";
-            if (PlayerPositionOnBoard[currentPlayer] == 6) return "Sports";
-            if (PlayerPositionOnBoard[currentPlayer] == 10) return "Sports";
-            return "Rock";
-        }
-
-        public bool wasCorrectlyAnswered()
+        public bool WasCorrectlyAnswered()
         {
             if (PlayerPenaltyBoxStatus[currentPlayer])
             {
@@ -163,7 +130,7 @@ namespace TriviaGame
                             + PlayerPurses[currentPlayer]
                             + " Gold Coins.");
 
-                    bool winner = didPlayerWin();
+                    bool winner = DidPlayerWin();
                     currentPlayer++;
                     if (currentPlayer == players.Count) currentPlayer = 0;
 
@@ -189,7 +156,7 @@ namespace TriviaGame
                         + PlayerPurses[currentPlayer]
                         + " Gold Coins.");
 
-                bool winner = didPlayerWin();
+                bool winner = DidPlayerWin();
                 currentPlayer++;
                 if (currentPlayer == players.Count) currentPlayer = 0;
 
@@ -197,7 +164,7 @@ namespace TriviaGame
             }
         }
 
-        public bool wrongAnswer()
+        public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
@@ -208,10 +175,51 @@ namespace TriviaGame
             return true;
         }
 
-        private bool didPlayerWin()
-        {
-            return !(PlayerPurses[currentPlayer] == MaxPlayers);
-        }
-    }
+		#region "private helper methods"
+		private void CalculateNewPositionOnBoard(int spacesToMove)
+		{
+			PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] + spacesToMove;
+			if (PlayerPositionOnBoard[currentPlayer] > numberOfPositionsOnBoard - 1)
+			{
+				PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] - numberOfPositionsOnBoard;
+			}
 
+
+			Console.WriteLine(players[currentPlayer]
+					+ "'s new location is "
+					+ PlayerPositionOnBoard[currentPlayer]);
+		}
+
+		private bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
+		{
+			return rollValue % 2 != 0;
+		}
+
+		private bool DidPlayerWin()
+		{
+			return !(PlayerPurses[currentPlayer] == MaxPlayers);
+		}
+
+		private string ReturnCurrentCategory()
+		{
+			var categories = new Dictionary<int, string>
+			{
+				{ 0, "Pop" },
+				{ 1, "Science" },
+				{ 2, "Sports" },
+				{ 3, "Rock" },
+				{ 4, "Pop" },
+				{ 5, "Science" },
+				{ 6, "Sports" },
+				{ 7, "Rock" },
+				{ 8, "Pop" },
+				{ 9, "Science" },
+				{ 10, "Sports" },
+				{ 11, "Rock" },
+			};
+
+			return categories[PlayerPositionOnBoard[currentPlayer]];
+		}
+		#endregion
+	}
 }
