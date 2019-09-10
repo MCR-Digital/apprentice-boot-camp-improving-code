@@ -92,9 +92,7 @@ public class Game {
         if (placeOnTheBoard[currentPlayer] == 1) return "Science";
         if (placeOnTheBoard[currentPlayer] == 5) return "Science";
         if (placeOnTheBoard[currentPlayer] == 9) return "Science";
-        if (placeOnTheBoard[currentPlayer] == 2) return "Sports";
-        if (placeOnTheBoard[currentPlayer] == 6) return "Sports";
-        if (placeOnTheBoard[currentPlayer] == 10) return "Sports";
+        if (placeOnTheBoard[currentPlayer] % 2 == 0) return "Sports";
         return "Rock";
     }
 
