@@ -8,6 +8,7 @@ public class Game {
 	private static final String SCIENCE = "Science";
 	private static final String SPORTS = "Sports";
 	private static final String ROCK = "Rock";
+
     private static final int MINIMUM_PLAYERS = 2;
     private static final int END_SPACE = 11;
     private static final int NUMBER_OF_SPACES = 12;
@@ -63,7 +64,8 @@ public class Game {
 		System.out.println("They have rolled a " + currentRoll);
 
 		if (isInPenaltyBox[currentPlayer]) {
-			if (currentRoll % 2 != 0) {
+            boolean oddNumberedRoll = currentRoll % 2 != 0;
+            if (oddNumberedRoll) {
 				isExitingPenaltyBox = true;
 				System.out.println(allPlayers.get(currentPlayer) + " is getting out of the penalty box");
                 takeTurn(currentRoll);
