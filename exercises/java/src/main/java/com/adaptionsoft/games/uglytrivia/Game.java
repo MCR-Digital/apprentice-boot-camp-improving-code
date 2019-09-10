@@ -26,11 +26,11 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int index = 0; index < NUMBER_OF_QUESTIONS; index++) {
+			popQuestions.addLast("Pop Question " + index);
+			scienceQuestions.addLast(("Science Question " + index));
+			sportsQuestions.addLast(("Sports Question " + index));
+			rockQuestions.addLast(createRockQuestion(index));
     	}
     }
 
