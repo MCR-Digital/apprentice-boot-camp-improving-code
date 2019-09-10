@@ -43,9 +43,6 @@ namespace TriviaGame
 
         public bool AddPlayer(Player player)
         {
-            player.Place = 0;
-            player.Coins = 0;
-            player.IsInPenaltyBox = false;
             players.Add(player);
 
             Console.WriteLine(player.Name + " was added");

@@ -11,6 +11,9 @@ namespace TriviaGame
         public Player(string name)
         {
             Name = name;
+            Place = 0;
+            Coins = 0;
+            IsInPenaltyBox = false;
         }
 
         public string Name { get; }
