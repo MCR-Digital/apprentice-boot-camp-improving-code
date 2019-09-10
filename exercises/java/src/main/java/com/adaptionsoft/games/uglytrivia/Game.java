@@ -125,32 +125,37 @@ public class Game {
     public boolean wasCorrectlyAnswered() {
         if (inPenaltyBox[currentPlayerPlace]) {
             if (isGettingOutOfPenaltyBox) {
-                answerCorrectCoinsNumber("Answer was correct!!!!");
+                updateCoins("Answer was correct!!!!");
 
                 boolean winner = didPlayerWin();
-                currentPlayerPlace++;
-                if (currentPlayerPlace == players.size()) currentPlayerPlace = 0;
 
+                updatePlayerPlace();
                 return winner;
+
             } else {
-                currentPlayerPlace++;
-                if (currentPlayerPlace == players.size()) currentPlayerPlace = 0;
+                updatePlayerPlace();
                 return true;
             }
 
 
         } else {
-            answerCorrectCoinsNumber("Answer was corrent!!!!");
+            updateCoins("Answer was corrent!!!!");
 
             boolean winner = didPlayerWin();
-            currentPlayerPlace++;
-            if (currentPlayerPlace == players.size()) currentPlayerPlace = 0;
+            updatePlayerPlace();
 
             return winner;
         }
     }
 
-    private void answerCorrectCoinsNumber(String s) {
+    private void updatePlayerPlace() {
+        currentPlayerPlace++;
+        if (currentPlayerPlace == players.size()) {
+            currentPlayerPlace = 0;
+        }
+    }
+
+    private void updateCoins(String s) {
         System.out.println(s);
         purses[currentPlayerPlace]++;
         System.out.println(players.get(currentPlayerPlace)
@@ -159,13 +164,13 @@ public class Game {
                 + " Gold Coins.");
     }
 
-    public boolean wrongAnswer() {
+    public boolean isAnswerWrong() {
         System.out.println("Question was incorrectly answered");
         System.out.println(players.get(currentPlayerPlace) + " was sent to the penalty box");
         inPenaltyBox[currentPlayerPlace] = true;
 
-        currentPlayerPlace++;
-        if (currentPlayerPlace == players.size()) currentPlayerPlace = 0;
+        updatePlayerPlace();
+
         return true;
     }
 
