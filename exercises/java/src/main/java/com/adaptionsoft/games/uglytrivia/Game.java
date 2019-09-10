@@ -7,7 +7,7 @@ public class Game {
 	private ArrayList<String> players = new ArrayList<>();
 	private int[] places = new int[6];
 	private int[] purses  = new int[6];
-	private boolean[] inPenaltyBox  = new boolean[6];
+	private boolean[] inPenaltyBox = new boolean[6];
 	private int maxNumOfQuestions = 50;
     
     private LinkedList<String> popQuestions = new LinkedList<>();
@@ -15,22 +15,15 @@ public class Game {
 	private LinkedList<String>  sportsQuestions = new LinkedList<>();
 	private LinkedList<String>  rockQuestions = new LinkedList<>();
 
-	private ArrayList<String> board = new ArrayList<>();
+	private int numOfPlaces = 12;
+	private String[] board = {"Pop", "Science", "Sports", "Rock"};
 
 	private int currentPlayer = 0;
 	private boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	setBoardUp();
     	createQuestions();
     }
-
-    private void setBoardUp() {
-    	board.add("Pop");
-    	board.add("Science");
-    	board.add("Sports");
-    	board.add("Rock");
-	}
 
 	private void createQuestions(){
 		for (int question = 0; question < maxNumOfQuestions; question++) {
@@ -84,7 +77,7 @@ public class Game {
 
 	private void movePlayer(int rollValue) {
 		places[currentPlayer] = places[currentPlayer] + rollValue;
-		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+		if (places[currentPlayer] > numOfPlaces - 1) places[currentPlayer] = places[currentPlayer] - numOfPlaces;
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
@@ -110,7 +103,7 @@ public class Game {
 	private String currentCategory() {
     	int categoryIndex = places[currentPlayer] % 4;
 
-    	return board.get(categoryIndex);
+    	return board[categoryIndex];
 	}
 
 	private void addCoin() {
@@ -129,17 +122,17 @@ public class Game {
 
 				boolean winner = didPlayerWin();
 				goToNextPlayer();
-				
+
 				return winner;
 			}
 
 			goToNextPlayer();
 			return true;
-			
+
 		} else {
 			System.out.println("Answer was corrent!!!!");
 			addCoin();
-			
+
 			boolean winner = didPlayerWin();
 			currentPlayer++;
 			if (currentPlayer == players.size()) currentPlayer = 0;
