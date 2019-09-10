@@ -71,8 +71,10 @@ public class Game {
 	}
 
 	private void updatePlayerLocation(final int roll) {
-		playerLocations[currentPlayer] = playerLocations[currentPlayer] + roll;
-		if (playerLocations[currentPlayer] > 11) playerLocations[currentPlayer] = playerLocations[currentPlayer] - 12;
+		playerLocations[currentPlayer] += roll;
+		if (playerLocations[currentPlayer] > 11) {
+			playerLocations[currentPlayer] -= 12;
+		}
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
