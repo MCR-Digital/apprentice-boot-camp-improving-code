@@ -33,7 +33,7 @@ namespace TriviaGame
             }
         }
 		
-        public bool isPlayable()
+        public bool DoesGameHaveMinimumPlayersRequired()
         {
             return (howManyPlayers() >= 2);
         }
@@ -47,7 +47,8 @@ namespace TriviaGame
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
-            return true;
+
+            return DoesGameHaveMinimumPlayersRequired();
         }
 
         public int howManyPlayers()
