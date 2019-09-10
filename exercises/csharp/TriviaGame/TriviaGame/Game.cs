@@ -29,24 +29,17 @@ namespace TriviaGame
                 popQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
                 sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(createRockQuestion(i));
+                rockQuestions.AddLast("Rock Question " + i);
             }
         }
-
-        public String createRockQuestion(int index)
-        {
-            return "Rock Question " + index;
-        }
-
+		
         public bool isPlayable()
         {
             return (howManyPlayers() >= 2);
         }
 
-        public bool add(String playerName)
+        public bool add(string playerName)
         {
-
-
             players.Add(playerName);
             places[howManyPlayers()] = 0;
             purses[howManyPlayers()] = 0;
@@ -130,7 +123,7 @@ namespace TriviaGame
         }
 
 
-        private String currentCategory()
+        private string currentCategory()
         {
             if (places[currentPlayer] == 0) return "Pop";
             if (places[currentPlayer] == 4) return "Pop";

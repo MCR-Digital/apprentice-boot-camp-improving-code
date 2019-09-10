@@ -12,7 +12,7 @@ namespace TriviaGame
 
         private static bool notAWinner;
 
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
             Game aGame = new Game();
 
