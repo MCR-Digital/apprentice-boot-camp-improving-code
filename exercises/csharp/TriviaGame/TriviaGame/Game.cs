@@ -82,8 +82,7 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(playerNames[currentPlayerIndex] + " is getting out of the penalty box");
-                    playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] + rollNumber;
-                    if (playerPlaces[currentPlayerIndex] > 11) playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] - 12;
+                    MoveCurrentPlayer(rollNumber);
 
                     Console.WriteLine(playerNames[currentPlayerIndex]
                             + "'s new location is "
@@ -100,9 +99,7 @@ namespace TriviaGame
             }
             else
             {
-
-                playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] + rollNumber;
-                if (playerPlaces[currentPlayerIndex] > 11) playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] - 12;
+                MoveCurrentPlayer(rollNumber);
 
                 Console.WriteLine(playerNames[currentPlayerIndex]
                         + "'s new location is "
@@ -111,6 +108,12 @@ namespace TriviaGame
                 PrintQuestionAndRemoveFromList();
             }
 
+        }
+
+        private void MoveCurrentPlayer(int places)
+        {
+            playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] + places;
+            if (playerPlaces[currentPlayerIndex] > 11) playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] - 12;
         }
 
         private void PrintQuestionAndRemoveFromList()
