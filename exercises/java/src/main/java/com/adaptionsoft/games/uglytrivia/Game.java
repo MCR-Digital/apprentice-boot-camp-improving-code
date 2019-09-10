@@ -15,7 +15,7 @@ public class Game {
     LinkedList rockQuestions = new LinkedList();
     
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    boolean exitingPenaltyBox;
     
     public  Game(){
     	for (int i = 0; i < 50; i++) {
@@ -57,7 +57,7 @@ public class Game {
 		
 		if (inPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
+				exitingPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 				locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + roll;
@@ -70,7 +70,7 @@ public class Game {
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
+				exitingPenaltyBox = false;
 				}
 			
 		} else {
@@ -114,7 +114,7 @@ public class Game {
 
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
-			if (isGettingOutOfPenaltyBox) {
+			if (exitingPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				goldCoins[currentPlayer]++;
 				System.out.println(players.get(currentPlayer) 
