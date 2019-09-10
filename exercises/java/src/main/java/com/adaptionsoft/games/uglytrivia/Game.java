@@ -1,6 +1,7 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Game {
     private static final String ROCK_QUESTION = "Rock Question ";
 
     private List<String> players = new ArrayList<>();
-    private int[] boardSquareIndex = new int[6];
+    private int[] boardSquares = new int[6];
     private int[] purses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
 
@@ -39,7 +40,7 @@ public class Game {
 
     public void initialisePlayer(String playerName) {
         players.add(playerName);
-        boardSquareIndex[getNumberOfPlayers()] = 0;
+        boardSquares[getNumberOfPlayers()] = 0;
         purses[getNumberOfPlayers()] = 0;
         inPenaltyBox[getNumberOfPlayers()] = false;
 
@@ -75,39 +76,39 @@ public class Game {
     }
 
     private void movePlayerForward(int rollValue) {
-        boardSquareIndex[currentPlayer] = boardSquareIndex[currentPlayer] + rollValue;
-        if (boardSquareIndex[currentPlayer] > 11)
-            boardSquareIndex[currentPlayer] = boardSquareIndex[currentPlayer] - 12;
+        boardSquares[currentPlayer] = boardSquares[currentPlayer] + rollValue;
+        if (boardSquares[currentPlayer] > 11) {
+            boardSquares[currentPlayer] = boardSquares[currentPlayer] - 12;
+        }
 
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
-                + boardSquareIndex[currentPlayer]);
-        System.out.println("The category is " + currentCategory());
+                + boardSquares[currentPlayer]);
+        System.out.println("The category is " + currentCategory(boardSquares[currentPlayer]));
         askQuestion();
     }
 
     private void askQuestion() {
-        if (currentCategory().equals("Pop"))
+        if (currentCategory(boardSquares[currentPlayer]).equals("Pop"))
             System.out.println(popQuestions.removeFirst());
-        if (currentCategory().equals("Science"))
+        if (currentCategory(boardSquares[currentPlayer]).equals("Science"))
             System.out.println(scienceQuestions.removeFirst());
-        if (currentCategory().equals("Sports"))
+        if (currentCategory(boardSquares[currentPlayer]).equals("Sports"))
             System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory().equals("Rock"))
+        if (currentCategory(boardSquares[currentPlayer]).equals("Rock"))
             System.out.println(rockQuestions.removeFirst());
     }
 
-    private String currentCategory() {
-        if (boardSquareIndex[currentPlayer] == 0) return "Pop";
-        if (boardSquareIndex[currentPlayer] == 4) return "Pop";
-        if (boardSquareIndex[currentPlayer] == 8) return "Pop";
-        if (boardSquareIndex[currentPlayer] == 1) return "Science";
-        if (boardSquareIndex[currentPlayer] == 5) return "Science";
-        if (boardSquareIndex[currentPlayer] == 9) return "Science";
-        if (boardSquareIndex[currentPlayer] == 2) return "Sports";
-        if (boardSquareIndex[currentPlayer] == 6) return "Sports";
-        if (boardSquareIndex[currentPlayer] == 10) return "Sports";
-        return "Rock";
+    private String currentCategory(int boardSquareIndex) {
+        List<String> categories = new ArrayList<>(Arrays.asList("Pop", "Science", "Sports", "Rock"));
+        String category = null;
+        for (int i = 0, j = 0; i <= boardSquareIndex; i++, j++) {
+            category = categories.get(j);
+            if (j == 3) {
+                j = -1;
+            }
+        }
+        return category;
     }
 
     public boolean wasCorrectlyAnswered() {
@@ -116,17 +117,21 @@ public class Game {
             System.out.println("Answer was correct!!!!");
             updatePlayerPurse();
             isNotWinner = !hasPlayerWon();
-            nextPlayerTurn();
+            switchToNextPlayer();
         } else {
             isNotWinner = true;
-            nextPlayerTurn();
+            switchToNextPlayer();
         }
         return isNotWinner;
     }
 
-    private void nextPlayerTurn() {
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+    public boolean wrongAnswer() {
+        System.out.println("Question was incorrectly answered");
+        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+        inPenaltyBox[currentPlayer] = true;
+
+        switchToNextPlayer();
+        return true;
     }
 
     private void updatePlayerPurse() {
@@ -137,15 +142,10 @@ public class Game {
                 + " Gold Coins.");
     }
 
-    public boolean wrongAnswer() {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
-
-        nextPlayerTurn();
-        return true;
+    private void switchToNextPlayer() {
+        currentPlayer++;
+        if (currentPlayer == players.size()) currentPlayer = 0;
     }
-
 
     private boolean hasPlayerWon() {
         return (purses[currentPlayer] == 6);
