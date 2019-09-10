@@ -9,7 +9,6 @@ namespace TriviaGame
 {
    public class GameRunner
     {
-
         private static bool notAWinner;
 
         public static void Main(String[] args)
@@ -32,7 +31,7 @@ namespace TriviaGame
                 }
                 else
                 {
-                    notAWinner = currentGame.WasCorrectlyAnswered();
+                    notAWinner = currentGame.CheckForWinner();
                 }
             } while (notAWinner);
         }
