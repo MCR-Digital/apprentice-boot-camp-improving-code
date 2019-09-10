@@ -8,6 +8,7 @@ public class Game {
     public static final String SCIENCE = "Science";
     public static final String SPORTS = "Sports";
     public static final String ROCK = "Rock";
+    public static final int WINNING_NUMBER = 6;
     ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses = new int[6];
@@ -172,6 +173,6 @@ public class Game {
 
 
     private boolean didPlayerWin() {
-        return !(purses[currentPlayerPlace] == 6);
+        return (purses[currentPlayerPlace] != WINNING_NUMBER);
     }
 }
