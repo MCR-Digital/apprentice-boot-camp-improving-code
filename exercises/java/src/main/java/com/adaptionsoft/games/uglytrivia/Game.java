@@ -133,6 +133,7 @@ public class Game {
 
     public boolean handleCorrectAnswer() {
         if (isPlayerInPenaltyBox(currentPlayerID)) {
+
             if (isGettingOutOfPenaltyBox) {
                 boolean winner = addCoin(currentPlayerID);
                 switchToNextPlayer();
