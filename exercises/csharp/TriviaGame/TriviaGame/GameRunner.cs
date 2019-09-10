@@ -16,9 +16,14 @@ namespace TriviaGame
         {
             Game aGame = new Game();
 
-            aGame.GeneratePlayerList("Chet");
-            aGame.GeneratePlayerList("Pat");
-            aGame.GeneratePlayerList("Sue");
+			var playerNames = new string[]
+			{
+				"Chet",
+				"Pat",
+				"Sue",
+			};
+
+            aGame.GeneratePlayerList(playerNames);
 
             Random rand = new Random(Int32.Parse(args[0]));
 

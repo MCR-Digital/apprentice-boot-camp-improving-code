@@ -38,17 +38,20 @@ namespace TriviaGame
             return (NumberOfPlayers() >= 2);
         }
 
-        public bool GeneratePlayerList(string playerName)
+        public bool GeneratePlayerList(string[] playerNames)
         {
-            players.Add(playerName);
-            PlayerPosition[NumberOfPlayers()] = 0;
-            PlayerPurses[NumberOfPlayers()] = 0;
-            PlayerPenaltyBoxStatus[NumberOfPlayers()] = false;
+			foreach(var playerName in playerNames)
+			{
+				players.Add(playerName);
+				PlayerPosition[NumberOfPlayers()] = 0;
+				PlayerPurses[NumberOfPlayers()] = 0;
+				PlayerPenaltyBoxStatus[NumberOfPlayers()] = false;
 
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + players.Count);
+				Console.WriteLine(playerName + " was added");
+				Console.WriteLine("They are player number " + players.Count);
+			}
 
-            return DoesGameHaveMinimumPlayersRequired();
+			return DoesGameHaveMinimumPlayersRequired();
         }
 
         public int NumberOfPlayers()
