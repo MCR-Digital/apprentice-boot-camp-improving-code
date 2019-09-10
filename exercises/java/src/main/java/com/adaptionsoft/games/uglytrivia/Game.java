@@ -17,33 +17,25 @@ public class Game {
 
     private Map<Integer, String> categoriesToSpaces = new HashMap<>();
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private LinkedList popQuestions = new LinkedList();
+    private LinkedList scienceQuestions = new LinkedList();
+    private LinkedList sportsQuestions = new LinkedList();
+    private LinkedList rockQuestions = new LinkedList();
 
-	ArrayList allPlayers = new ArrayList();
-    int[] locationOnBoard = new int[6];
-    int[] goldCoins = new int[6];
-    boolean[] isInPenaltyBox = new boolean[6];
+	private ArrayList allPlayers = new ArrayList();
+    private int[] locationOnBoard = new int[6];
+    private int[] goldCoins = new int[6];
+    private boolean[] isInPenaltyBox = new boolean[6];
 
-    int currentPlayer = 0;
-    boolean isExitingPenaltyBox;
+    private int currentPlayer = 0;
+    private boolean isExitingPenaltyBox;
 
     public  Game(){
-    	for (int index = 0; index < TOTAL_NUMBER_OF_QUESTIONS; index++) {
-			popQuestions.addLast(POP + " Question " + index);
-			scienceQuestions.addLast((SCIENCE + " Question " + index));
-			sportsQuestions.addLast((SPORTS + " Question " + index));
-			rockQuestions.addLast(createRockQuestion(index));
-			assignCategory(POP, 0, 4, 8);
-			assignCategory(SCIENCE, 1, 5, 9);
-			assignCategory(SPORTS, 2, 6, 10);
-			assignCategory(ROCK, 3, 7, 11);
-    	}
+        addQuestions();
+        assignCategoriesToBoardSpaces();
     }
 
-	public String createRockQuestion(int index){
+    public String createRockQuestion(int index){
 		return ROCK + " Question " + index;
 	}
 
@@ -135,6 +127,22 @@ public class Game {
 		if (getCurrentCategory().equals(ROCK))
 			System.out.println(rockQuestions.removeFirst());
 	}
+
+    private void addQuestions() {
+        for (int index = 0; index < TOTAL_NUMBER_OF_QUESTIONS; index++) {
+            popQuestions.addLast(POP + " Question " + index);
+            scienceQuestions.addLast((SCIENCE + " Question " + index));
+            sportsQuestions.addLast((SPORTS + " Question " + index));
+            rockQuestions.addLast(createRockQuestion(index));
+        }
+    }
+
+    private void assignCategoriesToBoardSpaces() {
+        assignCategory(POP, 0, 4, 8);
+        assignCategory(SCIENCE, 1, 5, 9);
+        assignCategory(SPORTS, 2, 6, 10);
+        assignCategory(ROCK, 3, 7, 11);
+    }
 
 	private String getCurrentCategory() {
         int currentSpace = locationOnBoard[currentPlayer];
