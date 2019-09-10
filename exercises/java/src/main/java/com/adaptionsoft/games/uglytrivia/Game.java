@@ -18,11 +18,11 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int index = 0; index < 50; index++) {
+			popQuestions.addLast("Pop Question " + index);
+			scienceQuestions.addLast(("Science Question " + index));
+			sportsQuestions.addLast(("Sports Question " + index));
+			rockQuestions.addLast(createRockQuestion(index));
     	}
     }
 
@@ -34,7 +34,7 @@ public class Game {
 		return (howManyPlayers() >= 2);
 	}
 
-	public boolean add(String playerName) {
+	public boolean addingPlayer(String playerName) {
 		
 		
 	    players.add(playerName);

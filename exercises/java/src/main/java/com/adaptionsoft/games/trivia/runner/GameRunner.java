@@ -12,9 +12,9 @@ public class GameRunner {
 	public static void main(String[] args) {
 		Game aGame = new Game();
 		
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
+		aGame.addingPlayer("Chet");
+		aGame.addingPlayer("Pat");
+		aGame.addingPlayer("Sue");
 		
 		Random rand = new Random(Integer.parseInt(args[0]));
 	
