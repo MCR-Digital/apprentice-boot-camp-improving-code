@@ -107,10 +107,7 @@ public class Game {
     }
 
     private boolean placeOnBoardIsScience() {
-        if (placeOnTheBoard[currentPlayer] == 1) return true;
-        if (placeOnTheBoard[currentPlayer] == 5) return true;
-        if (placeOnTheBoard[currentPlayer] == 9) return true;
-        return false;
+        return placeOnTheBoard[currentPlayer] == 1 || placeOnTheBoard[currentPlayer] == 5 || placeOnTheBoard[currentPlayer] == 9;
     }
 
     public boolean questionWasAnsweredCorrectly() {
