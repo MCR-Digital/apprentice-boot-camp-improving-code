@@ -37,6 +37,7 @@ namespace TriviaGame.Core
 
     public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
     public int NumberOfPlayers => _players.Count;
+    private bool HasPlayerWon => !(_purses[_currentPlayer] == 6);
 
     public bool AddPlayer(String playerName)
     {
@@ -64,7 +65,6 @@ namespace TriviaGame.Core
 
           Console.WriteLine(_players[_currentPlayer] + " is getting out of the penalty box");
           AdvancePlace(roll);
-
           PrintLocation();
           AskQuestion();
         }
@@ -81,7 +81,6 @@ namespace TriviaGame.Core
         PrintLocation();
         AskQuestion();
       }
-
     }
 
     private void PrintLocation()
@@ -151,7 +150,7 @@ namespace TriviaGame.Core
       Console.WriteLine(congratulationsMessage);
       _purses[_currentPlayer]++;
       PrintPlayerScore();
-      var winner = HasPlayerWon();
+      var winner = HasPlayerWon;
       MoveToNextPlayer();
 
       return winner;
@@ -165,12 +164,6 @@ namespace TriviaGame.Core
 
       MoveToNextPlayer();
       return true;
-    }
-
-
-    private bool HasPlayerWon()
-    {
-      return !(_purses[_currentPlayer] == 6);
     }
 
     private void PrintPlayerScore()
