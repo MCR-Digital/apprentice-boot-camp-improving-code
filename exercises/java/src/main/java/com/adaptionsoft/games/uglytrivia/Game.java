@@ -172,10 +172,14 @@ public class Game {
 		purses[currentPlayerID]++;
 		System.out.println(players.get(currentPlayerID)
 				+ " now has "
-				+ purses[currentPlayerID]
+				+ getPlayerPurse(currentPlayerID)
 				+ " Gold Coins.");
 
 		return hasPlayerWon();
+	}
+
+	private int getPlayerPurse(int playerID) {
+		return purses[playerID];
 	}
 
 	public boolean handleIncorrectAnswer(){
@@ -194,6 +198,6 @@ public class Game {
 
 
 	private boolean hasPlayerWon() {
-		return !(purses[currentPlayerID] == 6);
+		return !(getPlayerPurse(currentPlayerID) == 6);
 	}
 }
