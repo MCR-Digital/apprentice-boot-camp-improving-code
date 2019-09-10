@@ -1,7 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Game {
     private static final String POP = "Pop";
@@ -12,9 +11,11 @@ public class Game {
     private static final int MINIMUM_PLAYERS = 2;
     private static final int END_SPACE = 11;
     private static final int NUMBER_OF_SPACES = 12;
-    public static final int BOARD_STARTING_LOCATION = 0;
-    public static final int ZERO_COINS = 0;
-    public static final int TOTAL_NUMBER_OF_QUESTIONS = 50;
+    private static final int BOARD_STARTING_LOCATION = 0;
+    private static final int ZERO_COINS = 0;
+    private static final int TOTAL_NUMBER_OF_QUESTIONS = 50;
+
+    private Map<Integer, String> categoriesToSpaces = new HashMap<>();
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -35,6 +36,10 @@ public class Game {
 			scienceQuestions.addLast((SCIENCE + " Question " + index));
 			sportsQuestions.addLast((SPORTS + " Question " + index));
 			rockQuestions.addLast(createRockQuestion(index));
+			assignCategory(POP, 0, 4, 8);
+			assignCategory(SCIENCE, 1, 5, 9);
+			assignCategory(SPORTS, 2, 6, 10);
+			assignCategory(ROCK, 3, 7, 11);
     	}
     }
 
@@ -88,7 +93,7 @@ public class Game {
         System.out.println(allPlayers.get(currentPlayer)
                 + "'s new location is "
                 + locationOnBoard[currentPlayer]);
-        System.out.println("The category is " + currentCategory());
+        System.out.println("The category is " + getCurrentCategory());
 
         askQuestion();
     }
@@ -121,25 +126,25 @@ public class Game {
     }
 
     private void askQuestion() {
-		if (currentCategory() == POP)
+		if (getCurrentCategory().equals(POP))
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == SCIENCE)
+		if (getCurrentCategory().equals(SCIENCE))
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == SPORTS)
+		if (getCurrentCategory().equals(SPORTS))
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == ROCK)
+		if (getCurrentCategory().equals(ROCK))
 			System.out.println(rockQuestions.removeFirst());
 	}
 
-	private String currentCategory() {
+	private String getCurrentCategory() {
         int currentSpace = locationOnBoard[currentPlayer];
-        switch (currentSpace) {
-            case 0: case 4: case 8: return POP;
-            case 1: case 5: case 9: return SCIENCE;
-            case 2: case 6: case 10: return SPORTS;
-            default: return ROCK;
-        }
+
+        return categoriesToSpaces.get(currentSpace);
 	}
+
+	private void assignCategory(String category, int... spaces) {
+        Arrays.stream(spaces).forEach(space -> categoriesToSpaces.put(space, category));
+    }
 
     private boolean hasCurrentPlayerWon() {
         boolean isWinner = didPlayerWin();
