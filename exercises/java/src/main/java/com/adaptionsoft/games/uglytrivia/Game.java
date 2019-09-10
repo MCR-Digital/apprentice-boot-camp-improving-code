@@ -14,7 +14,7 @@ public class Game {
     private static final int PLAYER_ONE_ID = 0;
 
     private ArrayList players = new ArrayList();
-    private int[] places = new int[MAX_NUMBER_OF_PLAYERS];
+    private int[] playerPositions = new int[MAX_NUMBER_OF_PLAYERS];
     private int[] purses = new int[MAX_NUMBER_OF_PLAYERS];
     private boolean[] playersInPenaltyBox = new boolean[MAX_NUMBER_OF_PLAYERS];
 
@@ -45,7 +45,7 @@ public class Game {
 
     public boolean addPlayer(String playerName) {
         players.add(playerName);
-        places[getNumberOfPlayers()] = 0;
+        playerPositions[getNumberOfPlayers()] = 0;
         purses[getNumberOfPlayers()] = 0;
         playersInPenaltyBox[getNumberOfPlayers()] = false;
 
@@ -96,14 +96,14 @@ public class Game {
     }
 
     private void movePlayer(int rolledNumber) {
-        places[currentPlayerID] = getCurrentPlayerPosition() + rolledNumber;
+        playerPositions[currentPlayerID] = getCurrentPlayerPosition() + rolledNumber;
         if (hasCurrentPlayerPassedFinalTile()) {
             continueMoveFromStartOfBoard();
         }
     }
 
     private void continueMoveFromStartOfBoard() {
-        places[currentPlayerID] = getCurrentPlayerPosition() - 12;
+        playerPositions[currentPlayerID] = getCurrentPlayerPosition() - 12;
     }
 
     private boolean hasCurrentPlayerPassedFinalTile() {
@@ -120,7 +120,7 @@ public class Game {
         if (getCategoryForPosition() == ROCK)
             System.out.println(rockQuestions.removeFirst());
     }
-    
+
     private String getCategoryForPosition() {
         if (getCurrentPlayerPosition() == 0) return POP;
         if (getCurrentPlayerPosition() == 4) return POP;
@@ -135,7 +135,7 @@ public class Game {
     }
 
     private int getCurrentPlayerPosition() {
-        return places[currentPlayerID];
+        return playerPositions[currentPlayerID];
     }
 
     public boolean handleCorrectAnswer() {
