@@ -12,7 +12,7 @@ namespace TriviaGame
 
         List<string> players = new List<string>();
 
-        int[] places = new int[MAX_PLAYER_COUNT];
+        int[] playerPlaces = new int[MAX_PLAYER_COUNT];
         int[] playerPurses = new int[MAX_PLAYER_COUNT];
 
         bool[] inPenaltyBox = new bool[MAX_PLAYER_COUNT];
@@ -51,7 +51,7 @@ namespace TriviaGame
 
 
             players.Add(playerName);
-            places[GetPlayerCount()] = 0;
+            playerPlaces[GetPlayerCount()] = 0;
             playerPurses[GetPlayerCount()] = 0;
             inPenaltyBox[GetPlayerCount()] = false;
 
@@ -77,12 +77,12 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayerIndex] + " is getting out of the penalty box");
-                    places[currentPlayerIndex] = places[currentPlayerIndex] + rollNumber;
-                    if (places[currentPlayerIndex] > 11) places[currentPlayerIndex] = places[currentPlayerIndex] - 12;
+                    playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] + rollNumber;
+                    if (playerPlaces[currentPlayerIndex] > 11) playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] - 12;
 
                     Console.WriteLine(players[currentPlayerIndex]
                             + "'s new location is "
-                            + places[currentPlayerIndex]);
+                            + playerPlaces[currentPlayerIndex]);
                     Console.WriteLine("The category is " + GetCurrentCategory());
                     PrintQuestionAndRemoveFromList();
                 }
@@ -96,12 +96,12 @@ namespace TriviaGame
             else
             {
 
-                places[currentPlayerIndex] = places[currentPlayerIndex] + rollNumber;
-                if (places[currentPlayerIndex] > 11) places[currentPlayerIndex] = places[currentPlayerIndex] - 12;
+                playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] + rollNumber;
+                if (playerPlaces[currentPlayerIndex] > 11) playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] - 12;
 
                 Console.WriteLine(players[currentPlayerIndex]
                         + "'s new location is "
-                        + places[currentPlayerIndex]);
+                        + playerPlaces[currentPlayerIndex]);
                 Console.WriteLine("The category is " + GetCurrentCategory());
                 PrintQuestionAndRemoveFromList();
             }
@@ -135,15 +135,15 @@ namespace TriviaGame
 
         private String GetCurrentCategory()
         {
-            if (places[currentPlayerIndex] == 0) return "Pop";
-            if (places[currentPlayerIndex] == 4) return "Pop";
-            if (places[currentPlayerIndex] == 8) return "Pop";
-            if (places[currentPlayerIndex] == 1) return "Science";
-            if (places[currentPlayerIndex] == 5) return "Science";
-            if (places[currentPlayerIndex] == 9) return "Science";
-            if (places[currentPlayerIndex] == 2) return "Sports";
-            if (places[currentPlayerIndex] == 6) return "Sports";
-            if (places[currentPlayerIndex] == 10) return "Sports";
+            if (playerPlaces[currentPlayerIndex] == 0) return "Pop";
+            if (playerPlaces[currentPlayerIndex] == 4) return "Pop";
+            if (playerPlaces[currentPlayerIndex] == 8) return "Pop";
+            if (playerPlaces[currentPlayerIndex] == 1) return "Science";
+            if (playerPlaces[currentPlayerIndex] == 5) return "Science";
+            if (playerPlaces[currentPlayerIndex] == 9) return "Science";
+            if (playerPlaces[currentPlayerIndex] == 2) return "Sports";
+            if (playerPlaces[currentPlayerIndex] == 6) return "Sports";
+            if (playerPlaces[currentPlayerIndex] == 10) return "Sports";
             return "Rock";
         }
 
