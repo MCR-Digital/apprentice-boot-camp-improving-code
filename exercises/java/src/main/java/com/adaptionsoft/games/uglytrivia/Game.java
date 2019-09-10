@@ -65,7 +65,7 @@ public class Game {
 		System.out.println("They have rolled a " + rolledNumber);
 		
 		if (isPlayerInPenaltyBox(currentPlayerID)) {
-			if (rolledNumber % 2 != 0) {
+			if (isOddNumber(rolledNumber)) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayerID) + " is getting out of the penalty box");
@@ -92,6 +92,10 @@ public class Game {
 			askQuestion();
 		}
 		
+	}
+
+	private boolean isOddNumber(int number) {
+		return number % 2 != 0;
 	}
 
 	private void movePlayer(int rolledNumber) {
