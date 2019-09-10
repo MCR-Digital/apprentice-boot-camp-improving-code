@@ -2,15 +2,16 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
-	private static final int MAX_CATEGORY_QUESTIONS = 50;
-	public static final String POP_QUESTION = "Pop Question ";
-	public static final String SCIENCE_QUESTION = "Science Question ";
-	public static final String SPORTS_QUESTION = "Sports Question ";
-	public static final String ROCK_QUESTION = "Rock Question ";
+	private static final int NUMBER_OF_CATEGORY_QUESTIONS = 50;
+	private static final String POP_QUESTION = "Pop Question ";
+	private static final String SCIENCE_QUESTION = "Science Question ";
+	private static final String SPORTS_QUESTION = "Sports Question ";
+	private static final String ROCK_QUESTION = "Rock Question ";
 
-	private ArrayList players = new ArrayList();
+	private List<String> players = new ArrayList<>();
     private int[] places = new int[6];
     private int[] purses  = new int[6];
     private boolean[] inPenaltyBox  = new boolean[6];
@@ -24,23 +25,19 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int index = 0; index < MAX_CATEGORY_QUESTIONS; index++) {
+		generateQuestionsForEachCategory();
+	}
+
+	private void generateQuestionsForEachCategory() {
+		for (int index = 0; index < NUMBER_OF_CATEGORY_QUESTIONS; index++) {
 			popQuestions.addLast(POP_QUESTION + index);
 			scienceQuestions.addLast(SCIENCE_QUESTION + index);
 			sportsQuestions.addLast((SPORTS_QUESTION + index));
-			rockQuestions.addLast(createRockQuestion(index));
-    	}
-    }
-
-	public String createRockQuestion(int index){
-		return ROCK_QUESTION + index;
-	}
-	
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
+			rockQuestions.addLast(ROCK_QUESTION + index);
+		}
 	}
 
-	public boolean initialisePlayer(String playerName) {
+	public void initialisePlayer(String playerName) {
 	    players.add(playerName);
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
@@ -48,7 +45,6 @@ public class Game {
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
-		return true;
 	}
 	
 	public int howManyPlayers() {
