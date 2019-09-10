@@ -4,23 +4,23 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    public static final String POP = "Pop";
-    public static final String SCIENCE = "Science";
-    public static final String SPORTS = "Sports";
-    public static final String ROCK = "Rock";
-    public static final int WINNING_NUMBER = 6;
-    ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
+    private static final String POP = "Pop";
+    private static final String SCIENCE = "Science";
+    private static final String SPORTS = "Sports";
+    private static final String ROCK = "Rock";
+    private static final int WINNING_NUMBER = 6;
+    private ArrayList players = new ArrayList();
+    private int[] places = new int[6];
+    private int[] purses = new int[6];
+    private boolean[] inPenaltyBox = new boolean[6];
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private LinkedList popQuestions = new LinkedList();
+    private LinkedList scienceQuestions = new LinkedList();
+    private LinkedList sportsQuestions = new LinkedList();
+    private LinkedList rockQuestions = new LinkedList();
 
-    int currentPlayerPlace = 0;
-    boolean isGettingOutOfPenaltyBox;
+    private int currentPlayerPlace = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int i = 0; i < 50; i++) {
