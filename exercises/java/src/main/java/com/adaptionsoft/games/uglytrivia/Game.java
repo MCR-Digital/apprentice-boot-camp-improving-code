@@ -54,58 +54,76 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]) {
 			if (rollValue % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
-				
+
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				places[currentPlayer] = places[currentPlayer] + rollValue;
-				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-				
-				System.out.println(players.get(currentPlayer) 
-						+ "'s new location is " 
-						+ places[currentPlayer]);
-				System.out.println("The category is " + currentCategory());
+
+				updatePlayerStatus(rollValue);
 				askQuestion();
-			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
-				}
+
+				return;
+			}
+			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+			isGettingOutOfPenaltyBox = false;
 			
 		} else {
-		
-			places[currentPlayer] = places[currentPlayer] + rollValue;
-			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-			
-			System.out.println(players.get(currentPlayer) 
-					+ "'s new location is " 
-					+ places[currentPlayer]);
-			System.out.println("The category is " + currentCategory());
+			updatePlayerStatus(rollValue);
 			askQuestion();
 		}
 		
 	}
 
+	private void updatePlayerStatus(int rollValue) {
+		places[currentPlayer] = places[currentPlayer] + rollValue;
+		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+
+		System.out.println(players.get(currentPlayer)
+				+ "'s new location is "
+				+ places[currentPlayer]);
+		System.out.println("The category is " + currentCategory());
+	}
+
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (currentCategory().equals("Pop"))
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+
+		if (currentCategory().equals("Science"))
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+
+		if (currentCategory().equals("Sports"))
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+
+		if (currentCategory().equals("Rock"))
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
 	
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
-		return "Rock";
+    	String genre;
+
+    	switch(places[currentPlayer]) {
+			case 0:
+			case 4:
+			case 8:
+				genre = "Pop";
+				break;
+
+			case 1:
+			case 5:
+			case 9:
+				genre ="Science";
+				break;
+
+			case 2:
+			case 6:
+			case 10:
+				genre = "Sports";
+				break;
+
+			default:
+				genre = "Rock";
+		}
+
+		return genre;
 	}
 
 	public boolean wasCorrectlyAnswered() {
