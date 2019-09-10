@@ -130,7 +130,7 @@ namespace TriviaGame
 
         public bool WasCorrectlyAnswered()
         {
-            var winner = false;
+            var continueGame = true;
             if (inPenaltyBox[currentPlayer])
             {
                 if (isGettingOutOfPenaltyBox)
@@ -138,9 +138,9 @@ namespace TriviaGame
                     Console.WriteLine("Answer was correct!!!!");
                     AddCoin();
 
-                    winner = DidPlayerWin();
+                    continueGame = ContinueGame();
                     ToNextPlayer();
-                    return winner;
+                    return continueGame;
                 }
 
                 ToNextPlayer();
@@ -149,10 +149,10 @@ namespace TriviaGame
             Console.WriteLine("Answer was corrent!!!!");
             AddCoin();
             
-            winner = DidPlayerWin();
+            continueGame = ContinueGame();
             ToNextPlayer();
 
-            return winner;
+            return continueGame;
         }
 
         public bool WrongAnswer()
@@ -167,7 +167,7 @@ namespace TriviaGame
         }
 
 
-        private bool DidPlayerWin()
+        private bool ContinueGame()
         {
             return !(purses[currentPlayer] == 6);
         }
