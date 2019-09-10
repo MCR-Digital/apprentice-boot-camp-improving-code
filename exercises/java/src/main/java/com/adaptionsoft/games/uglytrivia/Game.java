@@ -66,7 +66,7 @@ public class Game {
 				System.out.println(players.get(currentPlayerID)
 						+ "'s new location is " 
 						+ places[currentPlayerID]);
-				System.out.println("The category is " + currentCategory());
+				System.out.println("The category is " + getCurrentCategory());
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayerID) + " is not getting out of the penalty box");
@@ -81,25 +81,25 @@ public class Game {
 			System.out.println(players.get(currentPlayerID)
 					+ "'s new location is " 
 					+ places[currentPlayerID]);
-			System.out.println("The category is " + currentCategory());
+			System.out.println("The category is " + getCurrentCategory());
 			askQuestion();
 		}
 		
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (getCurrentCategory() == "Pop")
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (getCurrentCategory() == "Science")
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (getCurrentCategory() == "Sports")
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (getCurrentCategory() == "Rock")
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
 	
-	private String currentCategory() {
+	private String getCurrentCategory() {
 		if (places[currentPlayerID] == 0) return "Pop";
 		if (places[currentPlayerID] == 4) return "Pop";
 		if (places[currentPlayerID] == 8) return "Pop";
