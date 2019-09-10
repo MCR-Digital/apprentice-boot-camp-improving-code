@@ -13,15 +13,15 @@ public class Game {
 	private static final int NUMBER_OF_QUESTIONS = 50;
 	private static final int PLAYER_ONE_ID = 0;
 
-	ArrayList players = new ArrayList();
-    int[] places = new int[MAX_NUMBER_OF_PLAYERS];
-    int[] purses  = new int[MAX_NUMBER_OF_PLAYERS];
-    boolean[] playersInPenaltyBox = new boolean[MAX_NUMBER_OF_PLAYERS];
+	private ArrayList players = new ArrayList();
+    private int[] places = new int[MAX_NUMBER_OF_PLAYERS];
+    private int[] purses  = new int[MAX_NUMBER_OF_PLAYERS];
+    private boolean[] playersInPenaltyBox = new boolean[MAX_NUMBER_OF_PLAYERS];
     
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private LinkedList popQuestions = new LinkedList();
+    private LinkedList scienceQuestions = new LinkedList();
+    private LinkedList sportsQuestions = new LinkedList();
+    private LinkedList rockQuestions = new LinkedList();
     
     int currentPlayerID = PLAYER_ONE_ID;
     boolean isGettingOutOfPenaltyBox;
