@@ -111,23 +111,25 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-			Console.WriteLine("The category is " + ReturnCurrentCategory());
-			if (ReturnCurrentCategory() == "Pop")
+			var currentCategory = ReturnCurrentCategory();
+
+			Console.WriteLine("The category is " + currentCategory);
+			if (currentCategory == "Pop")
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (ReturnCurrentCategory() == "Science")
+            if (currentCategory == "Science")
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (ReturnCurrentCategory() == "Sports")
+            if (currentCategory == "Sports")
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (ReturnCurrentCategory() == "Rock")
+            if (currentCategory == "Rock")
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
