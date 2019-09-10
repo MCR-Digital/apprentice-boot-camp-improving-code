@@ -12,9 +12,9 @@ public class GameRunner {
 	public static void main(String[] args) {
 		Game aGame = new Game();
 		
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
+		aGame.addPlayerToGame("Chet");
+		aGame.addPlayerToGame("Pat");
+		aGame.addPlayerToGame("Sue");
 		
 		Random rand = new Random(Integer.parseInt(args[0]));
 	
@@ -23,9 +23,9 @@ public class GameRunner {
 			aGame.roll(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+				notAWinner = aGame.wasAnsweredIncorrectly();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				notAWinner = aGame.wasAnsweredCorrectly();
 			}
 			
 			

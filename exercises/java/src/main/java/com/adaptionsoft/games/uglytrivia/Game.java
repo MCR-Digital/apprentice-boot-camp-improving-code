@@ -31,23 +31,23 @@ public class Game {
 	}
 	
 	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
+		return (getAmountOfPlayers() >= 2);
 	}
 
-	public boolean add(String playerName) {
+	public boolean addPlayerToGame(String playerName) {
 		
 		
 	    players.add(playerName);
-	    playerLocations[howManyPlayers()] = 0;
-	    playerPurses[howManyPlayers()] = 0;
-	    playersInPenaltyBox[howManyPlayers()] = false;
+	    playerLocations[getAmountOfPlayers()] = 0;
+	    playerPurses[getAmountOfPlayers()] = 0;
+	    playersInPenaltyBox[getAmountOfPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
 	
-	public int howManyPlayers() {
+	public int getAmountOfPlayers() {
 		return players.size();
 	}
 
@@ -112,7 +112,7 @@ public class Game {
 		return "Rock";
 	}
 
-	public boolean wasCorrectlyAnswered() {
+	public boolean wasAnsweredCorrectly() {
 		if (playersInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
@@ -152,7 +152,7 @@ public class Game {
 		}
 	}
 	
-	public boolean wrongAnswer(){
+	public boolean wasAnsweredIncorrectly(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		playersInPenaltyBox[currentPlayer] = true;
