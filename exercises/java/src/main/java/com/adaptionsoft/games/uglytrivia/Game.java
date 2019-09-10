@@ -111,14 +111,17 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
-
-        if(isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]) {
+        boolean notWinner;
+        if (isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]) {
             System.out.println("Answer was correct!!!!");
-            return updatePlayerPurse();
+            updatePlayerPurse();
+            notWinner = hasPlayerNotWon();
+            nextPlayerTurn();
         } else {
             nextPlayerTurn();
-            return true;
+            notWinner = hasPlayerNotWon();
         }
+        return notWinner;
     }
 
     private void nextPlayerTurn() {
@@ -126,17 +129,12 @@ public class Game {
         if (currentPlayer == players.size()) currentPlayer = 0;
     }
 
-    private boolean updatePlayerPurse() {
+    private void updatePlayerPurse() {
         purses[currentPlayer]++;
         System.out.println(players.get(currentPlayer)
                 + " now has "
                 + purses[currentPlayer]
                 + " Gold Coins.");
-
-        boolean winner = didPlayerWin();
-        nextPlayerTurn();
-
-        return winner;
     }
 
     public boolean wrongAnswer() {
@@ -149,7 +147,7 @@ public class Game {
     }
 
 
-    private boolean didPlayerWin() {
+    private boolean hasPlayerNotWon() {
         return !(purses[currentPlayer] == 6);
     }
 }
