@@ -14,7 +14,6 @@ namespace TriviaGame
 
         List<Player> players = new List<Player>();
 
-        int[] playerPlaces = new int[MAX_PLAYER_COUNT];
         int[] playerPurses = new int[MAX_PLAYER_COUNT];
 
         bool[] inPenaltyBox = new bool[MAX_PLAYER_COUNT];
@@ -51,9 +50,9 @@ namespace TriviaGame
         public bool AddPlayer(Player player)
         {
 
-
+            player.Place = 0;
             players.Add(player);
-            playerPlaces[PlayerCount] = 0;
+
             playerPurses[PlayerCount] = 0;
             inPenaltyBox[PlayerCount] = false;
 
@@ -94,7 +93,7 @@ namespace TriviaGame
 
                     Console.WriteLine(CurrentPlayer.Name
                             + "'s new location is "
-                            + playerPlaces[currentPlayerIndex]);
+                            + CurrentPlayer.Place);
                     Console.WriteLine("The category is " + GetCurrentCategory());
                     PrintQuestionAndRemoveFromList();
                 }
@@ -111,7 +110,7 @@ namespace TriviaGame
 
                 Console.WriteLine(CurrentPlayer.Name
                         + "'s new location is "
-                        + playerPlaces[currentPlayerIndex]);
+                        + CurrentPlayer.Place);
                 Console.WriteLine("The category is " + GetCurrentCategory());
                 PrintQuestionAndRemoveFromList();
             }
@@ -120,8 +119,8 @@ namespace TriviaGame
 
         private void MoveCurrentPlayer(int places)
         {
-            playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] + places;
-            if (playerPlaces[currentPlayerIndex] > 11) playerPlaces[currentPlayerIndex] = playerPlaces[currentPlayerIndex] - 12;
+            CurrentPlayer.Place += places;
+            if (CurrentPlayer.Place > 11) CurrentPlayer.Place -= 12;
         }
 
         private void PrintQuestionAndRemoveFromList()
@@ -153,15 +152,15 @@ namespace TriviaGame
 
         private String GetCurrentCategory()
         {
-            if (playerPlaces[currentPlayerIndex] == 0) return "Pop";
-            if (playerPlaces[currentPlayerIndex] == 4) return "Pop";
-            if (playerPlaces[currentPlayerIndex] == 8) return "Pop";
-            if (playerPlaces[currentPlayerIndex] == 1) return "Science";
-            if (playerPlaces[currentPlayerIndex] == 5) return "Science";
-            if (playerPlaces[currentPlayerIndex] == 9) return "Science";
-            if (playerPlaces[currentPlayerIndex] == 2) return "Sports";
-            if (playerPlaces[currentPlayerIndex] == 6) return "Sports";
-            if (playerPlaces[currentPlayerIndex] == 10) return "Sports";
+            if (CurrentPlayer.Place == 0) return "Pop";
+            if (CurrentPlayer.Place == 4) return "Pop";
+            if (CurrentPlayer.Place == 8) return "Pop";
+            if (CurrentPlayer.Place == 1) return "Science";
+            if (CurrentPlayer.Place == 5) return "Science";
+            if (CurrentPlayer.Place == 9) return "Science";
+            if (CurrentPlayer.Place == 2) return "Sports";
+            if (CurrentPlayer.Place == 6) return "Sports";
+            if (CurrentPlayer.Place == 10) return "Sports";
             return "Rock";
         }
 
