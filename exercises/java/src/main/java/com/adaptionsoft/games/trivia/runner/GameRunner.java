@@ -23,7 +23,7 @@ public class GameRunner {
 			aGame.playerTurn(randomNumber.nextInt(5) + 1);
 			
 			if (randomNumber.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+				notAWinner = aGame.isWrongAnswer();
 			} else {
 				notAWinner = aGame.wasCorrectlyAnswered();
 			}
