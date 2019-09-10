@@ -139,24 +139,22 @@ namespace TriviaGame.Core
 
     public bool OnCorrectAnswer()
     {
+      if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox)
+      {
+        MoveToNextPlayer();
+        return true;
+      }
+
       if (inPenaltyBox[currentPlayer])
       {
-        if (isGettingOutOfPenaltyBox)
-        {
-          Console.WriteLine("Answer was correct!!!!");
-          purses[currentPlayer]++;
-          PrintPlayerScore();
+        Console.WriteLine("Answer was correct!!!!");
+        purses[currentPlayer]++;
+        PrintPlayerScore();
 
-          bool winner = HasPlayerWon();
-          MoveToNextPlayer();
+        bool winner = HasPlayerWon();
+        MoveToNextPlayer();
 
-          return winner;
-        }
-        else
-        {
-          MoveToNextPlayer();
-          return true;
-        }
+        return winner;
       }
       else
       {
@@ -178,8 +176,7 @@ namespace TriviaGame.Core
       Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
       inPenaltyBox[currentPlayer] = true;
 
-      currentPlayer++;
-      if (currentPlayer == players.Count) currentPlayer = 0;
+      MoveToNextPlayer();
       return true;
     }
 
