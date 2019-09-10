@@ -128,35 +128,30 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-                updateScore();
-
-				
-				boolean winner = isWinner();
-				currentPlayer++;
-				setNextPlayer();
-
-				return winner;
-			} else {
+                return isWinnerOnEndOfTurn();
+            } else {
 				currentPlayer++;
 				setNextPlayer();
 				return true;
 			}
-			
-			
-			
+
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-            updateScore();
-
-			
-			boolean winner = isWinner();
-			currentPlayer++;
-			setNextPlayer();
-
-			return winner;
-		}
+            return isWinnerOnEndOfTurn();
+        }
 	}
+
+    private boolean isWinnerOnEndOfTurn() {
+        updateScore();
+
+
+        boolean winner = isWinner();
+        currentPlayer++;
+        setNextPlayer();
+
+        return winner;
+    }
 
     private void updateScore() {
         score[currentPlayer]++;
