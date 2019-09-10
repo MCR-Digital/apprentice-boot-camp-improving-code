@@ -116,17 +116,20 @@ public class Game {
                 System.out.println("Answer was correct!!!!");
                 return correctQuestionAnswer();
             } else {
-                currentPlayer++;
-
-                if (currentPlayer == players.size()) {
-                    currentPlayer = 0;
-                }
+                loopToSeeWhosNext();
                 return true;
             }
 
         } else {
             System.out.println("Answer was corrent!!!!");
             return correctQuestionAnswer();
+        }
+    }
+
+    private void loopToSeeWhosNext() {
+        currentPlayer++;
+        if (currentPlayer == players.size()) {
+            currentPlayer = 0;
         }
     }
 
@@ -138,10 +141,7 @@ public class Game {
                 + " Gold Coins.");
 
         boolean winner = winningPlayer();
-        currentPlayer++;
-        if (currentPlayer == players.size()) {
-            currentPlayer = 0;
-        }
+        loopToSeeWhosNext();
 
         return winner;
     }
@@ -152,10 +152,7 @@ public class Game {
         System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
 
-        currentPlayer++;
-        if (currentPlayer == players.size()) {
-            currentPlayer = 0;
-        }
+        loopToSeeWhosNext();
         return true;
     }
 
