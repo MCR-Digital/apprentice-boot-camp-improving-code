@@ -56,7 +56,7 @@ public class Game {
 		return players.size();
 	}
 
-	public void moveBasedOnDieRoll(int rolledNumber) {
+	public void processRoll(int rolledNumber) {
 		System.out.println(players.get(currentPlayerID) + " is the current player");
 		System.out.println("They have rolled a " + rolledNumber);
 		

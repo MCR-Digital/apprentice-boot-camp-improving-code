@@ -20,7 +20,7 @@ public class GameRunner {
 	
 		do {
 			
-			aGame.moveBasedOnDieRoll(rand.nextInt(5) + 1);
+			aGame.processRoll(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
 				notAWinner = aGame.handleIncorrectAnswer();
