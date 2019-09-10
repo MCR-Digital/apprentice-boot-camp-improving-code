@@ -127,9 +127,6 @@ public class Game {
 		} else {
 
 			String message = "Answer was corrent!!!!";
-			// player win state
-			// rewards, checks for winner and moves
-			// didPlayerWinAfterUpdate
 			updatePlayerCoinCount(message);
 
 			boolean didPlayerWin = didPlayerWin();
