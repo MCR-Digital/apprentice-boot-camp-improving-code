@@ -9,10 +9,10 @@ public class Game {
     private int[] coinPurses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
 
-    private LinkedList popQuestions = new LinkedList();
-    private LinkedList scienceQuestions = new LinkedList();
-    private LinkedList sportsQuestions = new LinkedList();
-    private LinkedList rockQuestions = new LinkedList();
+    private LinkedList<String> popQuestions = new LinkedList<String>();
+    private LinkedList<String> scienceQuestions = new LinkedList<String>();
+    private LinkedList<String> sportsQuestions = new LinkedList<String>();
+    private LinkedList<String> rockQuestions = new LinkedList<String>();
     int amountOfPlayers = players.size();
 
     private int currentPlayer = 0;
@@ -20,7 +20,7 @@ public class Game {
 
     public Game() {
         for (int index = 0; index < 50; index++) {
-            popQuestions.addLast("Pop Question " + index);
+            popQuestions.addLast(("Pop Question " + index));
             scienceQuestions.addLast(("Science Question " + index));
             sportsQuestions.addLast(("Sports Question " + index));
             rockQuestions.addLast(("Rock Question " + index));
