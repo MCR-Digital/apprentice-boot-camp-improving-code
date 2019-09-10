@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-	public static final int MAX_NUMBER_OF_QUESTIONS = 50;
+	private static final int MAX_NUMBER_OF_QUESTIONS = 50;
 
-	ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+	private ArrayList players = new ArrayList();
+    private int[] places = new int[6];
+    private int[] purses  = new int[6];
+    private boolean[] inPenaltyBox  = new boolean[6];
     
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private LinkedList <String> popQuestions = new LinkedList<>();
+    private LinkedList <String> scienceQuestions = new LinkedList<>();
+    private LinkedList <String> sportsQuestions = new LinkedList<>();
+    private LinkedList <String> rockQuestions = new LinkedList<>();
     
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
