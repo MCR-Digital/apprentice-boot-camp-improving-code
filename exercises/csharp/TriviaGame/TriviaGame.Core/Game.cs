@@ -68,6 +68,8 @@ namespace TriviaGame.Core
       }
     }
 
+    // Random comment with no meaning
+
     public bool AddPlayer(String playerName)
     {
       _players.Add(playerName);
