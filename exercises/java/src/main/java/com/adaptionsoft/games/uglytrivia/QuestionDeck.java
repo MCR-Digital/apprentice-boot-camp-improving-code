@@ -29,5 +29,7 @@ public class QuestionDeck {
         return topic + " Question " + index;
     }
 
-    
+    public void askQuestion(String currentCategory) {
+        System.out.println(questionDeck.get(currentCategory).removeFirst());
+    }
 }
