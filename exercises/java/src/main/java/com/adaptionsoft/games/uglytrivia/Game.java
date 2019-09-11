@@ -26,7 +26,8 @@ public class Game {
     private LinkedList<String> sportsQuestions = new LinkedList<>();
     private LinkedList<String> rockQuestions = new LinkedList<>();
 
-    public Game() {
+    public Game(String... categories) {
+
         generateQuestionsForEachCategory();
     }
 
@@ -63,6 +64,7 @@ public class Game {
 
         if (isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]) {
             movePlayerForward(rollValue);
+            askQuestion();
         }
     }
 
@@ -86,7 +88,6 @@ public class Game {
                 + "'s new location is "
                 + boardSquares[currentPlayer]);
         System.out.println("The category is " + currentCategory(boardSquares[currentPlayer]));
-        askQuestion();
     }
 
     private void askQuestion() {
