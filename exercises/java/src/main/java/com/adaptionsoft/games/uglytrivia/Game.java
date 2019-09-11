@@ -1,95 +1,61 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Game {
-    private static final String POP = "Pop";
-    private static final String SCIENCE = "Science";
-    private static final String SPORTS = "Sports";
-    private static final String ROCK = "Rock";
 
-    private List<String> players = new ArrayList<>();
-    private int[] boardSquares = new int[6];
-    private int[] purses = new int[6];
-    private boolean[] inPenaltyBox = new boolean[6];
     private int currentPlayer = 0;
-    private boolean isGettingOutOfPenaltyBox;
-
     private QuestionDeck questionDeck;
+    private List<Player> playerList;
 
-
-    public Game(QuestionDeck questionDeck) {
+    public Game(QuestionDeck questionDeck, Player... players) {
         this.questionDeck = questionDeck;
-    }
-
-    public void initialisePlayer(String playerName) {
-        players.add(playerName);
-        boardSquares[getNumberOfPlayers()] = 0;
-        purses[getNumberOfPlayers()] = 0;
-        inPenaltyBox[getNumberOfPlayers()] = false;
-
-        System.out.println(playerName + " was added");
-        System.out.println("They are player number " + players.size());
-    }
-
-    private int getNumberOfPlayers() {
-        return players.size();
+        this.playerList = new ArrayList<>(Arrays.asList(players));
     }
 
     public void rollDice(int rollValue) {
-        System.out.println(players.get(currentPlayer) + " is the current player");
+        Player player = playerList.get(currentPlayer);
+        System.out.println(player.getName() + " is the current player");
         System.out.println("They have rolled a " + rollValue);
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (player.isInPenaltyBox()) {
             checkPenaltyBoxStatus(rollValue);
         }
 
-        if (isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]) {
-            movePlayerForward(rollValue);
-            askQuestion();
+        if (player.isGettingOutOfPenaltyBox() || !player.isInPenaltyBox()) {
+            player.movePlayerForward(rollValue);
+            System.out.println("The category is " + questionDeck.getCurrentCategory(player.getBoardPosition()));
+            askQuestion(player.getBoardPosition());
         }
     }
 
     private void checkPenaltyBoxStatus(int rollValue) {
+        Player player = playerList.get(currentPlayer);
         if (rollValue % 2 != 0) {
-            isGettingOutOfPenaltyBox = true;
-            System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+            player.setGettingOutOfPenaltyBox(true);
+            System.out.println(playerList.get(currentPlayer).getName() + " is getting out of the penalty box");
         } else {
-            isGettingOutOfPenaltyBox = false;
-            System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+            player.setGettingOutOfPenaltyBox(false);
+            System.out.println(playerList.get(currentPlayer).getName() + " is not getting out of the penalty box");
         }
     }
 
-    private void movePlayerForward(int rollValue) {
-        boardSquares[currentPlayer] = boardSquares[currentPlayer] + rollValue;
-        if (boardSquares[currentPlayer] > 11) {
-            boardSquares[currentPlayer] = boardSquares[currentPlayer] - 12;
-        }
-
-        System.out.println(players.get(currentPlayer)
-                + "'s new location is "
-                + boardSquares[currentPlayer]);
-        System.out.println("The category is " + currentCategory(boardSquares[currentPlayer]));
-    }
-
-    private void askQuestion() {
-        String currentCategory = currentCategory(boardSquares[currentPlayer]);
-        Question question = questionDeck.getQuestion(currentCategory);
-        System.out.println(question.getCategory() + " Question " + question.getQuestionNumber());
-        question.removeQuestionFromDeck();
-    }
-
-    private String currentCategory(int boardSquareIndex) {
-        List<String> categoryName = new ArrayList<>(Arrays.asList(POP, SCIENCE, SPORTS, ROCK));
-        return categoryName.get(boardSquareIndex % categoryName.size());
+    private void askQuestion(int boardSquareIndex) {
+        String currentCategory = questionDeck.getCurrentCategory(boardSquareIndex);
+        Category category = questionDeck.getQuestion(currentCategory);
+        System.out.println(category.getCategoryName() + " Question " + category.getQuestionNumber());
+        category.removeQuestionFromDeck();
     }
 
     public boolean wasCorrectlyAnswered() {
+        Player player = playerList.get(currentPlayer);
         boolean isNotWinner = true;
-        if (isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]) {
+        if (player.isGettingOutOfPenaltyBox() || !player.isInPenaltyBox()) {
             System.out.println("Answer was correct!!!!");
-            updatePlayerPurse();
-            isNotWinner = !hasPlayerWon();
+            player.updatePoints();
+            isNotWinner = !player.checkIfPlayerHasWon();
             switchToNextPlayer();
         } else {
             switchToNextPlayer();
@@ -97,29 +63,18 @@ public class Game {
         return isNotWinner;
     }
 
-    private void updatePlayerPurse() {
-        purses[currentPlayer]++;
-        System.out.println(players.get(currentPlayer)
-                + " now has "
-                + purses[currentPlayer]
-                + " Gold Coins.");
-    }
-
-    private boolean hasPlayerWon() {
-        return purses[currentPlayer] == 6;
-    }
-
     private void switchToNextPlayer() {
         currentPlayer++;
-        if (currentPlayer == players.size()) {
+        if (currentPlayer == playerList.size()) {
             currentPlayer = 0;
         }
     }
 
     public boolean wrongAnswer() {
         System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-        inPenaltyBox[currentPlayer] = true;
+        Player player = playerList.get(currentPlayer);
+        System.out.println(player.getName() + " was sent to the penalty box");
+        player.putInPenaltyBox();
 
         switchToNextPlayer();
         return true;

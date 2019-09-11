@@ -1,16 +1,16 @@
 package com.adaptionsoft.games.uglytrivia;
 
-public class Question {
+public class Category {
 
-    private String category;
+    private String categoryName;
     private int questionNumber;
 
-    public Question(String category) {
-        this.category = category;
+    Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
-    public String getCategory() {
-        return category;
+    String getCategoryName() {
+        return categoryName;
     }
 
     int getQuestionNumber() {

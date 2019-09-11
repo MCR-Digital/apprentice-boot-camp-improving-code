@@ -6,20 +6,24 @@ import java.util.stream.Collectors;
 
 public class QuestionDeck {
 
-    private List<Question> questions;
+    private List<Category> categories;
 
     public QuestionDeck(String... categories) {
-        this.questions = Arrays.stream(categories).map(Question::new).collect(Collectors.toList());
+        this.categories = Arrays.stream(categories).map(Category::new).collect(Collectors.toList());
     }
 
-    public Integer getQuestionNumberAtCategory(String category) {
-        Question question = getQuestion(category);
+    public Integer getQuestionNumberAtCategory(String categoryName) {
+        Category question = getQuestion(categoryName);
         return question.getQuestionNumber();
     }
 
-    public Question getQuestion(String category) {
-        return questions.stream()
-                .filter(target -> category.equals(target.getCategory()))
+    public Category getQuestion(String category) {
+        return categories.stream()
+                .filter(target -> category.equals(target.getCategoryName()))
                 .collect(Collectors.toList()).get(0);
+    }
+
+    String getCurrentCategory(int boardSquareIndex) {
+        return categories.get(boardSquareIndex % categories.size()).getCategoryName();
     }
 }

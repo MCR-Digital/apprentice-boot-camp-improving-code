@@ -19,10 +19,19 @@ class QuestionDeckTest {
     void shouldUpdateQuestionNumberAfterQuestionIsAsked() {
         QuestionDeck questionDeck = new QuestionDeck("Rock", "Pop");
 
-        Question question = questionDeck.getQuestion("Rock");
-        question.removeQuestionFromDeck();
+        Category category = questionDeck.getQuestion("Rock");
+        category.removeQuestionFromDeck();
         Integer questionNumber = questionDeck.getQuestionNumberAtCategory("Rock");
 
         assertThat(questionNumber).isEqualTo(1);
+    }
+
+    @Test
+    void shouldGetCategoryBasedOneBoardSpaceIndex() {
+        QuestionDeck questionDeck = new QuestionDeck("Rock", "Pop");
+
+        String currentCategory = questionDeck.getCurrentCategory(5);
+
+        assertThat(currentCategory).isEqualTo("Pop");
     }
 }
