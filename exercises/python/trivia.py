@@ -32,7 +32,7 @@ class Game:
         lowest_number_of_players = 2
         return self.how_many_players >= lowest_number_of_players
 
-    def add(self, player_name):
+    def addPlayer(self, player_name):
         self.players.playerList.append(player_name)
         self.places_in_game[self.how_many_players] = 0
         self.purses[self.how_many_players] = 0
@@ -144,11 +144,14 @@ class Game:
     def wrong_answer(self):
         print('Question was incorrectly answered')
         print(self.players.playerList[self.current_player] + " was sent to the penalty box")
-        self.in_penalty_box[self.current_player] = True
+        self.put_player_in_penalty_box(self.current_player)
 
         self.current_player += 1
         if self.current_player == len(self.players.playerList): self.current_player = 0
         return True
+
+    def put_player_in_penalty_box(self, player):
+        self.in_penalty_box[player] = True
 
     def _did_player_win(self):
         return not (self.purses[self.current_player] == 6)
@@ -159,9 +162,9 @@ def run(number):
 
     game = Game()
 
-    game.add('Chet')
-    game.add('Pat')
-    game.add('Sue')
+    game.addPlayer('Chet')
+    game.addPlayer('Pat')
+    game.addPlayer('Sue')
 
     seed(number)
 
