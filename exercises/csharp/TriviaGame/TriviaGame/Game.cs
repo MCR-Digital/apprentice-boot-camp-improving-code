@@ -70,22 +70,12 @@ namespace TriviaGame
                 return;
             }
 
-            MoveCurrentPlayer(rollNumber);
+            _board.MovePlayer(CurrentPlayer, rollNumber);
 
             GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
             GameWriter.WriteCategory(_board.GetCategoryForPosition(CurrentPlayer.Place));
 
             PrintQuestionForCurrentCategory();
-        }
-
-        private void MoveCurrentPlayer(int places)
-        {
-            CurrentPlayer.Place += places;
-
-            if (CurrentPlayer.Place > 11)
-            {
-                CurrentPlayer.Place -= 12;
-            }
         }
 
         private void PrintQuestionForCurrentCategory()

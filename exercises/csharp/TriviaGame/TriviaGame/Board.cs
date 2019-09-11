@@ -8,8 +8,23 @@ namespace TriviaGame
 {
     public class Board
     {
+        private const int BOARD_SIZE = 12;
+
+        public void MovePlayer(Player player, int places)
+        {
+            player.Place += places;
+
+            if (player.Place >= BOARD_SIZE)
+            {
+                player.Place -= BOARD_SIZE;
+            }
+        }
+
         public Category GetCategoryForPosition(int position)
         {
+
+
+
             switch (position)
             {
                 case 0:
