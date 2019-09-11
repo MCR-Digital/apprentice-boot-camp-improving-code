@@ -10,15 +10,15 @@ namespace TriviaGame
         private const int MIN_PLAYER_COUNT = 2;
         private const int MAX_QUESTIONS = 50;
 
-        List<Player> players = new List<Player>();
-        Dictionary<Category, QuestionDeck> questions;
+        private readonly List<Player> _players = new List<Player>();
+        private readonly Dictionary<Category, QuestionDeck> _questions;
 
-        int currentPlayerIndex = 0;
-        bool isGettingOutOfPenaltyBox;
+        private int _currentPlayerIndex;
+        private bool _isGettingOutOfPenaltyBox;
 
         public Game()
         {
-            questions = new Dictionary<Category, QuestionDeck>()
+            _questions = new Dictionary<Category, QuestionDeck>()
             {
                 { Category.Pop, new QuestionDeck(Category.Pop, MAX_QUESTIONS) },
                 { Category.Science, new QuestionDeck(Category.Science, MAX_QUESTIONS) },
@@ -34,17 +34,17 @@ namespace TriviaGame
 
         public void AddPlayer(Player player)
         {
-            players.Add(player);
+            _players.Add(player);
 
             Console.WriteLine(player.Name + " was added");
-            Console.WriteLine("They are player number " + players.Count);
+            Console.WriteLine("They are player number " + _players.Count);
         }
 
         public int PlayerCount
         {
             get
             {
-                return players.Count;
+                return _players.Count;
             }
         }
 
@@ -52,7 +52,7 @@ namespace TriviaGame
         {
             get
             {
-                return players[currentPlayerIndex];
+                return _players[_currentPlayerIndex];
             }
         }
 
@@ -65,7 +65,7 @@ namespace TriviaGame
             {
                 if (rollNumber % 2 != 0)
                 {
-                    isGettingOutOfPenaltyBox = true;
+                    _isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(CurrentPlayer.Name + " is getting out of the penalty box");
                     MoveCurrentPlayer(rollNumber);
@@ -79,7 +79,7 @@ namespace TriviaGame
                 else
                 {
                     Console.WriteLine(CurrentPlayer.Name + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    _isGettingOutOfPenaltyBox = false;
                 }
 
             }
@@ -105,7 +105,7 @@ namespace TriviaGame
         private void PrintQuestionAndRemoveFromList()
         {
             var currentCategory = GetCurrentCategory();
-            var currentQuestion = questions[currentCategory].GetNext();
+            var currentQuestion = _questions[currentCategory].GetNext();
             Console.WriteLine(currentQuestion);
         }
 
@@ -135,7 +135,7 @@ namespace TriviaGame
         {
             if (CurrentPlayer.IsInPenaltyBox)
             {
-                if (isGettingOutOfPenaltyBox)
+                if (_isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     CurrentPlayer.Coins++;
@@ -188,8 +188,8 @@ namespace TriviaGame
 
         private void MoveToNextPlayer()
         {
-            currentPlayerIndex++;
-            if (currentPlayerIndex == PlayerCount) currentPlayerIndex = 0;
+            _currentPlayerIndex++;
+            if (_currentPlayerIndex == PlayerCount) _currentPlayerIndex = 0;
         }
     }
 }
