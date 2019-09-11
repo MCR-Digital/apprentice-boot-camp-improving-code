@@ -5,7 +5,8 @@ import java.util.LinkedList;
 
 public class Game {
 
-	private static final int MAX_PLAYERS = 6;
+	public static final int MAX_PLAYERS = 6;
+
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
 	private static final int MAX_QUESTIONS = 50;
@@ -28,8 +29,10 @@ public class Game {
 	private LinkedList sportsQuestionsList = new LinkedList();
 	private LinkedList rockQuestionsList = new LinkedList();
 
-	private int currentPlayer = 0;
+	private int playerLocation = 0;
 	private boolean isOutOfPenaltyBox;
+
+	private Board gameBoard = new Board();
 
     public Game(){
     	for (int i = 0; i < MAX_QUESTIONS; i++) {
@@ -60,10 +63,10 @@ public class Game {
 	}
 
 	public void playGame(int roll) {
-		System.out.println(playersInGame.get(currentPlayer) + " is the current player");
+		System.out.println(playersInGame.get(playerLocation) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
-		if (playersInPenaltyBox[currentPlayer]) {
+		if (playersInPenaltyBox[playerLocation]) {
 			penaltyCheck(roll);
 		} else {
 			updatePlayerLocation(roll);
@@ -72,25 +75,25 @@ public class Game {
 
 	private void penaltyCheck(final int roll) {
 		if (roll % PENALTY_CHECK_VALUE != 0) {
-			System.out.println(playersInGame.get(currentPlayer) + " is getting out of the penalty box");
+			System.out.println(playersInGame.get(playerLocation) + " is getting out of the penalty box");
 			isOutOfPenaltyBox = true;
 
 			updatePlayerLocation(roll);
 		} else {
-			System.out.println(playersInGame.get(currentPlayer) + " is not getting out of the penalty box");
+			System.out.println(playersInGame.get(playerLocation) + " is not getting out of the penalty box");
 			isOutOfPenaltyBox = false;
 			}
 	}
 
 	private void updatePlayerLocation(final int roll) {
-		playerOrder[currentPlayer] += roll;
-		if (playerOrder[currentPlayer] > LAST_POSITION) {
-			playerOrder[currentPlayer] -= RESET_POSITION;
+		playerOrder[playerLocation] += roll;
+		if (playerOrder[playerLocation] > LAST_POSITION) {
+			playerOrder[playerLocation] -= RESET_POSITION;
 		}
 
-		System.out.println(playersInGame.get(currentPlayer)
+		System.out.println(playersInGame.get(playerLocation)
 				+ "'s new location is "
-				+ playerOrder[currentPlayer]);
+				+ playerOrder[playerLocation]);
 		System.out.println("The category is " + getCategory());
 		askQuestion();
 	}
@@ -111,17 +114,17 @@ public class Game {
     	String[] boardSpaces = {CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP,
 				CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP, CATEGORY_SCIENCE,
 				CATEGORY_SPORTS, CATEGORY_ROCK};
-    	return boardSpaces[playerOrder[currentPlayer]];
+    	return boardSpaces[playerOrder[playerLocation]];
 	}
 
 	public boolean wasAnsweredCorrectly() {
-		if (playersInPenaltyBox[currentPlayer]){
+		if (playersInPenaltyBox[playerLocation]){
 			if (isOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				return calculateScoreAndDisplay();
 			} else {
-				currentPlayer++;
-				resetPlayerToZero();
+				playerLocation++;
+				resetPlayerLocationToZero();
 				return true;
 			}
 		} else {
@@ -134,19 +137,19 @@ public class Game {
 
 	public boolean wasAnsweredIncorrectly(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(playersInGame.get(currentPlayer)+ " was sent to the penalty box");
-		playersInPenaltyBox[currentPlayer] = true;
+		System.out.println(playersInGame.get(playerLocation)+ " was sent to the penalty box");
+		playersInPenaltyBox[playerLocation] = true;
 
-		currentPlayer++;
-		resetPlayerToZero();
+		playerLocation++;
+		resetPlayerLocationToZero();
 		return true;
 	}
 
 	private boolean calculateScoreAndDisplay() {
-		playerPurses[currentPlayer]++;
-		System.out.println(playersInGame.get(currentPlayer)
+		playerPurses[playerLocation]++;
+		System.out.println(playersInGame.get(playerLocation)
 				+ " now has "
-				+ playerPurses[currentPlayer]
+				+ playerPurses[playerLocation]
 				+ " Gold Coins.");
 
 		return determineWinner();
@@ -154,16 +157,16 @@ public class Game {
 
 	private boolean determineWinner() {
 		boolean winner = didPlayerWin();
-		currentPlayer++;
-		resetPlayerToZero();
+		playerLocation++;
+		resetPlayerLocationToZero();
 		return winner;
 	}
 
-	private void resetPlayerToZero() {
-		if (currentPlayer == playersInGame.size()) currentPlayer = 0;
+	private void resetPlayerLocationToZero() {
+		if (playerLocation == playersInGame.size()) playerLocation = 0;
 	}
 
 	private boolean didPlayerWin() {
-		return (playerPurses[currentPlayer] != WINNING_SCORE);
+		return (playerPurses[playerLocation] != WINNING_SCORE);
 	}
 }
