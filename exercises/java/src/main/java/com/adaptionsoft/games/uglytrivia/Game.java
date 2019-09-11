@@ -129,6 +129,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-    	return !(players.get(currentPlayer).getCoinCount() ==6);
+    	return (players.get(currentPlayer).getCoinCount() !=6);
 	}
 }
