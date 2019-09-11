@@ -43,13 +43,16 @@ class Game:
     def how_many_players(self):
         return len(self.players)
 
+    def is_roll_odd(self, roll):
+        return roll % 2 != 0
+
     def roll(self, roll_of_die):
         print("%s is the current player" % self.players[self.current_player])
         print("They have rolled a %s" % roll_of_die)
 
         last_place_on_board = 11
         if self.in_penalty_box[self.current_player]:
-            if roll_of_die % 2 != 0:
+            if self.is_roll_odd(roll_of_die):
                 self.out_of_penalty_box = True
 
                 print("%s is getting out of the penalty box" % self.players[self.current_player])
