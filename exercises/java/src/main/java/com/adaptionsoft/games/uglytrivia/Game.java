@@ -18,8 +18,8 @@ public class Game {
 	private static final String CATEGORY_SPORTS = "Sports";
 	private static final String CATEGORY_ROCK = "Rock";
 
-	private ArrayList players = new ArrayList();
-	private int[] playerLocations = new int[MAX_PLAYERS];
+	private ArrayList playersInGame = new ArrayList();
+	private int[] playerOrder = new int[MAX_PLAYERS];
 	private int[] playerPurses = new int[MAX_PLAYERS];
 	private boolean[] playersInPenaltyBox = new boolean[MAX_PLAYERS];
 
@@ -45,22 +45,22 @@ public class Game {
 	}
 
 	public boolean addPlayerToGame(Player player) {
-	    players.add(player.getName());
-	    playerLocations[getAmountOfPlayers()] = 0;
+	    playersInGame.add(player.getName());
+	    playerOrder[getAmountOfPlayers()] = 0;
 	    playerPurses[getAmountOfPlayers()] = 0;
 	    playersInPenaltyBox[getAmountOfPlayers()] = false;
 	    
 	    System.out.println(player.getName() + " was added");
-	    System.out.println("They are player number " + players.size());
+	    System.out.println("They are player number " + playersInGame.size());
 		return true;
 	}
 	
 	private int getAmountOfPlayers() {
-    	return players.size();
+    	return playersInGame.size();
 	}
 
-	public void roll(int roll) {
-		System.out.println(players.get(currentPlayer) + " is the current player");
+	public void playGame(int roll) {
+		System.out.println(playersInGame.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
 		if (playersInPenaltyBox[currentPlayer]) {
@@ -72,25 +72,25 @@ public class Game {
 
 	private void penaltyCheck(final int roll) {
 		if (roll % PENALTY_CHECK_VALUE != 0) {
-			System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+			System.out.println(playersInGame.get(currentPlayer) + " is getting out of the penalty box");
 			isOutOfPenaltyBox = true;
 
 			updatePlayerLocation(roll);
 		} else {
-			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+			System.out.println(playersInGame.get(currentPlayer) + " is not getting out of the penalty box");
 			isOutOfPenaltyBox = false;
 			}
 	}
 
 	private void updatePlayerLocation(final int roll) {
-		playerLocations[currentPlayer] += roll;
-		if (playerLocations[currentPlayer] > LAST_POSITION) {
-			playerLocations[currentPlayer] -= RESET_POSITION;
+		playerOrder[currentPlayer] += roll;
+		if (playerOrder[currentPlayer] > LAST_POSITION) {
+			playerOrder[currentPlayer] -= RESET_POSITION;
 		}
 
-		System.out.println(players.get(currentPlayer)
+		System.out.println(playersInGame.get(currentPlayer)
 				+ "'s new location is "
-				+ playerLocations[currentPlayer]);
+				+ playerOrder[currentPlayer]);
 		System.out.println("The category is " + getCategory());
 		askQuestion();
 	}
@@ -111,7 +111,7 @@ public class Game {
     	String[] boardSpaces = {CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP,
 				CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP, CATEGORY_SCIENCE,
 				CATEGORY_SPORTS, CATEGORY_ROCK};
-    	return boardSpaces[playerLocations[currentPlayer]];
+    	return boardSpaces[playerOrder[currentPlayer]];
 	}
 
 	public boolean wasAnsweredCorrectly() {
@@ -134,7 +134,7 @@ public class Game {
 
 	public boolean wasAnsweredIncorrectly(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
+		System.out.println(playersInGame.get(currentPlayer)+ " was sent to the penalty box");
 		playersInPenaltyBox[currentPlayer] = true;
 
 		currentPlayer++;
@@ -144,7 +144,7 @@ public class Game {
 
 	private boolean calculateScoreAndDisplay() {
 		playerPurses[currentPlayer]++;
-		System.out.println(players.get(currentPlayer)
+		System.out.println(playersInGame.get(currentPlayer)
 				+ " now has "
 				+ playerPurses[currentPlayer]
 				+ " Gold Coins.");
@@ -160,7 +160,7 @@ public class Game {
 	}
 
 	private void resetPlayerToZero() {
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == playersInGame.size()) currentPlayer = 0;
 	}
 
 	private boolean didPlayerWin() {
