@@ -35,17 +35,17 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		System.out.println(players.get(currentPlayer).getName() + " is the current player");
+		System.out.println(players2.currentPlayer().getName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
 		if (players.get(currentPlayer).isInPenaltyBox()) {
 			if (isOdd(roll)) {
 				isPlayerGettingOutOfPenaltyBox = true;
 				
-				System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
+				System.out.println(players2.currentPlayer().getName() + " is getting out of the penalty box");
 				updatePosition(roll);
 			} else {
-				System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
+				System.out.println(players2.currentPlayer().getName() + " is not getting out of the penalty box");
 				isPlayerGettingOutOfPenaltyBox = false;
 				}
 			
@@ -66,7 +66,7 @@ public class Game {
 		if (playerBoardPosition[currentPlayer] >= numberOfBoardPositions)
 			playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - numberOfBoardPositions;
 
-		System.out.println(players.get(currentPlayer).getName()
+		System.out.println(players2.currentPlayer().getName()
 				+ "'s new location is "
 				+ playerBoardPosition[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
@@ -128,7 +128,7 @@ public class Game {
 
 	public boolean wasIncorrectlyAnswered(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer).getName()+ " was sent to the penalty box");
+		System.out.println(players2.currentPlayer().getName()+ " was sent to the penalty box");
 		players.get(currentPlayer).setInPenaltyBox(true);
 
 		changeCurrentPlayer();
