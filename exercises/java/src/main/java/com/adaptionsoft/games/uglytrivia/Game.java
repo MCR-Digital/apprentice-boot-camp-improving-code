@@ -69,19 +69,23 @@ public class Game {
 
     public boolean isCorrectlyAnswered() {
         if (isInPenaltyBox[currentPlayer]){
-            if (isExitingPenaltyBox) {
-                System.out.println("Answer was correct!!!!");
-                collectCoins();
-                return hasCurrentPlayerWon();
-            } else {
-                getNextPlayer();
-                return true;
-            }
+            return penaltyCorrectAnswer();
         }
         else {
             System.out.println("Answer was corrent!!!!");
             collectCoins();
             return hasCurrentPlayerWon();
+        }
+    }
+
+    private boolean penaltyCorrectAnswer() {
+        if (isExitingPenaltyBox) {
+            System.out.println("Answer was correct!!!!");
+            collectCoins();
+            return hasCurrentPlayerWon();
+        } else {
+            getNextPlayer();
+            return true;
         }
     }
 
