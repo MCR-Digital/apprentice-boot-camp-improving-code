@@ -1,7 +1,9 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
     private static final String POP = "Pop";
@@ -85,20 +87,14 @@ public class Game {
     }
 
     private void askQuestion() {
-        switch (currentCategory()) {
-            case POP:
-                System.out.println(popQuestions.removeFirst());
-                break;
-            case SCIENCE:
-                System.out.println(scienceQuestions.removeFirst());
-                break;
-            case SPORTS:
-                System.out.println(sportsQuestions.removeFirst());
-                break;
-            default:
-                System.out.println(rockQuestions.removeFirst());
-                break;
-        }
+        HashMap<String, List<String>> mapWithListsOfQuestion = new HashMap<>();
+        mapWithListsOfQuestion.put(POP, popQuestions);
+        mapWithListsOfQuestion.put(SCIENCE, scienceQuestions);
+        mapWithListsOfQuestion.put(SPORTS, sportsQuestions);
+        mapWithListsOfQuestion.put(ROCK, rockQuestions);
+
+       List<String> currentQuestions = mapWithListsOfQuestion.get(currentCategory());
+       System.out.println(currentQuestions.remove(0));
     }
 
 
