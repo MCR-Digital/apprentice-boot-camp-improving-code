@@ -8,7 +8,7 @@ namespace TriviaGame
     public class Game
     {
 		private const int MaxPlayers = 6;
-        private List<string> players = new List<string>();
+        private readonly List<string> players = new List<string>();
 
         private readonly int[] PlayerPositionOnBoard = new int[MaxPlayers];
         private readonly int[] PlayerPurses = new int[MaxPlayers];
@@ -20,7 +20,7 @@ namespace TriviaGame
         private LinkedList<string> rockQuestions = new LinkedList<string>();
 
         private int currentPlayer = 0;
-		private int numberOfPositionsOnBoard = 12;
+		private readonly int numberOfPositionsOnBoard = 12;
         private bool isGettingOutOfPenaltyBox;
 
 		
@@ -132,8 +132,10 @@ namespace TriviaGame
 
                 bool winner = DidPlayerWin();
                 currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
-
+				if (currentPlayer == players.Count)
+				{
+					currentPlayer = 0;
+				}
                 return winner;
             }
         }
@@ -163,14 +165,14 @@ namespace TriviaGame
 			return PlayerPositionOnBoard[currentPlayer];
 		}
 
-		private bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
+		private static bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
 		{
 			return rollValue % 2 != 0;
 		}
 
 		private bool DidPlayerWin()
 		{
-			return !(PlayerPurses[currentPlayer] == MaxPlayers);
+			return (PlayerPurses[currentPlayer] != MaxPlayers);
 		}
 
 		private string CheckCurrentCategory()
