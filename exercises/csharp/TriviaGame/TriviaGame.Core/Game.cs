@@ -42,11 +42,7 @@ namespace TriviaGame.Core
 
     private int CurrentPlayerPlace => _commander.BoardPosition;
 
-    private int CurrentPlayersGoldCoins
-    {
-      get => _purses[_currentPlayer];
-      set => _purses[_currentPlayer] = value;
-    }
+    private int CurrentPlayersGoldCoins => _commander.GoldCoins;
 
     public Game()
     {
@@ -146,7 +142,7 @@ namespace TriviaGame.Core
         : "Answer was corrent!!!!";
 
       Console.WriteLine(congratulationsMessage);
-      CurrentPlayersGoldCoins++;
+      _commander.AddCoin();
       PrintPlayerScore();
       var winner = _hasPlayerWon;
 
