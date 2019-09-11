@@ -71,16 +71,20 @@ public class Game {
     private void outcomeOfCorrectAnswer(int numberOnDiceAfterRoll) {
         int oneMoreThanTheMaximumPlaceOnBoard = 12;
 
-        placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] + numberOnDiceAfterRoll;
+        placeOnTheBoard[currentPlayer] = playersPlaceOnBoard() + numberOnDiceAfterRoll;
 
-        if (placeOnTheBoard[currentPlayer] > maximumPlaceOnTheBoard) {
-            placeOnTheBoard[currentPlayer] = placeOnTheBoard[currentPlayer] - oneMoreThanTheMaximumPlaceOnBoard;
+        if (playersPlaceOnBoard() > maximumPlaceOnTheBoard) {
+            placeOnTheBoard[currentPlayer] = playersPlaceOnBoard() - oneMoreThanTheMaximumPlaceOnBoard;
         }
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
-                + placeOnTheBoard[currentPlayer]);
+                + playersPlaceOnBoard());
         System.out.println("The category is " + currentQuestionCategory());
         askQuestion();
+    }
+
+    private int playersPlaceOnBoard() {
+        return placeOnTheBoard[currentPlayer];
     }
 
     private void askQuestion() {
@@ -96,8 +100,8 @@ public class Game {
 
 
     private String currentQuestionCategory() {
-        boolean placeOnBoardIsMultipleOfFour = placeOnTheBoard[currentPlayer] % 4 == 0;
-        boolean placeOnBoardIsMultipleOfTwo = placeOnTheBoard[currentPlayer] % 2 == 0;
+        boolean placeOnBoardIsMultipleOfFour = playersPlaceOnBoard() % 4 == 0;
+        boolean placeOnBoardIsMultipleOfTwo = playersPlaceOnBoard() % 2 == 0;
 
         if (placeOnBoardIsMultipleOfFour) return "Pop";
         if (placeOnBoardIsScience()) return "Science";
@@ -106,7 +110,7 @@ public class Game {
     }
 
     private boolean placeOnBoardIsScience() {
-        return placeOnTheBoard[currentPlayer] == 1 || placeOnTheBoard[currentPlayer] == 5 || placeOnTheBoard[currentPlayer] == 9;
+        return playersPlaceOnBoard() == 1 || playersPlaceOnBoard() == 5 || playersPlaceOnBoard() == 9;
     }
 
     public boolean questionWasAnsweredCorrectly() {
