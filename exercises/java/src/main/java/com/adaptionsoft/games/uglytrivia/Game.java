@@ -90,7 +90,7 @@ public class Game {
     private void printPlayerPosition(int playerID) {
         System.out.println(players.get(playerID)
                 + "'s new location is "
-                + getCurrentPlayerPosition());
+                + getPlayerPosition(playerID));
     }
 
     private boolean isOddNumber(int number) {
@@ -98,7 +98,7 @@ public class Game {
     }
 
     private void movePlayer(int rolledNumber) {
-        playerPositions[currentPlayerID] = getCurrentPlayerPosition() + rolledNumber;
+        playerPositions[currentPlayerID] = getPlayerPosition(currentPlayerID) + rolledNumber;
         if (hasCurrentPlayerPassedFinalTile()) {
             continueMoveFromStartOfBoard();
         }
@@ -107,11 +107,11 @@ public class Game {
     }
 
     private void continueMoveFromStartOfBoard() {
-        playerPositions[currentPlayerID] = getCurrentPlayerPosition() - 12;
+        playerPositions[currentPlayerID] = getPlayerPosition(currentPlayerID) - 12;
     }
 
     private boolean hasCurrentPlayerPassedFinalTile() {
-        return getCurrentPlayerPosition() > 11;
+        return getPlayerPosition(currentPlayerID) > 11;
     }
 
     private void askQuestion() {
@@ -126,11 +126,11 @@ public class Game {
     }
 
     private String getCategoryForPosition() {
-        return board[getCurrentPlayerPosition()];
+        return board[getPlayerPosition(currentPlayerID)];
     }
 
-    private int getCurrentPlayerPosition() {
-        return playerPositions[currentPlayerID];
+    private int getPlayerPosition(int playerID) {
+        return playerPositions[playerID];
     }
 
     public boolean handleCorrectAnswer() {
