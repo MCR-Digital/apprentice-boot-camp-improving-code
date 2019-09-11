@@ -14,7 +14,7 @@ namespace TriviaGame
 
         private int _currentPlayerIndex;
         private bool _isGettingOutOfPenaltyBox;
-        
+
         public Game()
         {
             _questions = new Dictionary<Category, QuestionDeck>()
@@ -84,7 +84,7 @@ namespace TriviaGame
 
                 GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
                 GameWriter.WriteCategory(GetCurrentCategory());
-                
+
                 PrintQuestionForCurrentCategory();
             }
 
@@ -131,36 +131,21 @@ namespace TriviaGame
 
         public bool wasCorrectlyAnswered()
         {
-            if (CurrentPlayer.IsInPenaltyBox)
+            if (CurrentPlayer.IsInPenaltyBox && !_isGettingOutOfPenaltyBox)
             {
-                if (_isGettingOutOfPenaltyBox)
-                {
-                    CurrentPlayer.Coins++;
-                    GameWriter.WriteAnswerWasCorrect();
-                    GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
-
-                    bool winner = GetCurrentPlayerWinStatus();
-                    MoveToNextPlayer();
-
-                    return winner;
-                }
-                else
-                {
-                    MoveToNextPlayer();
-                    return true;
-                }
-            }
-            else
-            {
-                CurrentPlayer.Coins++;
-                GameWriter.WriteAnswerWasCorrect();
-                GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
-
-                bool winner = GetCurrentPlayerWinStatus();
                 MoveToNextPlayer();
-
-                return winner;
+                return true;
             }
+
+            CurrentPlayer.Coins++;
+
+            GameWriter.WriteAnswerWasCorrect();
+            GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
+
+            bool winner = GetCurrentPlayerWinStatus();
+            MoveToNextPlayer();
+
+            return winner;
         }
 
         public bool GiveCurrentPlayerWrongAnswer()
