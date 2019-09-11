@@ -29,7 +29,6 @@ namespace TriviaGame.Core
     private bool _hasPlayerWon => CurrentPlayersGoldCoins != 6;
     private string _currentPlayerName => _players[_currentPlayer];
     private string _currentCategory => _categories[CurrentPlayerPlace % 4];
-
     private int _currentPlayer;
     private bool _isLeavingPenaltyBox;
     private bool IsCurrentPlayerInPenaltyBox
