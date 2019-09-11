@@ -52,9 +52,9 @@ namespace TriviaGame
             Console.WriteLine(player.Name + " is not getting out of the penalty box");
         }
 
-        public static void WriteQuestion(string question)
+        public static void WriteQuestion(Question question)
         {
-            Console.WriteLine(question);
+            Console.WriteLine(question.Category + " Question " + question.Number);
         }
     }
 }

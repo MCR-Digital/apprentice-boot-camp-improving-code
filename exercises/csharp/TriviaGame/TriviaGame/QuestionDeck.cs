@@ -18,11 +18,16 @@ namespace TriviaGame
 
         public Category Category { get; }
 
-        public string GetNext()
+        public Question GetNext()
         {
             var questionNumber = _currentQuestion;
             _currentQuestion++;
-            return $"{Category.ToString()} Question {questionNumber}";
+
+            return new Question
+            {
+                Number = questionNumber,
+                Category = Category
+            };
         }
     }
 }
