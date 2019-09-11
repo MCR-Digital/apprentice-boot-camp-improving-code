@@ -51,19 +51,19 @@ public class Game {
 	}
 
 	public void playerTurn(int diceRoll) {
-		System.out.println(players.get(currentPlayer).getName() + " is the current player");
+		System.out.println(playerName() + " is the current player");
 		System.out.println("They have rolled a " + diceRoll);
 
 		if (inPenaltyBox[currentPlayer]) {
 			if (isOdd(diceRoll)) {
 				isGettingOutOfPenaltyBox = true;
-				System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
+				System.out.println(playerName() + " is getting out of the penalty box");
 
 				movePlayer(diceRoll);
 				displayPlayerPosition();
 				askQuestion();
 			} else {
-				System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
+				System.out.println(playerName() + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
 			}
 
@@ -79,7 +79,7 @@ public class Game {
 	}
 
 	private void displayPlayerPosition() {
-		System.out.println(players.get(currentPlayer).getName()
+		System.out.println(playerName()
 				+ "'s new location is "
 				+ positionsOnBoard[currentPlayer]);
 	}
@@ -148,7 +148,7 @@ public class Game {
 
 	private void updateScore() {
 		score[currentPlayer]++;
-		System.out.println(players.get(currentPlayer).getName()
+		System.out.println(playerName()
 				+ " now has "
 				+ score[currentPlayer]
 				+ " Gold Coins.");
@@ -160,7 +160,7 @@ public class Game {
 
 	public boolean isWrongAnswer() {
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
+		System.out.println(playerName() + " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
 
 		currentPlayer++;
@@ -168,7 +168,11 @@ public class Game {
 		return true;
 	}
 
-	private boolean isWinner() {
+    private String playerName() {
+        return players.get(currentPlayer).getName();
+    }
+
+    private boolean isWinner() {
 		return !(score[currentPlayer] == SCORE_TO_WIN);
 	}
 }
