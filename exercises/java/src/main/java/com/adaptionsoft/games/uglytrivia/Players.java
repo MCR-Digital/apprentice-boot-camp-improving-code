@@ -25,4 +25,8 @@ public class Players {
     public Player currentPlayer() {
         return players.get(currentPlayer);
     }
+
+    public int getCurrentPlayer() {
+        return currentPlayer;
+    }
 }
