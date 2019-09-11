@@ -1,11 +1,9 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Game {
-    ArrayList<Player> players2 = new ArrayList<>();
+    ArrayList<Player> players = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
 
     QuestionDeck questionDeck;
@@ -23,29 +21,29 @@ public class Game {
 		
 		int initialPlayerBoardPosition = 0;
 	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
-	    players2.add(new Player(playerName));
+	    players.add(new Player(playerName));
 	    
 	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players2.size());
+	    System.out.println("They are player number " + players.size());
 		return true;
 	}
 	
 	public int howManyPlayers() {
-		return players2.size();
+		return players.size();
 	}
 
 	public void roll(int roll) {
-		System.out.println(players2.get(currentPlayer).getName() + " is the current player");
+		System.out.println(players.get(currentPlayer).getName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
-		if (players2.get(currentPlayer).isInPenaltyBox()) {
+		if (players.get(currentPlayer).isInPenaltyBox()) {
 			if (isOdd(roll)) {
 				isPlayerGettingOutOfPenaltyBox = true;
 				
-				System.out.println(players2.get(currentPlayer).getName() + " is getting out of the penalty box");
+				System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
 				updatePosition(roll);
 			} else {
-				System.out.println(players2.get(currentPlayer).getName() + " is not getting out of the penalty box");
+				System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
 				isPlayerGettingOutOfPenaltyBox = false;
 				}
 			
@@ -66,7 +64,7 @@ public class Game {
 		if (playerBoardPosition[currentPlayer] >= numberOfBoardPositions)
 			playerBoardPosition[currentPlayer] = playerBoardPosition[currentPlayer] - numberOfBoardPositions;
 
-		System.out.println(players2.get(currentPlayer).getName()
+		System.out.println(players.get(currentPlayer).getName()
 				+ "'s new location is "
 				+ playerBoardPosition[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
@@ -80,7 +78,7 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (players2.get(currentPlayer).isInPenaltyBox()){
+		if (players.get(currentPlayer).isInPenaltyBox()){
 			if (isPlayerGettingOutOfPenaltyBox) {
 				String message = "Answer was correct!!!!";
 				updatePlayerCoinCount(message);
@@ -110,22 +108,22 @@ public class Game {
 
 	private void changeCurrentPlayer() {
 		currentPlayer++;
-		if (currentPlayer == players2.size()) currentPlayer = 0;
+		if (currentPlayer == players.size()) currentPlayer = 0;
 	}
 
 	private void updatePlayerCoinCount(String message) {
 		System.out.println(message);
-		players2.get(currentPlayer).incrementCoinCount();
-		System.out.println(players2.get(currentPlayer).getName()
+		players.get(currentPlayer).incrementCoinCount();
+		System.out.println(players.get(currentPlayer).getName()
 				+ " now has "
-				+ players2.get(currentPlayer).getCoinCount()
+				+ players.get(currentPlayer).getCoinCount()
 				+ " Gold Coins.");
 	}
 
 	public boolean wasIncorrectlyAnswered(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players2.get(currentPlayer).getName()+ " was sent to the penalty box");
-		players2.get(currentPlayer).setInPenaltyBox(true);
+		System.out.println(players.get(currentPlayer).getName()+ " was sent to the penalty box");
+		players.get(currentPlayer).setInPenaltyBox(true);
 
 		changeCurrentPlayer();
 		return true;
@@ -133,6 +131,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-    	return !(players2.get(currentPlayer).getCoinCount() ==6);
+    	return !(players.get(currentPlayer).getCoinCount() ==6);
 	}
 }
