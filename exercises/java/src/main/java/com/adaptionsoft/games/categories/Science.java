@@ -24,9 +24,4 @@ public class Science extends Category {
     public LinkedList<String> getQuestions() {
         return questions;
     }
-
-    @Override
-    String questionNumber() {
-       return "Science Question ";
-    }
 }

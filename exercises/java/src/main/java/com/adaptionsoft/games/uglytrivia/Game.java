@@ -14,9 +14,9 @@ public class Game {
     private int[] locationOfPlayerOnBoard = new int[MAX_AMOUNT_OF_PLAYERS];
     private int[] playerPurses = new int[MAX_AMOUNT_OF_PLAYERS];
     private boolean[] isPlayerInPenaltyBox = new boolean[MAX_AMOUNT_OF_PLAYERS];
+    private boolean isGettingOutOfPenaltyBox;
 
     private int currentPlayer = 0;
-    private boolean isGettingOutOfPenaltyBox;
     private String currentPlayerName;
 
     public Game(Board board) {
@@ -80,7 +80,6 @@ public class Game {
     private void askQuestion(Category category) {
         System.out.println(category.getQuestions().removeFirst());
     }
-
 
     private Category currentCategory() {
         int placeOnBoardOfCurrentPlayer = locationOfPlayerOnBoard[currentPlayer] + 1;

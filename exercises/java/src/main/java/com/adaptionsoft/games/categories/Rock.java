@@ -24,9 +24,4 @@ public class Rock extends Category {
     public LinkedList<String> getQuestions() {
         return questions;
     }
-
-    @Override
-    String questionNumber() {
-        return "Rock Question ";
-    }
 }

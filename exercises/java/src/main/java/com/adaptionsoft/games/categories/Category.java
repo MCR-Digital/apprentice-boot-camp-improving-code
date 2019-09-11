@@ -7,6 +7,4 @@ public abstract class Category {
     public abstract String getCategory();
 
     public abstract LinkedList<String> getQuestions();
-
-    abstract String questionNumber();
 }

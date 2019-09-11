@@ -10,7 +10,6 @@ public class Board {
     private Map<Integer, Category> positions = new HashMap<>();
 
     public Map<Integer, Category> createBoard() {
-
         Pop pop = new Pop();
         Science science = new Science();
         Sports sports = new Sports();
@@ -27,10 +26,6 @@ public class Board {
         positions.put(10, science);
         positions.put(11, sports);
         positions.put(12, rock);
-        return positions;
-    }
-
-    public Map<Integer, Category> getPositions() {
         return positions;
     }
 }
