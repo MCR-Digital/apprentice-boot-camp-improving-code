@@ -14,10 +14,10 @@ namespace TriviaGame
         private readonly int[] PlayerPurses = new int[MaxPlayers];
         private readonly bool[] PlayerPenaltyBoxStatus = new bool[MaxPlayers];
 
-        private LinkedList<string> popQuestions = new LinkedList<string>();
-        private LinkedList<string> scienceQuestions = new LinkedList<string>();
-        private LinkedList<string> sportsQuestions = new LinkedList<string>();
-        private LinkedList<string> rockQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> popQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         private int currentPlayer = 0;
 		private readonly int numberOfPositionsOnBoard = 12;
@@ -106,14 +106,20 @@ namespace TriviaGame
 
                     bool winner = DidPlayerWin();
                     currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+					if (currentPlayer == players.Count)
+					{
+						currentPlayer = 0;
+					}
 
                     return winner;
                 }
                 else
                 {
                     currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+					if (currentPlayer == players.Count)
+					{
+						currentPlayer = 0;
+					}
                     return true;
                 }
 
