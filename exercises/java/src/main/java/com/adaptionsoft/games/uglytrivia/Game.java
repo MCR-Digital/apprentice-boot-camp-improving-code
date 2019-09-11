@@ -115,13 +115,13 @@ public class Game {
     }
 
     private void askQuestion() {
-        if (getCategoryForPosition() == POP)
+        if (getCategoryForPosition().equals(POP))
             System.out.println(popQuestions.removeFirst());
-        if (getCategoryForPosition() == SCIENCE)
+        if (getCategoryForPosition().equals(SCIENCE))
             System.out.println(scienceQuestions.removeFirst());
-        if (getCategoryForPosition() == SPORTS)
+        if (getCategoryForPosition().equals(SPORTS))
             System.out.println(sportsQuestions.removeFirst());
-        if (getCategoryForPosition() == ROCK)
+        if (getCategoryForPosition().equals(ROCK))
             System.out.println(rockQuestions.removeFirst());
     }
 
