@@ -8,7 +8,6 @@ public class Game {
     private static final String SCIENCE = "Science";
     private static final String SPORTS = "Sports";
     private static final String ROCK = "Rock";
-    private static final int MINIMUM_NUMBER_OF_PLAYERS = 2;
     private static final int MAX_NUMBER_OF_PLAYERS = 6;
     private static final int NUMBER_OF_QUESTIONS = 50;
     private static final int PLAYER_ONE_ID = 0;
