@@ -7,6 +7,7 @@ import sys
 class GameRunnerTest(unittest.TestCase):
         
     def test_golden_master(self):
+
         original_out = sys.stdout
         for i in range(0, 10):
             out_content = StringIO()

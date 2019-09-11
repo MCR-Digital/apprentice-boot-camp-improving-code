@@ -20,13 +20,13 @@ class Game:
         self.out_of_penalty_box = False
 
         for i in range(50):
-            self.pop_questions.append("Pop Question %s" % i)
-            self.science_questions.append("Science Question %s" % i)
-            self.sports_questions.append("Sports Question %s" % i)
-            self.rock_questions.append(self.create_rock_question(i))
+            self.pop_questions.append(self.create_question("Pop", i))
+            self.science_questions.append(self.create_question("Science", i))
+            self.sports_questions.append(self.create_question("Sports", i))
+            self.rock_questions.append(self.create_question("Rock", i))
 
-    def create_rock_question(self, index):
-        return "Rock Question %s" % index
+    def create_question(self, category, index):
+        return "%s Question %s" % (category, index)
 
     def is_playable(self):
         lowest_number_of_players = 2
@@ -99,16 +99,13 @@ class Game:
 
     @property
     def _current_game_category(self):
-        if self.places_in_game[self.current_player] == 0: return 'Pop'
-        if self.places_in_game[self.current_player] == 4: return 'Pop'
-        if self.places_in_game[self.current_player] == 8: return 'Pop'
-        if self.places_in_game[self.current_player] == 1: return 'Science'
-        if self.places_in_game[self.current_player] == 5: return 'Science'
-        if self.places_in_game[self.current_player] == 9: return 'Science'
-        if self.places_in_game[self.current_player] == 2: return 'Sports'
-        if self.places_in_game[self.current_player] == 6: return 'Sports'
-        if self.places_in_game[self.current_player] == 10: return 'Sports'
-        return 'Rock'
+
+        categories = ['Pop', 'Science', 'Sports', 'Rock']
+        index = self.places_in_game[self.current_player]
+        while index > 3:
+            index = index - 4
+
+        return categories[index]
 
     def was_correctly_answered(self):
         if self.is_in_penalty_box(self.current_player):
