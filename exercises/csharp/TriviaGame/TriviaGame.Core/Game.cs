@@ -91,7 +91,8 @@ namespace TriviaGame.Core
       }
 
       AdvancePlace(roll);
-      PrintLocation();
+      _commander.PrintBoardPosition();
+      Console.WriteLine("The category is " + _currentCategory);
       AskQuestion();
     }
 
@@ -139,7 +140,7 @@ namespace TriviaGame.Core
 
       Console.WriteLine(congratulationsMessage);
       _commander.AddCoin();
-      PrintPlayerScore();
+      _commander.PrintScore();
       var winner = _hasPlayerWon;
 
       return winner;
@@ -151,14 +152,6 @@ namespace TriviaGame.Core
       Console.WriteLine(_currentPlayerName + " was sent to the penalty box");
       _commander.IsInPenaltyBox = true;
       return true;
-    }
-
-    private void PrintPlayerScore()
-    {
-      Console.WriteLine(_currentPlayerName
-                      + " now has "
-                      + CurrentPlayersGoldCoins
-                      + " Gold Coins.");
     }
 
     private void PrintLocation()

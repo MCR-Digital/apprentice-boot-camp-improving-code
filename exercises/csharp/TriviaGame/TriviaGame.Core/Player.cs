@@ -1,3 +1,5 @@
+using System;
+
 namespace TriviaGame.Core
 {
   public class Player
@@ -21,6 +23,26 @@ namespace TriviaGame.Core
     public void Move(int places)
     {
       BoardPosition = (BoardPosition + places) % NUMBER_OF_BOARD_SQUARES;
+    }
+
+    public void AnswerQuestion(Question question)
+    {
+
+    }
+
+    public void PrintScore()
+    {
+      Console.WriteLine(Name
+                      + " now has "
+                      + GoldCoins
+                      + " Gold Coins.");
+    }
+
+    public void PrintBoardPosition()
+    {
+      Console.WriteLine(Name
+                + "'s new location is "
+                + BoardPosition);
     }
   }
 }
