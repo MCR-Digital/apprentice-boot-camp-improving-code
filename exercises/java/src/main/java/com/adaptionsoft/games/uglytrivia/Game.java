@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Game {
+    ListOfCategories listOfCategories = new ListOfCategories();
+
     private static final String POP = "Pop";
     private static final String SCIENCE = "Science";
     private static final String SPORTS = "Sports";
@@ -27,15 +29,15 @@ public class Game {
 
     public Game() {
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
+            popQuestions.addLast("Pop ListOfCategories " + i);
+            scienceQuestions.addLast(("Science ListOfCategories " + i));
+            sportsQuestions.addLast(("Sports ListOfCategories " + i));
             rockQuestions.addLast(createRockQuestion(i));
         }
     }
 
     public String createRockQuestion(int index) {
-        return "Rock Question " + index;
+        return "Rock ListOfCategories " + index;
     }
 
     public boolean addPlayer(String playerName) {
@@ -87,14 +89,8 @@ public class Game {
     }
 
     private void askQuestion() {
-        HashMap<String, List<String>> mapWithListsOfQuestion = new HashMap<>();
-        mapWithListsOfQuestion.put(POP, popQuestions);
-        mapWithListsOfQuestion.put(SCIENCE, scienceQuestions);
-        mapWithListsOfQuestion.put(SPORTS, sportsQuestions);
-        mapWithListsOfQuestion.put(ROCK, rockQuestions);
-
-       List<String> currentQuestions = mapWithListsOfQuestion.get(currentCategory());
-       System.out.println(currentQuestions.remove(0));
+        List<String> currentQuestions = listOfCategories.getMapOfListsOfQuestions().get(currentCategory());
+        System.out.println(currentQuestions.remove(0));
     }
 
 
@@ -160,7 +156,7 @@ public class Game {
     }
 
     public boolean isAnswerWrong() {
-        System.out.println("Question was incorrectly answered");
+        System.out.println("ListOfCategories was incorrectly answered");
         System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
         inPenaltyBox[currentPlayer] = true;
 
