@@ -72,9 +72,7 @@ public class Game {
                 System.out.println(players.get(currentPlayerID) + " is getting out of the penalty box");
                 movePlayer(rolledNumber);
 
-                System.out.println(players.get(currentPlayerID)
-                        + "'s new location is "
-                        + getCurrentPlayerPosition());
+                printPlayerPosition(currentPlayerID);
                 System.out.println("The category is " + getCategoryForPosition());
                 askQuestion();
             } else {
@@ -85,13 +83,17 @@ public class Game {
         } else {
             movePlayer(rolledNumber);
 
-            System.out.println(players.get(currentPlayerID)
-                    + "'s new location is "
-                    + getCurrentPlayerPosition());
+            printPlayerPosition(currentPlayerID);
             System.out.println("The category is " + getCategoryForPosition());
             askQuestion();
         }
 
+    }
+
+    private void printPlayerPosition(int playerID) {
+        System.out.println(players.get(playerID)
+                + "'s new location is "
+                + getCurrentPlayerPosition());
     }
 
     private boolean isOddNumber(int number) {
