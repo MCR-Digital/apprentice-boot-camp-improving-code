@@ -9,7 +9,19 @@ namespace TriviaGame
     public class Board
     {
         private const int BOARD_SIZE = 12;
+        private readonly Dictionary<Category, QuestionDeck> _questions;
 
+        public Board()
+        {
+            _questions = new Dictionary<Category, QuestionDeck>()
+            {
+                { Category.Pop, new QuestionDeck(Category.Pop) },
+                { Category.Science, new QuestionDeck(Category.Science) },
+                { Category.Sports, new QuestionDeck(Category.Sports) },
+                { Category.Rock, new QuestionDeck(Category.Rock) },
+            };
+        }
+        
         public void MovePlayer(Player player, int places)
         {
             player.Place += places;
@@ -41,6 +53,13 @@ namespace TriviaGame
                 default:
                     return Category.Rock;
             }
+        }
+
+        public Question GetQuestionForPlayer(Player player)
+        {
+            var category = GetCategoryForPlayer(player);
+
+            return _questions[category].GetNext();
         }
     }
 }

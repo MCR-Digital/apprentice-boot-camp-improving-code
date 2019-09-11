@@ -10,7 +10,7 @@ namespace TriviaGame
         private const int MIN_PLAYER_COUNT = 2;
 
         private readonly List<Player> _players = new List<Player>();
-        private readonly Dictionary<Category, QuestionDeck> _questions;
+        
         private readonly Board _board;
         private int _currentPlayerIndex;
         private bool _isGettingOutOfPenaltyBox;
@@ -18,13 +18,6 @@ namespace TriviaGame
         public Game(Board board)
         {
             _board = board;
-            _questions = new Dictionary<Category, QuestionDeck>()
-            {
-                { Category.Pop, new QuestionDeck(Category.Pop) },
-                { Category.Science, new QuestionDeck(Category.Science) },
-                { Category.Sports, new QuestionDeck(Category.Sports) },
-                { Category.Rock, new QuestionDeck(Category.Rock) },
-            };
         }
 
         public bool IsPlayable()
@@ -79,11 +72,10 @@ namespace TriviaGame
 
         public void AskQuestion()
         {
-            var currentCategory = _board.GetCategoryForPlayer(CurrentPlayer);
-            var question = _questions[currentCategory].GetNext();
+            var question = _board.GetQuestionForPlayer(CurrentPlayer);
 
             GameWriter.WritePlayerNewLocation(CurrentPlayer);
-            GameWriter.WriteCategory(currentCategory);
+            GameWriter.WriteCategory(question.Category);
             GameWriter.WriteQuestion(question);
         }
 
