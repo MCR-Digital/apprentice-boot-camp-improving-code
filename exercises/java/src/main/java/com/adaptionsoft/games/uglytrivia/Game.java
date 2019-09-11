@@ -19,7 +19,7 @@ public class Game {
     private static final int ZERO_COINS = 0;
     private static final int TOTAL_NUMBER_OF_QUESTIONS = 50;
 
-    private Map<Integer, String> categoriesToSpaces = new HashMap<>();
+    private Map<Integer, String> board = new HashMap<>();
 	private ArrayList<String> allPlayers = new ArrayList<>();
 
     private int[] locationOnBoard = new int[6];
@@ -113,10 +113,6 @@ public class Game {
         askQuestion();
     }
 
-    private String createRockQuestion(int index){
-        return ROCK + " Question " + index;
-    }
-
     private int numberOfPlayers() {
         return allPlayers.size();
     }
@@ -135,15 +131,15 @@ public class Game {
     private void addQuestions() {
         for (int index = 0; index < TOTAL_NUMBER_OF_QUESTIONS; index++) {
             popQuestions.addLast(POP + " Question " + index);
-            scienceQuestions.addLast((SCIENCE + " Question " + index));
-            sportsQuestions.addLast((SPORTS + " Question " + index));
-            rockQuestions.addLast(createRockQuestion(index));
+            scienceQuestions.addLast(SCIENCE + " Question " + index);
+            sportsQuestions.addLast(SPORTS + " Question " + index);
+            rockQuestions.addLast(ROCK + " Question " + index);
         }
     }
 
     private String getCurrentCategory() {
         int currentSpace = locationOnBoard[currentPlayer];
-        return categoriesToSpaces.get(currentSpace);
+        return board.get(currentSpace);
     }
 
     private void assignCategoriesToBoardSpaces() {
@@ -154,7 +150,7 @@ public class Game {
     }
 
 	private void assignCategory(String category, int... spaces) {
-        Arrays.stream(spaces).forEach(space -> categoriesToSpaces.put(space, category));
+        Arrays.stream(spaces).forEach(space -> board.put(space, category));
     }
 
     private boolean hasCurrentPlayerWon() {
