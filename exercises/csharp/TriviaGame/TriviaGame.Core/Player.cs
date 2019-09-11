@@ -32,17 +32,12 @@ namespace TriviaGame.Core
 
     public void PrintScore()
     {
-      Console.WriteLine(Name
-                      + " now has "
-                      + GoldCoins
-                      + " Gold Coins.");
+      Console.WriteLine($"{Name} now has {GoldCoins} Gold Coins.");
     }
 
     public void PrintBoardPosition()
     {
-      Console.WriteLine(Name
-                + "'s new location is "
-                + BoardPosition);
+      Console.WriteLine($"{Name}'s new location is {BoardPosition}");
     }
   }
 }
