@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    public static final boolean USE_POP = false;
     private ArrayList<String> players = new ArrayList<>();
     Category pop = new Category("Pop");
     private int[] placeOnTheBoard = new int[6];
     private int[] coinPurses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
 
-    private LinkedList<String> popQuestions = new LinkedList<>();
     private LinkedList<String> scienceQuestions = new LinkedList<>();
     private LinkedList<String> sportsQuestions = new LinkedList<>();
     private LinkedList<String> rockQuestions = new LinkedList<>();
@@ -26,7 +24,6 @@ public class Game {
 
     public Game() {
         for (int index = 0; index < maxAmountOfQuestions; index++) {
-            popQuestions.addLast(("Pop Question " + index));
             scienceQuestions.addLast(("Science Question " + index));
             sportsQuestions.addLast(("Sports Question " + index));
             rockQuestions.addLast(("Rock Question " + index));
