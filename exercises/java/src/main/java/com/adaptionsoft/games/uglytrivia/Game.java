@@ -100,7 +100,10 @@ public class Game {
 
     private void takeTurn(int currentRoll) {
         locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] + currentRoll;
-        if (locationOnBoard[currentPlayer] > END_SPACE) locationOnBoard[currentPlayer] = locationOnBoard[currentPlayer] - NUMBER_OF_SPACES;
+        int currentLocation = locationOnBoard[currentPlayer];
+        if (currentLocation > END_SPACE) {
+            locationOnBoard[currentPlayer] = currentLocation - NUMBER_OF_SPACES;
+        }
 
         System.out.println(allPlayers.get(currentPlayer)
                 + "'s new location is "
@@ -138,18 +141,17 @@ public class Game {
         }
     }
 
+    private String getCurrentCategory() {
+        int currentSpace = locationOnBoard[currentPlayer];
+        return categoriesToSpaces.get(currentSpace);
+    }
+
     private void assignCategoriesToBoardSpaces() {
         assignCategory(POP, 0, 4, 8);
         assignCategory(SCIENCE, 1, 5, 9);
         assignCategory(SPORTS, 2, 6, 10);
         assignCategory(ROCK, 3, 7, 11);
     }
-
-	private String getCurrentCategory() {
-        int currentSpace = locationOnBoard[currentPlayer];
-
-        return categoriesToSpaces.get(currentSpace);
-	}
 
 	private void assignCategory(String category, int... spaces) {
         Arrays.stream(spaces).forEach(space -> categoriesToSpaces.put(space, category));
