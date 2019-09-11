@@ -74,9 +74,8 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
 
-					CalculateNewPositionOnBoard(rollValue);
-
-                    AskQuestion(CheckCurrentCategory());
+					var position = CalculateNewPositionOnBoard(rollValue);
+                    AskQuestion(position);
                 }
                 else
                 {
@@ -86,8 +85,8 @@ namespace TriviaGame
             }
             else
             {
-				CalculateNewPositionOnBoard(rollValue);				
-                AskQuestion(CheckCurrentCategory());
+				var position = CalculateNewPositionOnBoard(rollValue);				
+                AskQuestion(position);
             }
 
         }
@@ -153,7 +152,7 @@ namespace TriviaGame
 		#region "private helper methods"
 		
 
-		private void CalculateNewPositionOnBoard(int spacesToMove)
+		private int CalculateNewPositionOnBoard(int spacesToMove)
 		{
 			PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] + spacesToMove;
 			if (PlayerPositionOnBoard[currentPlayer] > numberOfPositionsOnBoard - 1)
@@ -161,6 +160,7 @@ namespace TriviaGame
 				PlayerPositionOnBoard[currentPlayer] = PlayerPositionOnBoard[currentPlayer] - numberOfPositionsOnBoard;
 			}
 			Console.WriteLine(players[currentPlayer] + "'s new location is " + PlayerPositionOnBoard[currentPlayer]);
+			return PlayerPositionOnBoard[currentPlayer];
 		}
 
 		private bool CheckIfPlayerGetsOutOfPenalty(int rollValue)
@@ -194,8 +194,9 @@ namespace TriviaGame
 			return categories[PlayerPositionOnBoard[currentPlayer]];
 		}
 
-		private void AskQuestion(string currentCategory)
+		private void AskQuestion(int currentPosition)
 		{
+			var currentCategory = CheckCurrentCategory();
 			Console.WriteLine("The category is " + currentCategory);
 
 			if (currentCategory == "Pop")
