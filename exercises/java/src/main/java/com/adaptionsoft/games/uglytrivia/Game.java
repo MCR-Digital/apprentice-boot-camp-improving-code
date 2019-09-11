@@ -157,6 +157,6 @@ public class Game {
 
     private boolean winningPlayer() {
         int winningAmountOfCoins = 6;
-        return !(coinPurses[currentPlayer] == winningAmountOfCoins);
+        return (coinPurses[currentPlayer] != winningAmountOfCoins);
     }
 }
