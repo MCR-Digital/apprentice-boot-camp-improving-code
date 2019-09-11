@@ -34,7 +34,7 @@ public class Game {
     	topicQuestionMap.put("Sports", sportsQuestions);
     	topicQuestionMap.put("Rock", rockQuestions);
     }
-    
+
 	private String createQuestion(String topic, int index) {
     	return topic + " Question " + index;
 	}
