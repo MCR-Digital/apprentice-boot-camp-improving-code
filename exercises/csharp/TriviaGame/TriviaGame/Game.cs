@@ -11,11 +11,11 @@ namespace TriviaGame
 
         private readonly List<Player> _players = new List<Player>();
         private readonly Dictionary<Category, QuestionDeck> _questions;
-
+        private readonly Board _board;
         private int _currentPlayerIndex;
         private bool _isGettingOutOfPenaltyBox;
 
-        public Game()
+        public Game(Board board)
         {
             _questions = new Dictionary<Category, QuestionDeck>()
             {
@@ -24,6 +24,7 @@ namespace TriviaGame
                 { Category.Sports, new QuestionDeck(Category.Sports) },
                 { Category.Rock, new QuestionDeck(Category.Rock) },
             };
+            _board = board;
         }
 
         public bool IsPlayable()
@@ -72,7 +73,7 @@ namespace TriviaGame
             MoveCurrentPlayer(rollNumber);
 
             GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
-            GameWriter.WriteCategory(GetCurrentCategory());
+            GameWriter.WriteCategory(_board.GetCategoryForPosition(CurrentPlayer.Place));
 
             PrintQuestionForCurrentCategory();
         }
@@ -89,31 +90,9 @@ namespace TriviaGame
 
         private void PrintQuestionForCurrentCategory()
         {
-            var currentCategory = GetCurrentCategory();
+            var currentCategory = _board.GetCategoryForPosition(CurrentPlayer.Place);
             var currentQuestion = _questions[currentCategory].GetNext();
             Console.WriteLine(currentQuestion);
-        }
-
-
-        private Category GetCurrentCategory()
-        {
-            switch (CurrentPlayer.Place)
-            {
-                case 0:
-                case 4:
-                case 8:
-                    return Category.Pop;
-                case 1:
-                case 5:
-                case 9:
-                    return Category.Science;
-                case 2:
-                case 6:
-                case 10:
-                    return Category.Sports;
-                default:
-                    return Category.Rock;
-            }
         }
 
         public bool wasCorrectlyAnswered()
