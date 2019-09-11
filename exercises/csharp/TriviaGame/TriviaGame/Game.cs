@@ -99,7 +99,11 @@ namespace TriviaGame
         private void MoveCurrentPlayer(int places)
         {
             CurrentPlayer.Place += places;
-            if (CurrentPlayer.Place > 11) CurrentPlayer.Place -= 12;
+
+            if (CurrentPlayer.Place > 11)
+            {
+                CurrentPlayer.Place -= 12;
+            }
         }
 
         private void PrintQuestionAndRemoveFromList()
@@ -183,13 +187,17 @@ namespace TriviaGame
 
         private bool GetCurrentPlayerWinStatus()
         {
-            return !(CurrentPlayer.Coins == 6);
+            return CurrentPlayer.Coins != 6;
         }
 
         private void MoveToNextPlayer()
         {
             _currentPlayerIndex++;
-            if (_currentPlayerIndex == PlayerCount) _currentPlayerIndex = 0;
+
+            if (_currentPlayerIndex == PlayerCount)
+            {
+                _currentPlayerIndex = 0;
+            }
         }
     }
 }
