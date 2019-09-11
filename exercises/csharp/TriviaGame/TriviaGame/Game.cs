@@ -8,22 +8,21 @@ namespace TriviaGame
     public class Game
     {
         private const int MIN_PLAYER_COUNT = 2;
-        private const int MAX_QUESTIONS = 50;
 
         private readonly List<Player> _players = new List<Player>();
         private readonly Dictionary<Category, QuestionDeck> _questions;
 
         private int _currentPlayerIndex;
         private bool _isGettingOutOfPenaltyBox;
-
+        
         public Game()
         {
             _questions = new Dictionary<Category, QuestionDeck>()
             {
-                { Category.Pop, new QuestionDeck(Category.Pop, MAX_QUESTIONS) },
-                { Category.Science, new QuestionDeck(Category.Science, MAX_QUESTIONS) },
-                { Category.Sports, new QuestionDeck(Category.Sports, MAX_QUESTIONS) },
-                { Category.Rock, new QuestionDeck(Category.Rock, MAX_QUESTIONS) },
+                { Category.Pop, new QuestionDeck(Category.Pop) },
+                { Category.Science, new QuestionDeck(Category.Science) },
+                { Category.Sports, new QuestionDeck(Category.Sports) },
+                { Category.Rock, new QuestionDeck(Category.Rock) },
             };
         }
 

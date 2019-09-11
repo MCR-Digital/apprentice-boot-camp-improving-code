@@ -8,12 +8,10 @@ namespace TriviaGame
 {
     public class QuestionDeck
     {
-        private readonly int _questionCount;
         private int _currentQuestion;
 
-        public QuestionDeck(Category category, int questionCount)
+        public QuestionDeck(Category category)
         {
-            _questionCount = questionCount;
             _currentQuestion = 0;
             Category = category;
         }
