@@ -12,6 +12,7 @@ public class Game {
     private static final int MAX_NUMBER_OF_PLAYERS = 6;
     private static final int NUMBER_OF_QUESTIONS = 50;
     private static final int PLAYER_ONE_ID = 0;
+    private static final int MAXIMUM_COINS = 6;
 
     private final String[] board = {POP, SCIENCE, SPORTS, ROCK, POP, SCIENCE, SPORTS, ROCK, POP, SCIENCE, SPORTS, ROCK};
 
@@ -194,6 +195,6 @@ public class Game {
     }
 
     private boolean hasPlayerWon(int playerID) {
-        return !(getPlayerPurse(playerID) == 6);
+        return (getPlayerPurse(playerID) != MAXIMUM_COINS);
     }
 }
