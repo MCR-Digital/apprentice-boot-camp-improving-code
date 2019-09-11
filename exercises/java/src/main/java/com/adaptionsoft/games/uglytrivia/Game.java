@@ -6,8 +6,6 @@ public class Game {
     ArrayList<Player> players = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
 
-    String[] board= {"Pop", "Science", "Sports", "Rock"};
-
     Board boardClass;
     
     int currentPlayer = 0;
@@ -74,7 +72,7 @@ public class Game {
 	
 	private String currentCategory() {
     	int currentPosition = playerBoardPosition[currentPlayer];
-		return board[currentPosition % 4];
+		return boardClass.getTopicFromPosition(currentPosition);
 	}
 
 	public boolean wasCorrectlyAnswered() {

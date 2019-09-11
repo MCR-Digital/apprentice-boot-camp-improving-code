@@ -22,5 +22,10 @@ public class Board {
         questionDeck.askQuestion(currentCategory);
     }
 
+    public String getTopicFromPosition(int currentPosition) {
+        return boardSquares[currentPosition % 4];
+
+    }
+
 
 }
