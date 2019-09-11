@@ -15,9 +15,6 @@ namespace TriviaGame.Core
     public int NumberOfPlayers => _players.Count;
 
     private readonly string[] _categories = { "Pop", "Science", "Sports", "Rock" };
-    private readonly int[] _places = new int[6];
-    private readonly int[] _purses = new int[6];
-    private readonly bool[] _inPenaltyBox = new bool[6];
     private readonly Dictionary<string, List<string>> _questions = new Dictionary<string, List<string>>();
 
     private readonly List<Player> _players = new List<Player>();
@@ -46,10 +43,6 @@ namespace TriviaGame.Core
     public bool AddPlayer(String playerName)
     {
       _players.Add(new Player(playerName));
-
-      _places[NumberOfPlayers] = 0;
-      _purses[NumberOfPlayers] = 0;
-      _inPenaltyBox[NumberOfPlayers] = false;
 
       Console.WriteLine(playerName + " was added");
       Console.WriteLine("They are player number " + NumberOfPlayers);
