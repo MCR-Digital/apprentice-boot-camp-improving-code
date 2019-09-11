@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.Board;
 import com.adaptionsoft.games.categories.Category;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
     private String currentPlayerName;
 
-    public Game(Map<Integer, Category> boardPositions) {
-        this.boardPositions = boardPositions;
+    public Game(Board board) {
+        this.boardPositions = board.createBoard();
     }
 
     public void addPlayersToGame(String... players) {

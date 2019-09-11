@@ -11,7 +11,7 @@ public class GameRunner {
 	private static boolean isNotAWinner;
 
 	public static void main(String[] args) {
-		Game triviaGame = new Game(new Board().createBoard());
+		Game triviaGame = new Game(new Board());
 		triviaGame.addPlayersToGame("Chet", "Pat", "Sue");
 
 		int seed = Integer.parseInt(args[0]);
