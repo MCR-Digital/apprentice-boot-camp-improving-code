@@ -44,13 +44,13 @@ public class Game {
 		return (getAmountOfPlayers() >= MIN_PLAYERS);
 	}
 
-	public boolean addPlayerToGame(String playerName) {
-	    players.add(playerName);
+	public boolean addPlayerToGame(Player player) {
+	    players.add(player.getName());
 	    playerLocations[getAmountOfPlayers()] = 0;
 	    playerPurses[getAmountOfPlayers()] = 0;
 	    playersInPenaltyBox[getAmountOfPlayers()] = false;
 	    
-	    System.out.println(playerName + " was added");
+	    System.out.println(player.getName() + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
@@ -109,7 +109,8 @@ public class Game {
 	
 	private String getCategory() {
     	String[] boardSpaces = {CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP,
-				CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK};
+				CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP, CATEGORY_SCIENCE,
+				CATEGORY_SPORTS, CATEGORY_ROCK};
     	return boardSpaces[playerLocations[currentPlayer]];
 	}
 
