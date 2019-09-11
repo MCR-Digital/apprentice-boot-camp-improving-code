@@ -17,6 +17,7 @@ namespace TriviaGame
 
         public Game(Board board)
         {
+            _board = board;
             _questions = new Dictionary<Category, QuestionDeck>()
             {
                 { Category.Pop, new QuestionDeck(Category.Pop) },
@@ -24,12 +25,11 @@ namespace TriviaGame
                 { Category.Sports, new QuestionDeck(Category.Sports) },
                 { Category.Rock, new QuestionDeck(Category.Rock) },
             };
-            _board = board;
         }
 
         public bool IsPlayable()
         {
-            return (PlayerCount >= MIN_PLAYER_COUNT);
+            return PlayerCount >= MIN_PLAYER_COUNT;
         }
 
         public void AddPlayer(Player player)
