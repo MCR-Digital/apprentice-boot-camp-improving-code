@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.Board;
 import com.adaptionsoft.games.QuestionCategories;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class Game {
     private int[] locationOfPlayerOnBoard = new int[MAX_AMOUNT_OF_PLAYERS];
     private int[] playerPurses = new int[MAX_AMOUNT_OF_PLAYERS];
     private boolean[] isPlayerInPenaltyBox = new boolean[MAX_AMOUNT_OF_PLAYERS];
+    public Board board;
 
     private LinkedList<String> popQuestions = new LinkedList<>();
     private LinkedList<String> scienceQuestions = new LinkedList<>();
@@ -23,13 +25,14 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
     private String currentPlayerName;
 
-    public Game() {
+    public Game(Board board) {
         for (int index = 0; index < MAX_NUMBER_OF_QUESTIONS; index++) {
             popQuestions.addLast("Pop Question " + index);
             scienceQuestions.addLast("Science Question " + index);
             sportsQuestions.addLast("Sports Question " + index);
             rockQuestions.addLast("Rock Question " + index);
         }
+        this.board = board;
     }
 
     public void addPlayersToGame(String... players) {
@@ -97,20 +100,8 @@ public class Game {
             System.out.println(rockQuestions.removeFirst());
     }
 
-
     private String currentCategory() {
-
-        int placeOnBoardOfCurrentPlayer = locationOfPlayerOnBoard[currentPlayer];
-
-        if (placeOnBoardOfCurrentPlayer % 4 == 0) {
-            return QuestionCategories.POP.getCategory();
-        } else if (placeOnBoardOfCurrentPlayer % 4 == 1) {
-            return QuestionCategories.SCIENCE.getCategory();
-        } else if (placeOnBoardOfCurrentPlayer % 4 == 2) {
-            return QuestionCategories.SPORTS.getCategory();
-        } else {
-            return QuestionCategories.ROCK.getCategory();
-        }
+        return board.getCurrentCategory(locationOfPlayerOnBoard[currentPlayer]);
     }
 
     public boolean isCorrectAnswer() {

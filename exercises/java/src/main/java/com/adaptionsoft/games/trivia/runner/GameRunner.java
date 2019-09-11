@@ -2,6 +2,7 @@
 package com.adaptionsoft.games.trivia.runner;
 import java.util.Random;
 
+import com.adaptionsoft.games.Board;
 import com.adaptionsoft.games.uglytrivia.Game;
 
 
@@ -10,7 +11,7 @@ public class GameRunner {
 	private static boolean isNotAWinner;
 
 	public static void main(String[] args) {
-		Game triviaGame = new Game();
+		Game triviaGame = new Game(new Board());
 		triviaGame.addPlayersToGame("Chet", "Pat", "Sue");
 
 		int seed = Integer.parseInt(args[0]);
