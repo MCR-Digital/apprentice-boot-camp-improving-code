@@ -1,9 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class Game {
     private static final int NUMBER_OF_CATEGORY_QUESTIONS = 50;
@@ -12,18 +9,22 @@ public class Game {
     private static final String SPORTS_QUESTION = "Sports Question ";
     private static final String ROCK_QUESTION = "Rock Question ";
 
+    private static final String POP = "Pop";
+    private static final String SCIENCE = "Science";
+    private static final String SPORTS = "Sports";
+    private static final String ROCK = "Rock";
+
     private List<String> players = new ArrayList<>();
     private int[] boardSquares = new int[6];
     private int[] purses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
+    private int currentPlayer = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
     private LinkedList<String> popQuestions = new LinkedList<>();
     private LinkedList<String> scienceQuestions = new LinkedList<>();
     private LinkedList<String> sportsQuestions = new LinkedList<>();
     private LinkedList<String> rockQuestions = new LinkedList<>();
-
-    private int currentPlayer = 0;
-    private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         generateQuestionsForEachCategory();
@@ -89,26 +90,23 @@ public class Game {
     }
 
     private void askQuestion() {
-        if (currentCategory(boardSquares[currentPlayer]).equals("Pop"))
-            System.out.println(popQuestions.removeFirst());
-        if (currentCategory(boardSquares[currentPlayer]).equals("Science"))
-            System.out.println(scienceQuestions.removeFirst());
-        if (currentCategory(boardSquares[currentPlayer]).equals("Sports"))
-            System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory(boardSquares[currentPlayer]).equals("Rock"))
-            System.out.println(rockQuestions.removeFirst());
+        Map<String, LinkedList<String>> categoryQuestions = new HashMap<>();
+        categoryQuestions.put(getCategoryName(POP_QUESTION), popQuestions);
+        categoryQuestions.put(getCategoryName(SCIENCE_QUESTION), scienceQuestions);
+        categoryQuestions.put(getCategoryName(SPORTS_QUESTION), sportsQuestions);
+        categoryQuestions.put(getCategoryName(ROCK_QUESTION), rockQuestions);
+
+        String currentCategory = currentCategory(boardSquares[currentPlayer]);
+        System.out.println(categoryQuestions.get(currentCategory).removeFirst());
+    }
+
+    private String getCategoryName(String question) {
+        return question.split(" ")[0];
     }
 
     private String currentCategory(int boardSquareIndex) {
-        List<String> categories = new ArrayList<>(Arrays.asList("Pop", "Science", "Sports", "Rock"));
-        String category = null;
-        for (int i = 0, j = 0; i <= boardSquareIndex; i++, j++) {
-            category = categories.get(j);
-            if (j == 3) {
-                j = -1;
-            }
-        }
-        return category;
+        List<String> categoryName = new ArrayList<>(Arrays.asList(POP, SCIENCE, SPORTS, ROCK));
+        return categoryName.get(boardSquareIndex % categoryName.size());
     }
 
     public boolean wasCorrectlyAnswered() {
@@ -148,6 +146,6 @@ public class Game {
     }
 
     private boolean hasPlayerWon() {
-        return (purses[currentPlayer] == 6);
+        return purses[currentPlayer] == 6;
     }
 }
