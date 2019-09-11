@@ -7,7 +7,7 @@ public class Game {
 	public static final int TOTAL_NUMBER_OF_BOARD_SQUARES = 12;
 	public static final int SCORE_TO_WIN = 6;
 	private ArrayList players = new ArrayList();
-    private int[] positionOnBoard = new int[6];
+    private int[] positionsOnBoard = new int[6];
     private int[] score = new int[6];
     private boolean[] inPenaltyBox  = new boolean[6];
     
@@ -34,7 +34,7 @@ public class Game {
 
 	public boolean addPlayer(String playerName) {
 	    players.add(playerName);
-	    positionOnBoard[numberOfPlayers()] = 0;
+	    positionsOnBoard[numberOfPlayers()] = 0;
 	    score[numberOfPlayers()] = 0;
 	    inPenaltyBox[numberOfPlayers()] = false;
 	    
@@ -78,18 +78,18 @@ public class Game {
     private void displayPlayerPosition() {
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
-                + positionOnBoard[currentPlayer]);
+                + positionsOnBoard[currentPlayer]);
     }
 
     private void movePlayer(int diceRoll) {
-        positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] + diceRoll;
-        if (positionOnBoard[currentPlayer] > 11) {
+        positionsOnBoard[currentPlayer] = positionsOnBoard[currentPlayer] + diceRoll;
+        if (positionsOnBoard[currentPlayer] > 11) {
             returnToBeginningOfBoard();
         }
     }
 
     private void returnToBeginningOfBoard() {
-        positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - TOTAL_NUMBER_OF_BOARD_SQUARES;
+        positionsOnBoard[currentPlayer] = positionsOnBoard[currentPlayer] - TOTAL_NUMBER_OF_BOARD_SQUARES;
     }
 
     private void askQuestion() {
@@ -105,17 +105,18 @@ public class Game {
 	}
 
 	private String currentCategory() {
-		if (positionOnBoard[currentPlayer] == 0) return "Pop";
-		if (positionOnBoard[currentPlayer] == 4) return "Pop";
-		if (positionOnBoard[currentPlayer] == 8) return "Pop";
-		if (positionOnBoard[currentPlayer] == 1) return "Science";
-		if (positionOnBoard[currentPlayer] == 5) return "Science";
-		if (positionOnBoard[currentPlayer] == 9) return "Science";
-		if (positionOnBoard[currentPlayer] == 2) return "Sports";
-		if (positionOnBoard[currentPlayer] == 6) return "Sports";
-		if (positionOnBoard[currentPlayer] == 10) return "Sports";
+		if (positionsOnBoard[currentPlayer] == 0) return "Pop";
+		if (positionsOnBoard[currentPlayer] == 4) return "Pop";
+		if (positionsOnBoard[currentPlayer] == 8) return "Pop";
+		if (positionsOnBoard[currentPlayer] == 1) return "Science";
+		if (positionsOnBoard[currentPlayer] == 5) return "Science";
+		if (positionsOnBoard[currentPlayer] == 9) return "Science";
+		if (positionsOnBoard[currentPlayer] == 2) return "Sports";
+		if (positionsOnBoard[currentPlayer] == 6) return "Sports";
+		if (positionsOnBoard[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
+
 
 	public boolean wasCorrectlyAnswered() {
 		if (inPenaltyBox[currentPlayer]){
