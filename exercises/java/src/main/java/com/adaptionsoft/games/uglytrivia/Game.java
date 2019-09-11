@@ -170,6 +170,6 @@ public class Game {
 	}
 
 	private boolean didPlayerWin() {
-		return !(playerPurses[currentPlayer] == WINNING_SCORE);
+		return (playerPurses[currentPlayer] != WINNING_SCORE);
 	}
 }
