@@ -28,6 +28,8 @@ namespace TriviaGame.Core
 
     public Game()
     {
+      var board = new Board();
+
       _questions = _categories.ToDictionary(
         category => category,
         category => Enumerable
@@ -73,7 +75,7 @@ namespace TriviaGame.Core
 
     private void AskQuestion()
     {
-      Console.WriteLine($"The category is {_currentCategory}");
+      Console.WriteLine($"The category is {_commander.Position?.Category}");
       var questions = _questions[_currentCategory];
       if (questions.Any())
       {

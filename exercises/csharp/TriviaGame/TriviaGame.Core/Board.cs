@@ -6,24 +6,27 @@ namespace TriviaGame.Core
   public class Board
   {
     public static readonly int MAX_QUESTIONS_PER_CATEGORY = 50;
-    private readonly Dictionary<string, List<string>> _questions = new Dictionary<string, List<string>>();
+    private readonly List<Question> _questions = new List<Question>();
     private readonly string[] _categories = { "Pop", "Science", "Sports", "Rock" };
-    private string _category(int value) => _categories[value % 4];
 
     public Board()
     {
-      _questions = _categories
-        .ToDictionary(
-          category => category,
-          category => Enumerable
+      _questions = _categories.SelectMany(category => Enumerable
             .Repeat($"{category} Question ", MAX_QUESTIONS_PER_CATEGORY)
-            .Select((question, index) => question + index)
-            .ToList());
+            .Select((question, index) => new Question
+            {
+              Title = question + index,
+              Type = category
+            }))
+            .ToList();
     }
 
-    public string NextQuestion(int boardPosition)
+    public string NextQuestion(Player player)
     {
-      return _questions[_category(boardPosition)].First();
+      var nextQuestion = _questions.Where(question => question.Type == player.Position?.Category).First();
+      _questions.Remove(nextQuestion);
+
+      return nextQuestion.Title;
     }
   }
 }

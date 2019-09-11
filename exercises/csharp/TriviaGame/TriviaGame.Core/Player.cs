@@ -7,7 +7,7 @@ namespace TriviaGame.Core
     private static readonly int NUMBER_OF_BOARD_SQUARES = 12;
     private readonly string[] _categories = { "Pop", "Science", "Sports", "Rock" };
     public int Position { get; private set; }
-    public string Category => _categories[Position];
+    public string Category => _categories[Position % 4];
     public bool InPenaltyBox { get; private set; }
 
     public void Move(int roll)
