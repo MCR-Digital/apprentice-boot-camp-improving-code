@@ -19,14 +19,14 @@ namespace TriviaGame
             currentGame.AddPlayer("Pat");
             currentGame.AddPlayer("Sue");
 
-            var rand = new Random(int.Parse(args[0]));
+            var random = new Random(int.Parse(args[0]));
 
             do
             {
-                currentGame.RollDice(rand.Next(5) + 1);
-                notAWinner = rand.Next(9) == 7 ? currentGame.WrongAnswer() : currentGame.CheckForWinner();
-
-            } while (notAWinner);
+                currentGame.StartANewTurn(random);
+                notAWinner = currentGame.AnswerQuestion(random);
+            }
+            while (notAWinner) ;
         }
     }
 }

@@ -6,46 +6,23 @@ namespace TriviaGame
 {
     public class Game
     {
-        private readonly List<string> players = new List<string>();
-                
-        private readonly int[] spaces = new int[6];
-        private readonly int[] purses = new int[6];
+        private readonly List<Player> players = new List<Player>();
 
-        private readonly bool[] inPenaltyBox = new bool[6];
+        private Deck deck;
+        private Player currentPlayer;
+        private int playerIndex;
 
-        private readonly Dictionary<Category, LinkedList<string>> questionCategories = new Dictionary<Category, LinkedList<string>>
-        {
-            { Category.Pop, new LinkedList<string>() },
-            { Category.Science, new LinkedList<string>() },
-            { Category.Sports, new LinkedList<string>() },
-            { Category.Rock, new LinkedList<string>() }
-        };
-
-        private int currentPlayer;
-        private bool skipPlayersTurn;
-
-        private const int TotalCategories = 4;
-        private const int TotalPlaces = 12;
         private const int TotalQuestions = 50;
         private const int WinAmount = 6;
         
         public Game()
         {
-            for (var i = 0; i < TotalQuestions; i++)
-            {
-                questionCategories[Category.Pop].AddLast("Pop Question " + i);
-                questionCategories[Category.Science].AddLast(("Science Question " + i));
-                questionCategories[Category.Sports].AddLast(("Sports Question " + i));
-                questionCategories[Category.Rock].AddLast("Rock Question " + i);
-            }
+            deck = new Deck(TotalQuestions);
         }
 
         public bool AddPlayer(string playerName)
         {
-            players.Add(playerName);
-            spaces[GetTotalPlayers()] = 0;
-            purses[GetTotalPlayers()] = 0;
-            inPenaltyBox[GetTotalPlayers()] = false;
+            players.Add( new Player(playerName) );
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
@@ -57,64 +34,25 @@ namespace TriviaGame
             return players.Count;
         }
 
-        public void RollDice(int roll)
+        public void StartANewTurn(Random random)
         {
-            Console.WriteLine(players[currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            currentPlayer = players[playerIndex];
+            var roll = GameHandler.RollDice(currentPlayer, random);
+            var newSpace = GameHandler.MovePlayer(currentPlayer, roll);
+            var category = GameHandler.GetCategoryAtSpace(currentPlayer.CurrentSpace);
+            var question = GameHandler.DrawQuestion(currentPlayer.SkipTurn, deck, category);
 
-            if (inPenaltyBox[currentPlayer])
-            {
-                if (roll % 2 == 0)
-                {
-                    Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    skipPlayersTurn = true;
-                    return;
-                }
-                skipPlayersTurn = false;
-                Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-            }
-            MovePlayer(roll);
+            OutputProcess(roll, newSpace, category, question);
         }
 
-        private void MovePlayer(int roll)
+        public bool AnswerQuestion(Random random)
         {
-            spaces[currentPlayer] = (spaces[currentPlayer] + roll) % TotalPlaces;
-
-            Console.WriteLine(players[currentPlayer]
-                              + "'s new location is "
-                              + spaces[currentPlayer]);
-            Console.WriteLine("The category is " + GetCurrentCategory());
-            AskQuestion();
+            return random.Next(9) == 7 ? WrongAnswer() : CheckForWinner();
         }
 
-        private void AskQuestion()
+        private bool CheckForWinner()
         {
-            var cat = GetCurrentCategory();
-
-            Console.WriteLine(questionCategories[cat].First());
-            questionCategories[cat].RemoveFirst();
-        }
-
-        private Category GetCurrentCategory()
-        {
-            var spaceType = spaces[currentPlayer] % TotalCategories;
-
-            switch (spaceType)
-            {
-                case 0:
-                    return Category.Pop;
-                case 1:
-                    return Category.Science;
-                case 2:
-                    return Category.Sports;
-                default:
-                    return Category.Rock;
-            }
-        }
-
-        public bool CheckForWinner()
-        {
-            if (inPenaltyBox[currentPlayer] && skipPlayersTurn)
+            if (currentPlayer.IsInPenaltyBox && currentPlayer.SkipTurn)
             {
                 ToNextPlayer();
                 return true;
@@ -129,11 +67,11 @@ namespace TriviaGame
             return continueGame;
         }
 
-        public bool WrongAnswer()
+        private bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
+            Console.WriteLine(currentPlayer.Name + " was sent to the penalty box");
+            currentPlayer.IsInPenaltyBox = true;
 
             ToNextPlayer();
             return true;
@@ -141,21 +79,44 @@ namespace TriviaGame
         
         private bool CheckShouldContinueGame()
         {
-            return purses[currentPlayer] != WinAmount;
+            return currentPlayer.Coins != WinAmount;
+        }
+
+        private void OutputProcess(int roll, int newSpace, Category category, string question)
+        {
+            Console.WriteLine(currentPlayer.Name + " is the current player");
+            Console.WriteLine("They have rolled a " + roll);
+
+            if (currentPlayer.IsInPenaltyBox)
+            {
+                if (roll % 2 == 0)
+                {
+                    Console.WriteLine(currentPlayer.Name + " is not getting out of the penalty box");
+                    return;
+                }
+                else
+                {
+                    Console.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
+                }
+            }
+
+            Console.WriteLine(currentPlayer.Name + "'s new location is " + newSpace);
+            Console.WriteLine("The category is " + category);
+            Console.WriteLine(question);
         }
 
         private void ToNextPlayer()
         {
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            playerIndex++;
+            if (playerIndex == players.Count) playerIndex = 0;
         }
 
         private void AddCoin()
         {
-            purses[currentPlayer]++;
-            Console.WriteLine(players[currentPlayer]
+            currentPlayer.Coins++;
+            Console.WriteLine(currentPlayer.Name
                               + " now has "
-                              + purses[currentPlayer]
+                              + currentPlayer.Coins
                               + " Gold Coins.");
         }
     }
