@@ -104,13 +104,9 @@ public class Game {
         boolean placeOnBoardIsMultipleOfTwo = playersPlaceOnBoard() % 2 == 0;
 
         if (placeOnBoardIsMultipleOfFour) return "Pop";
-        if (placeOnBoardIsScience()) return "Science";
+        if (playersPlaceOnBoard() == 1 || playersPlaceOnBoard() == 5 || playersPlaceOnBoard() == 9) return "Science";
         if (placeOnBoardIsMultipleOfTwo) return "Sports";
         return "Rock";
-    }
-
-    private boolean placeOnBoardIsScience() {
-        return playersPlaceOnBoard() == 1 || playersPlaceOnBoard() == 5 || playersPlaceOnBoard() == 9;
     }
 
     public boolean questionWasAnsweredCorrectly() {
