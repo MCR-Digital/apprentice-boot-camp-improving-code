@@ -8,7 +8,7 @@ namespace TriviaGame
     {
         private readonly List<Player> players = new List<Player>();
 
-        private Deck deck;
+        private readonly Deck deck;
         private Player currentPlayer;
         private int playerIndex;
 
@@ -106,10 +106,7 @@ namespace TriviaGame
         private void AddCoin()
         {
             currentPlayer.Coins++;
-            Console.WriteLine(currentPlayer.Name
-                              + " now has "
-                              + currentPlayer.Coins
-                              + " Gold Coins.");
+            Console.WriteLine(currentPlayer.Name + " now has " + currentPlayer.Coins + " Gold Coins.");
         }
     }
 
