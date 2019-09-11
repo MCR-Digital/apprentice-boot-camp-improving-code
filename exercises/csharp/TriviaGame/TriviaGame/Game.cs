@@ -57,37 +57,24 @@ namespace TriviaGame
         {
             GameWriter.WriteCurrentPlayerRoll(CurrentPlayer.Name, rollNumber);
 
-            if (CurrentPlayer.IsInPenaltyBox)
+            if (CurrentPlayer.IsInPenaltyBox && rollNumber % 2 != 0)
             {
-                if (rollNumber % 2 != 0)
-                {
-                    _isGettingOutOfPenaltyBox = true;
-
-                    MoveCurrentPlayer(rollNumber);
-
-                    GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer.Name);
-                    GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
-                    GameWriter.WriteCategory(GetCurrentCategory());
-
-                    PrintQuestionForCurrentCategory();
-                }
-                else
-                {
-                    GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer.Name);
-                    _isGettingOutOfPenaltyBox = false;
-                }
-
+                _isGettingOutOfPenaltyBox = true;
+                GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer.Name);
             }
-            else
+            else if (CurrentPlayer.IsInPenaltyBox)
             {
-                MoveCurrentPlayer(rollNumber);
-
-                GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
-                GameWriter.WriteCategory(GetCurrentCategory());
-
-                PrintQuestionForCurrentCategory();
+                GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer.Name);
+                _isGettingOutOfPenaltyBox = false;
+                return;
             }
 
+            MoveCurrentPlayer(rollNumber);
+
+            GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
+            GameWriter.WriteCategory(GetCurrentCategory());
+
+            PrintQuestionForCurrentCategory();
         }
 
         private void MoveCurrentPlayer(int places)
