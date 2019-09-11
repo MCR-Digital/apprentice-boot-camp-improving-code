@@ -9,7 +9,7 @@ public class Pop extends Category {
     LinkedList<String> questions = new LinkedList<>();
 
     @Override
-    String getCategory() {
+    public String getCategory() {
         return QuestionCategories.POP.getCategory();
     }
 

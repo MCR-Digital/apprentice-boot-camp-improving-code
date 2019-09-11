@@ -9,7 +9,7 @@ public class Science extends Category {
     LinkedList<String> questions = new LinkedList<>();
 
     @Override
-    String getCategory() {
+    public String getCategory() {
         return QuestionCategories.SCIENCE.getCategory();
     }
 

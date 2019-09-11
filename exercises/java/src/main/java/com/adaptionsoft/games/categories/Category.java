@@ -4,9 +4,9 @@ import java.util.LinkedList;
 
 public abstract class Category {
 
-    abstract String getCategory();
+    public abstract String getCategory();
 
-    abstract LinkedList<String> getQuestions();
+    public abstract LinkedList<String> getQuestions();
 
     abstract String questionNumber();
 }

@@ -9,7 +9,7 @@ public class Rock extends Category {
     LinkedList<String> questions = new LinkedList<>();
 
     @Override
-    String getCategory() {
+    public String getCategory() {
         return QuestionCategories.ROCK.getCategory();
     }
 

@@ -1,6 +1,8 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.Board;
 import com.adaptionsoft.games.QuestionCategories;
+import com.adaptionsoft.games.categories.Category;
 
 import java.util.*;
 
@@ -80,11 +82,14 @@ public class Game {
             locationOfPlayerOnBoard[currentPlayer] = newPlaceOnBoard;
         }
         System.out.println(currentPlayerName + "'s new location is " + locationOfPlayerOnBoard[currentPlayer]);
-        System.out.println("The category is " + currentCategory());
+        String category = currentCategory();
+        System.out.println("The category is " + category);
         askQuestion();
     }
 
     private void askQuestion() {
+        //System.out.println(category.getQuestions().removeFirst());
+
         if (currentCategory().equals(QuestionCategories.POP.getCategory()))
             System.out.println(popQuestions.removeFirst());
         if (currentCategory().equals(QuestionCategories.SCIENCE.getCategory()))
@@ -97,24 +102,9 @@ public class Game {
 
 
     private String currentCategory() {
-
         int placeOnBoardOfCurrentPlayer = locationOfPlayerOnBoard[currentPlayer] + 1;
-
-        Map<Integer, String> map = new HashMap<>();
-        map.put(1, QuestionCategories.POP.getCategory());
-        map.put(2, QuestionCategories.SCIENCE.getCategory());
-        map.put(3, QuestionCategories.SPORTS.getCategory());
-        map.put(4, QuestionCategories.ROCK.getCategory());
-        map.put(5, QuestionCategories.POP.getCategory());
-        map.put(6, QuestionCategories.SCIENCE.getCategory());
-        map.put(7, QuestionCategories.SPORTS.getCategory());
-        map.put(8, QuestionCategories.ROCK.getCategory());
-        map.put(9, QuestionCategories.POP.getCategory());
-        map.put(10, QuestionCategories.SCIENCE.getCategory());
-        map.put(11, QuestionCategories.SPORTS.getCategory());
-        map.put(12, QuestionCategories.ROCK.getCategory());
-
-        return map.get(placeOnBoardOfCurrentPlayer);
+        Map<Integer, Category> board = new Board().createBoard();
+        return board.get(placeOnBoardOfCurrentPlayer).getCategory();
     }
 
     public boolean isCorrectAnswer() {
