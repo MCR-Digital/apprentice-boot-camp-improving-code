@@ -24,9 +24,7 @@ public class Player {
 
     void movePlayerForward(int spaces) {
         boardPosition = boardPosition + spaces;
-        if (boardPosition > 11) {
-            boardPosition = boardPosition - 12;
-        }
+        boardPosition = boardPosition % 12;
         System.out.println(name + "'s new location is " + boardPosition);
     }
 
@@ -39,19 +37,31 @@ public class Player {
         return points == 6;
     }
 
-    boolean isInPenaltyBox() {
-        return inPenaltyBox;
-    }
-
-    boolean isGettingOutOfPenaltyBox() {
-        return gettingOutOfPenaltyBox;
-    }
-
     void putInPenaltyBox() {
         this.inPenaltyBox = true;
     }
 
-    void setGettingOutOfPenaltyBox(boolean gettingOutOfPenaltyBox) {
+    private void setGettingOutOfPenaltyBox(boolean gettingOutOfPenaltyBox) {
         this.gettingOutOfPenaltyBox = gettingOutOfPenaltyBox;
+    }
+
+    void adjustPenaltyBoxStatus(int rollValue) {
+        if (inPenaltyBox) {
+            checkPenaltyBoxStatus(rollValue);
+        }
+    }
+
+    private void checkPenaltyBoxStatus(int rollValue) {
+        if (rollValue % 2 != 0) {
+            setGettingOutOfPenaltyBox(true);
+            System.out.println(name + " is getting out of the penalty box");
+        } else {
+            setGettingOutOfPenaltyBox(false);
+            System.out.println(name + " is not getting out of the penalty box");
+        }
+    }
+
+    boolean playerIsMovable() {
+        return gettingOutOfPenaltyBox || !inPenaltyBox;
     }
 }

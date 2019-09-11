@@ -16,30 +16,20 @@ public class Game {
     }
 
     public void rollDice(int rollValue) {
-        Player player = playerList.get(currentPlayer);
+        Player player = getPlayer();
         System.out.println(player.getName() + " is the current player");
         System.out.println("They have rolled a " + rollValue);
+        player.adjustPenaltyBoxStatus(rollValue);
 
-        if (player.isInPenaltyBox()) {
-            checkPenaltyBoxStatus(rollValue);
-        }
-
-        if (player.isGettingOutOfPenaltyBox() || !player.isInPenaltyBox()) {
+        if (player.playerIsMovable()) {
             player.movePlayerForward(rollValue);
             System.out.println("The category is " + questionDeck.getCurrentCategory(player.getBoardPosition()));
             askQuestion(player.getBoardPosition());
         }
     }
 
-    private void checkPenaltyBoxStatus(int rollValue) {
-        Player player = playerList.get(currentPlayer);
-        if (rollValue % 2 != 0) {
-            player.setGettingOutOfPenaltyBox(true);
-            System.out.println(playerList.get(currentPlayer).getName() + " is getting out of the penalty box");
-        } else {
-            player.setGettingOutOfPenaltyBox(false);
-            System.out.println(playerList.get(currentPlayer).getName() + " is not getting out of the penalty box");
-        }
+    private Player getPlayer() {
+        return playerList.get(currentPlayer);
     }
 
     private void askQuestion(int boardSquareIndex) {
@@ -52,7 +42,7 @@ public class Game {
     public boolean wasCorrectlyAnswered() {
         Player player = playerList.get(currentPlayer);
         boolean isNotWinner = true;
-        if (player.isGettingOutOfPenaltyBox() || !player.isInPenaltyBox()) {
+        if (player.playerIsMovable()) {
             System.out.println("Answer was correct!!!!");
             player.updatePoints();
             isNotWinner = !player.checkIfPlayerHasWon();
@@ -65,9 +55,7 @@ public class Game {
 
     private void switchToNextPlayer() {
         currentPlayer++;
-        if (currentPlayer == playerList.size()) {
-            currentPlayer = 0;
-        }
+        currentPlayer = currentPlayer % playerList.size();
     }
 
     public boolean wrongAnswer() {
