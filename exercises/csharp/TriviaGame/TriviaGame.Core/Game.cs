@@ -116,7 +116,7 @@ namespace TriviaGame.Core
     private void AskQuestion()
     {
       var questions = _questions[_currentCategory];
-      if (questions.Count() > 0)
+      if (questions.Any())
       {
         System.Console.WriteLine(questions.First());
         questions.RemoveAt(0);
