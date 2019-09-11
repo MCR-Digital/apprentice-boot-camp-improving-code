@@ -108,16 +108,9 @@ public class Game {
 	
 	
 	private String getCategory() {
-		if (playerLocations[currentPlayer] == 0) return CATEGORY_POP;
-		if (playerLocations[currentPlayer] == 4) return CATEGORY_POP;
-		if (playerLocations[currentPlayer] == 8) return CATEGORY_POP;
-		if (playerLocations[currentPlayer] == 1) return CATEGORY_SCIENCE;
-		if (playerLocations[currentPlayer] == 5) return CATEGORY_SCIENCE;
-		if (playerLocations[currentPlayer] == 9) return CATEGORY_SCIENCE;
-		if (playerLocations[currentPlayer] == 2) return CATEGORY_SPORTS;
-		if (playerLocations[currentPlayer] == 6) return CATEGORY_SPORTS;
-		if (playerLocations[currentPlayer] == 10) return CATEGORY_SPORTS;
-		return CATEGORY_ROCK;
+    	String[] boardSpaces = {CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP,
+				CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK};
+    	return boardSpaces[playerLocations[currentPlayer]];
 	}
 
 	public boolean wasAnsweredCorrectly() {
