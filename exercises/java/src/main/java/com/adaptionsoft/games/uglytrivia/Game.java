@@ -8,7 +8,7 @@ public class Game {
 	public static final int SCORE_TO_WIN = 6;
 
 	private GameBoard gameBoard;
-	
+
 	private ArrayList<Player> players = new ArrayList();
 	private int[] positionsOnBoard = new int[6];
 	private int[] score = new int[6];
@@ -90,6 +90,8 @@ public class Game {
 		if (positionsOnBoard[currentPlayer] > 11) {
 			returnToBeginningOfBoard();
 		}
+		//TODO: finish implementing move player
+//        players.get(currentPlayer).getCurrentGameBoardPosition() + diceRoll;
 	}
 
 	private void returnToBeginningOfBoard() {

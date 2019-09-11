@@ -2,14 +2,18 @@ package com.adaptionsoft.games.uglytrivia;
 
 public class Player {
     public String name;
-    public int playerPositionOnBoard;
+    public int currentGameBoardPosition;
 
     public Player(String name) {
         this.name = name;
-        this.playerPositionOnBoard = 0;
+        this.currentGameBoardPosition = 0;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getCurrentGameBoardPosition() {
+        return currentGameBoardPosition;
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 public class GameBoard {
 
+    Player player;
     List<GameBoardPosition> board = new ArrayList<>();
 
     public GameBoard() {
