@@ -4,5 +4,10 @@ namespace TriviaGame.Core
   {
     public string Title { get; set; }
     public string Type { get; set; }
+
+    public void AnswerQuestion()
+    {
+
+    }
   }
 }
