@@ -26,8 +26,7 @@ namespace TriviaGame
 
             do
             {
-                int rolled = dice.Roll();
-                aGame.RollDice(rolled);
+                aGame.RollDice(dice);
 
                 if (_randomNumberGenerator.Next(9) == 7)
                 {

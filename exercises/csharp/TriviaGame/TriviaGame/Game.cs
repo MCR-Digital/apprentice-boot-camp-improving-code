@@ -54,11 +54,13 @@ namespace TriviaGame
             }
         }
 
-        public void RollDice(int rollNumber)
+        public void RollDice(Dice dice)
         {
-            GameWriter.WriteCurrentPlayerRoll(CurrentPlayer.Name, rollNumber);
+            int rolled = dice.Roll();
 
-            if (CurrentPlayer.IsInPenaltyBox && rollNumber % 2 != 0)
+            GameWriter.WriteCurrentPlayerRoll(CurrentPlayer.Name, rolled);
+
+            if (CurrentPlayer.IsInPenaltyBox && rolled % 2 != 0)
             {
                 _isGettingOutOfPenaltyBox = true;
                 GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer.Name);
@@ -70,19 +72,19 @@ namespace TriviaGame
                 return;
             }
 
-            _board.MovePlayer(CurrentPlayer, rollNumber);
+            _board.MovePlayer(CurrentPlayer, rolled);
 
-            GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
-            GameWriter.WriteCategory(_board.GetCategoryForPosition(CurrentPlayer.Place));
-
-            PrintQuestionForCurrentCategory();
+            AskQuestion();
         }
 
-        private void PrintQuestionForCurrentCategory()
+        public void AskQuestion()
         {
-            var currentCategory = _board.GetCategoryForPosition(CurrentPlayer.Place);
-            var currentQuestion = _questions[currentCategory].GetNext();
-            Console.WriteLine(currentQuestion);
+            var currentCategory = _board.GetCategoryForPlayer(CurrentPlayer);
+            var question = _questions[currentCategory].GetNext();
+
+            GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
+            GameWriter.WriteCategory(currentCategory);
+            GameWriter.WriteQuestion(question);
         }
 
         public bool wasCorrectlyAnswered()
@@ -98,10 +100,10 @@ namespace TriviaGame
             GameWriter.WriteAnswerWasCorrect();
             GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
 
-            bool winner = GetCurrentPlayerWinStatus();
+            bool winner = CurrentPlayer.Coins == 6;
             MoveToNextPlayer();
 
-            return winner;
+            return !winner;
         }
 
         public bool GiveCurrentPlayerWrongAnswer()
@@ -111,12 +113,6 @@ namespace TriviaGame
 
             MoveToNextPlayer();
             return true;
-        }
-
-
-        private bool GetCurrentPlayerWinStatus()
-        {
-            return CurrentPlayer.Coins != 6;
         }
 
         private void MoveToNextPlayer()

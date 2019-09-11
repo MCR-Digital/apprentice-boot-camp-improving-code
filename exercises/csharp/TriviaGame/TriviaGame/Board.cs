@@ -20,10 +20,9 @@ namespace TriviaGame
             }
         }
 
-        public Category GetCategoryForPosition(int position)
+        public Category GetCategoryForPlayer(Player player)
         {
-
-
+            var position = player.Place;
 
             switch (position)
             {

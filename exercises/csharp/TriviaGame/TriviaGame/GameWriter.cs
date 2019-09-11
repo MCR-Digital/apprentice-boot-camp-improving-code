@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriviaGame
 {
@@ -54,6 +50,11 @@ namespace TriviaGame
         public static void WritePlayerNotLeavingPenaltyBox(string playerName)
         {
             Console.WriteLine(playerName + " is not getting out of the penalty box");
+        }
+
+        public static void WriteQuestion(string question)
+        {
+            Console.WriteLine(question);
         }
     }
 }
