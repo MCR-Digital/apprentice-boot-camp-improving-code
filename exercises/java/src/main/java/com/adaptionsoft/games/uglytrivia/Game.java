@@ -26,7 +26,7 @@ public class Game {
         for (int i = 0; i < 50; i++) {
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
+            sportsQuestions.addLast(("Sports Question " +i));
             rockQuestions.addLast(createRockQuestion(i));
         }
     }
@@ -129,11 +129,11 @@ public class Game {
 
                 boolean winner = didPlayerWin();
 
-                updatePlayerPlace();
+                updatePlayersPlace();
                 return winner;
 
             } else {
-                updatePlayerPlace();
+                updatePlayersPlace();
                 return true;
             }
 
@@ -142,13 +142,13 @@ public class Game {
             updateCoins("Answer was corrent!!!!");
 
             boolean winner = didPlayerWin();
-            updatePlayerPlace();
+            updatePlayersPlace();
 
             return winner;
         }
     }
 
-    private void updatePlayerPlace() {
+    private void updatePlayersPlace() {
         currentPlayerPlace++;
         if (currentPlayerPlace == players.size()) {
             currentPlayerPlace = 0;
@@ -169,11 +169,10 @@ public class Game {
         System.out.println(players.get(currentPlayerPlace) + " was sent to the penalty box");
         inPenaltyBox[currentPlayerPlace] = true;
 
-        updatePlayerPlace();
+        updatePlayersPlace();
 
         return true;
     }
-
 
     private boolean didPlayerWin() {
         return (purses[currentPlayerPlace] != WINNING_NUMBER);
