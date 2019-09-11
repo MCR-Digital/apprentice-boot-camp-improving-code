@@ -177,6 +177,6 @@ public class Game {
 
 	private boolean didPlayerWin() {
         int maxGoldCoins = 6;
-        return !(goldCoins[currentPlayer] == maxGoldCoins);
+        return (goldCoins[currentPlayer] != maxGoldCoins);
 	}
 }
