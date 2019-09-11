@@ -6,8 +6,6 @@ public class Game {
     ArrayList<Player> players = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
 
-    QuestionDeck questionDeck;
-
     String[] board= {"Pop", "Science", "Sports", "Rock"};
 
     Board boardClass;
@@ -16,7 +14,6 @@ public class Game {
     boolean isPlayerGettingOutOfPenaltyBox;
     
     public  Game(){
-    	questionDeck = new QuestionDeck();
     	boardClass = new Board();
     }
 
@@ -71,7 +68,7 @@ public class Game {
 				+ "'s new location is "
 				+ playerBoardPosition[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
-		questionDeck.askQuestion(currentCategory());
+		boardClass.askQuestion(currentCategory());
 	}
 	
 	

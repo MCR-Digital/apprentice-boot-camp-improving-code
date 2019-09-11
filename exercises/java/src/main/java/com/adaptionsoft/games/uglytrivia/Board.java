@@ -13,5 +13,14 @@ public class Board {
         questionDeck = new QuestionDeck();
     }
 
+    public String currentCategory(int currentPlayer) {
+        int currentPosition = playerBoardPosition[currentPlayer];
+        return boardSquares[currentPosition % 4];
+    }
+
+    public void askQuestion(String currentCategory) {
+        questionDeck.askQuestion(currentCategory);
+    }
+
 
 }
