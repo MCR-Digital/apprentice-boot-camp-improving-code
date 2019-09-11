@@ -6,6 +6,8 @@ import java.util.LinkedList;
 public class Game {
 	public static final int TOTAL_NUMBER_OF_BOARD_SQUARES = 12;
 	public static final int SCORE_TO_WIN = 6;
+
+	private GameBoard gameBoard;
 	private ArrayList players = new ArrayList();
     private int[] positionsOnBoard = new int[6];
     private int[] score = new int[6];
@@ -20,6 +22,7 @@ public class Game {
     private boolean isGettingOutOfPenaltyBox;
 
     public  Game(){
+        gameBoard = new GameBoard();
     	for (int i = 0; i < 50; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
