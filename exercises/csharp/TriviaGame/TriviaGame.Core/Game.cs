@@ -30,7 +30,6 @@ namespace TriviaGame.Core
     private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
 
     private bool _hasPlayerWon => CurrentPlayersGoldCoins != 6;
-    private string _currentPlayerName => _players[_currentPlayer];
     private string _currentCategory => _categories[CurrentPlayerPlace % 4];
     private int _currentPlayer;
     private bool _isLeavingPenaltyBox;
@@ -75,13 +74,13 @@ namespace TriviaGame.Core
 
     public void OnDieRoll(int roll)
     {
-      Console.WriteLine(_currentPlayerName + " is the current player");
+      Console.WriteLine(_commander.Name + " is the current player");
       Console.WriteLine("They have rolled a " + roll);
 
       if (IsCurrentPlayerInPenaltyBox)
       {
         var isRollOdd = roll % 2 != 0;
-        Console.WriteLine(_currentPlayerName + $" is{(isRollOdd ? " " : " not ")}getting out of the penalty box");
+        Console.WriteLine(_commander.Name + $" is{(isRollOdd ? " " : " not ")}getting out of the penalty box");
         _isLeavingPenaltyBox = isRollOdd;
 
         if (!isRollOdd)
@@ -149,17 +148,9 @@ namespace TriviaGame.Core
     public bool OnIncorrectAnswer()
     {
       Console.WriteLine("Question was incorrectly answered");
-      Console.WriteLine(_currentPlayerName + " was sent to the penalty box");
+      Console.WriteLine(_commander.Name + " was sent to the penalty box");
       _commander.IsInPenaltyBox = true;
       return true;
-    }
-
-    private void PrintLocation()
-    {
-      Console.WriteLine(_currentPlayerName
-                + "'s new location is "
-                + CurrentPlayerPlace);
-      Console.WriteLine("The category is " + _currentCategory);
     }
   }
 }
