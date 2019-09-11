@@ -34,11 +34,7 @@ namespace TriviaGame.Core
     private string _currentCategory => _categories[CurrentPlayerPlace % 4];
     private int _currentPlayer;
     private bool _isLeavingPenaltyBox;
-    private bool IsCurrentPlayerInPenaltyBox
-    {
-      get => _inPenaltyBox[_currentPlayer];
-      set => _inPenaltyBox[_currentPlayer] = value;
-    }
+    private bool IsCurrentPlayerInPenaltyBox => _commander.IsInPenaltyBox;
 
     private int CurrentPlayerPlace => _commander.BoardPosition;
 
@@ -153,7 +149,7 @@ namespace TriviaGame.Core
     {
       Console.WriteLine("Question was incorrectly answered");
       Console.WriteLine(_currentPlayerName + " was sent to the penalty box");
-      IsCurrentPlayerInPenaltyBox = true;
+      _commander.IsInPenaltyBox = true;
       return true;
     }
 
