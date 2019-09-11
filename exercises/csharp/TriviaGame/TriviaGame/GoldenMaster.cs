@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TriviaGame
 {
-    public class GoldenMaster
+    public static class GoldenMaster
     {
 
         public static string GetResult(int i)
@@ -23,16 +23,15 @@ namespace TriviaGame
 
         private static string GenerateExpectedResult(int i)
         {
-            TextWriter oldOut = Console.Out;
-
             string result;
-            MemoryStream memoryStream = new MemoryStream();
 
-            StreamWriter writer = new StreamWriter(memoryStream);
+            var oldOut = Console.Out;
+            var memoryStream = new MemoryStream();
+            var writer = new StreamWriter(memoryStream);
 
             Console.SetOut(writer);
 
-            GameRunner.Main(new String[] { i.ToString() });
+            GameRunner.Main(new [] { i.ToString() });
             writer.Flush();
 
             try
@@ -46,7 +45,7 @@ namespace TriviaGame
             finally
             {
                 memoryStream.Position = 0;
-                StreamReader reader = new StreamReader(memoryStream);
+                var reader = new StreamReader(memoryStream);
                 result = reader.ReadToEnd();
 
                 memoryStream.SetLength(0);

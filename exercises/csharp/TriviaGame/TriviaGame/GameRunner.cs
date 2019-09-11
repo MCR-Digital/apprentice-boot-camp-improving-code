@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace TriviaGame
 {
-   public class GameRunner
+    public static class GameRunner
     {
         private static bool notAWinner;
 
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
-            Game currentGame = new Game();
+            var currentGame = new Game();
 
             currentGame.AddPlayer("Chet");
             currentGame.AddPlayer("Pat");
             currentGame.AddPlayer("Sue");
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            var rand = new Random(int.Parse(args[0]));
 
             do
             {
-                currentGame.Roll(rand.Next(5) + 1);
+                currentGame.RollDice(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {

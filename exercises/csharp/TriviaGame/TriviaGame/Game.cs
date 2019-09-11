@@ -31,19 +31,19 @@ namespace TriviaGame
         
         public Game()
         {
-            for (int questionNumber = 0; questionNumber < TotalQuestions; questionNumber++)
+            for (var i = 0; i < TotalQuestions; i++)
             {
-                questionCategories[Category.Pop].AddLast("Pop Question " + questionNumber);
-                questionCategories[Category.Science].AddLast(("Science Question " + questionNumber));
-                questionCategories[Category.Sports].AddLast(("Sports Question " + questionNumber));
-                questionCategories[Category.Rock].AddLast("Rock Question " + questionNumber);
+                questionCategories[Category.Pop].AddLast("Pop Question " + i);
+                questionCategories[Category.Science].AddLast(("Science Question " + i));
+                questionCategories[Category.Sports].AddLast(("Sports Question " + i));
+                questionCategories[Category.Rock].AddLast("Rock Question " + i);
             }
         }
 
-        public bool IsPlayable()
-        {
-            return (GetTotalPlayers() >= 2);
-        }
+        //public bool IsPlayable()
+        //{
+        //    return (GetTotalPlayers() >= 2);
+        //}
 
         public bool AddPlayer(string playerName)
         {
@@ -62,7 +62,7 @@ namespace TriviaGame
             return players.Count;
         }
 
-        public void Roll(int roll)
+        public void RollDice(int roll)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
