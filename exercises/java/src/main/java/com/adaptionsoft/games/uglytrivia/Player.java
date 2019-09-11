@@ -22,6 +22,14 @@ public class Player {
 		return isInPenaltyBox;
 	}
 
+	public void putPlayerInPenaltyBox(){
+		isInPenaltyBox = true;
+	}
+
+	public void takePlayerOutOfPenaltyBox(){
+		isInPenaltyBox = false;
+	}
+
 	@Override
 	public String toString(){
 		return playerName;

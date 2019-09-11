@@ -62,10 +62,11 @@ public class Game {
 	}
 
 	public void playGame(int roll) {
+    	Player player = playersInGame.get(playerLocation);
 		System.out.println(playersInGame.get(playerLocation) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
-		if (playersInPenaltyBox[playerLocation]) {
+		if (player.isPlayerInPenaltyBox()) {
 			penaltyCheck(roll);
 		} else {
 			updatePlayerLocation(roll);
@@ -73,8 +74,11 @@ public class Game {
 	}
 
 	private void penaltyCheck(final int result) {
+		Player player = playersInGame.get(playerLocation);
+
 		if (result % PENALTY_CHECK_VALUE != 0) {
 			System.out.println(playersInGame.get(playerLocation) + " is getting out of the penalty box");
+			player.takePlayerOutOfPenaltyBox();
 			isOutOfPenaltyBox = true;
 
 			updatePlayerLocation(result);
@@ -136,9 +140,12 @@ public class Game {
 	}
 
 	public boolean wasAnsweredIncorrectly(){
+		Player player = playersInGame.get(playerLocation);
 		System.out.println("Question was incorrectly answered");
 		System.out.println(playersInGame.get(playerLocation)+ " was sent to the penalty box");
-		playersInPenaltyBox[playerLocation] = true;
+
+		player.putPlayerInPenaltyBox();
+		//playersInPenaltyBox[playerLocation] = true;
 
 		playerLocation++;
 		resetPlayerLocationToZero();
