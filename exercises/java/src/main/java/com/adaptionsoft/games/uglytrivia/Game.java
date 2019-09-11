@@ -19,7 +19,7 @@ public class Game {
 	private static final String CATEGORY_SPORTS = "Sports";
 	private static final String CATEGORY_ROCK = "Rock";
 
-	private ArrayList playersInGame = new ArrayList();
+	private ArrayList<Player> playersInGame = new ArrayList();
 	private int[] playerOrder = new int[MAX_PLAYERS];
 	private int[] playerPurses = new int[MAX_PLAYERS];
 	private boolean[] playersInPenaltyBox = new boolean[MAX_PLAYERS];
@@ -48,12 +48,12 @@ public class Game {
 	}
 
 	public boolean addPlayerToGame(Player player) {
-	    playersInGame.add(player.getName());
+	    playersInGame.add(player);
 	    playerOrder[getAmountOfPlayers()] = 0;
 	    playerPurses[getAmountOfPlayers()] = 0;
 	    playersInPenaltyBox[getAmountOfPlayers()] = false;
 	    
-	    System.out.println(player.getName() + " was added");
+	    System.out.println(player + " was added");
 	    System.out.println("They are player number " + playersInGame.size());
 		return true;
 	}

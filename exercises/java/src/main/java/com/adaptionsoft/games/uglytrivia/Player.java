@@ -10,10 +10,6 @@ public class Player {
 		this.playerName = playerName;
 	}
 
-	public String getName() {
-		return playerName;
-	}
-
 	public void addToCoins(){
 		playerCoins++;
 	}
@@ -24,6 +20,11 @@ public class Player {
 
 	public boolean isPlayerInPenaltyBox(){
 		return isInPenaltyBox;
+	}
+
+	@Override
+	public String toString(){
+		return playerName;
 	}
 
 
