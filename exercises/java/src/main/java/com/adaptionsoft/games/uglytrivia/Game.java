@@ -42,10 +42,6 @@ public class Game {
         return "Rock Question " + index;
     }
 
-    public boolean isPlayable() {
-        return (getNumberOfPlayers() >= MINIMUM_NUMBER_OF_PLAYERS);
-    }
-
     public boolean addPlayer(String playerName) {
         players.add(playerName);
         playerPositions[getNumberOfPlayers()] = 0;
