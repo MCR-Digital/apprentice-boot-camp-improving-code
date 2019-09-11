@@ -1,35 +1,25 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import com.adaptionsoft.games.Board;
-import com.adaptionsoft.games.QuestionCategories;
 import com.adaptionsoft.games.categories.Category;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Map;
 
 public class Game {
+    private Map<Integer, Category> boardPositions;
     private ArrayList<String> playerNames = new ArrayList<>();
     private static final int MAX_AMOUNT_OF_PLAYERS = 6;
-    private static final int MAX_NUMBER_OF_QUESTIONS = 50;
     private int[] locationOfPlayerOnBoard = new int[MAX_AMOUNT_OF_PLAYERS];
     private int[] playerPurses = new int[MAX_AMOUNT_OF_PLAYERS];
     private boolean[] isPlayerInPenaltyBox = new boolean[MAX_AMOUNT_OF_PLAYERS];
-
-    private LinkedList<String> popQuestions = new LinkedList<>();
-    private LinkedList<String> scienceQuestions = new LinkedList<>();
-    private LinkedList<String> sportsQuestions = new LinkedList<>();
-    private LinkedList<String> rockQuestions = new LinkedList<>();
 
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
     private String currentPlayerName;
 
-    public Game() {
-        for (int index = 0; index < MAX_NUMBER_OF_QUESTIONS; index++) {
-            popQuestions.addLast("Pop Question " + index);
-            scienceQuestions.addLast("Science Question " + index);
-            sportsQuestions.addLast("Sports Question " + index);
-            rockQuestions.addLast("Rock Question " + index);
-        }
+    public Game(Map<Integer, Category> boardPositions) {
+        this.boardPositions = boardPositions;
     }
 
     public void addPlayersToGame(String... players) {
@@ -70,7 +60,6 @@ public class Game {
         } else {
             movePlayerAroundTheBoardAndAskQuestion(roll, currentPlayerName);
         }
-
     }
 
     private void movePlayerAroundTheBoardAndAskQuestion(int roll, Object currentPlayerName) {
@@ -82,29 +71,19 @@ public class Game {
             locationOfPlayerOnBoard[currentPlayer] = newPlaceOnBoard;
         }
         System.out.println(currentPlayerName + "'s new location is " + locationOfPlayerOnBoard[currentPlayer]);
-        String category = currentCategory();
-        System.out.println("The category is " + category);
-        askQuestion();
+        Category category = currentCategory();
+        System.out.println("The category is " + category.getCategory());
+        askQuestion(category);
     }
 
-    private void askQuestion() {
-        //System.out.println(category.getQuestions().removeFirst());
-
-        if (currentCategory().equals(QuestionCategories.POP.getCategory()))
-            System.out.println(popQuestions.removeFirst());
-        if (currentCategory().equals(QuestionCategories.SCIENCE.getCategory()))
-            System.out.println(scienceQuestions.removeFirst());
-        if (currentCategory().equals(QuestionCategories.SPORTS.getCategory()))
-            System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory().equals(QuestionCategories.ROCK.getCategory()))
-            System.out.println(rockQuestions.removeFirst());
+    private void askQuestion(Category category) {
+        System.out.println(category.getQuestions().removeFirst());
     }
 
 
-    private String currentCategory() {
+    private Category currentCategory() {
         int placeOnBoardOfCurrentPlayer = locationOfPlayerOnBoard[currentPlayer] + 1;
-        Map<Integer, Category> board = new Board().createBoard();
-        return board.get(placeOnBoardOfCurrentPlayer).getCategory();
+        return boardPositions.get(placeOnBoardOfCurrentPlayer);
     }
 
     public boolean isCorrectAnswer() {
