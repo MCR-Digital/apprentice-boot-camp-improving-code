@@ -6,6 +6,7 @@ namespace TriviaGame.Core
     public int GoldCoins { get; private set; }
     public int BoardPosition { get; private set; }
     public bool IsInPenaltyBox { get; private set; }
+    private static readonly int NUMBER_OF_BOARD_SQUARES = 12;
 
     public Player(string name)
     {
@@ -19,7 +20,7 @@ namespace TriviaGame.Core
 
     public void Move(int places)
     {
-        BoardPosition = (BoardPosition + places) % 12;
+      BoardPosition = (BoardPosition + places) % NUMBER_OF_BOARD_SQUARES;
     }
   }
 }

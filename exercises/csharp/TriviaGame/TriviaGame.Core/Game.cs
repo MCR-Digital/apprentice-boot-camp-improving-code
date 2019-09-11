@@ -22,6 +22,7 @@ namespace TriviaGame.Core
     private readonly Dictionary<string, List<string>> _questions = new Dictionary<string, List<string>>();
 
     private readonly List<Player> _playerModel = new List<Player>();
+    private Player _commander => _playerModel[_currentPlayer];
 
     private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
@@ -39,11 +40,7 @@ namespace TriviaGame.Core
       set => _inPenaltyBox[_currentPlayer] = value;
     }
 
-    private int CurrentPlayerPlace
-    {
-      get => _places[_currentPlayer];
-      set => _places[_currentPlayer] = value;
-    }
+    private int CurrentPlayerPlace => _commander.BoardPosition;
 
     private int CurrentPlayersGoldCoins
     {
@@ -108,7 +105,8 @@ namespace TriviaGame.Core
 
     private void AdvancePlace(int roll)
     {
-      CurrentPlayerPlace = (CurrentPlayerPlace + roll) % NUMBER_OF_BOARD_SQUARES;
+      _commander.Move(roll);
+      // CurrentPlayerPlace = (CurrentPlayerPlace + roll) % NUMBER_OF_BOARD_SQUARES;
     }
 
     private void MoveToNextPlayer()
