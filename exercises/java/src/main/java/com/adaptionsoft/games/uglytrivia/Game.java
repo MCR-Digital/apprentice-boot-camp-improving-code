@@ -6,15 +6,15 @@ import java.util.LinkedList;
 public class Game {
 	public static final int TOTAL_NUMBER_OF_BOARD_SQUARES = 12;
 	public static final int SCORE_TO_WIN = 6;
-	ArrayList players = new ArrayList();
-    int[] positionOnBoard = new int[6];
-    int[] score = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+	private ArrayList players = new ArrayList();
+    private int[] positionOnBoard = new int[6];
+    private int[] score = new int[6];
+    private boolean[] inPenaltyBox  = new boolean[6];
     
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    private LinkedList popQuestions = new LinkedList();
+    private LinkedList scienceQuestions = new LinkedList();
+    private LinkedList sportsQuestions = new LinkedList();
+    private LinkedList rockQuestions = new LinkedList();
     
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
