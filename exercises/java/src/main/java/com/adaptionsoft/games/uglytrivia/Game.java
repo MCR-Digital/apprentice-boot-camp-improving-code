@@ -2,9 +2,7 @@ package com.adaptionsoft.games.uglytrivia;
 
 import com.adaptionsoft.games.QuestionCategories;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Game {
     private ArrayList<String> playerNames = new ArrayList<>();
@@ -100,17 +98,23 @@ public class Game {
 
     private String currentCategory() {
 
-        int placeOnBoardOfCurrentPlayer = locationOfPlayerOnBoard[currentPlayer];
+        int placeOnBoardOfCurrentPlayer = locationOfPlayerOnBoard[currentPlayer] + 1;
 
-        if (placeOnBoardOfCurrentPlayer % 4 == 0) {
-            return QuestionCategories.POP.getCategory();
-        } else if (placeOnBoardOfCurrentPlayer % 4 == 1) {
-            return QuestionCategories.SCIENCE.getCategory();
-        } else if (placeOnBoardOfCurrentPlayer % 4 == 2) {
-            return QuestionCategories.SPORTS.getCategory();
-        } else {
-            return QuestionCategories.ROCK.getCategory();
-        }
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, QuestionCategories.POP.getCategory());
+        map.put(2, QuestionCategories.SCIENCE.getCategory());
+        map.put(3, QuestionCategories.SPORTS.getCategory());
+        map.put(4, QuestionCategories.ROCK.getCategory());
+        map.put(5, QuestionCategories.POP.getCategory());
+        map.put(6, QuestionCategories.SCIENCE.getCategory());
+        map.put(7, QuestionCategories.SPORTS.getCategory());
+        map.put(8, QuestionCategories.ROCK.getCategory());
+        map.put(9, QuestionCategories.POP.getCategory());
+        map.put(10, QuestionCategories.SCIENCE.getCategory());
+        map.put(11, QuestionCategories.SPORTS.getCategory());
+        map.put(12, QuestionCategories.ROCK.getCategory());
+
+        return map.get(placeOnBoardOfCurrentPlayer);
     }
 
     public boolean isCorrectAnswer() {
