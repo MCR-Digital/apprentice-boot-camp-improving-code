@@ -8,45 +8,17 @@ public class Game {
     ArrayList players = new ArrayList();
     ArrayList<Player> players2 = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
-    
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
 
     QuestionDeck questionDeck;
 
-
-
-    HashMap<String, LinkedList> topicQuestionMap = new HashMap<>();
     String[] board= {"Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock"};
     
     int currentPlayer = 0;
     boolean isPlayerGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast(createQuestion("Pop", i));
-			scienceQuestions.addLast((createQuestion("Science", i)));
-			sportsQuestions.addLast((createQuestion("Sports", i)));
-			rockQuestions.addLast(createQuestion("Rock", i));
-    	}
-    	topicQuestionMap.put("Pop", popQuestions);
-    	topicQuestionMap.put("Science", scienceQuestions);
-    	topicQuestionMap.put("Sports", sportsQuestions);
-    	topicQuestionMap.put("Rock", rockQuestions);
-
     	questionDeck = new QuestionDeck();
     }
-
-	private String createQuestion(String topic, int index) {
-    	return topic + " Question " + index;
-	}
-	
-	public boolean isPlayable() {
-		int miniumumNumberOfPlayers = 2;
-    	return (howManyPlayers() >= miniumumNumberOfPlayers);
-	}
 
 	public boolean addPlayer(String playerName) {
 		
@@ -100,11 +72,7 @@ public class Game {
 				+ "'s new location is "
 				+ playerBoardPosition[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
-		askQuestion();
-	}
-
-	private void askQuestion() {
-		System.out.println(topicQuestionMap.get(currentCategory()).removeFirst());
+		questionDeck.askQuestion(currentCategory());
 	}
 	
 	
