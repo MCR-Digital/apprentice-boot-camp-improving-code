@@ -17,16 +17,9 @@ public class QuestionDeck {
         return question.getQuestionNumber();
     }
 
-    private Question getQuestion(String category) {
+    public Question getQuestion(String category) {
         return questions.stream()
                 .filter(target -> category.equals(target.getCategory()))
                 .collect(Collectors.toList()).get(0);
-    }
-
-    public void pickUpQuestion(String category) {
-        Question question = getQuestion(category);
-
-        String questionString = category + "question " + question.getQuestionNumber();
-        question.updateQuestionNumber();
     }
 }

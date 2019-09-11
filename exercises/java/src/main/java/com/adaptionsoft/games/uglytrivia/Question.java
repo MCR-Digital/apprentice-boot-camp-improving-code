@@ -13,11 +13,11 @@ public class Question {
         return category;
     }
 
-    public int getQuestionNumber() {
+    int getQuestionNumber() {
         return questionNumber;
     }
 
-    public void updateQuestionNumber() {
+    void removeQuestionFromDeck() {
         questionNumber++;
     }
 }

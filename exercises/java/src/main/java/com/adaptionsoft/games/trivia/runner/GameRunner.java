@@ -3,14 +3,22 @@ package com.adaptionsoft.games.trivia.runner;
 import java.util.Random;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.QuestionDeck;
 
 
 public class GameRunner {
 
+
+	private static final String POP = "Pop";
+	private static final String SCIENCE = "Science";
+	private static final String SPORTS = "Sports";
+	private static final String ROCK = "Rock";
+
 	private static boolean notAWinner;
 
 	public static void main(String[] args) {
-		Game aGame = new Game();
+		QuestionDeck questionDeck = new QuestionDeck(POP, SCIENCE, SPORTS, ROCK);
+		Game aGame = new Game(questionDeck);
 		
 		aGame.initialisePlayer("Chet");
 		aGame.initialisePlayer("Pat");

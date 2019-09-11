@@ -3,12 +3,6 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.*;
 
 public class Game {
-    private static final int NUMBER_OF_CATEGORY_QUESTIONS = 50;
-    private static final String POP_QUESTION = "Pop Question ";
-    private static final String SCIENCE_QUESTION = "Science Question ";
-    private static final String SPORTS_QUESTION = "Sports Question ";
-    private static final String ROCK_QUESTION = "Rock Question ";
-
     private static final String POP = "Pop";
     private static final String SCIENCE = "Science";
     private static final String SPORTS = "Sports";
@@ -21,22 +15,11 @@ public class Game {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-    private LinkedList<String> popQuestions = new LinkedList<>();
-    private LinkedList<String> scienceQuestions = new LinkedList<>();
-    private LinkedList<String> sportsQuestions = new LinkedList<>();
-    private LinkedList<String> rockQuestions = new LinkedList<>();
+    private QuestionDeck questionDeck;
 
-    public Game() {
-        generateQuestionsForEachCategory();
-    }
 
-    private void generateQuestionsForEachCategory() {
-        for (int questionNumber = 0; questionNumber < NUMBER_OF_CATEGORY_QUESTIONS; questionNumber++) {
-            popQuestions.addLast(POP_QUESTION + questionNumber);
-            scienceQuestions.addLast(SCIENCE_QUESTION + questionNumber);
-            sportsQuestions.addLast((SPORTS_QUESTION + questionNumber));
-            rockQuestions.addLast(ROCK_QUESTION + questionNumber);
-        }
+    public Game(QuestionDeck questionDeck) {
+        this.questionDeck = questionDeck;
     }
 
     public void initialisePlayer(String playerName) {
@@ -90,18 +73,10 @@ public class Game {
     }
 
     private void askQuestion() {
-        Map<String, LinkedList<String>> categoryQuestions = new HashMap<>();
-        categoryQuestions.put(getCategoryName(POP_QUESTION), popQuestions);
-        categoryQuestions.put(getCategoryName(SCIENCE_QUESTION), scienceQuestions);
-        categoryQuestions.put(getCategoryName(SPORTS_QUESTION), sportsQuestions);
-        categoryQuestions.put(getCategoryName(ROCK_QUESTION), rockQuestions);
-
         String currentCategory = currentCategory(boardSquares[currentPlayer]);
-        System.out.println(categoryQuestions.get(currentCategory).removeFirst());
-    }
-
-    private String getCategoryName(String question) {
-        return question.split(" ")[0];
+        Question question = questionDeck.getQuestion(currentCategory);
+        System.out.println(question.getCategory() + " Question " + question.getQuestionNumber());
+        question.removeQuestionFromDeck();
     }
 
     private String currentCategory(int boardSquareIndex) {

@@ -19,7 +19,8 @@ class QuestionDeckTest {
     void shouldUpdateQuestionNumberAfterQuestionIsAsked() {
         QuestionDeck questionDeck = new QuestionDeck("Rock", "Pop");
 
-        questionDeck.pickUpQuestion("Rock");
+        Question question = questionDeck.getQuestion("Rock");
+        question.removeQuestionFromDeck();
         Integer questionNumber = questionDeck.getQuestionNumberAtCategory("Rock");
 
         assertThat(questionNumber).isEqualTo(1);
