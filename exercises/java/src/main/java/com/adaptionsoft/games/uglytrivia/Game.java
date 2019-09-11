@@ -14,6 +14,8 @@ public class Game {
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
 
+    QuestionDeck questionDeck;
+
 
 
     HashMap<String, LinkedList> topicQuestionMap = new HashMap<>();
@@ -33,6 +35,8 @@ public class Game {
     	topicQuestionMap.put("Science", scienceQuestions);
     	topicQuestionMap.put("Sports", sportsQuestions);
     	topicQuestionMap.put("Rock", rockQuestions);
+
+    	questionDeck = new QuestionDeck();
     }
 
 	private String createQuestion(String topic, int index) {
