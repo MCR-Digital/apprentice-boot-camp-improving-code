@@ -14,6 +14,8 @@ public class Game {
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
 
+
+
     HashMap<String, LinkedList> topicQuestionMap = new HashMap<>();
     String[] board= {"Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock"};
     
@@ -22,19 +24,19 @@ public class Game {
     
     public  Game(){
     	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+			popQuestions.addLast(createQuestion("Pop", i));
+			scienceQuestions.addLast((createQuestion("Science", i)));
+			sportsQuestions.addLast((createQuestion("Sports", i)));
+			rockQuestions.addLast(createQuestion("Rock", i));
     	}
     	topicQuestionMap.put("Pop", popQuestions);
     	topicQuestionMap.put("Science", scienceQuestions);
     	topicQuestionMap.put("Sports", sportsQuestions);
     	topicQuestionMap.put("Rock", rockQuestions);
     }
-
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
+    
+	private String createQuestion(String topic, int index) {
+    	return topic + " Question " + index;
 	}
 	
 	public boolean isPlayable() {
