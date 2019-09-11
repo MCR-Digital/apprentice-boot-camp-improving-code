@@ -1,3 +1,5 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/732ffc232b124b86a04b69924c65f249)](https://www.codacy.com/manual/jennisimone/apprentice-boot-camp-improving-code?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jennisimone/apprentice-boot-camp-improving-code&amp;utm_campaign=Badge_Grade)
+
 <!--- ORGANISER THINGS TO CONSIDER 
 - Which technical competencies, behaviours and knowledge module topics does the bootcamp cover/meet
 - Structuring retros so that they can inform thinking for individual's personal learning records (off the job training record tab in their learning logs)
