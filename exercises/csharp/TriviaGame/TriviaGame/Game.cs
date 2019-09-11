@@ -29,11 +29,6 @@ namespace TriviaGame
             return true;
         }
 
-        public int GetTotalPlayers()
-        {
-            return players.Count;
-        }
-
         public void StartANewTurn(Random random)
         {
             currentPlayer = players[playerIndex];
@@ -94,10 +89,7 @@ namespace TriviaGame
                     Console.WriteLine(currentPlayer.Name + " is not getting out of the penalty box");
                     return;
                 }
-                else
-                {
-                    Console.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
-                }
+                Console.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
             }
 
             Console.WriteLine(currentPlayer.Name + "'s new location is " + newSpace);

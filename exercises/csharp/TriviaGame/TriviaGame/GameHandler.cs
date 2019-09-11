@@ -4,7 +4,6 @@ namespace TriviaGame
 {
     public static class GameHandler
     {
-
         private const int TotalCategories = 4;
         private const int TotalSpaces = 12;
 
