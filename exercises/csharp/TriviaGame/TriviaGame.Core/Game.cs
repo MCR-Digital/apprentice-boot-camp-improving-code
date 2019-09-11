@@ -23,11 +23,6 @@ namespace TriviaGame.Core
     private readonly List<Player> _players = new List<Player>();
     private Player _commander => _players[_currentPlayer];
 
-    private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
-    private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
-    private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
-    private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
-
     private bool _hasPlayerWon => _commander.GoldCoins != 6;
     private string _currentCategory => _categories[CurrentPlayerPlace % 4];
     private int _currentPlayer;
@@ -46,14 +41,6 @@ namespace TriviaGame.Core
           .Repeat($"{category} Question ", MAX_QUESTIONS_PER_CATEGORY)
           .Select((question, index) => question + index)
           .ToList());
-
-      for (int index = 0; index < MAX_QUESTIONS_PER_CATEGORY; index++)
-      {
-        _popQuestions.AddLast("Pop Question " + index);
-        _scienceQuestions.AddLast(("Science Question " + index));
-        _sportsQuestions.AddLast(("Sports Question " + index));
-        _rockQuestions.AddLast("Rock Question " + index);
-      }
     }
 
     public bool AddPlayer(String playerName)
