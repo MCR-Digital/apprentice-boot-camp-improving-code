@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Game {
     ArrayList<Player> players = new ArrayList<>();
+    Players players2;
     int[] playerBoardPosition = new int[6];
 
     Board boardClass;
@@ -13,6 +14,8 @@ public class Game {
     
     public  Game(){
     	boardClass = new Board();
+    	players2 = new Players();
+
     }
 
 	public boolean addPlayer(String playerName) {
@@ -20,14 +23,15 @@ public class Game {
 		int initialPlayerBoardPosition = 0;
 	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
 	    players.add(new Player(playerName));
+	    players2.add(playerName);
 	    
 	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.size());
+	    System.out.println("They are player number " + players2.size());
 		return true;
 	}
 
 	public int howManyPlayers() {
-		return players.size();
+		return players2.size();
 	}
 
 	public void roll(int roll) {
@@ -106,7 +110,7 @@ public class Game {
 
 	private void changeCurrentPlayer() {
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == players2.size()) currentPlayer = 0;
 	}
 
 	private void updatePlayerCoinCount(String message) {
