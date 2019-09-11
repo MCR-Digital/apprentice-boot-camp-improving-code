@@ -9,12 +9,15 @@ public class Game {
     QuestionDeck questionDeck;
 
     String[] board= {"Pop", "Science", "Sports", "Rock"};
+
+    Board boardClass;
     
     int currentPlayer = 0;
     boolean isPlayerGettingOutOfPenaltyBox;
     
     public  Game(){
     	questionDeck = new QuestionDeck();
+    	boardClass = new Board();
     }
 
 	public boolean addPlayer(String playerName) {
@@ -27,7 +30,7 @@ public class Game {
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
-	
+
 	public int howManyPlayers() {
 		return players.size();
 	}
