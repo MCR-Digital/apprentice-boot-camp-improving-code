@@ -26,8 +26,7 @@ public class Game {
     private LinkedList<String> sportsQuestions = new LinkedList<>();
     private LinkedList<String> rockQuestions = new LinkedList<>();
 
-    public Game(String... categories) {
-
+    public Game() {
         generateQuestionsForEachCategory();
     }
 
