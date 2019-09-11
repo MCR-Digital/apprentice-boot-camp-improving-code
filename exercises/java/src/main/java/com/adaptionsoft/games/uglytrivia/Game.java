@@ -156,7 +156,9 @@ public class Game {
 	public boolean wasIncorrectlyAnswered(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players2.get(currentPlayer).getName()+ " was sent to the penalty box");
+		// here
 		isPlayerInPenaltyBox[currentPlayer] = true;
+		players2.get(currentPlayer).setInPenaltyBox(true);
 
 		changeCurrentPlayer();
 		return true;
