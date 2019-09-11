@@ -35,7 +35,6 @@ public class Game {
     }
 
 	public void addPlayer(String playerName) {
-
 	    allPlayers.add(playerName);
 	    locationOnBoard[numberOfPlayers()] = BOARD_STARTING_LOCATION;
 	    goldCoins[numberOfPlayers()] = ZERO_COINS;
@@ -50,19 +49,23 @@ public class Game {
 		System.out.println("They have rolled a " + currentRoll);
 
 		if (isInPenaltyBox[currentPlayer]) {
-            boolean oddRoll = currentRoll % 2 != 0;
-            if (oddRoll) {
-				isExitingPenaltyBox = true;
-				System.out.println(allPlayers.get(currentPlayer) + " is getting out of the penalty box");
-                takeTurn(currentRoll);
-            } else {
-				System.out.println(allPlayers.get(currentPlayer) + " is not getting out of the penalty box");
-				isExitingPenaltyBox = false;
-			}
-		} else {
+            penaltyTakeTurn(currentRoll);
+        } else {
             takeTurn(currentRoll);
         }
 	}
+
+    private void penaltyTakeTurn(int currentRoll) {
+        boolean oddRoll = currentRoll % 2 != 0;
+        if (oddRoll) {
+            isExitingPenaltyBox = true;
+            System.out.println(allPlayers.get(currentPlayer) + " is getting out of the penalty box");
+            takeTurn(currentRoll);
+        } else {
+            System.out.println(allPlayers.get(currentPlayer) + " is not getting out of the penalty box");
+            isExitingPenaltyBox = false;
+        }
+    }
 
     public boolean isCorrectlyAnswered() {
         if (isInPenaltyBox[currentPlayer]){
