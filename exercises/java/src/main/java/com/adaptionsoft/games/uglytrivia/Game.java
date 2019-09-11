@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
     ArrayList<Player> players2 = new ArrayList<>();
     int[] playerBoardPosition = new int[6];
 
@@ -23,7 +22,6 @@ public class Game {
 	public boolean addPlayer(String playerName) {
 		
 		int initialPlayerBoardPosition = 0;
-	    players.add(playerName);
 	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
 	    players2.add(new Player(playerName));
 	    
@@ -112,7 +110,7 @@ public class Game {
 
 	private void changeCurrentPlayer() {
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == players2.size()) currentPlayer = 0;
 	}
 
 	private void updatePlayerCoinCount(String message) {
