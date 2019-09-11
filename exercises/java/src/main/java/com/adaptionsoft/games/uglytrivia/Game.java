@@ -5,8 +5,7 @@ import java.util.LinkedList;
 
 public class Game {
 
-	public static final int MAX_PLAYERS = 6;
-
+	private static final int MAX_PLAYERS = 6;
 	private static final int MIN_PLAYERS = 2;
 	private static final int WINNING_SCORE = 6;
 	private static final int MAX_QUESTIONS = 50;
@@ -73,12 +72,12 @@ public class Game {
 		}
 	}
 
-	private void penaltyCheck(final int roll) {
-		if (roll % PENALTY_CHECK_VALUE != 0) {
+	private void penaltyCheck(final int result) {
+		if (result % PENALTY_CHECK_VALUE != 0) {
 			System.out.println(playersInGame.get(playerLocation) + " is getting out of the penalty box");
 			isOutOfPenaltyBox = true;
 
-			updatePlayerLocation(roll);
+			updatePlayerLocation(result);
 		} else {
 			System.out.println(playersInGame.get(playerLocation) + " is not getting out of the penalty box");
 			isOutOfPenaltyBox = false;
@@ -111,9 +110,10 @@ public class Game {
 	
 	
 	private String getCategory() {
-    	String[] boardSpaces = {CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP,
-				CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK, CATEGORY_POP, CATEGORY_SCIENCE,
-				CATEGORY_SPORTS, CATEGORY_ROCK};
+    	String[] boardSpaces = {
+    			CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK,
+				CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK,
+				CATEGORY_POP, CATEGORY_SCIENCE, CATEGORY_SPORTS, CATEGORY_ROCK};
     	return boardSpaces[playerOrder[playerLocation]];
 	}
 
