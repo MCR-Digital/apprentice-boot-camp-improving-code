@@ -8,7 +8,7 @@ public class Game {
 
     QuestionDeck questionDeck;
 
-    String[] board= {"Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock", "Pop", "Science", "Sports", "Rock"};
+    String[] board= {"Pop", "Science", "Sports", "Rock"};
     
     int currentPlayer = 0;
     boolean isPlayerGettingOutOfPenaltyBox;
@@ -74,7 +74,7 @@ public class Game {
 	
 	private String currentCategory() {
     	int currentPosition = playerBoardPosition[currentPlayer];
-		return board[currentPosition];
+		return board[currentPosition % 4];
 	}
 
 	public boolean wasCorrectlyAnswered() {
