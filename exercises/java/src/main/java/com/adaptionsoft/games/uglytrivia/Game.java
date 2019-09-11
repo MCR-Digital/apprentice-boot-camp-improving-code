@@ -87,10 +87,12 @@ public class Game {
 
 				boolean didPlayerWin = didPlayerWin();
 				changeCurrentPlayer();
+				players2.changeCurrentPlayer();
 
 				return didPlayerWin;
 			} else {
 				changeCurrentPlayer();
+				players2.changeCurrentPlayer();
 				return true;
 			}
 			
@@ -103,6 +105,7 @@ public class Game {
 
 			boolean didPlayerWin = didPlayerWin();
 			changeCurrentPlayer();
+			players2.changeCurrentPlayer();
 
 			return didPlayerWin;
 		}
@@ -116,9 +119,10 @@ public class Game {
 	private void updatePlayerCoinCount(String message) {
 		System.out.println(message);
 		players.get(currentPlayer).incrementCoinCount();
-		System.out.println(players.get(currentPlayer).getName()
+		players2.currentPlayer().incrementCoinCount();
+		System.out.println(players2.currentPlayer().getName()
 				+ " now has "
-				+ players.get(currentPlayer).getCoinCount()
+				+ players2.currentPlayer().getCoinCount()
 				+ " Gold Coins.");
 	}
 
@@ -128,6 +132,7 @@ public class Game {
 		players.get(currentPlayer).setInPenaltyBox(true);
 
 		changeCurrentPlayer();
+		players2.changeCurrentPlayer();
 		return true;
 	}
 
