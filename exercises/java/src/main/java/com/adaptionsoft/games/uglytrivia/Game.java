@@ -82,7 +82,6 @@ public class Game {
 
         } else {
             movePlayer(rolledNumber);
-
             printPlayerPosition(currentPlayerID);
             System.out.println("The category is " + getCategoryForPosition());
             askQuestion();
@@ -176,7 +175,7 @@ public class Game {
                 + getPlayerPurse(playerID)
                 + " Gold Coins.");
 
-        return hasPlayerWon(currentPlayerID);
+        return playerDoesNotHaveSixCoins(currentPlayerID);
     }
 
     private int getPlayerPurse(int playerID) {
@@ -196,7 +195,7 @@ public class Game {
         return currentPlayerID == players.size();
     }
 
-    private boolean hasPlayerWon(int playerID) {
+    private boolean playerDoesNotHaveSixCoins(int playerID) {
         return (getPlayerPurse(playerID) != MAXIMUM_COINS);
     }
 }
