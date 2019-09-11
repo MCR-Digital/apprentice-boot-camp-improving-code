@@ -3,7 +3,6 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 
 public class Game {
-    ArrayList<Player> players = new ArrayList<>();
     Players players2;
     int[] playerBoardPosition = new int[6];
 
@@ -22,7 +21,6 @@ public class Game {
 		
 		int initialPlayerBoardPosition = 0;
 	    playerBoardPosition[howManyPlayers()] = initialPlayerBoardPosition;
-	    players.add(new Player(playerName));
 	    players2.add(playerName);
 	    
 	    System.out.println(playerName + " was added");
