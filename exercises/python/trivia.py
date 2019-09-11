@@ -60,7 +60,7 @@ class Game:
                 self.out_of_penalty_box = True
 
                 print("%s is getting out of the penalty box" % self.players.playerList[self.current_player])
-                self.places_in_game[self.current_player] = self.places_in_game[self.current_player] + roll_of_die
+                self.move_on_board(self.current_player, roll_of_die)
                 self.loop_around_board(last_place_on_board)
 
                 print(self.players.playerList[self.current_player] + \
@@ -72,7 +72,7 @@ class Game:
                 print("%s is not getting out of the penalty box" % self.players.playerList[self.current_player])
                 self.out_of_penalty_box = False
         else:
-            self.places_in_game[self.current_player] = self.places_in_game[self.current_player] + roll_of_die
+            self.move_on_board(self.current_player, roll_of_die)
             self.loop_around_board(last_place_on_board)
 
             print(self.players.playerList[self.current_player] + \
@@ -80,6 +80,9 @@ class Game:
                   str(self.places_in_game[self.current_player]))
             print("The category is %s" % self._current_game_category)
             self._ask_question()
+
+    def move_on_board(self, player, roll_of_die):
+        self.places_in_game[player] = self.places_in_game[self.current_player] + roll_of_die
 
     def loop_around_board(self, last_place_on_board):
         if self.places_in_game[self.current_player] > last_place_on_board:
