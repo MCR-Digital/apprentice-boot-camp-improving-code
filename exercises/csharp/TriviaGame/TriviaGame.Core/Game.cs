@@ -21,12 +21,10 @@ namespace TriviaGame.Core
     private Player _commander => _players[_currentPlayer];
 
     private bool _hasPlayerWon => _commander.GoldCoins != 6;
-    private string _currentCategory => _categories[CurrentPlayerPlace % 4];
+    private string _currentCategory => _categories[_commander.BoardPosition % 4];
     private int _currentPlayer;
     private bool _isLeavingPenaltyBox;
     private bool IsCurrentPlayerInPenaltyBox => _commander.IsInPenaltyBox;
-    private int CurrentPlayerPlace => _commander.BoardPosition;
-    private int CurrentPlayersGoldCoins => _commander.GoldCoins;
 
     public Game()
     {
@@ -38,13 +36,11 @@ namespace TriviaGame.Core
           .ToList());
     }
 
-    public bool AddPlayer(String playerName)
+    public void AddPlayer(String playerName)
     {
       _players.Add(new Player(playerName));
-
-      Console.WriteLine(playerName + " was added");
-      Console.WriteLine("They are player number " + NumberOfPlayers);
-      return true;
+      Console.WriteLine($"{playerName} was added");
+      Console.WriteLine($"They are player number {NumberOfPlayers}");
     }
 
 
@@ -67,7 +63,6 @@ namespace TriviaGame.Core
 
       _commander.Move(roll);
       _commander.PrintBoardPosition();
-      Console.WriteLine("The category is " + _currentCategory);
       AskQuestion();
     }
 
@@ -78,6 +73,7 @@ namespace TriviaGame.Core
 
     private void AskQuestion()
     {
+      Console.WriteLine($"The category is {_currentCategory}");
       var questions = _questions[_currentCategory];
       if (questions.Any())
       {
