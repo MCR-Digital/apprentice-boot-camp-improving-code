@@ -57,8 +57,7 @@ class Game:
 
                 print("%s is getting out of the penalty box" % self.players[self.current_player])
                 self.places_in_game[self.current_player] = self.places_in_game[self.current_player] + roll_of_die
-                if self.places_in_game[self.current_player] > last_place_on_board:
-                    self.places_in_game[self.current_player] = self.places_in_game[self.current_player] - 12
+                self.loop_around_board(last_place_on_board)
 
                 print(self.players[self.current_player] + \
                             '\'s new location is ' + \
@@ -70,14 +69,17 @@ class Game:
                 self.out_of_penalty_box = False
         else:
             self.places_in_game[self.current_player] = self.places_in_game[self.current_player] + roll_of_die
-            if self.places_in_game[self.current_player] > last_place_on_board:
-                self.places_in_game[self.current_player] = self.places_in_game[self.current_player] - 12
+            self.loop_around_board(last_place_on_board)
 
             print(self.players[self.current_player] + \
                         '\'s new location is ' + \
                   str(self.places_in_game[self.current_player]))
             print("The category is %s" % self._current_game_category)
             self._ask_question()
+
+    def loop_around_board(self, last_place_on_board):
+        if self.places_in_game[self.current_player] > last_place_on_board:
+            self.places_in_game[self.current_player] = self.places_in_game[self.current_player] - 12
 
     def _ask_question(self):
         if self._current_game_category == 'Pop': print(self.pop_questions.pop(0))
