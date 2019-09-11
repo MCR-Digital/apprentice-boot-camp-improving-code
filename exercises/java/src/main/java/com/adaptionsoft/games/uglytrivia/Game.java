@@ -70,7 +70,7 @@ public class Game {
                 isGettingOutOfPenaltyBox = true;
 
                 System.out.println(players.get(currentPlayerID) + " is getting out of the penalty box");
-                movePlayer(rolledNumber);
+                movePlayer(rolledNumber, currentPlayerID);
 
                 System.out.println("The category is " + getCategoryForPosition());
                 askQuestion();
@@ -80,7 +80,7 @@ public class Game {
             }
 
         } else {
-            movePlayer(rolledNumber);
+            movePlayer(rolledNumber, currentPlayerID);
             System.out.println("The category is " + getCategoryForPosition());
             askQuestion();
         }
@@ -97,13 +97,13 @@ public class Game {
         return number % 2 != 0;
     }
 
-    private void movePlayer(int rolledNumber) {
-        playerPositions[currentPlayerID] = getPlayerPosition(currentPlayerID) + rolledNumber;
-        if (hasPlayerPassedFinalTile(currentPlayerID)) {
+    private void movePlayer(int rolledNumber, int playerID) {
+        playerPositions[playerID] = getPlayerPosition(playerID) + rolledNumber;
+        if (hasPlayerPassedFinalTile(playerID)) {
             continueMoveFromStartOfBoard();
         }
 
-        printPlayerPosition(currentPlayerID);
+        printPlayerPosition(playerID);
     }
 
     private void continueMoveFromStartOfBoard() {
