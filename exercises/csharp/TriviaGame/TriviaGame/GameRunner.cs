@@ -24,15 +24,7 @@ namespace TriviaGame
             do
             {
                 currentGame.RollDice(rand.Next(5) + 1);
-
-                if (rand.Next(9) == 7)
-                {
-                    notAWinner = currentGame.WrongAnswer();
-                }
-                else
-                {
-                    notAWinner = currentGame.CheckForWinner();
-                }
+                notAWinner = rand.Next(9) == 7 ? currentGame.WrongAnswer() : currentGame.CheckForWinner();
 
             } while (notAWinner);
         }

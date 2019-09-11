@@ -40,11 +40,6 @@ namespace TriviaGame
             }
         }
 
-        //public bool IsPlayable()
-        //{
-        //    return (GetTotalPlayers() >= 2);
-        //}
-
         public bool AddPlayer(string playerName)
         {
             players.Add(playerName);
