@@ -26,7 +26,7 @@ public class Game {
         for (int i = 0; i < 50; i++) {
             popQuestions.addLast("Pop Question " + i);
             scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " +i));
+            sportsQuestions.addLast(("Sports Question " + i));
             rockQuestions.addLast(createRockQuestion(i));
         }
     }
@@ -57,7 +57,7 @@ public class Game {
         boolean rollIsEven = roll % 2 == 0;
         boolean inPenaltyBox = this.inPenaltyBox[currentPlayerPlace];
 
-        if (inPenaltyBox && !rollIsEven){
+        if (inPenaltyBox && !rollIsEven) {
             isGettingOutOfPenaltyBox = true;
             System.out.println(players.get(currentPlayerPlace) + " is getting out of the penalty box");
             updatePlayerLocationAndCategory(roll);
@@ -123,21 +123,19 @@ public class Game {
     }
 
     public boolean wasCorrectlyAnswered() {
-        if (inPenaltyBox[currentPlayerPlace]) {
-            if (isGettingOutOfPenaltyBox) {
-                updateCoins("Answer was correct!!!!");
+        boolean inPenaltyBox = this.inPenaltyBox[currentPlayerPlace];
 
-                boolean winner = didPlayerWin();
+        if (inPenaltyBox && isGettingOutOfPenaltyBox) {
+            updateCoins("Answer was correct!!!!");
 
-                updatePlayersPlace();
-                return winner;
+            boolean winner = didPlayerWin();
 
-            } else {
-                updatePlayersPlace();
-                return true;
-            }
+            updatePlayersPlace();
+            return winner;
 
-
+        } else if (inPenaltyBox) {
+            updatePlayersPlace();
+            return true;
         } else {
             updateCoins("Answer was corrent!!!!");
 
