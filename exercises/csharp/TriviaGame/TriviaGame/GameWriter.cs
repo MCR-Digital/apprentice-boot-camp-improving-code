@@ -4,15 +4,15 @@ namespace TriviaGame
 {
     public static class GameWriter
     {
-        public static void WritePlayerAdded(string playerName, int playerCount)
+        public static void WritePlayerAdded(Player player, int playerCount)
         {
-            Console.WriteLine(playerName + " was added");
+            Console.WriteLine(player.Name + " was added");
             Console.WriteLine("They are player number " + playerCount);
         }
 
-        public static void WritePlayerNewLocation(string playerName, int newLocation)
+        public static void WritePlayerNewLocation(Player player)
         {
-            Console.WriteLine(playerName + "'s new location is " + newLocation);
+            Console.WriteLine(player.Name + "'s new location is " + player.Place);
         }
 
         public static void WriteCategory(Category category)
@@ -20,14 +20,14 @@ namespace TriviaGame
             Console.WriteLine("The category is " + category);
         }
 
-        public static void WriteNewCoinAmount(string playerName, int coins)
+        public static void WriteNewCoinAmount(Player player)
         {
-            Console.WriteLine(playerName + " now has " + coins + " Gold Coins.");
+            Console.WriteLine(player.Name + " now has " + player.Coins + " Gold Coins.");
         }
 
-        public static void WriteCurrentPlayerRoll(string playerName, int rollNumber)
+        public static void WriteCurrentPlayerRoll(Player player, int rollNumber)
         {
-            Console.WriteLine(playerName + " is the current player");
+            Console.WriteLine(player.Name + " is the current player");
             Console.WriteLine("They have rolled a " + rollNumber);
         }
 
@@ -36,20 +36,20 @@ namespace TriviaGame
             Console.WriteLine("Answer was correct!!!!");
         }
 
-        public static void WriteAnswerWasIncorrect(string playerName)
+        public static void WriteAnswerWasIncorrect(Player player)
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(playerName + " was sent to the penalty box");
+            Console.WriteLine(player.Name + " was sent to the penalty box");
         }
 
-        public static void WritePlayerLeavingPenaltyBox(string playerName)
+        public static void WritePlayerLeavingPenaltyBox(Player player)
         {
-            Console.WriteLine(playerName + " is getting out of the penalty box");
+            Console.WriteLine(player.Name + " is getting out of the penalty box");
         }
 
-        public static void WritePlayerNotLeavingPenaltyBox(string playerName)
+        public static void WritePlayerNotLeavingPenaltyBox(Player player)
         {
-            Console.WriteLine(playerName + " is not getting out of the penalty box");
+            Console.WriteLine(player.Name + " is not getting out of the penalty box");
         }
 
         public static void WriteQuestion(string question)

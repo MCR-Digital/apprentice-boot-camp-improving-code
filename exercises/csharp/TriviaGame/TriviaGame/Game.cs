@@ -35,7 +35,7 @@ namespace TriviaGame
         public void AddPlayer(Player player)
         {
             _players.Add(player);
-            GameWriter.WritePlayerAdded(player.Name, _players.Count);
+            GameWriter.WritePlayerAdded(player, _players.Count);
         }
 
         public int PlayerCount
@@ -58,16 +58,16 @@ namespace TriviaGame
         {
             int rolled = dice.Roll();
 
-            GameWriter.WriteCurrentPlayerRoll(CurrentPlayer.Name, rolled);
+            GameWriter.WriteCurrentPlayerRoll(CurrentPlayer, rolled);
 
             if (CurrentPlayer.IsInPenaltyBox && rolled % 2 != 0)
             {
                 _isGettingOutOfPenaltyBox = true;
-                GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer.Name);
+                GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer);
             }
             else if (CurrentPlayer.IsInPenaltyBox)
             {
-                GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer.Name);
+                GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer);
                 _isGettingOutOfPenaltyBox = false;
                 return;
             }
@@ -82,7 +82,7 @@ namespace TriviaGame
             var currentCategory = _board.GetCategoryForPlayer(CurrentPlayer);
             var question = _questions[currentCategory].GetNext();
 
-            GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
+            GameWriter.WritePlayerNewLocation(CurrentPlayer);
             GameWriter.WriteCategory(currentCategory);
             GameWriter.WriteQuestion(question);
         }
@@ -98,7 +98,7 @@ namespace TriviaGame
             CurrentPlayer.Coins++;
 
             GameWriter.WriteAnswerWasCorrect();
-            GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
+            GameWriter.WriteNewCoinAmount(CurrentPlayer);
 
             bool winner = CurrentPlayer.Coins == 6;
             MoveToNextPlayer();
@@ -108,7 +108,7 @@ namespace TriviaGame
 
         public bool GiveCurrentPlayerWrongAnswer()
         {
-            GameWriter.WriteAnswerWasIncorrect(CurrentPlayer.Name);
+            GameWriter.WriteAnswerWasIncorrect(CurrentPlayer);
             CurrentPlayer.IsInPenaltyBox = true;
 
             MoveToNextPlayer();
