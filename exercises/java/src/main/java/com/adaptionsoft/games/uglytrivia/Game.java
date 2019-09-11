@@ -137,20 +137,20 @@ public class Game {
         if (isPlayerInPenaltyBox(currentPlayerID)) {
 
             if (isGettingOutOfPenaltyBox) {
-                boolean winner = addCoin(currentPlayerID);
+                boolean doesNotHaveSixCoins = addCoin(currentPlayerID);
                 switchToNextPlayer();
 
-                return winner;
+                return doesNotHaveSixCoins;
             } else {
                 switchToNextPlayer();
                 return true;
             }
 
         } else {
-            boolean winner = addCoin(currentPlayerID);
+            boolean doesNotHaveSixCoins = addCoin(currentPlayerID);
             switchToNextPlayer();
 
-            return winner;
+            return doesNotHaveSixCoins;
         }
     }
 
