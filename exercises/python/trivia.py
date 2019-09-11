@@ -55,7 +55,7 @@ class Game:
         print("They have rolled a %s" % roll_of_die)
 
         last_place_on_board = 11
-        if self.in_penalty_box[self.current_player]:
+        if self.is_in_penalty_box(self.current_player):
             if self.is_roll_odd(roll_of_die):
                 self.out_of_penalty_box = True
 
@@ -82,7 +82,7 @@ class Game:
             self._ask_question()
 
     def move_on_board(self, player, roll_of_die):
-        self.places_in_game[player] = self.places_in_game[self.current_player] + roll_of_die
+        self.places_in_game[player] = self.places_in_game[player] + roll_of_die
 
     def loop_around_board(self, last_place_on_board):
         if self.places_in_game[self.current_player] > last_place_on_board:
@@ -108,7 +108,7 @@ class Game:
         return 'Rock'
 
     def was_correctly_answered(self):
-        if self.in_penalty_box[self.current_player]:
+        if self.is_in_penalty_box(self.current_player):
             if self.out_of_penalty_box:
                 print('Answer was correct!!!!')
                 self.purses[self.current_player] += 1
@@ -158,6 +158,9 @@ class Game:
 
     def _did_player_win(self):
         return not (self.purses[self.current_player] == 6)
+
+    def is_in_penalty_box(self, player):
+        return self.in_penalty_box[player]
 
 
 def run(number):
