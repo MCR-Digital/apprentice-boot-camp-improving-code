@@ -118,7 +118,6 @@ public class Game {
 
 	private void updatePlayerCoinCount(String message) {
 		System.out.println(message);
-		players.get(currentPlayer).incrementCoinCount();
 		players2.currentPlayer().incrementCoinCount();
 		System.out.println(players2.currentPlayer().getName()
 				+ " now has "
@@ -138,6 +137,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-    	return (players.get(currentPlayer).getCoinCount() !=6);
+    	return (players2.currentPlayer().getCoinCount() !=6);
 	}
 }
