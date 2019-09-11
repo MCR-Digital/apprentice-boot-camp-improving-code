@@ -7,14 +7,14 @@ namespace TriviaGame.Core
 {
   public class Game
   {
-    public const int NUMBER_OF_BOARD_SQUARES = 12;
-    public const int MINIMUM_PLAYERS = 2;
-    public const int MAX_QUESTIONS_PER_CATEGORY = 50;
+    public static readonly int NUMBER_OF_BOARD_SQUARES = 12;
+    public static readonly int MINIMUM_PLAYERS = 2;
+    public static readonly int MAX_QUESTIONS_PER_CATEGORY = 50;
 
     public bool IsPlayable => NumberOfPlayers >= MINIMUM_PLAYERS;
     public int NumberOfPlayers => _players.Count;
 
-    private readonly string[] _categories = new string[] { "Pop", "Science", "Sports", "Rock" };
+    private readonly string[] _categories = { "Pop", "Science", "Sports", "Rock" };
     private readonly List<string> _players = new List<string>();
     private readonly int[] _places = new int[6];
     private readonly int[] _purses = new int[6];
@@ -26,11 +26,11 @@ namespace TriviaGame.Core
     private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
 
-    private bool _hasPlayerWon => !(CurrentPlayersGoldCoins == 6);
+    private bool _hasPlayerWon => CurrentPlayersGoldCoins != 6;
     private string _currentPlayerName => _players[_currentPlayer];
     private string _currentCategory => _categories[CurrentPlayerPlace % 4];
 
-    private int _currentPlayer = 0;
+    private int _currentPlayer;
     private bool _isLeavingPenaltyBox;
     private bool IsCurrentPlayerInPenaltyBox
     {
@@ -67,8 +67,6 @@ namespace TriviaGame.Core
         _rockQuestions.AddLast("Rock Question " + index);
       }
     }
-
-    // Random comment with no meaning
 
     public bool AddPlayer(String playerName)
     {

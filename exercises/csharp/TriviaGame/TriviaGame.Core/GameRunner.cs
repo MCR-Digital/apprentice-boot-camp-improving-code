@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TriviaGame.Core
 {
-  public class GameRunner
+  public static class GameRunner
   {
 
     private static bool notAWinner;
