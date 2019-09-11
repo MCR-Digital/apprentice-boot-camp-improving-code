@@ -21,6 +21,8 @@ namespace TriviaGame.Core
     private readonly bool[] _inPenaltyBox = new bool[6];
     private readonly Dictionary<string, List<string>> _questions = new Dictionary<string, List<string>>();
 
+    private readonly List<Player> _playerModel = new List<Player>();
+
     private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
     private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
@@ -69,6 +71,8 @@ namespace TriviaGame.Core
 
     public bool AddPlayer(String playerName)
     {
+      _playerModel.Add(new Player(playerName));
+
       _players.Add(playerName);
       _places[NumberOfPlayers] = 0;
       _purses[NumberOfPlayers] = 0;
