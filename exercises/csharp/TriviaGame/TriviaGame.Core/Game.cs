@@ -25,9 +25,7 @@ namespace TriviaGame.Core
     private int _currentPlayer;
     private bool _isLeavingPenaltyBox;
     private bool IsCurrentPlayerInPenaltyBox => _commander.IsInPenaltyBox;
-
     private int CurrentPlayerPlace => _commander.BoardPosition;
-
     private int CurrentPlayersGoldCoins => _commander.GoldCoins;
 
     public Game()
@@ -67,15 +65,10 @@ namespace TriviaGame.Core
         }
       }
 
-      AdvancePlace(roll);
+      _commander.Move(roll);
       _commander.PrintBoardPosition();
       Console.WriteLine("The category is " + _currentCategory);
       AskQuestion();
-    }
-
-    private void AdvancePlace(int roll)
-    {
-      _commander.Move(roll);
     }
 
     private void MoveToNextPlayer()
