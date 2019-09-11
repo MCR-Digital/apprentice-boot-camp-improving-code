@@ -1,5 +1,5 @@
 package com.adaptionsoft.games.uglytrivia;
 
-public class GameBoard {
+public class GameBoardPosition {
     String category;
 }
