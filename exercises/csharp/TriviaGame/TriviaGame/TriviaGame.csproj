@@ -53,6 +53,7 @@
     <Compile Include="Category.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GameRunnerTest.cs" />
+    <Compile Include="GameWriter.cs" />
     <Compile Include="GoldenMaster.cs" />
     <Compile Include="GameRunner.cs" />
     <Compile Include="Player.cs" />

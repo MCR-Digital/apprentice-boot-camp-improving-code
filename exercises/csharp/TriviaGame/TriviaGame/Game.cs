@@ -34,9 +34,7 @@ namespace TriviaGame
         public void AddPlayer(Player player)
         {
             _players.Add(player);
-
-            Console.WriteLine(player.Name + " was added");
-            Console.WriteLine("They are player number " + _players.Count);
+            GameWriter.WritePlayerAdded(player.Name, _players.Count);
         }
 
         public int PlayerCount
@@ -57,8 +55,7 @@ namespace TriviaGame
 
         public void RollDice(int rollNumber)
         {
-            Console.WriteLine(CurrentPlayer.Name + " is the current player");
-            Console.WriteLine("They have rolled a " + rollNumber);
+            GameWriter.WriteCurrentPlayerRoll(CurrentPlayer.Name, rollNumber);
 
             if (CurrentPlayer.IsInPenaltyBox)
             {
@@ -66,18 +63,17 @@ namespace TriviaGame
                 {
                     _isGettingOutOfPenaltyBox = true;
 
-                    Console.WriteLine(CurrentPlayer.Name + " is getting out of the penalty box");
                     MoveCurrentPlayer(rollNumber);
 
-                    Console.WriteLine(CurrentPlayer.Name
-                            + "'s new location is "
-                            + CurrentPlayer.Place);
-                    Console.WriteLine("The category is " + GetCurrentCategory());
-                    PrintQuestionAndRemoveFromList();
+                    GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer.Name);
+                    GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
+                    GameWriter.WriteCategory(GetCurrentCategory());
+
+                    PrintQuestionForCurrentCategory();
                 }
                 else
                 {
-                    Console.WriteLine(CurrentPlayer.Name + " is not getting out of the penalty box");
+                    GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer.Name);
                     _isGettingOutOfPenaltyBox = false;
                 }
 
@@ -86,11 +82,10 @@ namespace TriviaGame
             {
                 MoveCurrentPlayer(rollNumber);
 
-                Console.WriteLine(CurrentPlayer.Name
-                        + "'s new location is "
-                        + CurrentPlayer.Place);
-                Console.WriteLine("The category is " + GetCurrentCategory());
-                PrintQuestionAndRemoveFromList();
+                GameWriter.WritePlayerNewLocation(CurrentPlayer.Name, CurrentPlayer.Place);
+                GameWriter.WriteCategory(GetCurrentCategory());
+                
+                PrintQuestionForCurrentCategory();
             }
 
         }
@@ -105,7 +100,7 @@ namespace TriviaGame
             }
         }
 
-        private void PrintQuestionAndRemoveFromList()
+        private void PrintQuestionForCurrentCategory()
         {
             var currentCategory = GetCurrentCategory();
             var currentQuestion = _questions[currentCategory].GetNext();
@@ -140,9 +135,9 @@ namespace TriviaGame
             {
                 if (_isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
                     CurrentPlayer.Coins++;
-                    PrintCurrentPlayerCoins();
+                    GameWriter.WriteAnswerWasCorrect();
+                    GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
 
                     bool winner = GetCurrentPlayerWinStatus();
                     MoveToNextPlayer();
@@ -157,9 +152,9 @@ namespace TriviaGame
             }
             else
             {
-                Console.WriteLine("Answer was correct!!!!");
                 CurrentPlayer.Coins++;
-                PrintCurrentPlayerCoins();
+                GameWriter.WriteAnswerWasCorrect();
+                GameWriter.WriteNewCoinAmount(CurrentPlayer.Name, CurrentPlayer.Coins);
 
                 bool winner = GetCurrentPlayerWinStatus();
                 MoveToNextPlayer();
@@ -168,15 +163,9 @@ namespace TriviaGame
             }
         }
 
-        private void PrintCurrentPlayerCoins()
-        {
-            Console.WriteLine(CurrentPlayer.Name + " now has " + CurrentPlayer.Coins + " Gold Coins.");
-        }
-
         public bool GiveCurrentPlayerWrongAnswer()
         {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(CurrentPlayer.Name + " was sent to the penalty box");
+            GameWriter.WriteAnswerWasIncorrect(CurrentPlayer.Name);
             CurrentPlayer.IsInPenaltyBox = true;
 
             MoveToNextPlayer();
