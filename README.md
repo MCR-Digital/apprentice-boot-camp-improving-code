@@ -3,6 +3,7 @@
 - Structuring retros so that they can inform thinking for individual's personal learning records (off the job training record tab in their learning logs)
 - Introducing some sort of test or quiz on basic concept learning points from the bootcamp to validate that they have taken stuff in, and provide organisation mentors with results to help them focus follow ups
 --->
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/352978db52bf439791d5a7c12508492d)](https://www.codacy.com/manual/EvolverSoul/apprentice-boot-camp-improving-code?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=EvolverSoul/apprentice-boot-camp-improving-code&amp;utm_campaign=Badge_Grade)
 
 ## Competencies, Behaviours and Knowledge units
 
