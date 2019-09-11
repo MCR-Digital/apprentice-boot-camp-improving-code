@@ -72,7 +72,6 @@ public class Game {
                 System.out.println(players.get(currentPlayerID) + " is getting out of the penalty box");
                 movePlayer(rolledNumber);
 
-                printPlayerPosition(currentPlayerID);
                 System.out.println("The category is " + getCategoryForPosition());
                 askQuestion();
             } else {
@@ -82,7 +81,6 @@ public class Game {
 
         } else {
             movePlayer(rolledNumber);
-            printPlayerPosition(currentPlayerID);
             System.out.println("The category is " + getCategoryForPosition());
             askQuestion();
         }
@@ -104,6 +102,8 @@ public class Game {
         if (hasCurrentPlayerPassedFinalTile()) {
             continueMoveFromStartOfBoard();
         }
+
+        printPlayerPosition(currentPlayerID);
     }
 
     private void continueMoveFromStartOfBoard() {
