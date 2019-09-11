@@ -13,7 +13,7 @@ public class Player {
         return name;
     }
 
-    public int getCoin() {
+    public int getPurse() {
         return coin;
     }
 
