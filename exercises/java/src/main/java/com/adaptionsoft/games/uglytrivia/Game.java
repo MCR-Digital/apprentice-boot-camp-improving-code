@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
+    public static final boolean USE_POP = false;
     private ArrayList<String> players = new ArrayList<>();
+    Category pop = new Category("Pop");
     private int[] placeOnTheBoard = new int[6];
     private int[] coinPurses = new int[6];
     private boolean[] inPenaltyBox = new boolean[6];
@@ -89,7 +91,7 @@ public class Game {
 
     private void askQuestion() {
         if (currentQuestionCategory().equals("Pop"))
-            System.out.println(popQuestions.removeFirst());
+            System.out.println(pop.getNextQuestion());
         if (currentQuestionCategory().equals("Science"))
             System.out.println(scienceQuestions.removeFirst());
         if (currentQuestionCategory().equals("Sports"))
