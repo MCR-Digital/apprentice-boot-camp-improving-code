@@ -20,8 +20,15 @@ namespace TriviaGame
 
         public int Place { get; set; }
 
-        public int Coins { get; set; }
+        public int Coins { get; private set; }
 
         public bool IsInPenaltyBox { get; set; }
+
+        public int LastRoll { get; set; }
+
+        public void GiveCoin()
+        {
+            Coins++;
+        }
     }
 }

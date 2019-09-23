@@ -25,9 +25,9 @@ namespace TriviaGame
             Console.WriteLine($"{player.Name} now has {player.Coins} Gold Coins.");
         }
 
-        public static void WriteCurrentPlayerRoll(Player player, int rollNumber)
+        public static void WriteCurrentPlayerRoll(PlayerTracker playerTracker, int rollNumber)
         {
-            Console.WriteLine($"{player.Name} is the current player");
+            Console.WriteLine($"{playerTracker.CurrentPlayer.Name} is the current player");
             Console.WriteLine($"They have rolled a {rollNumber}");
         }
 

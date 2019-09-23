@@ -1,68 +1,49 @@
-using System.Collections.Generic;
-
 namespace TriviaGame
 {
     public class Game
     {
-        private const int MIN_PLAYER_COUNT = 2;
+        private const int COINS_TO_WIN = 6;
 
-        private readonly List<Player> _players = new List<Player>();
-        
+        private readonly PlayerTracker _playerTracker;
         private readonly Board _board;
-        private int _currentPlayerIndex;
-        private bool _isGettingOutOfPenaltyBox;
 
         public Game(Board board)
         {
             _board = board;
-        }
-
-        public bool IsPlayable()
-        {
-            return PlayerCount >= MIN_PLAYER_COUNT;
+            _playerTracker = new PlayerTracker();
         }
 
         public void AddPlayer(Player player)
         {
-            _players.Add(player);
-            GameWriter.WritePlayerAdded(player, _players.Count);
-        }
-
-        public int PlayerCount
-        {
-            get
-            {
-                return _players.Count;
-            }
+            _playerTracker.Add(player);
+            GameWriter.WritePlayerAdded(player, _playerTracker.Players.Count);
         }
 
         public Player CurrentPlayer
         {
             get
             {
-                return _players[_currentPlayerIndex];
+                return _playerTracker.CurrentPlayer;
             }
         }
 
         public void RollDice(Dice dice)
         {
-            int rolled = dice.Roll();
+            CurrentPlayer.LastRoll = dice.Roll();
 
-            GameWriter.WriteCurrentPlayerRoll(CurrentPlayer, rolled);
+            GameWriter.WriteCurrentPlayerRoll(_playerTracker, CurrentPlayer.LastRoll);
 
-            if (CurrentPlayer.IsInPenaltyBox && rolled % 2 != 0)
+            if (CurrentPlayer.IsInPenaltyBox && CurrentPlayer.LastRoll.IsOdd())
             {
-                _isGettingOutOfPenaltyBox = true;
                 GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer);
             }
             else if (CurrentPlayer.IsInPenaltyBox)
             {
                 GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer);
-                _isGettingOutOfPenaltyBox = false;
                 return;
             }
 
-            _board.MovePlayer(CurrentPlayer, rolled);
+            _board.MovePlayer(CurrentPlayer, CurrentPlayer.LastRoll);
 
             AskQuestion();
         }
@@ -76,42 +57,34 @@ namespace TriviaGame
             GameWriter.WriteQuestion(question);
         }
 
-        public bool wasCorrectlyAnswered()
+        public void AnswerQuestion(bool correct)
         {
-            if (CurrentPlayer.IsInPenaltyBox && !_isGettingOutOfPenaltyBox)
+            if (correct && CurrentPlayer.IsInPenaltyBox && !CurrentPlayer.LastRoll.IsOdd())
             {
-                MoveToNextPlayer();
-                return true;
+                return;
             }
 
-            CurrentPlayer.Coins++;
-
-            GameWriter.WriteAnswerWasCorrect();
-            GameWriter.WriteNewCoinAmount(CurrentPlayer);
-
-            bool winner = CurrentPlayer.Coins == 6;
-            MoveToNextPlayer();
-
-            return !winner;
-        }
-
-        public bool GiveCurrentPlayerWrongAnswer()
-        {
-            GameWriter.WriteAnswerWasIncorrect(CurrentPlayer);
-            CurrentPlayer.IsInPenaltyBox = true;
-
-            MoveToNextPlayer();
-            return true;
-        }
-
-        private void MoveToNextPlayer()
-        {
-            _currentPlayerIndex++;
-
-            if (_currentPlayerIndex == PlayerCount)
+            if (correct)
             {
-                _currentPlayerIndex = 0;
+                CurrentPlayer.GiveCoin();
+                GameWriter.WriteAnswerWasCorrect();
+                GameWriter.WriteNewCoinAmount(CurrentPlayer);
             }
+            else
+            {
+                CurrentPlayer.IsInPenaltyBox = true;
+                GameWriter.WriteAnswerWasIncorrect(CurrentPlayer);
+            }
+        }
+
+        public bool HasCurrentPlayerWon()
+        {
+            return CurrentPlayer.Coins == COINS_TO_WIN;
+        }
+
+        public void MoveToNextPlayer()
+        {
+            _playerTracker.MoveToNextPlayer();
         }
     }
 }

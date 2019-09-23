@@ -54,6 +54,8 @@
     <Compile Include="Category.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Extensions\IntExtensions.cs" />
+    <Compile Include="PlayerTracker.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="QuestionSet.cs" />
     <Compile Include="Test\GameRunnerTest.cs" />
@@ -73,6 +75,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

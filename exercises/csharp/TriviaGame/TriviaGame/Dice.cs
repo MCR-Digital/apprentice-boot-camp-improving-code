@@ -11,9 +11,12 @@ namespace TriviaGame
             _random = random;
         }
 
+        public int LastRoll { get; private set; }
+
         public int Roll()
         {
-            return _random.Next(5) + 1;
+            LastRoll = _random.Next(5) + 1;
+            return LastRoll;
         }
     }
 }
