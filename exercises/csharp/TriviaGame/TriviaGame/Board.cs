@@ -1,25 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriviaGame
 {
     public class Board
     {
         private const int BOARD_SIZE = 12;
-        private readonly Dictionary<Category, QuestionDeck> _questions;
+        private readonly QuestionSet _questionSet;
 
         public Board()
         {
-            _questions = new Dictionary<Category, QuestionDeck>()
-            {
-                { Category.Pop, new QuestionDeck(Category.Pop) },
-                { Category.Science, new QuestionDeck(Category.Science) },
-                { Category.Sports, new QuestionDeck(Category.Sports) },
-                { Category.Rock, new QuestionDeck(Category.Rock) },
-            };
+            _questionSet = new QuestionSet();
         }
         
         public void MovePlayer(Player player, int places)
@@ -32,34 +22,20 @@ namespace TriviaGame
             }
         }
 
-        public Category GetCategoryForPlayer(Player player)
+        private static Category GetCategoryForPlayer(Player player)
         {
-            var position = player.Place;
+            int numberOfCategories = Enum.GetValues(typeof(Category)).Length;
 
-            switch (position)
-            {
-                case 0:
-                case 4:
-                case 8:
-                    return Category.Pop;
-                case 1:
-                case 5:
-                case 9:
-                    return Category.Science;
-                case 2:
-                case 6:
-                case 10:
-                    return Category.Sports;
-                default:
-                    return Category.Rock;
-            }
+            int categoryNumber = player.Place % numberOfCategories;
+
+            return (Category)categoryNumber;
         }
 
         public Question GetQuestionForPlayer(Player player)
         {
             var category = GetCategoryForPlayer(player);
 
-            return _questions[category].GetNext();
+            return _questionSet.GetDeck(category).GetNext();
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Dice.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Question.cs" />
+    <Compile Include="QuestionSet.cs" />
     <Compile Include="Test\GameRunnerTest.cs" />
     <Compile Include="GameWriter.cs" />
     <Compile Include="Test\GoldenMaster.cs" />
