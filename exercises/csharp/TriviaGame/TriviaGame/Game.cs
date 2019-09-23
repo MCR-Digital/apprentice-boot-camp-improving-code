@@ -7,9 +7,9 @@ namespace TriviaGame
         private readonly PlayerTracker _playerTracker;
         private readonly Board _board;
 
-        public Game(Board board)
+        public Game()
         {
-            _board = board;
+            _board = new Board();
             _playerTracker = new PlayerTracker();
         }
 
@@ -29,18 +29,19 @@ namespace TriviaGame
 
         public void RollDice(Dice dice)
         {
-            CurrentPlayer.LastRoll = dice.Roll();
+            CurrentPlayer.RollDice(dice);
 
             GameWriter.WriteCurrentPlayerRoll(_playerTracker, CurrentPlayer.LastRoll);
 
-            if (CurrentPlayer.IsInPenaltyBox && CurrentPlayer.LastRoll.IsOdd())
+            if (CurrentPlayer.IsInPenaltyBox)
             {
+                if (!CurrentPlayer.CanMove)
+                {
+                    GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer);
+                    return;
+                }
+
                 GameWriter.WritePlayerLeavingPenaltyBox(CurrentPlayer);
-            }
-            else if (CurrentPlayer.IsInPenaltyBox)
-            {
-                GameWriter.WritePlayerNotLeavingPenaltyBox(CurrentPlayer);
-                return;
             }
 
             _board.MovePlayer(CurrentPlayer, CurrentPlayer.LastRoll);
@@ -59,13 +60,10 @@ namespace TriviaGame
 
         public void AnswerQuestion(bool correct)
         {
-            if (correct && CurrentPlayer.IsInPenaltyBox && !CurrentPlayer.LastRoll.IsOdd())
-            {
-                return;
-            }
-
             if (correct)
             {
+                if (!CurrentPlayer.CanMove) return;
+
                 CurrentPlayer.GiveCoin();
                 GameWriter.WriteAnswerWasCorrect();
                 GameWriter.WriteNewCoinAmount(CurrentPlayer);

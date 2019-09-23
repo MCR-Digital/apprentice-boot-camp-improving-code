@@ -12,7 +12,7 @@ namespace TriviaGame
             _randomNumberGenerator = new Random(seed);
 
             var dice = new Dice(_randomNumberGenerator);
-            Game game = new Game(new Board());
+            Game game = new Game();
 
             game.AddPlayer(new Player("Chet"));
             game.AddPlayer(new Player("Pat"));

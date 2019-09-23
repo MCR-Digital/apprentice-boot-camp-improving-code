@@ -26,9 +26,22 @@ namespace TriviaGame
 
         public int LastRoll { get; set; }
 
+        public bool CanMove
+        {
+            get
+            {
+                return !IsInPenaltyBox || LastRoll.IsOdd();
+            }
+        }
+
         public void GiveCoin()
         {
             Coins++;
+        }
+
+        public void RollDice(Dice dice)
+        {
+            LastRoll = dice.Roll();
         }
     }
 }
