@@ -1,0 +1,37 @@
+{
+  "name": "trivia",
+  "version": "1.0.0",
+  "description": "Trivia legacy code with nodejs",
+  "main": "game.js",
+  "scripts": {
+    "lint": "standard --fix",
+    "test": "jest"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
+  },
+  "babel": {
+    "env": {
+      "test": {
+        "plugins": [
+          "@babel/plugin-transform-modules-commonjs"
+        ]
+      }
+    }
+  },
+  "author": "",
+  "license": "GPL v3",
+  "dependencies": {
+    "random-seed": "^0.3.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.10.4",
+    "@babel/preset-env": "^7.11.5",
+    "babel-jest": "^26.3.0",
+    "jest": "^26.4.2",
+    "jest-extended": "^0.11.5",
+    "standard": "^14.3.4"
+  }
+}
