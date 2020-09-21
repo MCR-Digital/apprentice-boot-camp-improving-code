@@ -29,7 +29,7 @@ namespace TriviaGame
 
                 if (rand.Next(9) == 7)
                 {
-                    notAWinner = createGame.WrongAnswer();
+                    notAWinner = createGame.WasIncorrectlyAnswered();
                 }
                 else
                 {
