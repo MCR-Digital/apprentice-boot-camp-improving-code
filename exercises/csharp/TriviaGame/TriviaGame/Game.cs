@@ -72,9 +72,10 @@ namespace TriviaGame
                 {
                     canAnswer = true;
 
-                    Console.WriteLine($"{players[currentPlayer]} is getting out of the penalty box");
+                    PenaltyBoxMessage(canAnswer);
                     places[currentPlayer] = places[currentPlayer] + roll;
-                    if (places[currentPlayer] > EndOfBoard) places[currentPlayer] = places[currentPlayer] - LengthOfBoard;
+                    if (places[currentPlayer] > EndOfBoard)
+                        places[currentPlayer] = places[currentPlayer] - LengthOfBoard;
 
                     Console.WriteLine($"{players[currentPlayer]}'s new location is {places[currentPlayer]}");
                     Console.WriteLine($"The category is {CurrentCategory()}");
@@ -82,7 +83,7 @@ namespace TriviaGame
                 }
                 else
                 {
-                    Console.WriteLine($"{players[currentPlayer]} is not getting out of the penalty box");
+                    PenaltyBoxMessage();
                     canAnswer = false;
                 }
             }
@@ -95,6 +96,12 @@ namespace TriviaGame
                 Console.WriteLine($"The category is {CurrentCategory()}");
                 AskQuestion();
             }
+        }
+
+        private void PenaltyBoxMessage(bool gettingOut = false)
+        {
+            Console.WriteLine(
+                $"{players[currentPlayer]} {(gettingOut ? "is" : "is not")} getting out of the penalty box");
         }
 
         private static bool CanLeavePenaltyBox(int roll)
