@@ -26,6 +26,9 @@ namespace TriviaGame
             CreateQuestions();
         }
 
+        public bool HasMinimumRequiredPlayers { get => players.Count >= 2; }
+        public int NumberOfPlayers { get => players.Count; }
+
         private void CreateQuestions()
         {
             for (int i = 0; i < 50; i++)
@@ -39,26 +42,16 @@ namespace TriviaGame
             }
         }
 
-        public bool HasMinimumRequiredPlayers()
-        {
-            return NumberOfPlayers() >= 2;
-        }
-
         public bool AddPlayer(string playerName)
         {
             players.Add(playerName);
-            places[NumberOfPlayers()] = 0;
-            purses[NumberOfPlayers()] = 0;
-            inPenaltyBox[NumberOfPlayers()] = false;
+            places[NumberOfPlayers] = 0;
+            purses[NumberOfPlayers] = 0;
+            inPenaltyBox[NumberOfPlayers] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
-        }
-
-        public int NumberOfPlayers()
-        {
-            return players.Count;
         }
 
         public void RollDice(int roll)
