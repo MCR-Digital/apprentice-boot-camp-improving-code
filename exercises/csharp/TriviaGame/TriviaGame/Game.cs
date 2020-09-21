@@ -20,7 +20,7 @@ namespace TriviaGame
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
         int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        bool outOfPenaltyBox;
 
         public Game()
         {
@@ -38,26 +38,28 @@ namespace TriviaGame
             return "Rock Question " + index;
         }
 
-        public bool IsPlayable()
-        {
-            return (HowManyPlayers() >= 2);
-        }
+        // Unused function - commented out
 
-        public bool Add(string playerName)
+        //public bool IsPlayable()
+        //{
+        //    return (HowManyPlayers() >= 2);
+        //}
+
+        public bool AddPlayer(string playerName)
         {
 
 
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[TotalNumberOfPlayers()] = 0;
+            purses[TotalNumberOfPlayers()] = 0;
+            inPenaltyBox[TotalNumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
         }
 
-        public int HowManyPlayers()
+        public int TotalNumberOfPlayers()
         {
             return players.Count;
         }
@@ -71,7 +73,7 @@ namespace TriviaGame
             {
                 if (roll % 2 != 0)
                 {
-                    isGettingOutOfPenaltyBox = true;
+                    outOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
                     places[currentPlayer] = places[currentPlayer] + roll;
@@ -86,7 +88,7 @@ namespace TriviaGame
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    outOfPenaltyBox = false;
                 }
 
             }
@@ -144,11 +146,11 @@ namespace TriviaGame
             return "Rock";
         }
 
-        public bool WasCorrectlyAnswered()
+        public bool CorrectAnswer()
         {
             if (inPenaltyBox[currentPlayer])
             {
-                if (isGettingOutOfPenaltyBox)
+                if (outOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     purses[currentPlayer]++;
@@ -157,7 +159,7 @@ namespace TriviaGame
                             + purses[currentPlayer]
                             + " Gold Coins.");
 
-                    bool winner = DidPlayerWin();
+                    bool winner = PlayerWon();
                     currentPlayer++;
                     if (currentPlayer == players.Count) currentPlayer = 0;
 
@@ -183,7 +185,7 @@ namespace TriviaGame
                         + purses[currentPlayer]
                         + " Gold Coins.");
 
-                bool winner = DidPlayerWin();
+                bool winner = PlayerWon();
                 currentPlayer++;
                 if (currentPlayer == players.Count) currentPlayer = 0;
 
@@ -191,7 +193,7 @@ namespace TriviaGame
             }
         }
 
-        public bool WrongAnswer()
+        public bool IncorrectAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
@@ -203,7 +205,7 @@ namespace TriviaGame
         }
 
 
-        private bool DidPlayerWin()
+        private bool PlayerWon()
         {
             return !(purses[currentPlayer] == 6);
         }
