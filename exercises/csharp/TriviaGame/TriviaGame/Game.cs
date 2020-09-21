@@ -188,7 +188,8 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    playerPurseTotalState[currentPlayer]++;
+
+                    playerPurseTotalState[currentPlayer] = IncreasePlayerPurseTotal(playerPurseTotalState[currentPlayer]);
                     Console.WriteLine(totalPlayers[currentPlayer]
                             + " now has "
                             + playerPurseTotalState[currentPlayer]
@@ -223,6 +224,12 @@ namespace TriviaGame
 
                 return winner;
             }
+        }
+
+        private int IncreasePlayerPurseTotal(int currentPlayerPurseTotal)
+        {
+            var newPlayerPurseTotal = currentPlayerPurseTotal + 1;
+            return newPlayerPurseTotal;
         }
 
         public bool WasIncorrectlyAnswered()
