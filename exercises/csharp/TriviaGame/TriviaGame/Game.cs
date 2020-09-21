@@ -18,6 +18,14 @@ namespace TriviaGame
         private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
         private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
+        private enum QuestionCategories
+        {
+            Popular,
+            Science,
+            Sports,
+            Rock
+        }
+
         private int currentPlayer = 0;
         private bool isGettingOutOfPenaltyBox;
 
@@ -124,16 +132,23 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            switch (places[currentPlayer])
+            {
+                case 0:
+                case 4:
+                case 8:
+                    return "Pop";
+                case 1:
+                case 5:
+                case 9:
+                    return "Science";
+                case 2:
+                case 6:
+                case 10:
+                    return "Sports";
+                default:
+                    return "Rock";
+            }
         }
 
         public bool WasCorrectlyAnswered()
