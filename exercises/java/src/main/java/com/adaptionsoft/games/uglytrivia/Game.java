@@ -32,7 +32,6 @@ public class Game {
 
 
 	public boolean addPlayerNames(String playerName) {
-
 	    players.add(playerName);
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
@@ -47,7 +46,7 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	public void playTrivia(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
