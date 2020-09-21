@@ -67,7 +67,7 @@ namespace TriviaGame
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
+                if (CanLeavePenaltyBox(roll))
                 {
                     isGettingOutOfPenaltyBox = true;
 
@@ -101,6 +101,11 @@ namespace TriviaGame
                 AskQuestion();
             }
 
+        }
+
+        private static bool CanLeavePenaltyBox(int roll)
+        {
+            return roll % 2 != 0;
         }
 
         private void AskQuestion()
