@@ -2,7 +2,7 @@ import generator from "random-seed";
 
 var Game = function () {
   var players = new Array();
-  var places = new Array(6);
+  var boardSquares = new Array(6);
   var playerCoins = new Array(6);
   var inPenaltyBox = new Array(6);
 
@@ -19,31 +19,31 @@ var Game = function () {
   };
 
   var currentCategory = function () {
-    if (places[currentPlayer] == 0) {
+    if (boardSquares[currentPlayer] == 0) {
       return "Pop";
     }
-    if (places[currentPlayer] == 4) {
+    if (boardSquares[currentPlayer] == 4) {
       return "Pop";
     }
-    if (places[currentPlayer] == 8) {
+    if (boardSquares[currentPlayer] == 8) {
       return "Pop";
     }
-    if (places[currentPlayer] == 1) {
+    if (boardSquares[currentPlayer] == 1) {
       return "Science";
     }
-    if (places[currentPlayer] == 5) {
+    if (boardSquares[currentPlayer] == 5) {
       return "Science";
     }
-    if (places[currentPlayer] == 9) {
+    if (boardSquares[currentPlayer] == 9) {
       return "Science";
     }
-    if (places[currentPlayer] == 2) {
+    if (boardSquares[currentPlayer] == 2) {
       return "Sports";
     }
-    if (places[currentPlayer] == 6) {
+    if (boardSquares[currentPlayer] == 6) {
       return "Sports";
     }
-    if (places[currentPlayer] == 10) {
+    if (boardSquares[currentPlayer] == 10) {
       return "Sports";
     }
     return "Rock";
@@ -66,7 +66,7 @@ var Game = function () {
 
   this.add = function (playerName) {
     players.push(playerName);
-    places[this.howManyPlayers() - 1] = 0;
+    boardSquares[this.howManyPlayers() - 1] = 0;
     playerCoins[this.howManyPlayers() - 1] = 0;
     inPenaltyBox[this.howManyPlayers() - 1] = false;
 
@@ -105,7 +105,9 @@ var Game = function () {
   this.roll = function (roll) {
     var afterRoll = function () {
       console.log(
-        players[currentPlayer] + "'s new location is " + places[currentPlayer]
+        players[currentPlayer] +
+          "'s new location is " +
+          boardSquares[currentPlayer]
       );
       console.log("The category is " + currentCategory());
       askQuestion();
@@ -121,7 +123,7 @@ var Game = function () {
         console.log(
           players[currentPlayer] + " is getting out of the penalty box"
         );
-        moveCurrentPlayer(places, currentPlayer, roll);
+        moveCurrentPlayer(boardSquares, currentPlayer, roll);
 
         afterRoll();
       } else {
@@ -131,7 +133,7 @@ var Game = function () {
         isGettingOutOfPenaltyBox = false;
       }
     } else {
-      moveCurrentPlayer(places, currentPlayer, roll);
+      moveCurrentPlayer(boardSquares, currentPlayer, roll);
       afterRoll();
     }
   };
