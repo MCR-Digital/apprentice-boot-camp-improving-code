@@ -25,16 +25,16 @@ namespace TriviaGame
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
         int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        bool playerCanAnswerQuestion;
 
         public TriviaGame()
         {
-            for (int i = 0; i < 50; i++)
+            for (int questionIndex = 0; questionIndex < 50; questionIndex++)
             {
-                popQuestions.AddLast(CreateQuestionText(POP_CATEGORY, i));
-                scienceQuestions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, i));
-                sportsQuestions.AddLast(CreateQuestionText(SPORTS_CATEGORY, i));
-                rockQuestions.AddLast(CreateQuestionText(ROCK_CATEGORY, i));
+                popQuestions.AddLast(CreateQuestionText(POP_CATEGORY, questionIndex));
+                scienceQuestions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, questionIndex));
+                sportsQuestions.AddLast(CreateQuestionText(SPORTS_CATEGORY, questionIndex));
+                rockQuestions.AddLast(CreateQuestionText(ROCK_CATEGORY, questionIndex));
             }
         }
 
@@ -74,7 +74,7 @@ namespace TriviaGame
             {
                 if (roll % 2 != 0)
                 {
-                    isGettingOutOfPenaltyBox = true;
+                    playerCanAnswerQuestion = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
                     PlayTurn(roll);
@@ -82,7 +82,7 @@ namespace TriviaGame
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    playerCanAnswerQuestion = false;
                 }
             }
             else
@@ -139,7 +139,7 @@ namespace TriviaGame
         {
             if (inPenaltyBox[currentPlayer])
             {
-                if (isGettingOutOfPenaltyBox)
+                if (playerCanAnswerQuestion)
                 {
                     return CorrectAnswer("Answer was correct!!!!");
                 }
