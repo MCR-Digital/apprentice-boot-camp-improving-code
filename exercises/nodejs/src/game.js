@@ -103,6 +103,14 @@ var Game = function () {
   };
 
   this.roll = function (roll) {
+    var afterRoll = function () {
+      console.log(
+        players[currentPlayer] + "'s new location is " + places[currentPlayer]
+      );
+      console.log("The category is " + currentCategory());
+      askQuestion();
+    };
+
     console.log(players[currentPlayer] + " is the current player");
     console.log("They have rolled a " + roll);
 
@@ -115,11 +123,7 @@ var Game = function () {
         );
         moveCurrentPlayer(places, currentPlayer, roll);
 
-        console.log(
-          players[currentPlayer] + "'s new location is " + places[currentPlayer]
-        );
-        console.log("The category is " + currentCategory());
-        askQuestion();
+        afterRoll();
       } else {
         console.log(
           players[currentPlayer] + " is not getting out of the penalty box"
@@ -128,12 +132,7 @@ var Game = function () {
       }
     } else {
       moveCurrentPlayer(places, currentPlayer, roll);
-
-      console.log(
-        players[currentPlayer] + "'s new location is " + places[currentPlayer]
-      );
-      console.log("The category is " + currentCategory());
-      askQuestion();
+      afterRoll();
     }
   };
 
