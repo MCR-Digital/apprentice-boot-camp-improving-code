@@ -7,6 +7,7 @@ namespace TriviaGame
 {
     public class Game
     {
+        private const int WinningScore = 6;
         List<string> players = new List<string>();
 
         int[] places = new int[6];
@@ -205,7 +206,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(purses[currentPlayer] == 6);
+            return !(purses[currentPlayer] == WinningScore);
         }
     }
 
