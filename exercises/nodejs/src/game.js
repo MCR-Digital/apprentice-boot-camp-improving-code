@@ -155,30 +155,26 @@ var Game = function () {
     );
   };
 
+  var correctAnswer = function () {
+    console.log("Answer was correct!!!!");
+    logPlayerCoins(playerCoins, currentPlayer, players);
+
+    var winner = didPlayerWin();
+    currentPlayer = changePlayerCounter(currentPlayer, players);
+
+    return winner;
+  };
+
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
-        console.log("Answer was correct!!!!");
-        logPlayerCoins(playerCoins, currentPlayer, players);
-
-        var winner = didPlayerWin();
-        currentPlayer = changePlayerCounter(currentPlayer, players);
-
-        return winner;
+        return correctAnswer();
       } else {
         currentPlayer = changePlayerCounter(currentPlayer, players);
         return true;
       }
     } else {
-      console.log("Answer was correct!!!!");
-
-      logPlayerCoins(playerCoins, currentPlayer, players);
-
-      var winner = didPlayerWin();
-
-      currentPlayer = changePlayerCounter(currentPlayer, players);
-
-      return winner;
+      return correctAnswer();
     }
   };
 
@@ -187,10 +183,7 @@ var Game = function () {
     console.log(players[currentPlayer] + " was sent to the penalty box");
     inPenaltyBox[currentPlayer] = true;
 
-    currentPlayer += 1;
-    if (currentPlayer == players.length) {
-      currentPlayer = 0;
-    }
+    currentPlayer = changePlayerCounter(currentPlayer, players);
     return true;
   };
 };
