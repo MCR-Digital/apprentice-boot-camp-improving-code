@@ -28,7 +28,7 @@ namespace TriviaGame
         {
             for (int i = 0; i < 10000; i++)
             {
-                GameRunner.Main(new string[] { i.ToString() });
+                TriviaGameRunner.Main(new string[] { i.ToString() });
 
                 var expectedContent = _writer.ToString();
                 var actualContent = GoldenMaster.GetResult(i);
