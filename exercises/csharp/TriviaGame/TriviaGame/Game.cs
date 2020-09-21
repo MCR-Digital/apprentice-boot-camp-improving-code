@@ -107,25 +107,25 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            if (CurrentCategory() == Category.Pop)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
 
-            if (CurrentCategory() == "Science")
+            if (CurrentCategory() == Category.Science)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
 
-            if (CurrentCategory() == "Sports")
+            if (CurrentCategory() == Category.Sports)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
 
-            if (CurrentCategory() == "Rock")
+            if (CurrentCategory() == Category.Rock)
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -135,16 +135,16 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            if (places[currentPlayer] == 0) return Category.Pop;
+            if (places[currentPlayer] == 4) return Category.Pop;
+            if (places[currentPlayer] == 8) return Category.Pop;
+            if (places[currentPlayer] == 1) return Category.Science;
+            if (places[currentPlayer] == 5) return Category.Science;
+            if (places[currentPlayer] == 9) return Category.Science;
+            if (places[currentPlayer] == 2) return Category.Sports;
+            if (places[currentPlayer] == 6) return Category.Sports;
+            if (places[currentPlayer] == 10) return Category.Sports;
+            return Category.Rock;
         }
 
         public bool WasCorrectlyAnswered()
