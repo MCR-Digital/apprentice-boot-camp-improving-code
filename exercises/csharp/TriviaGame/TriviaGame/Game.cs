@@ -66,6 +66,18 @@ namespace TriviaGame
             return totalPlayers.Count;
         }
 
+        private static bool IsRollResultOdd(int rollResult)
+        {
+            if (rollResult % 2 != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public void RollDice(int rollResult)
         {
             Console.WriteLine(totalPlayers[currentPlayer] + " is the current player");
@@ -73,7 +85,7 @@ namespace TriviaGame
 
             if (playerPenaltyBoxState[currentPlayer])
             {
-                if (rollResult % 2 != 0)
+                if (IsRollResultOdd(rollResult))
                 {
                     isGettingOutOfPenaltyBox = true;
 
