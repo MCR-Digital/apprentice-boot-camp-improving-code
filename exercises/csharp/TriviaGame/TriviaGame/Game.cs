@@ -43,7 +43,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= MinPlayers);
+            return (players.Count >= MinPlayers);
         }
 
         public bool Add(string playerName)
@@ -51,18 +51,13 @@ namespace TriviaGame
 
 
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[players.Count] = 0;
+            purses[players.Count] = 0;
+            inPenaltyBox[players.Count] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
-        }
-
-        public int HowManyPlayers()
-        {
-            return players.Count;
         }
 
         public void Roll(int roll)
