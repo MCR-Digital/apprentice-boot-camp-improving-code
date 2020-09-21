@@ -18,18 +18,16 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public Game(){
-    	//i NAME
-    	for (int i = 0; i < 50; i++) {
-    		//METHOD
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
-    	}
+		setUpQuestions();
     }
 
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
+	private void setUpQuestions() {
+		for (int questionNumber = 0; questionNumber < 50; questionNumber++) {
+			popQuestions.addLast("Pop Question " + questionNumber);
+			scienceQuestions.addLast(("Science Question " + questionNumber));
+			sportsQuestions.addLast(("Sports Question " + questionNumber));
+			rockQuestions.addLast("Rock Question " + questionNumber);
+		}
 	}
 
 	//REMOVE
