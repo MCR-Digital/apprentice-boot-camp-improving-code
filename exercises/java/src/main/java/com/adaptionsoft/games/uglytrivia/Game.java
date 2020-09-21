@@ -30,11 +30,6 @@ public class Game {
 		}
 	}
 
-	//REMOVE
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
-	}
-
 	public boolean add(String playerName) {
 	    players.add(playerName);
 	    //VARIABLE
