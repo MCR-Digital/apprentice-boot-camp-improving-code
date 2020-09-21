@@ -90,7 +90,9 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(totalPlayers[currentPlayer] + " is getting out of the penalty box");
-                    playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + rollResult;
+
+                    playerBoardPositionState[currentPlayer] = UpdatePlayerPositionState(playerBoardPositionState[currentPlayer], rollResult);
+
                     if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
 
                     Console.WriteLine(totalPlayers[currentPlayer]
@@ -119,6 +121,11 @@ namespace TriviaGame
                 AskQuestion();
             }
 
+        }
+
+        private static int UpdatePlayerPositionState(int currentPlayerPositionState, int rollResult)
+        {
+            return currentPlayerPositionState + rollResult;
         }
 
         private void AskQuestion()
