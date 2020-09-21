@@ -53,11 +53,11 @@ var Game = function () {
     return "Rock Question " + index;
   };
 
-  for (var i = 0; i < 50; i++) {
-    popQuestions.push("Pop Question " + i);
-    scienceQuestions.push("Science Question " + i);
-    sportsQuestions.push("Sports Question " + i);
-    rockQuestions.push(this.createRockQuestion(i));
+  for (var questionIndex = 0; questionIndex < 50; questionIndex++) {
+    popQuestions.push("Pop Question " + questionIndex);
+    scienceQuestions.push("Science Question " + questionIndex);
+    sportsQuestions.push("Sports Question " + questionIndex);
+    rockQuestions.push(this.createRockQuestion(questionIndex));
   }
 
   this.isPlayable = function (howManyPlayers) {
