@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] playerPosition = new int[6];
-    int[] purses  = new int[6];
+    int[] playerPositions = new int[6];
+    int[] playerPurses = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
     LinkedList popQuestions = new LinkedList();
@@ -36,8 +36,8 @@ public class Game {
 
 	public boolean addPlayer(String playerName) {
 	    players.add(playerName);
-	    playerPosition[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
+	    playerPositions[howManyPlayers()] = 0;
+	    playerPurses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
@@ -72,12 +72,12 @@ public class Game {
 	}
 
 	private void moveCurrentPlayer(int roll) {
-		playerPosition[currentPlayer] = playerPosition[currentPlayer] + roll;
-		if (playerPosition[currentPlayer] > 11) playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
+		playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
+		if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
-				+ playerPosition[currentPlayer]);
+				+ playerPositions[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
 		askQuestion();
 	}
@@ -95,15 +95,15 @@ public class Game {
 
 
 	private String currentCategory() {
-		if (playerPosition[currentPlayer] == 0) return "Pop";
-		if (playerPosition[currentPlayer] == 4) return "Pop";
-		if (playerPosition[currentPlayer] == 8) return "Pop";
-		if (playerPosition[currentPlayer] == 1) return "Science";
-		if (playerPosition[currentPlayer] == 5) return "Science";
-		if (playerPosition[currentPlayer] == 9) return "Science";
-		if (playerPosition[currentPlayer] == 2) return "Sports";
-		if (playerPosition[currentPlayer] == 6) return "Sports";
-		if (playerPosition[currentPlayer] == 10) return "Sports";
+		if (playerPositions[currentPlayer] == 0) return "Pop";
+		if (playerPositions[currentPlayer] == 4) return "Pop";
+		if (playerPositions[currentPlayer] == 8) return "Pop";
+		if (playerPositions[currentPlayer] == 1) return "Science";
+		if (playerPositions[currentPlayer] == 5) return "Science";
+		if (playerPositions[currentPlayer] == 9) return "Science";
+		if (playerPositions[currentPlayer] == 2) return "Sports";
+		if (playerPositions[currentPlayer] == 6) return "Sports";
+		if (playerPositions[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
 
@@ -151,14 +151,14 @@ public class Game {
 	}
 
 	private boolean isGameContinuing() {
-		return !(purses[currentPlayer] == 6);
+		return !(playerPurses[currentPlayer] == 6);
 	}
 
 	private void addCoinToPlayersPurse() {
-		purses[currentPlayer]++;
+		playerPurses[currentPlayer]++;
 		System.out.println(players.get(currentPlayer)
 				+ " now has "
-				+ purses[currentPlayer]
+				+ playerPurses[currentPlayer]
 				+ " Gold Coins.");
 	}
 }
