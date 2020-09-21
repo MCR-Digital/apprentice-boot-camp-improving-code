@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
+using TriviaGame;
 
-namespace TriviaGame
+namespace TriviaGameTests
 {
     public class GameRunnerTest
     {
@@ -28,7 +29,7 @@ namespace TriviaGame
         {
             for (int i = 0; i < 10000; i++)
             {
-                GameRunner.Main(new string[] { i.ToString() });
+                GameRunner.Main(new[] { i.ToString() });
 
                 var expectedContent = _writer.ToString();
                 var actualContent = GoldenMaster.GetResult(i);

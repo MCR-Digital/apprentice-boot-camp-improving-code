@@ -8,7 +8,7 @@ namespace TriviaGame
 
         public static string GetResult(int i)
         {
-            string result = null;
+            string result;
 
             try
             {
@@ -32,7 +32,7 @@ namespace TriviaGame
 
             Console.SetOut(writer);
 
-            GameRunner.Main(new String[] { i.ToString() });
+            GameRunner.Main(new[] { i.ToString() });
             writer.Flush();
 
             try
