@@ -7,6 +7,7 @@ namespace TriviaGame
     public class TriviaGame
     {
         private const int WINNING_SCORE = 6;
+        private const int NUMBER_OF_CATEGORIES = 4;
         private const string POP_CATEGORY = "Pop";
         private const string SCIENCE_CATEGORY = "Science";
         private const string SPORTS_CATEGORY = "Sports";
@@ -128,9 +129,9 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (playerLocations[currentPlayer] % 4 == 0) return POP_CATEGORY;
-            if (playerLocations[currentPlayer] % 4 == 1) return SCIENCE_CATEGORY;
-            if (playerLocations[currentPlayer] % 4 == 2) return SPORTS_CATEGORY;
+            if (playerLocations[currentPlayer] % NUMBER_OF_CATEGORIES == 0) return POP_CATEGORY;
+            if (playerLocations[currentPlayer] % NUMBER_OF_CATEGORIES == 1) return SCIENCE_CATEGORY;
+            if (playerLocations[currentPlayer] % NUMBER_OF_CATEGORIES == 2) return SPORTS_CATEGORY;
             return ROCK_CATEGORY;
         }
 
