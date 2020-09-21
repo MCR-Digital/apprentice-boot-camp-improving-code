@@ -10,7 +10,7 @@ namespace TriviaGame
    public class GameRunner
     {
 
-        private static bool notAWinner;
+        private static bool doesGameHaveWinner;
 
         public static void Main(String[] args)
         {
@@ -24,21 +24,21 @@ namespace TriviaGame
 
             do
             {
-
+                // turn the below to a method that generates a random dice number
                 createGame.RollDice(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {
-                    notAWinner = createGame.WasIncorrectlyAnswered();
+                    doesGameHaveWinner = createGame.WasIncorrectlyAnswered();
                 }
                 else
                 {
-                    notAWinner = createGame.WasCorrectlyAnswered();
+                    doesGameHaveWinner = createGame.WasCorrectlyAnswered();
                 }
 
 
 
-            } while (notAWinner);
+            } while (doesGameHaveWinner);
 
         }
     }
