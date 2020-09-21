@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	public static final String POP_CATEGORY = "Pop";
+	public static final String SCIENCE_CATEGORY = "Science";
+	public static final String SPORTS_CATEGORY = "Sports";
+	public static final String ROCK_CATEGORY = "Rock";
+	ArrayList players = new ArrayList();
     int[] playerPositions = new int[6];
     int[] playerPurses = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -83,9 +87,9 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (currentCategory() == POP_CATEGORY)
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (currentCategory() == SCIENCE_CATEGORY)
 			System.out.println(scienceQuestions.removeFirst());
 		if (currentCategory() == "Sports")
 			System.out.println(sportsQuestions.removeFirst());
@@ -95,16 +99,17 @@ public class Game {
 
 
 	private String currentCategory() {
-		if (playerPositions[currentPlayer] == 0) return "Pop";
-		if (playerPositions[currentPlayer] == 4) return "Pop";
-		if (playerPositions[currentPlayer] == 8) return "Pop";
-		if (playerPositions[currentPlayer] == 1) return "Science";
-		if (playerPositions[currentPlayer] == 5) return "Science";
-		if (playerPositions[currentPlayer] == 9) return "Science";
-		if (playerPositions[currentPlayer] == 2) return "Sports";
-		if (playerPositions[currentPlayer] == 6) return "Sports";
-		if (playerPositions[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		int playerPosition = playerPositions[currentPlayer];
+		if (playerPosition == 0) return POP_CATEGORY;
+		if (playerPosition == 4) return POP_CATEGORY;
+		if (playerPosition == 8) return POP_CATEGORY;
+		if (playerPosition == 1) return SCIENCE_CATEGORY;
+		if (playerPosition == 5) return SCIENCE_CATEGORY;
+		if (playerPosition == 9) return SCIENCE_CATEGORY;
+		if (playerPosition == 2) return SPORTS_CATEGORY;
+		if (playerPosition == 6) return SPORTS_CATEGORY;
+		if (playerPosition == 10) return SPORTS_CATEGORY;
+		return ROCK_CATEGORY;
 	}
 
 	public boolean isCorrectAnswer() {
