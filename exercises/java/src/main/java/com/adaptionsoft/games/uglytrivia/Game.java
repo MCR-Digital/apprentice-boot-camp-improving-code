@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] positionOnBoard = new int[6];
+    int[] playerPosition = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
@@ -38,7 +38,7 @@ public class Game {
 
 
 	    players.add(playerName);
-	    positionOnBoard[howManyPlayers()] = 0;
+	    playerPosition[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 
@@ -60,12 +60,12 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] + roll;
-				if (positionOnBoard[currentPlayer] > 11) positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - 12;
+				playerPosition[currentPlayer] = playerPosition[currentPlayer] + roll;
+				if (playerPosition[currentPlayer] > 11) playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
 
 				System.out.println(players.get(currentPlayer)
 						+ "'s new location is "
-						+ positionOnBoard[currentPlayer]);
+						+ playerPosition[currentPlayer]);
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -75,12 +75,12 @@ public class Game {
 
 		} else {
 
-			positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] + roll;
-			if (positionOnBoard[currentPlayer] > 11) positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - 12;
+			playerPosition[currentPlayer] = playerPosition[currentPlayer] + roll;
+			if (playerPosition[currentPlayer] > 11) playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
 
 			System.out.println(players.get(currentPlayer)
 					+ "'s new location is "
-					+ positionOnBoard[currentPlayer]);
+					+ playerPosition[currentPlayer]);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
@@ -100,15 +100,15 @@ public class Game {
 
 
 	private String currentCategory() {
-		if (positionOnBoard[currentPlayer] == 0) return "Pop";
-		if (positionOnBoard[currentPlayer] == 4) return "Pop";
-		if (positionOnBoard[currentPlayer] == 8) return "Pop";
-		if (positionOnBoard[currentPlayer] == 1) return "Science";
-		if (positionOnBoard[currentPlayer] == 5) return "Science";
-		if (positionOnBoard[currentPlayer] == 9) return "Science";
-		if (positionOnBoard[currentPlayer] == 2) return "Sports";
-		if (positionOnBoard[currentPlayer] == 6) return "Sports";
-		if (positionOnBoard[currentPlayer] == 10) return "Sports";
+		if (playerPosition[currentPlayer] == 0) return "Pop";
+		if (playerPosition[currentPlayer] == 4) return "Pop";
+		if (playerPosition[currentPlayer] == 8) return "Pop";
+		if (playerPosition[currentPlayer] == 1) return "Science";
+		if (playerPosition[currentPlayer] == 5) return "Science";
+		if (playerPosition[currentPlayer] == 9) return "Science";
+		if (playerPosition[currentPlayer] == 2) return "Sports";
+		if (playerPosition[currentPlayer] == 6) return "Sports";
+		if (playerPosition[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
 
