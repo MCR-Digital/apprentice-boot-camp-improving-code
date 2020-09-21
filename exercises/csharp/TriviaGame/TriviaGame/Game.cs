@@ -9,6 +9,7 @@ namespace TriviaGame
     {
         private const int WinningScore = 6;
         private const int MaxPlayers = 6;
+        private const int MinPlayers = 2;
         List<string> players = new List<string>();
 
         int[] places = new int[MaxPlayers];
@@ -42,7 +43,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= 2);
+            return (HowManyPlayers() >= MinPlayers);
         }
 
         public bool Add(string playerName)
