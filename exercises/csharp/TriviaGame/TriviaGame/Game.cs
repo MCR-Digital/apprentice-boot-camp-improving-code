@@ -13,10 +13,10 @@ namespace TriviaGame
         private const int EndOfBoard = 11;
         private const int LengthOfBoard = 12;
         private const int FirstPlayer = 0;
-        List<string> players = new List<string>();
+        List<string> gamePlayers = new List<string>();
 
-        int[] places = new int[MaxPlayers];
-        int[] purses = new int[MaxPlayers];
+        int[] playerPositions = new int[MaxPlayers];
+        int[] playerPurses = new int[MaxPlayers];
 
         bool[] inPenaltyBox = new bool[MaxPlayers];
 
@@ -46,24 +46,25 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (players.Count >= MinPlayers);
+            return (gamePlayers.Count >= MinPlayers);
         }
 
         public bool Add(string playerName)
         {
-            players.Add(playerName);
-            places[players.Count] = 0;
-            purses[players.Count] = 0;
-            inPenaltyBox[players.Count] = false;
+            gamePlayers.Add(playerName);
+            playerPositions[gamePlayers.Count] = 0;
+            playerPurses[gamePlayers.Count] = 0;
+            inPenaltyBox[gamePlayers.Count] = false;
 
             Console.WriteLine($"{playerName} was added");
-            Console.WriteLine($"They are player number {players.Count}");
+            Console.WriteLine($"They are player number {gamePlayers.Count}");
             return true;
         }
 
         public void Roll(int roll)
         {
-            Console.WriteLine($"{players[currentPlayer]} is the current player");
+            var playerName = gamePlayers[currentPlayer];
+            Console.WriteLine($"{playerName} is the current player");
             Console.WriteLine($"They have rolled a {roll}");
 
             if (inPenaltyBox[currentPlayer])
@@ -73,11 +74,11 @@ namespace TriviaGame
                     canAnswer = true;
 
                     PenaltyBoxMessage(canAnswer);
-                    places[currentPlayer] = places[currentPlayer] + roll;
-                    if (places[currentPlayer] > EndOfBoard)
-                        places[currentPlayer] = places[currentPlayer] - LengthOfBoard;
+                    playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
+                    if (playerPositions[currentPlayer] > EndOfBoard)
+                        playerPositions[currentPlayer] = playerPositions[currentPlayer] - LengthOfBoard;
 
-                    Console.WriteLine($"{players[currentPlayer]}'s new location is {places[currentPlayer]}");
+                    Console.WriteLine($"{playerName}'s new location is {playerPositions[currentPlayer]}");
                     Console.WriteLine($"The category is {CurrentCategory()}");
                     AskQuestion();
                 }
@@ -89,10 +90,10 @@ namespace TriviaGame
             }
             else
             {
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > EndOfBoard) places[currentPlayer] = places[currentPlayer] - LengthOfBoard;
+                playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
+                if (playerPositions[currentPlayer] > EndOfBoard) playerPositions[currentPlayer] = playerPositions[currentPlayer] - LengthOfBoard;
 
-                Console.WriteLine($"{players[currentPlayer]}'s new location is {places[currentPlayer]}");
+                Console.WriteLine($"{playerName}'s new location is {playerPositions[currentPlayer]}");
                 Console.WriteLine($"The category is {CurrentCategory()}");
                 AskQuestion();
             }
@@ -101,7 +102,7 @@ namespace TriviaGame
         private void PenaltyBoxMessage(bool gettingOut = false)
         {
             Console.WriteLine(
-                $"{players[currentPlayer]} {(gettingOut ? "is" : "is not")} getting out of the penalty box");
+                $"{gamePlayers[currentPlayer]} {(gettingOut ? "is" : "is not")} getting out of the penalty box");
         }
 
         private static bool CanLeavePenaltyBox(int roll)
@@ -139,15 +140,15 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (places[currentPlayer] == 0) return Category.Pop;
-            if (places[currentPlayer] == 4) return Category.Pop;
-            if (places[currentPlayer] == 8) return Category.Pop;
-            if (places[currentPlayer] == 1) return Category.Science;
-            if (places[currentPlayer] == 5) return Category.Science;
-            if (places[currentPlayer] == 9) return Category.Science;
-            if (places[currentPlayer] == 2) return Category.Sports;
-            if (places[currentPlayer] == 6) return Category.Sports;
-            if (places[currentPlayer] == 10) return Category.Sports;
+            if (playerPositions[currentPlayer] == 0) return Category.Pop;
+            if (playerPositions[currentPlayer] == 4) return Category.Pop;
+            if (playerPositions[currentPlayer] == 8) return Category.Pop;
+            if (playerPositions[currentPlayer] == 1) return Category.Science;
+            if (playerPositions[currentPlayer] == 5) return Category.Science;
+            if (playerPositions[currentPlayer] == 9) return Category.Science;
+            if (playerPositions[currentPlayer] == 2) return Category.Sports;
+            if (playerPositions[currentPlayer] == 6) return Category.Sports;
+            if (playerPositions[currentPlayer] == 10) return Category.Sports;
             return Category.Rock;
         }
 
@@ -158,31 +159,31 @@ namespace TriviaGame
                 if (canAnswer)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    purses[currentPlayer]++;
-                    Console.WriteLine($"{players[currentPlayer]} now has {purses[currentPlayer]} Gold Coins.");
+                    playerPurses[currentPlayer]++;
+                    Console.WriteLine($"{gamePlayers[currentPlayer]} now has {playerPurses[currentPlayer]} Gold Coins.");
 
                     bool winner = DidPlayerWin();
                     currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = FirstPlayer;
+                    if (currentPlayer == gamePlayers.Count) currentPlayer = FirstPlayer;
 
                     return winner;
                 }
                 else
                 {
                     currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = FirstPlayer;
+                    if (currentPlayer == gamePlayers.Count) currentPlayer = FirstPlayer;
                     return true;
                 }
             }
             else
             {
                 Console.WriteLine("Answer was corrent!!!!");
-                purses[currentPlayer]++;
-                Console.WriteLine($"{players[currentPlayer]} now has {purses[currentPlayer]} Gold Coins.");
+                playerPurses[currentPlayer]++;
+                Console.WriteLine($"{gamePlayers[currentPlayer]} now has {playerPurses[currentPlayer]} Gold Coins.");
 
                 bool winner = DidPlayerWin();
                 currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = FirstPlayer;
+                if (currentPlayer == gamePlayers.Count) currentPlayer = FirstPlayer;
 
                 return winner;
             }
@@ -191,18 +192,18 @@ namespace TriviaGame
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine($"{players[currentPlayer]} was sent to the penalty box");
+            Console.WriteLine($"{gamePlayers[currentPlayer]} was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
             currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = FirstPlayer;
+            if (currentPlayer == gamePlayers.Count) currentPlayer = FirstPlayer;
             return true;
         }
 
 
         private bool DidPlayerWin()
         {
-            return purses[currentPlayer] != WinningScore;
+            return playerPurses[currentPlayer] != WinningScore;
         }
     }
 }
