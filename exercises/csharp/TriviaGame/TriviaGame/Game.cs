@@ -26,7 +26,7 @@ namespace TriviaGame
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
         int currentPlayer = 0;
-        bool canAnswer;
+        bool playerCanAnswerQuestion;
 
         public Game()
         {
@@ -71,9 +71,9 @@ namespace TriviaGame
             {
                 if (CanLeavePenaltyBox(roll))
                 {
-                    canAnswer = true;
+                    playerCanAnswerQuestion = true;
 
-                    PenaltyBoxMessage(canAnswer);
+                    PenaltyBoxMessage(playerCanAnswerQuestion);
                     playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
                     if (playerPositions[currentPlayer] > EndOfBoard)
                         playerPositions[currentPlayer] = playerPositions[currentPlayer] - LengthOfBoard;
@@ -85,7 +85,7 @@ namespace TriviaGame
                 else
                 {
                     PenaltyBoxMessage();
-                    canAnswer = false;
+                    playerCanAnswerQuestion = false;
                 }
             }
             else
@@ -140,15 +140,16 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (playerPositions[currentPlayer] == 0) return Category.Pop;
-            if (playerPositions[currentPlayer] == 4) return Category.Pop;
-            if (playerPositions[currentPlayer] == 8) return Category.Pop;
-            if (playerPositions[currentPlayer] == 1) return Category.Science;
-            if (playerPositions[currentPlayer] == 5) return Category.Science;
-            if (playerPositions[currentPlayer] == 9) return Category.Science;
-            if (playerPositions[currentPlayer] == 2) return Category.Sports;
-            if (playerPositions[currentPlayer] == 6) return Category.Sports;
-            if (playerPositions[currentPlayer] == 10) return Category.Sports;
+            var playerPosition = playerPositions[currentPlayer];
+            if (playerPosition == 0) return Category.Pop;
+            if (playerPosition == 4) return Category.Pop;
+            if (playerPosition == 8) return Category.Pop;
+            if (playerPosition == 1) return Category.Science;
+            if (playerPosition == 5) return Category.Science;
+            if (playerPosition == 9) return Category.Science;
+            if (playerPosition == 2) return Category.Sports;
+            if (playerPosition == 6) return Category.Sports;
+            if (playerPosition == 10) return Category.Sports;
             return Category.Rock;
         }
 
@@ -156,7 +157,7 @@ namespace TriviaGame
         {
             if (inPenaltyBox[currentPlayer])
             {
-                if (canAnswer)
+                if (playerCanAnswerQuestion)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     playerPurses[currentPlayer]++;
