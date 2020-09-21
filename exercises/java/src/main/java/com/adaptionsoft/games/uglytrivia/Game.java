@@ -17,7 +17,7 @@ public class Game {
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
-    public  Game(){
+    public Game(){
     	for (int i = 0; i < 50; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
@@ -35,8 +35,6 @@ public class Game {
 	}
 
 	public boolean addPlayer(String playerName) {
-
-
 	    players.add(playerName);
 	    playerPosition[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
@@ -114,8 +112,7 @@ public class Game {
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 
-				updatePlayersPurse();
-
+				addCoinToPlayersPurse();
 				boolean noWinner = isGameContinuing();
 				getNextPlayer();
 
@@ -130,8 +127,7 @@ public class Game {
 		} else {
 			System.out.println("Answer was corrent!!!!");
 
-			updatePlayersPurse();
-
+			addCoinToPlayersPurse();
 			boolean noWinner = isGameContinuing();
 			getNextPlayer();
 
@@ -158,7 +154,7 @@ public class Game {
 		return !(purses[currentPlayer] == 6);
 	}
 
-	private void updatePlayersPurse() {
+	private void addCoinToPlayersPurse() {
 		purses[currentPlayer]++;
 		System.out.println(players.get(currentPlayer)
 				+ " now has "
