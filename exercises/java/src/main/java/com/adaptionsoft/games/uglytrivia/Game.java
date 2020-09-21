@@ -144,11 +144,11 @@ public class Game {
 					+ purses[currentPlayer]
 					+ " Gold Coins.");
 
-			boolean winner = isGameContinuing();
+			boolean noWinner = isGameContinuing();
 			currentPlayer++;
 			if (currentPlayer == players.size()) currentPlayer = 0;
 
-			return winner;
+			return noWinner;
 		}
 	}
 
