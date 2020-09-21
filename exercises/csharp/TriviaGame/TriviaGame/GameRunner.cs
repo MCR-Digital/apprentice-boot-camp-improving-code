@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TriviaGame
 {
-   public class GameRunner
+    public class GameRunner
     {
 
         private static bool notAWinner;
@@ -20,24 +20,20 @@ namespace TriviaGame
             aGame.Add("Pat");
             aGame.Add("Sue");
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            Random randomNumber = new Random(Int32.Parse(args[0]));
 
             do
             {
+                aGame.RollDice(randomNumber.Next(5) + 1);
 
-                aGame.Roll(rand.Next(5) + 1);
-
-                if (rand.Next(9) == 7)
+                if (randomNumber.Next(9) == 7)
                 {
                     notAWinner = aGame.WrongAnswer();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    notAWinner = aGame.CorrectAnswer();
                 }
-
-
-
             } while (notAWinner);
 
         }
