@@ -43,7 +43,7 @@ namespace TriviaGame
             return (HowManyPlayersInGame() >= 2);
         }
 
-        public bool Add(string playerName)
+        public bool AddPlayer(string playerName)
         {
 
 
@@ -62,7 +62,7 @@ namespace TriviaGame
             return totalPlayers.Count;
         }
 
-        public void Roll(int roll)
+        public void RollDice(int roll)
         {
             Console.WriteLine(totalPlayers[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
