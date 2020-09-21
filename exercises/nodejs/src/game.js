@@ -145,17 +145,21 @@ var Game = function () {
     return currentPlayer;
   };
 
+  var logPlayerCoins = function (purses, currentPlayer, players) {
+    purses[currentPlayer] += 1;
+    console.log(
+      players[currentPlayer] +
+        " now has " +
+        purses[currentPlayer] +
+        " Gold Coins."
+    );
+  };
+
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
         console.log("Answer was correct!!!!");
-        purses[currentPlayer] += 1;
-        console.log(
-          players[currentPlayer] +
-            " now has " +
-            purses[currentPlayer] +
-            " Gold Coins."
-        );
+        logPlayerCoins(purses, currentPlayer, players);
 
         var winner = didPlayerWin();
         currentPlayer = changePlayerCounter(currentPlayer, players);
@@ -168,13 +172,7 @@ var Game = function () {
     } else {
       console.log("Answer was correct!!!!");
 
-      purses[currentPlayer] += 1;
-      console.log(
-        players[currentPlayer] +
-          " now has " +
-          purses[currentPlayer] +
-          " Gold Coins."
-      );
+      logPlayerCoins(purses, currentPlayer, players);
 
       var winner = didPlayerWin();
 
