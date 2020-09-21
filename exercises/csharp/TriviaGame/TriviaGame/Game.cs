@@ -203,8 +203,7 @@ namespace TriviaGame
                 }
                 else
                 {
-                    currentPlayer++;
-                    if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
+                    MoveToNextPlayer();
                     return true;
                 }
             }
@@ -219,11 +218,15 @@ namespace TriviaGame
                         + " Gold Coins.");
 
                 bool winner = DidPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
-
+                MoveToNextPlayer();
                 return winner;
             }
+        }
+
+        private void MoveToNextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
         }
 
         private int IncreasePlayerPurseTotal(int currentPlayerPurseTotal)
@@ -238,9 +241,7 @@ namespace TriviaGame
             Console.WriteLine(totalPlayers[currentPlayer] + " was sent to the penalty box");
             playerPenaltyBoxState[currentPlayer] = true;
 
-            // Below change to a method that moves onto next player
-            currentPlayer++;
-            if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
+            MoveToNextPlayer();
             return true;
         }
 
