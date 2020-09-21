@@ -166,10 +166,10 @@ namespace TriviaGame
                     + playerPurses[currentPlayer]
                     + " Gold Coins.");
 
-            bool winner = DoesPlayerHaveWinningScore();
+            bool canGameContinue = CanGameContinue();
             ChangeCurrentPlayer();
 
-            return winner;
+            return canGameContinue;
         }
 
         public bool WrongAnswer()
@@ -187,7 +187,7 @@ namespace TriviaGame
             if (currentPlayer == players.Count) currentPlayer = 0;
         }
 
-        private bool DoesPlayerHaveWinningScore()
+        private bool CanGameContinue()
         {
             return !(playerPurses[currentPlayer] == WINNING_SCORE);
         }
