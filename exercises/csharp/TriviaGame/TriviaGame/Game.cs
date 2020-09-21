@@ -66,19 +66,19 @@ namespace TriviaGame
             return totalPlayers.Count;
         }
 
-        public void RollDice(int diceRollResult)
+        public void RollDice(int rollResult)
         {
             Console.WriteLine(totalPlayers[currentPlayer] + " is the current player");
-            Console.WriteLine("They have diceRollResulted a " + diceRollResult);
+            Console.WriteLine("They have rolled a " + rollResult);
 
             if (playerPenaltyBoxState[currentPlayer])
             {
-                if (diceRollResult % 2 != 0)
+                if (rollResult % 2 != 0)
                 {
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(totalPlayers[currentPlayer] + " is getting out of the penalty box");
-                    playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + diceRollResult;
+                    playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + rollResult;
                     if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
 
                     Console.WriteLine(totalPlayers[currentPlayer]
@@ -97,7 +97,7 @@ namespace TriviaGame
             else
             {
 
-                playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + diceRollResult;
+                playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + rollResult;
                 if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
 
                 Console.WriteLine(totalPlayers[currentPlayer]
