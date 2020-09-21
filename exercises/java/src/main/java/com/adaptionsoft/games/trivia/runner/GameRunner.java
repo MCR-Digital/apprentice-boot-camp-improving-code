@@ -1,8 +1,8 @@
 
 package com.adaptionsoft.games.trivia.runner;
-import java.util.Random;
-
 import com.adaptionsoft.games.uglytrivia.Game;
+
+import java.util.Random;
 
 
 public class GameRunner {
@@ -10,22 +10,23 @@ public class GameRunner {
 	private static boolean notAWinner;
 
 	public static void main(String[] args) {
-		Game aGame = new Game();
+		Game game = new Game();
 		
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
+		game.addPlayer("Chet");
+		game.addPlayer("Pat");
+		game.addPlayer("Sue");
 		
-		Random rand = new Random(Integer.parseInt(args[0]));
+		Random randomNumber = new Random(Integer.parseInt(args[0]));
+
 	
 		do {
 			
-			aGame.roll(rand.nextInt(5) + 1);
+			game.roll(randomNumber.nextInt(5) + 1);
 			
-			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+			if (randomNumber.nextInt(9) == 7) {
+				notAWinner = game.wrongAnswer();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				notAWinner = game.wasCorrectlyAnswered();
 			}
 			
 			
