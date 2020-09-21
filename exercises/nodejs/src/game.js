@@ -64,7 +64,7 @@ var Game = function () {
     return howManyPlayers >= 2;
   };
 
-  this.add = function (playerName) {
+  this.addPlayer = function (playerName) {
     players.push(playerName);
     playerPositions[this.howManyPlayers() - 1] = 0;
     playerPurses[this.howManyPlayers() - 1] = 0;
@@ -206,9 +206,9 @@ const gameRunner = (i) => {
 
   var game = new Game();
 
-  game.add("Chet");
-  game.add("Pat");
-  game.add("Sue");
+  game.addPlayer("Chet");
+  game.addPlayer("Pat");
+  game.addPlayer("Sue");
 
   const random = generator.create(i);
 
