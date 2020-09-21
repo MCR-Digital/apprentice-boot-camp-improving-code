@@ -11,7 +11,13 @@ namespace TriviaGame
         // Add all models through dependency injection?
 
         List<string> totalPlayers = new List<string>();
+
         private readonly int totalQuestions = 50;
+
+        private readonly string popCategory = "Pop";
+        private readonly string scienceCategory = "Science";
+        private readonly string sportsCategory = "Sports";
+        private readonly string rockCategory = "Rock";
 
         int[] playerBoardPositionState = new int[6];
         int[] playerPurseTotalState = new int[6];
@@ -130,22 +136,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (FindCurrentQuestionCategory() == "Pop")
+            if (FindCurrentQuestionCategory() == popCategory)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (FindCurrentQuestionCategory() == "Science")
+            if (FindCurrentQuestionCategory() == scienceCategory)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (FindCurrentQuestionCategory() == "Sports")
+            if (FindCurrentQuestionCategory() == sportsCategory)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (FindCurrentQuestionCategory() == "Rock")
+            if (FindCurrentQuestionCategory() == rockCategory)
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -155,16 +161,24 @@ namespace TriviaGame
 
         private string FindCurrentQuestionCategory()
         {
-            if (playerBoardPositionState[currentPlayer] == 0) return "Pop";
-            if (playerBoardPositionState[currentPlayer] == 4) return "Pop";
-            if (playerBoardPositionState[currentPlayer] == 8) return "Pop";
-            if (playerBoardPositionState[currentPlayer] == 1) return "Science";
-            if (playerBoardPositionState[currentPlayer] == 5) return "Science";
-            if (playerBoardPositionState[currentPlayer] == 9) return "Science";
-            if (playerBoardPositionState[currentPlayer] == 2) return "Sports";
-            if (playerBoardPositionState[currentPlayer] == 6) return "Sports";
-            if (playerBoardPositionState[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            var playerPosition = playerBoardPositionState[currentPlayer];
+
+            if (playerPosition == 0 || playerPosition ==  4 || playerPosition == 8)
+            {
+                return popCategory;
+            }
+            else if (playerPosition == 1 || playerPosition == 5 || playerPosition == 9)
+            {
+                return scienceCategory;
+            }
+            else if (playerPosition == 2 || playerPosition == 6 || playerPosition == 10)
+            {
+                return sportsCategory;
+            }
+            else
+            {
+                return rockCategory;
+            }
         }
 
         public bool WasCorrectlyAnswered()
@@ -192,9 +206,6 @@ namespace TriviaGame
                     if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
                     return true;
                 }
-
-
-
             }
             else
             {
