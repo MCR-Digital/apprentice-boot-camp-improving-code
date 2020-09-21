@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TriviaGame
 {
@@ -14,7 +13,7 @@ namespace TriviaGame
 
         bool[] inPenaltyBox = new bool[6];
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
+        LinkedList<string> popularQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
         LinkedList<string> sportsQuestions = new LinkedList<string>();
         LinkedList<string> rockQuestions = new LinkedList<string>();
@@ -26,7 +25,7 @@ namespace TriviaGame
         {
             for (int i = 0; i < 50; i++)
             {
-                popQuestions.AddLast("Pop Question " + i);
+                popularQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
                 sportsQuestions.AddLast(("Sports Question " + i));
                 rockQuestions.AddLast(CreateRockQuestion(i));
@@ -38,31 +37,31 @@ namespace TriviaGame
             return "Rock Question " + index;
         }
 
-        public bool IsPlayable()
+        public bool HasMinimumRequiredPlayers()
         {
-            return (HowManyPlayers() >= 2);
+            return (NumberOfPlayers() >= 2);
         }
 
-        public bool Add(string playerName)
+        public bool AddPlayer(string playerName)
         {
 
 
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[NumberOfPlayers()] = 0;
+            purses[NumberOfPlayers()] = 0;
+            inPenaltyBox[NumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
         }
 
-        public int HowManyPlayers()
+        public int NumberOfPlayers()
         {
             return players.Count;
         }
 
-        public void Roll(int roll)
+        public void RollDice(int roll)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
@@ -109,8 +108,8 @@ namespace TriviaGame
         {
             if (CurrentCategory() == "Pop")
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                Console.WriteLine(popularQuestions.First());
+                popularQuestions.RemoveFirst();
             }
             if (CurrentCategory() == "Science")
             {
