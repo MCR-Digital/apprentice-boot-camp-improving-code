@@ -137,6 +137,14 @@ var Game = function () {
     }
   };
 
+  var changePlayerCounter = function (currentPlayer, players) {
+    currentPlayer += 1;
+    if (currentPlayer == players.length) {
+      currentPlayer = 0;
+    }
+    return currentPlayer;
+  };
+
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
@@ -150,17 +158,11 @@ var Game = function () {
         );
 
         var winner = didPlayerWin();
-        currentPlayer += 1;
-        if (currentPlayer == players.length) {
-          currentPlayer = 0;
-        }
+        currentPlayer = changePlayerCounter(currentPlayer, players);
 
         return winner;
       } else {
-        currentPlayer += 1;
-        if (currentPlayer == players.length) {
-          currentPlayer = 0;
-        }
+        currentPlayer = changePlayerCounter(currentPlayer, players);
         return true;
       }
     } else {
@@ -176,10 +178,7 @@ var Game = function () {
 
       var winner = didPlayerWin();
 
-      currentPlayer += 1;
-      if (currentPlayer == players.length) {
-        currentPlayer = 0;
-      }
+      currentPlayer = changePlayerCounter(currentPlayer, players);
 
       return winner;
     }
