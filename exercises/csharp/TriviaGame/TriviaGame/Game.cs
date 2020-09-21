@@ -18,16 +18,16 @@ namespace TriviaGame
         private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
         private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
-        private enum QuestionCategories
+        private int currentPlayer = 0;
+        private bool isGettingOutOfPenaltyBox;
+
+        private enum QuestionCategory
         {
-            Popular,
+            Pop,
             Science,
             Sports,
             Rock
         }
-
-        private int currentPlayer = 0;
-        private bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
@@ -107,22 +107,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            if (CurrentCategory() == QuestionCategory.Pop)
             {
                 Console.WriteLine(popularQuestions.First());
                 popularQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Science")
+            if (CurrentCategory() == QuestionCategory.Science)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Sports")
+            if (CurrentCategory() == QuestionCategory.Sports)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Rock")
+            if (CurrentCategory() == QuestionCategory.Rock)
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -130,24 +130,24 @@ namespace TriviaGame
         }
 
 
-        private string CurrentCategory()
+        private QuestionCategory CurrentCategory()
         {
             switch (places[currentPlayer])
             {
                 case 0:
                 case 4:
                 case 8:
-                    return "Pop";
+                    return QuestionCategory.Pop;
                 case 1:
                 case 5:
                 case 9:
-                    return "Science";
+                    return QuestionCategory.Science;
                 case 2:
                 case 6:
                 case 10:
-                    return "Sports";
+                    return QuestionCategory.Sports;
                 default:
-                    return "Rock";
+                    return QuestionCategory.Rock;
             }
         }
 
