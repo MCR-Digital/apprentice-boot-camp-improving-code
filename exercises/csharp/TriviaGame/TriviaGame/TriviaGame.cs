@@ -129,10 +129,12 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (playerLocations[currentPlayer] % NUMBER_OF_CATEGORIES == 0) return POP_CATEGORY;
-            if (playerLocations[currentPlayer] % NUMBER_OF_CATEGORIES == 1) return SCIENCE_CATEGORY;
-            if (playerLocations[currentPlayer] % NUMBER_OF_CATEGORIES == 2) return SPORTS_CATEGORY;
-            return ROCK_CATEGORY;
+            int playerLocation = playerLocations[currentPlayer];
+            string result = ROCK_CATEGORY;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 0) result = POP_CATEGORY;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 1) result = SCIENCE_CATEGORY;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 2) result = SPORTS_CATEGORY;
+            return result;
         }
 
         public bool WasQuestionAnsweredCorrectly()
