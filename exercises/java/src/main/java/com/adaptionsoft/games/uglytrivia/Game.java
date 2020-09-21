@@ -32,8 +32,7 @@ public class Game {
 
 
 	public boolean addPlayerNames(String playerName) {
-		
-		
+
 	    players.add(playerName);
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
