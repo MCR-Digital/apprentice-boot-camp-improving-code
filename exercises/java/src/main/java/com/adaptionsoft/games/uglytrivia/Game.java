@@ -91,9 +91,9 @@ public class Game {
 			System.out.println(popQuestions.removeFirst());
 		if (currentCategory() == SCIENCE_CATEGORY)
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (currentCategory() == SPORTS_CATEGORY)
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (currentCategory() == ROCK_CATEGORY)
 			System.out.println(rockQuestions.removeFirst());
 	}
 
