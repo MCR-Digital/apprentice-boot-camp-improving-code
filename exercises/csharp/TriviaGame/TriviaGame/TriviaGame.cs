@@ -30,16 +30,16 @@ namespace TriviaGame
         {
             for (int i = 0; i < 50; i++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
+                popQuestions.AddLast(CreateQuestionText(POP_CATEGORY, i));
+                scienceQuestions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, i));
+                sportsQuestions.AddLast(CreateQuestionText(SPORTS_CATEGORY, i));
+                rockQuestions.AddLast(CreateQuestionText(ROCK_CATEGORY, i));
             }
         }
 
-        public string CreateRockQuestion(int index)
+        public string CreateQuestionText(string category, int index)
         {
-            return "Rock Question " + index;
+            return $"{category} Question " + index;
         }
 
         public bool IsGamePlayable()
