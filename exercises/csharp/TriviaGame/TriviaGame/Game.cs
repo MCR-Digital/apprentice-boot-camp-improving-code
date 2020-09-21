@@ -46,7 +46,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (_gamePlayers.Count >= MinPlayers);
+            return _gamePlayers.Count >= MinPlayers;
         }
 
         public bool Add(string playerName)
@@ -76,7 +76,9 @@ namespace TriviaGame
                     PenaltyBoxMessage(_playerCanAnswerQuestion);
                     _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] + roll;
                     if (_playerPositions[_currentPlayer] > EndOfBoard)
+                    {
                         _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
+                    }
 
                     Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayer]}");
                     Console.WriteLine($"The category is {CurrentCategory()}");
@@ -91,7 +93,10 @@ namespace TriviaGame
             else
             {
                 _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] + roll;
-                if (_playerPositions[_currentPlayer] > EndOfBoard) _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
+                if (_playerPositions[_currentPlayer] > EndOfBoard)
+                {
+                    _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
+                }
 
                 Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayer]}");
                 Console.WriteLine($"The category is {CurrentCategory()}");
@@ -165,14 +170,20 @@ namespace TriviaGame
 
                     bool winner = DidPlayerWin();
                     _currentPlayer++;
-                    if (_currentPlayer == _gamePlayers.Count) _currentPlayer = FirstPlayer;
+                    if (_currentPlayer == _gamePlayers.Count)
+                    {
+                        _currentPlayer = FirstPlayer;
+                    }
 
                     return winner;
                 }
                 else
                 {
                     _currentPlayer++;
-                    if (_currentPlayer == _gamePlayers.Count) _currentPlayer = FirstPlayer;
+                    if (_currentPlayer == _gamePlayers.Count)
+                    {
+                        _currentPlayer = FirstPlayer;
+                    }
                     return true;
                 }
             }
@@ -184,7 +195,10 @@ namespace TriviaGame
 
                 bool winner = DidPlayerWin();
                 _currentPlayer++;
-                if (_currentPlayer == _gamePlayers.Count) _currentPlayer = FirstPlayer;
+                if (_currentPlayer == _gamePlayers.Count)
+                {
+                    _currentPlayer = FirstPlayer;
+                }
 
                 return winner;
             }
@@ -197,7 +211,10 @@ namespace TriviaGame
             _inPenaltyBox[_currentPlayer] = true;
 
             _currentPlayer++;
-            if (_currentPlayer == _gamePlayers.Count) _currentPlayer = FirstPlayer;
+            if (_currentPlayer == _gamePlayers.Count)
+            {
+                _currentPlayer = FirstPlayer;
+            }
             return true;
         }
 
