@@ -40,7 +40,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= 2);
+            return (NumberOfPlayers() >= 2);
         }
 
         public bool Add(string playerName)
@@ -48,16 +48,16 @@ namespace TriviaGame
 
 
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[NumberOfPlayers()] = 0;
+            purses[NumberOfPlayers()] = 0;
+            inPenaltyBox[NumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
         }
 
-        public int HowManyPlayers()
+        public int NumberOfPlayers()
         {
             return players.Count;
         }
@@ -80,7 +80,7 @@ namespace TriviaGame
                     Console.WriteLine(players[currentPlayer]
                             + "'s new location is "
                             + places[currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
+                    Console.WriteLine("The category is " + SubjectOfQuestion());
                     AskQuestion();
                 }
                 else
@@ -99,7 +99,7 @@ namespace TriviaGame
                 Console.WriteLine(players[currentPlayer]
                         + "'s new location is "
                         + places[currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
+                Console.WriteLine("The category is " + SubjectOfQuestion());
                 AskQuestion();
             }
 
@@ -107,22 +107,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            if (SubjectOfQuestion() == "Pop")
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Science")
+            if (SubjectOfQuestion() == "Science")
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Sports")
+            if (SubjectOfQuestion() == "Sports")
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Rock")
+            if (SubjectOfQuestion() == "Rock")
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -130,7 +130,7 @@ namespace TriviaGame
         }
 
 
-        private string CurrentCategory()
+        private string SubjectOfQuestion()
         {
             if (places[currentPlayer] == 0) return "Pop";
             if (places[currentPlayer] == 4) return "Pop";
@@ -176,7 +176,7 @@ namespace TriviaGame
             else
             {
 
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine("Answer was correct!!!!");
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
                         + " now has "
