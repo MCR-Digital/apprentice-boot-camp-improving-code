@@ -3,7 +3,7 @@ import generator from "random-seed";
 var Game = function () {
   var players = new Array();
   var playerPositions = new Array(6);
-  var purses = new Array(6);
+  var playerPurses = new Array(6);
   var inPenaltyBox = new Array(6);
 
   var popQuestions = new Array();
@@ -15,7 +15,7 @@ var Game = function () {
   var isGettingOutOfPenaltyBox = false;
 
   var didPlayerWin = function () {
-    return !(purses[currentPlayer] == 6);
+    return !(playerPurses[currentPlayer] == 6);
   };
 
   var currentCategory = function () {
@@ -67,7 +67,7 @@ var Game = function () {
   this.add = function (playerName) {
     players.push(playerName);
     playerPositions[this.howManyPlayers() - 1] = 0;
-    purses[this.howManyPlayers() - 1] = 0;
+    playerPurses[this.howManyPlayers() - 1] = 0;
     inPenaltyBox[this.howManyPlayers() - 1] = false;
 
     console.log(playerName + " was added");
@@ -144,11 +144,11 @@ var Game = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
         console.log("Answer was correct!!!!");
-        purses[currentPlayer] += 1;
+        playerPurses[currentPlayer] += 1;
         console.log(
           players[currentPlayer] +
             " now has " +
-            purses[currentPlayer] +
+            playerPurses[currentPlayer] +
             " Gold Coins."
         );
 
@@ -169,11 +169,11 @@ var Game = function () {
     } else {
       console.log("Answer was correct!!!!");
 
-      purses[currentPlayer] += 1;
+      playerPurses[currentPlayer] += 1;
       console.log(
         players[currentPlayer] +
           " now has " +
-          purses[currentPlayer] +
+          playerPurses[currentPlayer] +
           " Gold Coins."
       );
 
