@@ -36,10 +36,10 @@ namespace TriviaGame
         {
             for (int i = 0; i < totalQuestions; i++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(("Rock Question " + i));
+                popQuestions.AddLast($"{popCategory} Question " + i);
+                scienceQuestions.AddLast(($"{scienceCategory} Question " + i));
+                sportsQuestions.AddLast(($"{sportsCategory} Question " + i));
+                rockQuestions.AddLast(($"{rockCategory} Question " + i));
 
             }
         }
