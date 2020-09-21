@@ -7,7 +7,11 @@ namespace TriviaGame
 {
     public class Game
     {
+        // Place all of the models in a separate file
+        // Add all models through dependency injection?
+
         List<string> totalPlayers = new List<string>();
+        private readonly int totalQuestions = 50;
 
         int[] playerBoardPositionState = new int[6];
         int[] playerPurseTotalState = new int[6];
@@ -24,7 +28,7 @@ namespace TriviaGame
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < totalQuestions; i++)
             {
                 popQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
@@ -40,7 +44,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (HowManyPlayersInGame() >= 2);
+            return (GetTotalPlayersCount() >= 2);
         }
 
         public bool AddPlayer(string playerName)
@@ -48,16 +52,16 @@ namespace TriviaGame
 
 
             totalPlayers.Add(playerName);
-            playerBoardPositionState[HowManyPlayersInGame()] = 0;
-            playerPurseTotalState[HowManyPlayersInGame()] = 0;
-            playerPenaltyBoxState[HowManyPlayersInGame()] = false;
+            playerBoardPositionState[GetTotalPlayersCount()] = 0;
+            playerPurseTotalState[GetTotalPlayersCount()] = 0;
+            playerPenaltyBoxState[GetTotalPlayersCount()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + totalPlayers.Count);
             return true;
         }
 
-        public int HowManyPlayersInGame()
+        public int GetTotalPlayersCount()
         {
             return totalPlayers.Count;
         }
@@ -80,7 +84,7 @@ namespace TriviaGame
                     Console.WriteLine(totalPlayers[currentPlayer]
                             + "'s new location is "
                             + playerBoardPositionState[currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
+                    Console.WriteLine("The category is " + FindCurrentQuestionCategory());
                     AskQuestion();
                 }
                 else
@@ -99,7 +103,7 @@ namespace TriviaGame
                 Console.WriteLine(totalPlayers[currentPlayer]
                         + "'s new location is "
                         + playerBoardPositionState[currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
+                Console.WriteLine("The category is " + FindCurrentQuestionCategory());
                 AskQuestion();
             }
 
@@ -107,22 +111,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            if (FindCurrentQuestionCategory() == "Pop")
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Science")
+            if (FindCurrentQuestionCategory() == "Science")
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Sports")
+            if (FindCurrentQuestionCategory() == "Sports")
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Rock")
+            if (FindCurrentQuestionCategory() == "Rock")
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -130,7 +134,7 @@ namespace TriviaGame
         }
 
 
-        private string CurrentCategory()
+        private string FindCurrentQuestionCategory()
         {
             if (playerBoardPositionState[currentPlayer] == 0) return "Pop";
             if (playerBoardPositionState[currentPlayer] == 4) return "Pop";

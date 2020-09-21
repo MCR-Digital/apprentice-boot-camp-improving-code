@@ -14,6 +14,9 @@ namespace TriviaGame
 
         public static void Main(String[] args)
         {
+            // 1. There should be a method in here to create the game
+            // 2. Then a method to run the game
+
             Game createGame = new Game();
 
             createGame.AddPlayer("Chet");
