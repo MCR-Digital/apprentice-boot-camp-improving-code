@@ -6,46 +6,46 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
+        private readonly List<string> players = new List<string>();
 
-        int[] places = new int[6];
-        int[] purses = new int[6];
+        private readonly int[] places = new int[6];
+        private readonly int[] purses = new int[6];
 
-        bool[] inPenaltyBox = new bool[6];
+        private readonly bool[] inPenaltyBox = new bool[6];
 
-        LinkedList<string> popularQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> popularQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
-        int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        private int currentPlayer = 0;
+        private bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
-            {
-                popularQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
-            }
+            CreateQuestions();
         }
 
-        public string CreateRockQuestion(int index)
+        private void CreateQuestions()
         {
-            return "Rock Question " + index;
+            for (int i = 0; i < 50; i++)
+            {
+                int questionNumber = i;
+
+                popularQuestions.AddLast($"Pop Question {questionNumber}");
+                scienceQuestions.AddLast($"Science Question {questionNumber}");
+                sportsQuestions.AddLast($"Sports Question {questionNumber}");
+                rockQuestions.AddLast($"Rock Question {questionNumber}");
+            }
         }
 
         public bool HasMinimumRequiredPlayers()
         {
-            return (NumberOfPlayers() >= 2);
+            return NumberOfPlayers() >= 2;
         }
 
         public bool AddPlayer(string playerName)
         {
-
-
             players.Add(playerName);
             places[NumberOfPlayers()] = 0;
             purses[NumberOfPlayers()] = 0;
@@ -204,7 +204,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(purses[currentPlayer] == 6);
+            return purses[currentPlayer] != 6;
         }
     }
 
