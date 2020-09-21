@@ -10,6 +10,8 @@ namespace TriviaGame
         private const int WinningScore = 6;
         private const int MaxPlayers = 6;
         private const int MinPlayers = 2;
+        private const int EndOfBoard = 11;
+        private const int LengthOfBoard = 12;
         List<string> players = new List<string>();
 
         int[] places = new int[MaxPlayers];
@@ -23,17 +25,22 @@ namespace TriviaGame
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
         int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        bool canAnswer;
 
         public Game()
         {
             for (int i = 0; i < 50; i++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast("Science Question " + i);
-                sportsQuestions.AddLast("Sports Question " + i);
-                rockQuestions.AddLast("Rock Question " + i);
+                AddDefaultQuestions(i);
             }
+        }
+
+        private void AddDefaultQuestions(int i)
+        {
+            popQuestions.AddLast("Pop Question " + i);
+            scienceQuestions.AddLast("Science Question " + i);
+            sportsQuestions.AddLast("Sports Question " + i);
+            rockQuestions.AddLast("Rock Question " + i);
         }
 
         public bool IsPlayable()
@@ -62,11 +69,11 @@ namespace TriviaGame
             {
                 if (CanLeavePenaltyBox(roll))
                 {
-                    isGettingOutOfPenaltyBox = true;
+                    canAnswer = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
                     places[currentPlayer] = places[currentPlayer] + roll;
-                    if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                    if (places[currentPlayer] > EndOfBoard) places[currentPlayer] = places[currentPlayer] - LengthOfBoard;
 
                     Console.WriteLine(players[currentPlayer]
                                       + "'s new location is "
@@ -77,13 +84,13 @@ namespace TriviaGame
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    canAnswer = false;
                 }
             }
             else
             {
                 places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                if (places[currentPlayer] > EndOfBoard) places[currentPlayer] = places[currentPlayer] - LengthOfBoard;
 
                 Console.WriteLine(players[currentPlayer]
                                   + "'s new location is "
@@ -144,7 +151,7 @@ namespace TriviaGame
         {
             if (inPenaltyBox[currentPlayer])
             {
-                if (isGettingOutOfPenaltyBox)
+                if (canAnswer)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     purses[currentPlayer]++;
