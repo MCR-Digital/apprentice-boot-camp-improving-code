@@ -14,7 +14,7 @@ namespace TriviaGame
         readonly int[] coins = new int[6];
 
         readonly bool[] inPenaltyBox = new bool[6];
-
+              
         readonly LinkedList<string> popQuestions = new LinkedList<string>();
         readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
         readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
@@ -39,7 +39,7 @@ namespace TriviaGame
             return $"Rock Question {index}";
         }
 
-        public bool IsPlayable() => (HowManyPlayers() >= 2);
+        public bool IsPlayable() => HowManyPlayers() >= 2;
 
         public bool Add(string playerName)
         {
@@ -55,6 +55,19 @@ namespace TriviaGame
 
         public int HowManyPlayers() => players.Count;
 
+        public bool IsBackToStartOfBoard()
+        {
+            if (places[currentPlayer] > 11)
+            {
+                places[currentPlayer] = places[currentPlayer] - 12;
+            }
+            return true;
+        }
+        public void AdvanceOnGameBoard(int roll)
+        {
+            places[currentPlayer] = places[currentPlayer] + roll;
+        }
+
         public void RollDice(int roll)
         {
             Console.WriteLine($"{players[currentPlayer]} is the current player");
@@ -67,12 +80,9 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine($"{players[currentPlayer]} is getting out of the penalty box");
-                    places[currentPlayer] = places[currentPlayer] + roll;
 
-                    if (places[currentPlayer] > 11)
-                    {
-                        places[currentPlayer] = places[currentPlayer] - 12;
-                    }
+                    AdvanceOnGameBoard(roll);
+                    IsBackToStartOfBoard();
 
                     Console.WriteLine($"{players[currentPlayer]}'s new location is {places[currentPlayer]}");
                     Console.WriteLine($"The category is {Category()}");
@@ -86,8 +96,8 @@ namespace TriviaGame
             }
             else
             {
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                AdvanceOnGameBoard(roll);
+                IsBackToStartOfBoard();
 
                 Console.WriteLine($"{players[currentPlayer]}'s new location is {places[currentPlayer]}");
                 Console.WriteLine($"The category is {Category()}");
@@ -186,6 +196,6 @@ namespace TriviaGame
             return true;
         }
 
-        private bool DidPlayerWin() => (coins[currentPlayer] != 6);
+        private bool DidPlayerWin() => coins[currentPlayer] != 6;
     }
 }
