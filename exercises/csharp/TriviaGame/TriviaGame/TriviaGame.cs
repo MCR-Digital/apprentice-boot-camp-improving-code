@@ -85,7 +85,6 @@ namespace TriviaGame
             if (roll % 2 != 0)
             {
                 playerCanAnswerQuestion = true;
-
                 Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
                 PlayTurn(roll);
             }
@@ -112,24 +111,26 @@ namespace TriviaGame
         {
             if (CurrentCategory() == POP_CATEGORY)
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                AskQuestionFrom(popQuestions);
             }
             if (CurrentCategory() == SCIENCE_CATEGORY)
             {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
+                AskQuestionFrom(scienceQuestions);
             }
             if (CurrentCategory() == SPORTS_CATEGORY)
             {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
+                AskQuestionFrom(sportsQuestions);
             }
             if (CurrentCategory() == ROCK_CATEGORY)
             {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
+                AskQuestionFrom(rockQuestions);
             }
+        }
+
+        private void AskQuestionFrom(LinkedList<string> categoryQuestions)
+        {
+            Console.WriteLine(categoryQuestions.First());
+            categoryQuestions.RemoveFirst();
         }
 
         private string CurrentCategory()
