@@ -3,6 +3,10 @@ package com.adaptionsoft.games.uglytrivia;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/*TODO:
+   - move string messages to constants file
+   - move constant literals to top as final variables
+*/
 public class Game {
     ArrayList players = new ArrayList();
     int[] playerPositions = new int[6]; // array
@@ -57,7 +61,6 @@ public class Game {
 		playerPositions[number] = 0; //0 TO VARIABLE
 	}
 
-
 	//AMOUNTOFPLAYERS
 	public int howManyPlayers() {
 		return players.size();
@@ -68,7 +71,8 @@ public class Game {
 		displayMessage("They have rolled a " + roll);
 
 		if (playerInPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) { //EXTRACT TO VARIABLE "isRoleOdd"
+			boolean isRoleOdd = roll % 2 != 0;
+			if (isRoleOdd) { //EXTRACT TO VARIABLE "isRoleOdd"
 				isGettingOutOfPenaltyBox = true;
 				displayMessage(players.get(currentPlayer) + " is getting out of the penalty box");
 			} else {
@@ -137,7 +141,6 @@ public class Game {
 
 	private boolean isWinnerFromCorrectAnswer() {
 		addCoinToCurrentPlayer();
-		// duplication
 		displayMessage(players.get(currentPlayer)
 				+ " now has "
 				+ playerPurses[currentPlayer]
