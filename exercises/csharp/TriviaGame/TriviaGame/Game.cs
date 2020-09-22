@@ -48,6 +48,7 @@ namespace TriviaGame
                     currentPlayer.GettingOutOfPenaltyBox = true;
                     Console.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
 
+                    MovePlayer(diceResult);
                     questions.AskQuestion(currentPlayer.Place);
                 }
                 else
@@ -59,18 +60,24 @@ namespace TriviaGame
             }
             else
             {
+                MovePlayer(diceResult);
                 questions.AskQuestion(currentPlayer.Place);
             }
         }
 
+        public void MovePlayer(int numberOfSpaces)
         {
+            var gameBoardSize = 12;
 
             currentPlayer.Place = currentPlayer.Place + numberOfSpaces;
+            if (currentPlayer.Place > gameBoardSize - 1) currentPlayer.Place = currentPlayer.Place - gameBoardSize;
 
             Console.WriteLine(currentPlayer.Name
                     + "'s new location is "
                     + currentPlayer.Place);
             Console.WriteLine("The category is " + questions.GetCurrentQuestionCategory(currentPlayer.Place));
+        }
+
         public bool IsDiceResultOdd(int diceResult)
         {
             return !(diceResult % 2 == 0);
