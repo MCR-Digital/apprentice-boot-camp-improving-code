@@ -111,7 +111,7 @@ var Game = function () {
     console.log("They have rolled a " + roll);
 
     if (inPenaltyBox[parseInt(currentPlayer)]) {
-      if (roll % 2 != 0) {
+      if (roll % 2 !== 0) {
         isGettingOutOfPenaltyBox = true;
 
         console.log(
