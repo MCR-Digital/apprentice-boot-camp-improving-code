@@ -146,16 +146,23 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (CurrentPlayerPosition() == 0) return Category.Pop;
-            if (CurrentPlayerPosition() == 4) return Category.Pop;
-            if (CurrentPlayerPosition() == 8) return Category.Pop;
-            if (CurrentPlayerPosition() == 1) return Category.Science;
-            if (CurrentPlayerPosition() == 5) return Category.Science;
-            if (CurrentPlayerPosition() == 9) return Category.Science;
-            if (CurrentPlayerPosition() == 2) return Category.Sports;
-            if (CurrentPlayerPosition() == 6) return Category.Sports;
-            if (CurrentPlayerPosition() == 10) return Category.Sports;
-            return Category.Rock;
+            switch (CurrentPlayerPosition())
+            {
+                case 0:
+                case 4:
+                case 8:
+                    return Category.Pop;
+                case 1:
+                case 5:
+                case 9:
+                    return Category.Science;
+                case 2:
+                case 6:
+                case 10:
+                    return Category.Sports;
+                default:
+                    return Category.Rock;
+            }
         }
 
         private int CurrentPlayerPosition()
