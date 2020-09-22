@@ -41,14 +41,14 @@ namespace TriviaGame
 
         public bool IsPlayable() => HowManyPlayers() >= 2;
 
-        public bool Add(string playerName)
+        public bool AddPlayer(string name)
         {
-            players.Add(playerName);
+            players.Add(name);
             places[HowManyPlayers()] = 0;
             coins[HowManyPlayers()] = 0;
             inPenaltyBox[HowManyPlayers()] = false;
 
-            Console.WriteLine($"{playerName} was added");
+            Console.WriteLine($"{name} was added");
             Console.WriteLine($"They are player number {players.Count}");
             return true;
         }
@@ -146,7 +146,17 @@ namespace TriviaGame
                 currentPlayer = 0;
             }
             return true;
-        }           
+        }     
+        
+        public void AwardPlayerWithCoin()
+        {
+            coins[currentPlayer]++;
+        }
+
+        public void NextPlayer()
+        {
+            currentPlayer++;
+        }
 
         public bool CorrectAnswer()
         {
@@ -155,18 +165,18 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    coins[currentPlayer]++;
+                    AwardPlayerWithCoin();
                     Console.WriteLine($"{players[currentPlayer]} now has {coins[currentPlayer]} Gold Coins.");
 
                     bool winner = DidPlayerWin();
-                    currentPlayer++;
+                    NextPlayer();
                     PlayerOnesTurnAgain();
 
                     return winner;
                 }
                 else
                 {
-                    currentPlayer++;
+                    NextPlayer();
                     PlayerOnesTurnAgain();
                     return true;
                 }
@@ -174,11 +184,11 @@ namespace TriviaGame
             else
             {
                 Console.WriteLine("Answer was corrent!!!!");
-                coins[currentPlayer]++;
+                AwardPlayerWithCoin();
                 Console.WriteLine($"{players[currentPlayer]} now has {coins[currentPlayer]} Gold Coins.");
 
                 bool winner = DidPlayerWin();
-                currentPlayer++;
+                NextPlayer();
                 PlayerOnesTurnAgain();
 
                 return winner;
@@ -191,7 +201,7 @@ namespace TriviaGame
             Console.WriteLine($"{players[currentPlayer]} was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
-            currentPlayer++;
+            NextPlayer();
             PlayerOnesTurnAgain();
             return true;
         }

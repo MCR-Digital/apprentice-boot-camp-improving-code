@@ -16,9 +16,9 @@ namespace TriviaGame
         {
             Game aGame = new Game();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            aGame.AddPlayer("Chet");
+            aGame.AddPlayer("Pat");
+            aGame.AddPlayer("Sue");
 
             Random randomNumber = new Random(Int32.Parse(args[0]));
 
