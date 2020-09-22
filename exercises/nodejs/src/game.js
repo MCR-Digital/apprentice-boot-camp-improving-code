@@ -15,12 +15,12 @@ var Game = function () {
   var isGettingOutOfPenaltyBox = false;
 
   var didPlayerWin = function () {
-    return !(playerCoins[currentPlayer] === 6);
+    return !(playerCoins[parseInt(currentPlayer)] === 6);
   };
 
   var currentCategory = function () {
     let returnVal;
-    switch (boardSquares[currentPlayer]) {
+    switch (boardSquares[parseInt(currentPlayer)]) {
       case 0:
       case 4:
       case 8:
@@ -90,39 +90,41 @@ var Game = function () {
   };
 
   var moveCurrentPlayer = function (places, currentPlayer, roll) {
-    places[currentPlayer] = places[currentPlayer] + roll;
-    if (places[currentPlayer] > 11) {
-      places[currentPlayer] = places[currentPlayer] - 12;
+    places[parseInt(currentPlayer)] = places[parseInt(currentPlayer)] + roll;
+    if (places[parseInt(currentPlayer)] > 11) {
+      places[parseInt(currentPlayer)] = places[parseInt(currentPlayer)] - 12;
     }
   };
 
   var afterRoll = function () {
     console.log(
-      players[currentPlayer] +
+      players[parseInt(currentPlayer)] +
         "'s new location is " +
-        boardSquares[currentPlayer]
+        boardSquares[parseInt(currentPlayer)]
     );
     console.log("The category is " + currentCategory());
     askQuestion();
   };
 
   this.roll = function (roll) {
-    console.log(players[currentPlayer] + " is the current player");
+    console.log(players[parseInt(currentPlayer)] + " is the current player");
     console.log("They have rolled a " + roll);
 
-    if (inPenaltyBox[currentPlayer]) {
+    if (inPenaltyBox[parseInt(currentPlayer)]) {
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true;
 
         console.log(
-          players[currentPlayer] + " is getting out of the penalty box"
+          players[parseInt(currentPlayer)] +
+            " is getting out of the penalty box"
         );
         moveCurrentPlayer(boardSquares, currentPlayer, roll);
 
         afterRoll();
       } else {
         console.log(
-          players[currentPlayer] + " is not getting out of the penalty box"
+          players[parseInt(currentPlayer)] +
+            " is not getting out of the penalty box"
         );
         isGettingOutOfPenaltyBox = false;
       }
@@ -141,11 +143,11 @@ var Game = function () {
   };
 
   var logPlayerCoins = function (purses, currentPlayer, players) {
-    purses[currentPlayer] += 1;
+    purses[parseInt(currentPlayer)] += 1;
     console.log(
-      players[currentPlayer] +
+      players[parseInt(currentPlayer)] +
         " now has " +
-        purses[currentPlayer] +
+        purses[parseInt(currentPlayer)] +
         " Gold Coins."
     );
   };
@@ -161,7 +163,7 @@ var Game = function () {
   };
 
   this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
+    if (inPenaltyBox[parseInt(currentPlayer)]) {
       if (isGettingOutOfPenaltyBox) {
         return correctAnswer();
       } else {
@@ -175,8 +177,10 @@ var Game = function () {
 
   this.wrongAnswer = function () {
     console.log("Question was incorrectly answered");
-    console.log(players[currentPlayer] + " was sent to the penalty box");
-    inPenaltyBox[currentPlayer] = true;
+    console.log(
+      players[parseInt(currentPlayer)] + " was sent to the penalty box"
+    );
+    inPenaltyBox[parseInt(currentPlayer)] = true;
 
     currentPlayer = changePlayerCounter(currentPlayer, players);
     return true;
