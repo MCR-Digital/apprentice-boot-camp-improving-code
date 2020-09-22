@@ -40,7 +40,6 @@ namespace TriviaGame
                 scienceQuestions.AddLast(($"{scienceCategory} Question " + i));
                 sportsQuestions.AddLast(($"{sportsCategory} Question " + i));
                 rockQuestions.AddLast(($"{rockCategory} Question " + i));
-
             }
         }
 
@@ -51,16 +50,18 @@ namespace TriviaGame
 
         public bool AddPlayer(string playerName)
         {
-
-
             totalPlayers.Add(playerName);
             playerBoardPositionState[GetTotalPlayersCount()] = 0;
             playerPurseTotalState[GetTotalPlayersCount()] = 0;
             playerPenaltyBoxState[GetTotalPlayersCount()] = false;
+            PrintNewPlayerDetails(playerName);
+            return true;
+        }
 
+        private void PrintNewPlayerDetails(string playerName)
+        {
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + totalPlayers.Count);
-            return true;
         }
 
         public int GetTotalPlayersCount()
