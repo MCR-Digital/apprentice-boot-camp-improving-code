@@ -12,6 +12,7 @@ namespace TriviaGame
         private readonly int[] _rockSpaces = {3, 7, 11};
         
         private readonly List<Player> _gamePlayers = new List<Player>();
+        private int numberOfPlayers;
         private readonly int[] _playerPositions = new int[Constants.MaxPlayers];
         private readonly int[] _playerPurses = new int[Constants.MaxPlayers];
         private readonly bool[] _inPenaltyBox = new bool[Constants.MaxPlayers];
@@ -48,13 +49,8 @@ namespace TriviaGame
 
         public bool AddPlayer(string playerName)
         {
-            var newPLayer = new Player(playerName);
-            _gamePlayers.Add(newPLayer);
-            _playerPositions[_gamePlayers.Count] = 0;
-            _playerPurses[_gamePlayers.Count] = 0;
-            _inPenaltyBox[_gamePlayers.Count] = false;
-
-            Console.WriteLine($"{playerName} was added");
+            var player = new Player(playerName);
+            _gamePlayers.Add(player);
             Console.WriteLine($"They are player number {_gamePlayers.Count}");
             return true;
         }
