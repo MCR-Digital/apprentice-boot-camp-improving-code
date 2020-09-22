@@ -2,18 +2,18 @@ import fs from 'fs'
 import gameRunner from '../src/game'
 import captureOutput from './capture-console-output'
 
-function createFolder(foldername) {
+function createFolder (foldername) {
   try {
-    fs.mkdirSync(foldername);
+    fs.mkdirSync(foldername)
   } catch (error) {
-    if (!error === "EEXIST") {
-      throw error;
+    if (!error === 'EEXIST') {
+      throw error
     }
   }
 }
 
 const generateExpectedResult = (i) => {
-  createFolder("./resources");
+  createFolder('./resources')
 
   const masterFile = fs.createWriteStream(`./resources/output${i}.txt`, {
     flags: 'w'
@@ -37,5 +37,3 @@ const getResult = (i) => {
 }
 
 export default getResult
-
-
