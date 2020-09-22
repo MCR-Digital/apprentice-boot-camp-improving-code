@@ -215,13 +215,18 @@ namespace TriviaGame
 
         public bool IncorrectAnswer()
         {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[_currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[_currentPlayer] = true;
+            SendToPenaltyBox();
 
             _currentPlayer++;
             if (_currentPlayer == players.Count) _currentPlayer = 0;
             return true;
+        }
+
+        private void SendToPenaltyBox()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(players[_currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[_currentPlayer] = true;
         }
 
 
