@@ -134,13 +134,6 @@ public class Game {
 		}
 	}
 
-	private boolean runTurnRound() {
-		addCoinToPlayersPurse();
-		boolean noWinner = isGameContinuing();
-		getNextPlayer();
-		return noWinner;
-	}
-
 	public boolean isWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
@@ -148,6 +141,13 @@ public class Game {
 
 		getNextPlayer();
 		return true;
+	}
+
+	private boolean runTurnRound() {
+		addCoinToPlayersPurse();
+		boolean noWinner = isGameContinuing();
+		getNextPlayer();
+		return noWinner;
 	}
 
 
