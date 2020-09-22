@@ -184,7 +184,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(coins[currentPlayer] == 6);
+            return (coins[currentPlayer] != 6);
         }
     }
 }
