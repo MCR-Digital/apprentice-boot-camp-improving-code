@@ -6,10 +6,10 @@ const captureOutput = (functionToCaptureOutput) => {
   process.stdout.write = (chunk, encoding, callback) => {
     if (typeof chunk === 'string') {
       // hacky way of extracting only console output without timings
-      
-      const progOutput = chunk.split("\n");
+
+      const progOutput = chunk.split('\n')
       if (progOutput[1]) {
-        output += progOutput[1].trim() + "\n";
+        output += progOutput[1].trim() + '\n'
       }
     }
 

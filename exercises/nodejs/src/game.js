@@ -11,6 +11,11 @@ var Game = function () {
   var sportsQuestions = new Array();
   var rockQuestions = new Array();
 
+  const POP_CATEGORY = "Pop";
+  const SCIENCE_CATEGORY = "Science";
+  const SPORT_CATEGORY = "Sports";
+  const ROCK_CATEGORY = "Rock";
+
   var currentPlayer = 0;
   var isGettingOutOfPenaltyBox = false;
 
@@ -19,34 +24,34 @@ var Game = function () {
   };
 
   var currentCategory = function () {
-    if (playerPositions[currentPlayer] == 0) {
-      return "Pop";
+    if (playerPositions[currentPlayer] === 0) {
+      return POP_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 4) {
-      return "Pop";
+    if (playerPositions[currentPlayer] === 4) {
+      return POP_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 8) {
-      return "Pop";
+    if (playerPositions[currentPlayer] === 8) {
+      return POP_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 1) {
-      return "Science";
+    if (playerPositions[currentPlayer] === 1) {
+      return SCIENCE_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 5) {
-      return "Science";
+    if (playerPositions[currentPlayer] === 5) {
+      return SCIENCE_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 9) {
-      return "Science";
+    if (playerPositions[currentPlayer] === 9) {
+      return SCIENCE_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 2) {
-      return "Sports";
+    if (playerPositions[currentPlayer] === 2) {
+      return SPORT_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 6) {
-      return "Sports";
+    if (playerPositions[currentPlayer] === 6) {
+      return SPORT_CATEGORY;
     }
-    if (playerPositions[currentPlayer] == 10) {
-      return "Sports";
+    if (playerPositions[currentPlayer] === 10) {
+      return SPORT_CATEGORY;
     }
-    return "Rock";
+    return ROCK_CATEGORY;
   };
 
   this.createRockQuestion = function (index) {
@@ -81,16 +86,16 @@ var Game = function () {
   };
 
   var askQuestion = function () {
-    if (currentCategory() == "Pop") {
+    if (currentCategory() === POP_CATEGORY) {
       console.log(popQuestions.shift());
     }
-    if (currentCategory() == "Science") {
+    if (currentCategory() === SCIENCE_CATEGORY) {
       console.log(scienceQuestions.shift());
     }
-    if (currentCategory() == "Sports") {
+    if (currentCategory() === SPORT_CATEGORY) {
       console.log(sportsQuestions.shift());
     }
-    if (currentCategory() == "Rock") {
+    if (currentCategory() === ROCK_CATEGORY) {
       console.log(rockQuestions.shift());
     }
   };
