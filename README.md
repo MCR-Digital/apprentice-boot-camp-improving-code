@@ -58,7 +58,7 @@ Video:
 
 Web:
 * [QWAN Code Smells and Refactoring Cue Cards](http://www.qwan.eu/shop)
-* [Source Making’s section on Code Smells](https://sourcemaking.com/refactoring/smells)—this is an excellent site, and super accessible
+* [Refactoring Guru’s section on Code Smells](https://refactoring.guru/smells/)—this is an excellent site, and super accessible
 * [8 Tips for Great Code Reviews](https://kellysutton.com/2018/10/08/8-tips-for-great-code-reviews.html)—five minute read with some good top level tips, well communicated. Maybe share this at work if review doesn’t go so well?
 * [Awesome code review](https://github.com/joho/awesome-code-review): An "Awesome" list of code review resources - articles, papers, tools, etc
  
@@ -92,7 +92,7 @@ The slides can be viewed from the link at the top of the repository.
 
 # Briefing for organisation mentors
 
-* Familiarise yourself with following code smells using [this site](https://sourcemaking.com/refactoring/smells)
+* Familiarise yourself with following code smells using [this site](https://refactoring.guru/smells/)
     * Uncommunicative Name
     * Duplicate Code
     * Magic Number

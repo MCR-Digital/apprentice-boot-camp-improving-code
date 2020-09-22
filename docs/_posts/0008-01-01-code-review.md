@@ -241,7 +241,7 @@ See [detailed instructions from GitHub](https://help.github.com/en/articles/revi
 
 Notes: if finish early, get them to explore protected branches  
 
---
+---
 
 ## Exercise: use GitHub to review your neighbours code
 
