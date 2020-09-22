@@ -173,48 +173,49 @@ namespace TriviaGame
 
         public bool WasCorrectlyAnswered()
         {
+            bool winner;
             if (_inPenaltyBox[_currentPlayer])
             {
                 if (_playerCanAnswerQuestion)
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     _playerPurses[_currentPlayer]++;
-                    Console.WriteLine($"{_gamePlayers[_currentPlayer]} now has {_playerPurses[_currentPlayer]} Gold Coins.");
-
-                    bool winner = DidPlayerWin();
+                    PrintCurrentPlayerCoins();
+                    winner = DidPlayerWin();
                     _currentPlayer++;
-                    if (_currentPlayer == _gamePlayers.Count)
-                    {
-                        _currentPlayer = FirstPlayer;
-                    }
+                    CheckPlayerWrapAround();
 
                     return winner;
                 }
-                else
-                {
-                    _currentPlayer++;
-                    if (_currentPlayer == _gamePlayers.Count)
-                    {
-                        _currentPlayer = FirstPlayer;
-                    }
-                    return true;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Answer was corrent!!!!");
-                _playerPurses[_currentPlayer]++;
-                Console.WriteLine($"{_gamePlayers[_currentPlayer]} now has {_playerPurses[_currentPlayer]} Gold Coins.");
-
-                bool winner = DidPlayerWin();
+                
                 _currentPlayer++;
-                if (_currentPlayer == _gamePlayers.Count)
-                {
-                    _currentPlayer = FirstPlayer;
-                }
-
-                return winner;
+                CheckPlayerWrapAround();
+                return true;
             }
+            
+            Console.WriteLine("Answer was corrent!!!!");
+            _playerPurses[_currentPlayer]++;
+            PrintCurrentPlayerCoins();
+            
+            winner = DidPlayerWin();
+            _currentPlayer++;
+            CheckPlayerWrapAround();
+
+            return winner;
+        }
+
+        private void CheckPlayerWrapAround()
+        {
+            if (_currentPlayer == _gamePlayers.Count)
+            {
+                _currentPlayer = FirstPlayer;
+            }
+        }
+
+        private void PrintCurrentPlayerCoins()
+        {
+            Console.WriteLine(
+                $"{_gamePlayers[_currentPlayer]} now has {_playerPurses[_currentPlayer]} Gold Coins.");
         }
 
         public bool WrongAnswer()
@@ -224,10 +225,7 @@ namespace TriviaGame
             _inPenaltyBox[_currentPlayer] = true;
 
             _currentPlayer++;
-            if (_currentPlayer == _gamePlayers.Count)
-            {
-                _currentPlayer = FirstPlayer;
-            }
+            CheckPlayerWrapAround();
             return true;
         }
 
