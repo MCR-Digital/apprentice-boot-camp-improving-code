@@ -27,7 +27,8 @@ namespace TriviaGame
 
         public Player GetCurrentPlayer()
         {
-            return playerList[currentPlayerIndex];
+            currentPlayer = playerList[currentPlayerIndex];
+            return currentPlayer;
         }
 
         public void MoveCurrentPlayer(int numberOfSpaces)
