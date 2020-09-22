@@ -200,10 +200,7 @@ namespace TriviaGame
 
                 Console.WriteLine("Answer was corrent!!!!");
                 playerGoldCoins[_currentPlayer]++;
-                Console.WriteLine(players[_currentPlayer]
-                        + " now has "
-                        + playerGoldCoins[_currentPlayer]
-                        + " Gold Coins.");
+                DeclareGoldCoins();
 
                 bool winner = PlayerWon();
                 _currentPlayer++;
@@ -211,6 +208,14 @@ namespace TriviaGame
 
                 return winner;
             }
+        }
+
+        private void DeclareGoldCoins()
+        {
+            Console.WriteLine(players[_currentPlayer]
+                              + " now has "
+                              + playerGoldCoins[_currentPlayer]
+                              + " Gold Coins.");
         }
 
         public bool IncorrectAnswer()
