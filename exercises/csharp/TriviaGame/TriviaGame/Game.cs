@@ -191,13 +191,8 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-
                     playerPurseTotalState[currentPlayer] = IncreasePlayerPurseTotal(playerPurseTotalState[currentPlayer]);
-                    Console.WriteLine(totalPlayers[currentPlayer]
-                            + " now has "
-                            + playerPurseTotalState[currentPlayer]
-                            + " Gold Coins.");
-
+                    PrintPlayerPurseCount();
                     bool winner = DidPlayerWin();
                     MoveToNextPlayer();
                     return winner;
@@ -213,15 +208,20 @@ namespace TriviaGame
 
                 Console.WriteLine("Answer was corrent!!!!");
                 playerPurseTotalState[currentPlayer]++;
-                Console.WriteLine(totalPlayers[currentPlayer]
-                        + " now has "
-                        + playerPurseTotalState[currentPlayer]
-                        + " Gold Coins.");
+                PrintPlayerPurseCount();
 
                 bool winner = DidPlayerWin();
                 MoveToNextPlayer();
                 return winner;
             }
+        }
+
+        private void PrintPlayerPurseCount()
+        {
+            Console.WriteLine(totalPlayers[currentPlayer]
+                    + " now has "
+                    + playerPurseTotalState[currentPlayer]
+                    + " Gold Coins.");
         }
 
         private void MoveToNextPlayer()
