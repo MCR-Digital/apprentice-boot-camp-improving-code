@@ -6,6 +6,7 @@ import java.util.LinkedList;
 /*TODO:
    - move string messages to constants file
    - move constant literals to top as final variables
+   - use board class, player class, deck class
 */
 public class Game {
     ArrayList players = new ArrayList();
