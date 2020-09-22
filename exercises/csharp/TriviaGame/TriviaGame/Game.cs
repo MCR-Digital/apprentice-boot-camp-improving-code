@@ -28,12 +28,12 @@ namespace TriviaGame
         public Trivia_Game()
         {
             const int V = 50;
-            for (int Questionnumber = 0; Questionnumber < V; Questionnumber++)
+            for (int questionNumber = 0; questionNumber < V; questionNumber++)
             {
-                popQuestions.AddLast("Pop Question " + Questionnumber);
-                scienceQuestions.AddLast(("Science Question " + Questionnumber));
-                sportsQuestions.AddLast(("Sports Question " + Questionnumber));
-                rockQuestions.AddLast(CreateRockQuestion(Questionnumber));
+                popQuestions.AddLast("Pop Question " + questionNumber);
+                scienceQuestions.AddLast(("Science Question " + questionNumber));
+                sportsQuestions.AddLast(("Sports Question " + questionNumber));
+                rockQuestions.AddLast(CreateRockQuestion(questionNumber));
             }
         }
 
@@ -149,7 +149,7 @@ namespace TriviaGame
                             + playersPurses[currentPlayer]
                             + " Gold Coins.");
 
-                    bool winner = DidPlayerWin();
+                    bool winner = HasPlayerWon();
                     currentPlayer++;
                     if (currentPlayer == listOfAllPlayers.Count) currentPlayer = 0;
 
@@ -171,7 +171,7 @@ namespace TriviaGame
                         + playersPurses[currentPlayer]
                         + " Gold Coins.");
 
-                bool winner = DidPlayerWin();
+                bool winner = HasPlayerWon();
                 currentPlayer++;
                 if (currentPlayer == listOfAllPlayers.Count) currentPlayer = 0;
 
@@ -179,7 +179,7 @@ namespace TriviaGame
             }
         }
 
-        public bool WrongAnswer()
+        public bool IsWrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(listOfAllPlayers[currentPlayer] + " was sent to the penalty box");
@@ -190,7 +190,7 @@ namespace TriviaGame
             return true;
         }
 
-        private bool DidPlayerWin()
+        private bool HasPlayerWon()
         {
             const int WinningTotal = 6;
             return !(playersPurses[currentPlayer] == WinningTotal);

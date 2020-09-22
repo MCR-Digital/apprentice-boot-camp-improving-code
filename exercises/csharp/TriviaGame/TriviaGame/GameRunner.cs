@@ -27,7 +27,7 @@ namespace TriviaGame
 
                 if (RandomNumber.Next(9) == 7)
                 {
-                    notAWinner = CreateNewTriviaGame.WrongAnswer();
+                    notAWinner = CreateNewTriviaGame.IsWrongAnswer();
                 }
                 else
                 {
