@@ -69,13 +69,13 @@ public class Game {
 	public void roll(int roll) {
 		displayMessage(players.get(currentPlayer) + " is the current player");
 		displayMessage("They have rolled a " + roll);
-		if (isCurrentPlayerAllowedRoll(roll)){
+		if (currentPlayerCanRole(roll)){
 			playerRolls(roll);
 			askQuestion();
 		}
 	}
 
-	private boolean isCurrentPlayerAllowedRoll(int roll) {
+	private boolean currentPlayerCanRole(int roll) {
 		boolean isRoleOdd = roll % 2 != 0;
 		if (playerInPenaltyBox[currentPlayer] && isRoleOdd) {
 			setIsGettingOutOfPenaltyBox(true);
