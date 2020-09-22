@@ -125,22 +125,24 @@ namespace TriviaGame
 
         public bool WasQuestionAnsweredCorrectly()
         {
+            bool result;
             if (inPenaltyBox[currentPlayer])
             {
                 if (playerCanAnswerQuestion)
                 {
-                    return CorrectAnswer("Answer was correct!!!!");
+                    result = CorrectAnswer("Answer was correct!!!!");
                 }
                 else
                 {
-                    ChangeCurrentPlayer();
-                    return true;
+                    result =  true;
                 }
             }
             else
             {
-                return CorrectAnswer("Answer was corrent!!!!");
+                result = CorrectAnswer("Answer was corrent!!!!");
             }
+            ChangeCurrentPlayer();
+            return result;
         }
 
         private bool CorrectAnswer(string answerMessage)
@@ -152,10 +154,7 @@ namespace TriviaGame
                     + playerPurses[currentPlayer]
                     + " Gold Coins.");
 
-            bool canGameContinue = CanGameContinue();
-            ChangeCurrentPlayer();
-
-            return canGameContinue;
+            return CanGameContinue();
         }
 
         public bool WrongAnswer()
