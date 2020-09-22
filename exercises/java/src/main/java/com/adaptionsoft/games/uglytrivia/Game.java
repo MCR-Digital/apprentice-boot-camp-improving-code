@@ -2,9 +2,10 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
-    ArrayList players = new ArrayList();
+    List<Player> players = new ArrayList();
     int[] playerPosition = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -36,15 +37,15 @@ public class Game {
 		return (numberOfPlayers() >= minimumNumberOfPlayers);
 	}
 
-	public boolean addPlayer(String playerName) {
+	public boolean addPlayer(Player player) {
 		
 		
-	    players.add(playerName);
+	    players.add(player);
 	    playerPosition[numberOfPlayers()] = 0;
 	    purses[numberOfPlayers()] = 0;
 	    inPenaltyBox[numberOfPlayers()] = false;
 	    
-	    System.out.println(playerName + " was added");
+	    System.out.println(player.getName() + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
@@ -142,7 +143,7 @@ public class Game {
 	// Split out and rename this method
 	private boolean updatePlayerCoins() {
 		purses[currentPlayer]++;
-		System.out.println(players.get(currentPlayer)
+		System.out.println(players.get(currentPlayer).getName()
 				+ " now has "
 				+ purses[currentPlayer]
 				+ " Gold Coins.");
