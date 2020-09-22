@@ -31,10 +31,10 @@ namespace TriviaGame
         {
             for (int questionIndex = 0; questionIndex < 50; questionIndex++)
             {
-                pop.questions.AddLast(CreateQuestionText(POP_CATEGORY, questionIndex));
-                science.questions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, questionIndex));
-                sports.questions.AddLast(CreateQuestionText(SPORTS_CATEGORY, questionIndex));
-                rock.questions.AddLast(CreateQuestionText(ROCK_CATEGORY, questionIndex));
+                pop.questions.AddLast(CreateQuestionText(pop.name, questionIndex));
+                science.questions.AddLast(CreateQuestionText(science.name, questionIndex));
+                sports.questions.AddLast(CreateQuestionText(sports.name, questionIndex));
+                rock.questions.AddLast(CreateQuestionText(rock.name, questionIndex));
             }
         }
 
