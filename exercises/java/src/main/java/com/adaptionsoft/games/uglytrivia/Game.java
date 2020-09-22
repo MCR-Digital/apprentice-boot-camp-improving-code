@@ -127,7 +127,6 @@ public class Game {
 				return isWinnerFromCorrectAnswer();
 			} else {
 				changePlayer();
-				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
 		} else {
@@ -146,7 +145,6 @@ public class Game {
 
 		boolean winner = didPlayerWin();
 		changePlayer();
-		if (currentPlayer == players.size()) currentPlayer = 0;
 
 		return winner;
 	}
@@ -157,7 +155,6 @@ public class Game {
 		playerInPenaltyBox[currentPlayer] = true;
 
 		changePlayer();
-		if (currentPlayer == players.size()) currentPlayer = 0; // brackets
 		return true;
 	}
 
@@ -168,5 +165,8 @@ public class Game {
 
 	private void changePlayer() {
 		currentPlayer++;
+		if (currentPlayer == players.size()) {
+			currentPlayer = 0;
+		}
 	}
 }
