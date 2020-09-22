@@ -32,7 +32,7 @@ namespace TriviaGame
 
             Console.SetOut(writer);
 
-            GameRunner.Main(new String[] { i.ToString() });
+            TriviaGameRunner.Main(new String[] { i.ToString() });
             writer.Flush();
 
             try
