@@ -60,6 +60,11 @@ namespace TriviaGame
             return players.Count;
         }
 
+        private Player CurrentPlayer()
+        {
+            return players[currentPlayerIndex];
+        }
+
         public void RollDice(int roll)
         {
             Console.WriteLine(players[currentPlayerIndex].playerName + " is the current player");
@@ -80,12 +85,12 @@ namespace TriviaGame
             if (roll % 2 != 0)
             {
                 playerCanAnswerQuestion = true;
-                Console.WriteLine(players[currentPlayerIndex].playerName + " is getting out of the penalty box");
+                Console.WriteLine(CurrentPlayer().playerName + " is getting out of the penalty box");
                 PlayTurn(roll);
             }
             else
             {
-                Console.WriteLine(players[currentPlayerIndex].playerName + " is not getting out of the penalty box");
+                Console.WriteLine(CurrentPlayer().playerName + " is not getting out of the penalty box");
                 playerCanAnswerQuestion = false;
             }
         }
@@ -95,7 +100,7 @@ namespace TriviaGame
             playerLocations[currentPlayerIndex] = playerLocations[currentPlayerIndex] + roll;
             if (playerLocations[currentPlayerIndex] > 11) playerLocations[currentPlayerIndex] = playerLocations[currentPlayerIndex] - 12;
 
-            Console.WriteLine(players[currentPlayerIndex].playerName
+            Console.WriteLine(CurrentPlayer().playerName
                     + "'s new location is "
                     + playerLocations[currentPlayerIndex]);
             Console.WriteLine("The category is " + CurrentCategory().name);
@@ -146,7 +151,7 @@ namespace TriviaGame
         {
             Console.WriteLine(answerMessage);
             playerPurses[currentPlayerIndex]++;
-            Console.WriteLine(players[currentPlayerIndex].playerName
+            Console.WriteLine(CurrentPlayer().playerName
                     + " now has "
                     + playerPurses[currentPlayerIndex]
                     + " Gold Coins.");
@@ -155,7 +160,7 @@ namespace TriviaGame
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayerIndex].playerName + " was sent to the penalty box");
+            Console.WriteLine(CurrentPlayer().playerName + " was sent to the penalty box");
             inPenaltyBox[currentPlayerIndex] = true;
             ChangeCurrentPlayer();
             return true;
