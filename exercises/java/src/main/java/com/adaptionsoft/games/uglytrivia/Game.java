@@ -6,29 +6,16 @@ import java.util.LinkedList;
 
 public class Game {
 
-    ArrayList<String> players = new ArrayList<>();
-    int[] playerPositions = new int[6];
-    int[] playerCollectedCoins = new int[6];
-    boolean[] inPenaltyBox = new boolean[6];
+    private final Questions questions = new Questions();
 
-    Questions questions = new Questions();
+    private final ArrayList<String> players = new ArrayList<>();
+    private final int[] playerPositions = new int[6];
+    private final int[] playerCollectedCoins = new int[6];
+    private final boolean[] inPenaltyBox = new boolean[6];
 
+    private int currentPlayer = 0;
+    private boolean isGettingOutOfPenaltyBox;
 
-    int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
-
-    public Game() {
-        for (int i = 0; i < 50; i++) {
-            questions.getPopQuestions().addLast("Pop Question " + i);
-            questions.getScienceQuestions().addLast(("Science Question " + i));
-            questions.getSportsQuestions().addLast(("Sports Question " + i));
-            questions.getRockQuestions().addLast(createRockQuestion(i));
-        }
-    }
-
-    public String createRockQuestion(int index) {
-        return "Rock Question " + index;
-    }
 
     public boolean isPlayable() {
         return (numberOfPlayers() >= 2);
