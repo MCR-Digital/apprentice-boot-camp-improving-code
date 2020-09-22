@@ -65,7 +65,7 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayerIndex].playerName + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (inPenaltyBox[currentPlayerIndex])
+            if (CurrentPlayer().isPlayerInPenaltyBox)
             {
                 PenaltyBoxPlayerTurn(roll);
             }
@@ -121,7 +121,7 @@ namespace TriviaGame
         public bool CanGameContinueAfterCorrectAnswer()
         {
             bool result;
-            if (inPenaltyBox[currentPlayerIndex])
+            if (CurrentPlayer().isPlayerInPenaltyBox)
             {
                 if (playerCanAnswerQuestion)
                 {
@@ -156,7 +156,7 @@ namespace TriviaGame
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(CurrentPlayer().playerName + " was sent to the penalty box");
-            inPenaltyBox[currentPlayerIndex] = true;
+            CurrentPlayer().isPlayerInPenaltyBox = true;
             ChangeCurrentPlayer();
             return true;
         }
