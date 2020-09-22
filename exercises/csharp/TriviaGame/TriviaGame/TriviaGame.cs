@@ -14,7 +14,6 @@ namespace TriviaGame
         private const string ROCK_CATEGORY = "Rock";
         List<Player> players = new List<Player>();
 
-        int[] playerLocations = new int[6];
         int[] playerPurses = new int[6];
 
         bool[] inPenaltyBox = new bool[6];
@@ -46,7 +45,6 @@ namespace TriviaGame
         public bool AddPlayer(string playerName)
         {
             players.Add(new Player(playerName));
-            playerLocations[NumberOfPlayers()] = 0;
             playerPurses[NumberOfPlayers()] = 0;
             inPenaltyBox[NumberOfPlayers()] = false;
 
