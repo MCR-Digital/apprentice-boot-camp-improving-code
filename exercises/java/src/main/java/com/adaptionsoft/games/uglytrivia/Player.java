@@ -12,6 +12,8 @@ public class Player {
     }
 
     public void setPlayerInPenaltyBox(Boolean playerInPenaltyBox) {
+        System.out.println("Question was incorrectly answered");
+        System.out.println(playerName+ " was sent to the penalty box");
         isPlayerInPenaltyBox = playerInPenaltyBox;
     }
 

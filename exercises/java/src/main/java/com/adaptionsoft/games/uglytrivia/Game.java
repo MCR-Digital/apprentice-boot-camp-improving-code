@@ -102,22 +102,21 @@ public class Game {
 	}
 
 	public boolean isCorrectAnswer() {
-		if (currentPlayer.isPlayerInPenaltyBox ){
-			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				return isPlayerWinner();
-			} else {
-				chooseNextPlayer();
-				return true;
-			}
+	    if(!currentPlayer.isPlayerInPenaltyBox){
+            System.out.println("Answer was corrent!!!!");
+            return isPlayerWinner();
+        }
+            if (isGettingOutOfPenaltyBox) {
+                System.out.println("Answer was correct!!!!");
+                return isPlayerWinner();
+            } else {
+                chooseNextPlayer();
+                return true;
+            }
 
-		} else {
+        }
 
-			System.out.println("Answer was corrent!!!!");
-			return isPlayerWinner();
-		}
 
-	}
 
 	private boolean isPlayerWinner() {
 		currentPlayer.coinPurse++;
@@ -130,9 +129,8 @@ currentPlayer.getCoinPurse();
 	}
 
 	public boolean wrongAnswer(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(currentPlayer.playerName+ " was sent to the penalty box");
-		currentPlayer.isPlayerInPenaltyBox = true;
+
+		currentPlayer.setPlayerInPenaltyBox(true);
 
 		chooseNextPlayer();
 		return true;
