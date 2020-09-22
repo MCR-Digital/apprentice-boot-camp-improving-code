@@ -106,14 +106,12 @@ public class Game {
 
 	private void askQuestion() {
     	//CASE?
-		if (currentCategory() == QuestionTypes.Pop)
-			displayMessage(popQuestions.removeFirst());
-		if (currentCategory() == QuestionTypes.Science)
-			displayMessage(scienceQuestions.removeFirst());
-		if (currentCategory() == QuestionTypes.Sports)
-			displayMessage(sportsQuestions.removeFirst());
-		if (currentCategory() == QuestionTypes.Rock)
-			displayMessage(rockQuestions.removeFirst());
+		switch (currentCategory()){
+			case Pop: displayMessage(popQuestions.removeFirst()); break;
+			case Science: displayMessage(scienceQuestions.removeFirst()); break;
+			case Sports: displayMessage(sportsQuestions.removeFirst()); break;
+			case Rock: displayMessage(rockQuestions.removeFirst()); break;
+		}
 	}
 	
 	
