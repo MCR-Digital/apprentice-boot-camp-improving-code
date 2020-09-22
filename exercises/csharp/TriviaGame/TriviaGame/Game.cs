@@ -12,7 +12,8 @@ namespace TriviaGame
         private const int EndOfBoard = 11;
         private const int LengthOfBoard = 12;
         private const int FirstPlayer = 0;
-        
+        private const int NumberOfQuestions = 50;
+
         private readonly List<string> _gamePlayers = new List<string>();
 
         private readonly int[] _playerPositions = new int[MaxPlayers];
@@ -30,7 +31,7 @@ namespace TriviaGame
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < NumberOfQuestions; i++)
             {
                 AddDefaultQuestions(i);
             }
