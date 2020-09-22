@@ -6,23 +6,15 @@ namespace TriviaGame
 {
     public class Game
     {
-        private const int WinningScore = 6;
-        private const int MaxPlayers = 6;
-        private const int MinPlayers = 2;
-        private const int EndOfBoard = 11;
-        private const int LengthOfBoard = 12;
-        private const int FirstPlayer = 0;
-        private const int NumberOfQuestions = 50;
         private readonly int[] _popSpaces = {0, 4, 8};
         private readonly int[] _scienceSpaces = {1, 5, 9};
         private readonly int[] _sportSpaces = {2, 6, 10};
         private readonly int[] _rockSpaces = {3, 7, 11};
         
         private readonly List<Player> _gamePlayers = new List<Player>();
-        private int numberOfPlayers = 0;
-        private readonly int[] _playerPositions = new int[MaxPlayers];
-        private readonly int[] _playerPurses = new int[MaxPlayers];
-        private readonly bool[] _inPenaltyBox = new bool[MaxPlayers];
+        private readonly int[] _playerPositions = new int[Constants.MaxPlayers];
+        private readonly int[] _playerPurses = new int[Constants.MaxPlayers];
+        private readonly bool[] _inPenaltyBox = new bool[Constants.MaxPlayers];
 
         private int _currentPlayerIndex;
         private bool _playerCanAnswerQuestion;
@@ -40,7 +32,7 @@ namespace TriviaGame
             _sportsQuestion = new SportsQuestion();
             _popQuestion = new PopQuestion();
 
-            for (int i = 0; i < NumberOfQuestions; i++)
+            for (int i = 0; i < Constants.NumberOfQuestions; i++)
             {
                 _scienceQuestion.Questions.AddLast($"Science Question {i}");
                 _popQuestion.Questions.AddLast($"Pop Question {i}");
@@ -51,7 +43,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return _gamePlayers.Count >= MinPlayers;
+            return _gamePlayers.Count >= Constants.MinPlayers;
         }
 
         public bool AddPlayer(string playerName)
@@ -102,9 +94,9 @@ namespace TriviaGame
                 WritePenaltyBoxMessage(_playerCanAnswerQuestion);
             }
             _playerPositions[_currentPlayerIndex] = _playerPositions[_currentPlayerIndex] + roll;
-            if (_playerPositions[_currentPlayerIndex] > EndOfBoard)
+            if (_playerPositions[_currentPlayerIndex] > Constants.EndOfBoard)
             {
-                _playerPositions[_currentPlayerIndex] = _playerPositions[_currentPlayerIndex] - LengthOfBoard;
+                _playerPositions[_currentPlayerIndex] = _playerPositions[_currentPlayerIndex] - Constants.LengthOfBoard;
             }
 
             Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayerIndex]}");
@@ -213,7 +205,7 @@ namespace TriviaGame
         {
             if (_currentPlayerIndex == _gamePlayers.Count)
             {
-                _currentPlayerIndex = FirstPlayer;
+                _currentPlayerIndex = Constants.FirstPlayer;
             }
         }
 
@@ -237,7 +229,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return _playerPurses[_currentPlayerIndex] != WinningScore;
+            return _playerPurses[_currentPlayerIndex] != Constants.WinningScore;
         }
     }
 }
