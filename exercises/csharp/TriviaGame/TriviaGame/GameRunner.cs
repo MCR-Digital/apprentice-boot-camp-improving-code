@@ -9,37 +9,31 @@ namespace TriviaGame
 {
    public class GameRunner
     {
-
         private static bool notAWinner;
 
         public static void Main(String[] args)
         {
-            Game aGame = new Game();
+            Trivia_Game CreateNewTriviaGame = new Trivia_Game();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            CreateNewTriviaGame.AddNewPlayer("Chet");
+            CreateNewTriviaGame.AddNewPlayer("Pat");
+            CreateNewTriviaGame.AddNewPlayer("Sue");
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            Random RandomNumber = new Random(Int32.Parse(args[0]));
 
             do
             {
+                CreateNewTriviaGame.RollDice(RandomNumber.Next(5) + 1);
 
-                aGame.Roll(rand.Next(5) + 1);
-
-                if (rand.Next(9) == 7)
+                if (RandomNumber.Next(9) == 7)
                 {
-                    notAWinner = aGame.WrongAnswer();
+                    notAWinner = CreateNewTriviaGame.WrongAnswer();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    notAWinner = CreateNewTriviaGame.WasCorrectlyAnswered();
                 }
-
-
-
             } while (notAWinner);
-
         }
     }
 }
