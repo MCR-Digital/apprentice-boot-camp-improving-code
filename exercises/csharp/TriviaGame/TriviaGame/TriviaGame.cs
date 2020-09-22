@@ -19,10 +19,10 @@ namespace TriviaGame
 
         bool[] inPenaltyBox = new bool[6];
 
-        private readonly Category Pop = new Category(POP_CATEGORY, new LinkedList<string>());
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        private readonly Category pop = new Category(POP_CATEGORY, new LinkedList<string>());
+        private readonly Category science = new Category(SCIENCE_CATEGORY, new LinkedList<string>());
+        private readonly Category sports = new Category(SPORTS_CATEGORY, new LinkedList<string>());
+        private readonly Category rock = new Category(ROCK_CATEGORY, new LinkedList<string>());
 
         int currentPlayer = 0;
         bool playerCanAnswerQuestion;
@@ -31,10 +31,10 @@ namespace TriviaGame
         {
             for (int questionIndex = 0; questionIndex < 50; questionIndex++)
             {
-                Pop.questions.AddLast(CreateQuestionText(POP_CATEGORY, questionIndex));
-                scienceQuestions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, questionIndex));
-                sportsQuestions.AddLast(CreateQuestionText(SPORTS_CATEGORY, questionIndex));
-                rockQuestions.AddLast(CreateQuestionText(ROCK_CATEGORY, questionIndex));
+                pop.questions.AddLast(CreateQuestionText(POP_CATEGORY, questionIndex));
+                science.questions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, questionIndex));
+                sports.questions.AddLast(CreateQuestionText(SPORTS_CATEGORY, questionIndex));
+                rock.questions.AddLast(CreateQuestionText(ROCK_CATEGORY, questionIndex));
             }
         }
 
@@ -111,19 +111,19 @@ namespace TriviaGame
         {
             if (CurrentCategory() == POP_CATEGORY)
             {
-                AskQuestionFrom(Pop.questions);
+                AskQuestionFrom(pop.questions);
             }
             if (CurrentCategory() == SCIENCE_CATEGORY)
             {
-                AskQuestionFrom(scienceQuestions);
+                AskQuestionFrom(science.questions);
             }
             if (CurrentCategory() == SPORTS_CATEGORY)
             {
-                AskQuestionFrom(sportsQuestions);
+                AskQuestionFrom(sports.questions);
             }
             if (CurrentCategory() == ROCK_CATEGORY)
             {
-                AskQuestionFrom(rockQuestions);
+                AskQuestionFrom(rock.questions);
             }
         }
 
