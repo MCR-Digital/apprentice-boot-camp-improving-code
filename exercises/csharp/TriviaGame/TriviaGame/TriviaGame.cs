@@ -14,10 +14,10 @@ namespace TriviaGame
         private const string ROCK_CATEGORY = "Rock";
         List<Player> players = new List<Player>();
 
-        private readonly Category pop = new Category(POP_CATEGORY, new LinkedList<string>());
-        private readonly Category science = new Category(SCIENCE_CATEGORY, new LinkedList<string>());
-        private readonly Category sports = new Category(SPORTS_CATEGORY, new LinkedList<string>());
-        private readonly Category rock = new Category(ROCK_CATEGORY, new LinkedList<string>());
+        private readonly Category pop = new Category(POP_CATEGORY, new LinkedList<Question>());
+        private readonly Category science = new Category(SCIENCE_CATEGORY, new LinkedList<Question>());
+        private readonly Category sports = new Category(SPORTS_CATEGORY, new LinkedList<Question>());
+        private readonly Category rock = new Category(ROCK_CATEGORY, new LinkedList<Question>());
 
         int currentPlayerIndex = 0;
 
@@ -98,9 +98,9 @@ namespace TriviaGame
             AskQuestionFrom(CurrentCategory().questions);
         }
 
-        private void AskQuestionFrom(LinkedList<string> categoryQuestions)
+        private void AskQuestionFrom(LinkedList<Question> categoryQuestions)
         {
-            Console.WriteLine(categoryQuestions.First());
+            Console.WriteLine(categoryQuestions.First().text);
             categoryQuestions.RemoveFirst();
         }
 

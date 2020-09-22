@@ -5,22 +5,17 @@ namespace TriviaGame
     public class Category
     {
         public string name { get; set; }
-        public LinkedList<string> questions { get; set; }
+        public LinkedList<Question> questions { get; set; }
 
-        public Category(string name, LinkedList<string> questions)
+        public Category(string name, LinkedList<Question> questions)
         {
             this.name = name;
             this.questions = questions;
         }
 
-        private string CreateQuestionText(int index)
-        {
-            return $"{name} Question " + index;
-        }
-
         public void AddQuestion(int questionIndex)
         {
-            questions.AddLast(CreateQuestionText(questionIndex));
+            questions.AddLast(new Question(name, questionIndex));
         }
     }
 }
