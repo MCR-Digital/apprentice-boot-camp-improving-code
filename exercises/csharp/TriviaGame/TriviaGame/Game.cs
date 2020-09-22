@@ -42,7 +42,7 @@ namespace TriviaGame
             return "Rock Question " + index;
         }
 
-        public bool IsPlayable()
+        public bool IsValidNumberOfPlayers()
         {
             return (HowManyPlayersInCurrentGame() >= 2);
         }
