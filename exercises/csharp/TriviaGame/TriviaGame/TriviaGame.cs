@@ -97,12 +97,12 @@ namespace TriviaGame
 
         private void PlayTurn(int roll)
         {
-            playerLocations[currentPlayerIndex] = playerLocations[currentPlayerIndex] + roll;
-            if (playerLocations[currentPlayerIndex] > 11) playerLocations[currentPlayerIndex] = playerLocations[currentPlayerIndex] - 12;
+            CurrentPlayer().playerLocation = CurrentPlayer().playerLocation + roll;
+            if (CurrentPlayer().playerLocation > 11) CurrentPlayer().playerLocation = CurrentPlayer().playerLocation - 12;
 
             Console.WriteLine(CurrentPlayer().playerName
                     + "'s new location is "
-                    + playerLocations[currentPlayerIndex]);
+                    + CurrentPlayer().playerLocation);
             Console.WriteLine("The category is " + CurrentCategory().name);
             AskQuestionFrom(CurrentCategory().questions);
         }
@@ -115,7 +115,7 @@ namespace TriviaGame
 
         private Category CurrentCategory()
         {
-            int playerLocation = playerLocations[currentPlayerIndex];
+            int playerLocation = CurrentPlayer().playerLocation;
             Category result = rock;
             if (playerLocation % NUMBER_OF_CATEGORIES == 0) result = pop;
             if (playerLocation % NUMBER_OF_CATEGORIES == 1) result = science;
