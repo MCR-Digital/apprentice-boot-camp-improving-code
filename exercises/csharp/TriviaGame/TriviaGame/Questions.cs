@@ -6,13 +6,17 @@ namespace TriviaGame
 {
     public class Questions
     {
-        public LinkedList<string> popQuestions = new LinkedList<string>();
-        public LinkedList<string> scienceQuestions = new LinkedList<string>();
-        public LinkedList<string> sportsQuestions = new LinkedList<string>();
-        public LinkedList<string> rockQuestions = new LinkedList<string>();
+        public LinkedList<string> popQuestions { get; set; }
+        public LinkedList<string> scienceQuestions { get; set; }
+        public LinkedList<string> sportsQuestions { get; set; }
+        public LinkedList<string> rockQuestions { get; set; }
 
         public Questions()
         {
+            popQuestions = new LinkedList<string>();
+            scienceQuestions = new LinkedList<string>();
+            sportsQuestions = new LinkedList<string>();
+            rockQuestions = new LinkedList<string>();
             SeedQuestions();
         }
 

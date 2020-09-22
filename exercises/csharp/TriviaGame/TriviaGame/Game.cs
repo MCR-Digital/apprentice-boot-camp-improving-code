@@ -4,7 +4,7 @@ namespace TriviaGame
 {
     public class Game
     {
-        Questions questions;
+        readonly Questions questions;
         Players players;
 
         public Game(params string[] playerNames)
