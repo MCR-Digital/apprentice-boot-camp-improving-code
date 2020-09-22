@@ -95,7 +95,10 @@ namespace TriviaGame
 
                     playerBoardPositionState[currentPlayer] = UpdatePlayerPositionState(playerBoardPositionState[currentPlayer], rollResult);
 
-                    if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
+                    if (IsPlayerPositionGreaterThanEleven(playerBoardPositionState[currentPlayer]))
+                    {
+                        playerBoardPositionState[currentPlayer] = ResetPlayerToPositionZero(playerBoardPositionState[currentPlayer]);
+                    }
 
                     Console.WriteLine(totalPlayers[currentPlayer]
                             + "'s new location is "
@@ -123,6 +126,17 @@ namespace TriviaGame
                 AskQuestion();
             }
 
+        }
+
+        private int ResetPlayerToPositionZero(int v)
+        {
+            var resetPosition = v - 12;
+            return resetPosition;
+        }
+
+        private bool IsPlayerPositionGreaterThanEleven(int v)
+        {
+            return v > 11 ? true : false;
         }
 
         private static int UpdatePlayerPositionState(int currentPlayerPositionState, int rollResult)
@@ -192,9 +206,7 @@ namespace TriviaGame
                             + " Gold Coins.");
 
                     bool winner = DidPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
-
+                    MoveToNextPlayer();
                     return winner;
                 }
                 else
