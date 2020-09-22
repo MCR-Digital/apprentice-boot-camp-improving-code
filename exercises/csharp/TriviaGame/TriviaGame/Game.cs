@@ -23,12 +23,14 @@ namespace TriviaGame
         string SCIENCE_CATEGORY = "Science";
         string SPORTS_CATEGORY = "Sports";
 
+        int totalQuestions = 50;
+
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
-            for (int gameIndex = 0; gameIndex < 50; gameIndex++)
+            for (int gameIndex = 0; gameIndex < totalQuestions; gameIndex++)
             {
                 popQuestions.AddLast("Pop Question " + gameIndex);
                 scienceQuestions.AddLast(("Science Question " + gameIndex));
