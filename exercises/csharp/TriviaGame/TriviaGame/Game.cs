@@ -35,7 +35,7 @@ namespace TriviaGame
             return players[currentPlayerIndex];
         }
 
-        public void RollDice(int diceResult)
+        public void ProcessRoll(int diceResult)
         {
             currentPlayer = GetCurrentPlayer(currentPlayerIndex);
             Console.WriteLine(currentPlayer.Name + " is the current player");
@@ -43,6 +43,7 @@ namespace TriviaGame
 
             if (currentPlayer.InPenaltyBox)
             {
+                if (IsDiceResultOdd(diceResult))
                 {
                     currentPlayer.GettingOutOfPenaltyBox = true;
                     Console.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
@@ -70,7 +71,9 @@ namespace TriviaGame
                     + "'s new location is "
                     + currentPlayer.Place);
             Console.WriteLine("The category is " + questions.GetCurrentQuestionCategory(currentPlayer.Place));
+        public bool IsDiceResultOdd(int diceResult)
         {
+            return !(diceResult % 2 == 0);
         }
 
         public bool CorrectAnswer()
