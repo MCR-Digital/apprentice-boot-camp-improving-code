@@ -13,4 +13,12 @@ public class Questions {
 
     String questionType;
     LinkedList questions = new LinkedList();
+
+    public LinkedList getQuestions() {
+        return questions;
+    }
+
+    public String getQuestionType() {
+        return questionType;
+    }
 }

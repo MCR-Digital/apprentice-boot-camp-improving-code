@@ -4,7 +4,7 @@ public class Player {
     Boolean isPlayerInPenaltyBox;
     String playerName;
     Integer coinPurse;
-    Integer positionOnBoard;
+    private Integer positionOnBoard;
     Integer playerNumber;
 
     public Boolean getPlayerInPenaltyBox() {
@@ -13,7 +13,7 @@ public class Player {
 
     public void setPlayerInPenaltyBox(Boolean playerInPenaltyBox) {
         System.out.println("Question was incorrectly answered");
-        System.out.println(playerName+ " was sent to the penalty box");
+        System.out.println(playerName + " was sent to the penalty box");
         isPlayerInPenaltyBox = playerInPenaltyBox;
     }
 
@@ -21,20 +21,13 @@ public class Player {
         return playerName;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
     public Integer getCoinPurse() {
-        System.out.println(playerName
-                + " now has "
-                + coinPurse
-                + " Gold Coins.");
+        System.out.println(playerName + " now has " + coinPurse + " Gold Coins.");
         return coinPurse;
     }
 
-    public void setCoinPurse(Integer coinPurse) {
-        this.coinPurse = coinPurse;
+    public void addCoinToPurse() {
+        this.coinPurse = coinPurse+1;
     }
 
     public Integer getPositionOnBoard() {

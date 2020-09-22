@@ -6,15 +6,17 @@ import java.util.List;
 
 public class Game {
     public static final int NUMBER_OF_COINS_TO_WIN = 6;
+    public static final int BOARD_SIZE = 12;
+
     List<Player> playerList = new ArrayList<>();
-    Questions currentQuestions;
-    Questions popQuestions;
-    Questions scienceQuestions;
-    Questions sportsQuestions;
-    Questions rockQuestions;
-    int currentPlayerIndex = 0;
-    Player currentPlayer;
-    boolean isGettingOutOfPenaltyBox;
+    private Questions currentQuestions;
+    private Questions popQuestions;
+    private Questions scienceQuestions;
+    private Questions sportsQuestions;
+    private Questions rockQuestions;
+    private int currentPlayerIndex = 0;
+   private Player currentPlayer;
+    private boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         popQuestions = new Questions("Pop");
@@ -24,12 +26,11 @@ public class Game {
     }
 
 
-
     public boolean addPlayer(String playerName) {
         Player newPlayer = new Player(playerName, playerList.size());
         playerList.add(newPlayer);
         System.out.println(playerName + " was added");
-        System.out.println("They are player number " + (newPlayer.playerNumber + 1));
+        System.out.println("They are player number " + (newPlayer.getPlayerNumber() + 1));
         return true;
     }
 
@@ -51,7 +52,6 @@ public class Game {
     private void isCurrentPlayerGettingOutOfPenaltyBox(int roll) {
         if (roll % 2 != 0) {
             isGettingOutOfPenaltyBox = true;
-
             System.out.println(currentPlayer.getPlayerName() + " is getting out of the penalty box");
             moveCurrentPlayerPosition(roll);
             System.out.println("The category is " + currentCategory());
@@ -63,12 +63,13 @@ public class Game {
     }
 
     private void moveCurrentPlayerPosition(int roll) {
-        currentPlayer.positionOnBoard = currentPlayer.positionOnBoard + roll;
-        if (currentPlayer.positionOnBoard > 11) currentPlayer.positionOnBoard = currentPlayer.positionOnBoard - 12;
+        currentPlayer.setPositionOnBoard(currentPlayer.getPositionOnBoard() + roll);
+        if (currentPlayer.getPositionOnBoard() >= BOARD_SIZE)
+            currentPlayer.setPositionOnBoard(currentPlayer.getPositionOnBoard() - BOARD_SIZE);
 
-        System.out.println(currentPlayer.playerName
+        System.out.println(currentPlayer.getPlayerName()
                 + "'s new location is "
-                + currentPlayer.positionOnBoard);
+                + currentPlayer.getPositionOnBoard());
     }
 
     private void askQuestion() {
@@ -77,40 +78,38 @@ public class Game {
 
 
     private String currentCategory() {
-        if (currentPlayer.positionOnBoard % 4 == 0) {
+        if (currentPlayer.getPositionOnBoard() % 4 == 0) {
             currentQuestions = popQuestions;
-            return popQuestions.questionType;
+            return popQuestions.getQuestionType();
         }
-        if (currentPlayer.positionOnBoard % 4 == 1) {
+        if (currentPlayer.getPositionOnBoard() % 4 == 1) {
             currentQuestions = scienceQuestions;
-            return scienceQuestions.questionType;
+            return scienceQuestions.getQuestionType();
         }
-        if (currentPlayer.positionOnBoard % 4 == 2) {
+        if (currentPlayer.getPositionOnBoard() % 4 == 2) {
             currentQuestions = sportsQuestions;
-
-            return sportsQuestions.questionType;
+            return sportsQuestions.getQuestionType();
         }
         currentQuestions = rockQuestions;
-        return rockQuestions.questionType;
+        return rockQuestions.getQuestionType();
     }
 
     public boolean isCorrectAnswer() {
         if (!currentPlayer.isPlayerInPenaltyBox) {
             System.out.println("Answer was corrent!!!!");
-            return isPlayerNotWinner();
+            return isGameContinuing();
         }
         if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
-            return isPlayerNotWinner();
+            return isGameContinuing();
         }
         chooseNextPlayer();
         return true;
 
     }
 
-
-    private boolean isPlayerNotWinner() {
-        currentPlayer.coinPurse++;
+    private boolean isGameContinuing() {
+        currentPlayer.addCoinToPurse();
         currentPlayer.getCoinPurse();
         chooseNextPlayer();
 
