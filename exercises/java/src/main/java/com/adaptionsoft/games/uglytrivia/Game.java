@@ -41,14 +41,15 @@ public class Game {
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
+
+
         if (inPenaltyBox[currentPlayer]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
                 changePlayerPositions(roll);
-                System.out.println("The category is " + currentCategory());
-                askQuestion();
+                askQuestion(currentCategory());
             } else {
                 System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
@@ -57,8 +58,7 @@ public class Game {
         } else {
 
             changePlayerPositions(roll);
-            System.out.println("The category is " + currentCategory());
-            askQuestion();
+            askQuestion(currentCategory());
         }
 
     }
@@ -75,19 +75,21 @@ public class Game {
 
     }
 
-    private void askQuestion() {
-        if (currentCategory().equals("Pop")) {
+    private void askQuestion(String category) {
+        System.out.println("The category is " + category);
+        if (category.equals("Pop")) {
             System.out.println(questions.getPopQuestions().removeFirst());
         }
-        if (currentCategory().equals("Science")) {
+        if (category.equals("Science")) {
             System.out.println(questions.getScienceQuestions().removeFirst());
         }
-        if (currentCategory().equals("Sports")) {
+        if (category.equals("Sports")) {
             System.out.println(questions.getSportsQuestions().removeFirst());
         }
-        if (currentCategory().equals("Rock")) {
+        if (category.equals("Rock")) {
             System.out.println(questions.getRockQuestions().removeFirst());
         }
+
     }
 
     private String currentCategory() {
