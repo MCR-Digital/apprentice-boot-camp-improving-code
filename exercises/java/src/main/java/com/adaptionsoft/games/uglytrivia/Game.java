@@ -16,8 +16,9 @@ public class Game {
     
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
-    
-    public  Game(){
+	private int maxNumberOfCoins;
+
+	public  Game(){
     	for (int i = 0; i < 50; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
@@ -31,7 +32,8 @@ public class Game {
 	}
 	
 	public boolean isPlayable() {
-		return (numberOfPlayers() >= 2);
+		int minimumNumberOfPlayers = 2;
+		return (numberOfPlayers() >= minimumNumberOfPlayers);
 	}
 
 	public boolean addPlayer(String playerName) {
@@ -94,8 +96,7 @@ public class Game {
 		if (currentCategory() == "Rock")
 			System.out.println(rockQuestions.removeFirst());		
 	}
-	
-	
+
 	private String currentCategory() {
 		if (playerPosition[currentPlayer] == 0) return "Pop";
 		if (playerPosition[currentPlayer] == 4) return "Pop";
@@ -127,6 +128,16 @@ public class Game {
 		}
 	}
 
+	public boolean wrongAnswer(){
+		System.out.println("Question was incorrectly answered");
+		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
+		inPenaltyBox[currentPlayer] = true;
+		
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
+		return true;
+	}
+
 	// Split out and rename this method
 	private boolean updatePlayerCoins() {
 		purses[currentPlayer]++;
@@ -142,18 +153,8 @@ public class Game {
 		return gameShouldContinue;
 	}
 
-	public boolean wrongAnswer(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
-		
-		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
-		return true;
-	}
-
-
 	private boolean gameShouldContinue() {
-		return !(purses[currentPlayer] == 6);
+		maxNumberOfCoins = 6;
+		return !(purses[currentPlayer] == maxNumberOfCoins);
 	}
 }
