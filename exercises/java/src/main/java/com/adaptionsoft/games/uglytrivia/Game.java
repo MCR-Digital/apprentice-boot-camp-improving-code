@@ -152,7 +152,7 @@ public class Game {
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		playerInPenaltyBox[currentPlayer] = true;
+		moveCurrentPlayerInPenaltyBox();
 
 		changePlayer();
 		return true;
@@ -161,6 +161,10 @@ public class Game {
 
 	private boolean didPlayerWin() {
 		return playerPurses[currentPlayer] != 6;
+	}
+
+	private void moveCurrentPlayerInPenaltyBox() {
+		playerInPenaltyBox[currentPlayer] = true;
 	}
 
 	private void changePlayer() {
