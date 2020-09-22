@@ -6,7 +6,7 @@ namespace TriviaGame
 {
     public class Game
     {
-        private const int cardQuestionNumber = 50;
+        private const int CardQuestionNumber = 50;
         List<string> players = new List<string>();
 
         int[] places = new int[6];
@@ -19,12 +19,12 @@ namespace TriviaGame
         LinkedList<string> sportsQuestions = new LinkedList<string>();
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
-        int currentPlayer = 0;
-        bool leavingPenaltyBox;
+        int _currentPlayer = 0;
+        bool _leavingPenaltyBox;
 
         public Game()
         {
-            for (int i = 0; i < cardQuestionNumber; i++)
+            for (int i = 0; i < CardQuestionNumber; i++)
             {
                 popQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
@@ -66,41 +66,41 @@ namespace TriviaGame
 
         public void Roll(int roll)
         {
-            Console.WriteLine(players[currentPlayer] + " is the current player");
+            Console.WriteLine(players[_currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (inPenaltyBox[currentPlayer])
+            if (inPenaltyBox[_currentPlayer])
             {
                 if (roll % 2 != 0)
                 {
-                    leavingPenaltyBox = true;
+                    _leavingPenaltyBox = true;
 
-                    Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    places[currentPlayer] = places[currentPlayer] + roll;
-                    if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                    Console.WriteLine(players[_currentPlayer] + " is getting out of the penalty box");
+                    places[_currentPlayer] = places[_currentPlayer] + roll;
+                    if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
 
-                    Console.WriteLine(players[currentPlayer]
+                    Console.WriteLine(players[_currentPlayer]
                             + "'s new location is "
-                            + places[currentPlayer]);
+                            + places[_currentPlayer]);
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    leavingPenaltyBox = false;
+                    Console.WriteLine(players[_currentPlayer] + " is not getting out of the penalty box");
+                    _leavingPenaltyBox = false;
                 }
 
             }
             else
             {
 
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+                places[_currentPlayer] = places[_currentPlayer] + roll;
+                if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
 
-                Console.WriteLine(players[currentPlayer]
+                Console.WriteLine(players[_currentPlayer]
                         + "'s new location is "
-                        + places[currentPlayer]);
+                        + places[_currentPlayer]);
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
@@ -134,41 +134,44 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            return places[_currentPlayer] switch
+            {
+                0 => "Pop",
+                4 => "Pop",
+                8 => "Pop",
+                1 => "Science",
+                5 => "Science",
+                9 => "Science",
+                2 => "Sports",
+                6 => "Sports",
+                10 => "Sports",
+                _ => "Rock"
+            };
         }
 
         public bool CorrectAnswer()
         {
-            if (inPenaltyBox[currentPlayer])
+            if (inPenaltyBox[_currentPlayer])
             {
-                if (leavingPenaltyBox)
+                if (_leavingPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    playerGoldCoins[currentPlayer]++;
-                    Console.WriteLine(players[currentPlayer]
+                    playerGoldCoins[_currentPlayer]++;
+                    Console.WriteLine(players[_currentPlayer]
                             + " now has "
-                            + playerGoldCoins[currentPlayer]
+                            + playerGoldCoins[_currentPlayer]
                             + " Gold Coins.");
 
                     bool winner = PlayerWon();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    _currentPlayer++;
+                    if (_currentPlayer == players.Count) _currentPlayer = 0;
 
                     return winner;
                 }
                 else
                 {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    _currentPlayer++;
+                    if (_currentPlayer == players.Count) _currentPlayer = 0;
                     return true;
                 }
 
@@ -179,15 +182,15 @@ namespace TriviaGame
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                playerGoldCoins[currentPlayer]++;
-                Console.WriteLine(players[currentPlayer]
+                playerGoldCoins[_currentPlayer]++;
+                Console.WriteLine(players[_currentPlayer]
                         + " now has "
-                        + playerGoldCoins[currentPlayer]
+                        + playerGoldCoins[_currentPlayer]
                         + " Gold Coins.");
 
                 bool winner = PlayerWon();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                _currentPlayer++;
+                if (_currentPlayer == players.Count) _currentPlayer = 0;
 
                 return winner;
             }
@@ -196,18 +199,18 @@ namespace TriviaGame
         public bool IncorrectAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
+            Console.WriteLine(players[_currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[_currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            _currentPlayer++;
+            if (_currentPlayer == players.Count) _currentPlayer = 0;
             return true;
         }
 
 
         private bool PlayerWon()
         {
-            return !(playerGoldCoins[currentPlayer] == 6);
+            return playerGoldCoins[_currentPlayer] != 6;
         }
     }
 
