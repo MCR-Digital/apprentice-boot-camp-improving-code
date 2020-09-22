@@ -118,7 +118,7 @@ namespace TriviaGame
             return result;
         }
 
-        public bool WasQuestionAnsweredCorrectly()
+        public bool CanGameContinueAfterCorrectAnswer()
         {
             bool result;
             if (inPenaltyBox[currentPlayer])

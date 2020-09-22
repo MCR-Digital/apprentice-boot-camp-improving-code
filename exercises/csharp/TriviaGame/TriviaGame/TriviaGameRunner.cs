@@ -28,7 +28,7 @@ namespace TriviaGame
                 }
                 else
                 {
-                    notAWinner = aGame.WasQuestionAnsweredCorrectly();
+                    notAWinner = aGame.CanGameContinueAfterCorrectAnswer();
                 }
 
 
