@@ -8,10 +8,10 @@ namespace TriviaGame
     {
         private readonly List<string> players = new List<string>();
 
-        private readonly int[] places = new int[6];
-        private readonly int[] purses = new int[6];
+        private readonly int[] places = new int[Constants.MaxPlayers];
+        private readonly int[] purses = new int[Constants.MaxPlayers];
 
-        private readonly bool[] inPenaltyBox = new bool[6];
+        private readonly bool[] inPenaltyBox = new bool[Constants.MaxPlayers];
 
         private readonly LinkedList<string> popularQuestions = new LinkedList<string>();
         private readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -55,6 +55,7 @@ namespace TriviaGame
             players.Add(playerName);
             places[NumberOfPlayers] = 0;
             purses[NumberOfPlayers] = 0;
+
             inPenaltyBox[NumberOfPlayers] = false;
 
             Console.WriteLine(playerName + " was added");
