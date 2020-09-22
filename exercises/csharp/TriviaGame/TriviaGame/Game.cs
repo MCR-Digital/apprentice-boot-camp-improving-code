@@ -13,36 +13,40 @@ namespace TriviaGame
         private const int LengthOfBoard = 12;
         private const int FirstPlayer = 0;
         private const int NumberOfQuestions = 50;
-
-        private readonly List<string> _gamePlayers = new List<string>();
-
+        private readonly int[] _popSpaces = {0, 4, 8};
+        private readonly int[] _scienceSpaces = {1, 5, 9};
+        private readonly int[] _sportSpaces = {2, 6, 10};
+        private readonly int[] _rockSpaces = {3, 7, 11};
+        
+        private readonly List<Player> _gamePlayers = new List<Player>();
+        private int numberOfPlayers = 0;
         private readonly int[] _playerPositions = new int[MaxPlayers];
         private readonly int[] _playerPurses = new int[MaxPlayers];
-
         private readonly bool[] _inPenaltyBox = new bool[MaxPlayers];
 
-        private readonly LinkedList<string> _popQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _scienceQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _sportsQuestions = new LinkedList<string>();
-        private readonly LinkedList<string> _rockQuestions = new LinkedList<string>();
-
-        private int _currentPlayer;
+        private int _currentPlayerIndex;
         private bool _playerCanAnswerQuestion;
+        private string _currentPlayerName;
+        private readonly ScienceQuestion _scienceQuestion;
+        private RockQuestion _rockQuestion;
+        private SportsQuestion _sportsQuestion;
+        private PopQuestion _popQuestion;
+
 
         public Game()
         {
+            _scienceQuestion = new ScienceQuestion();
+            _rockQuestion = new RockQuestion();
+            _sportsQuestion = new SportsQuestion();
+            _popQuestion = new PopQuestion();
+
             for (int i = 0; i < NumberOfQuestions; i++)
             {
-                AddDefaultQuestions(i);
+                _scienceQuestion.Questions.AddLast($"Science Question {i}");
+                _popQuestion.Questions.AddLast($"Pop Question {i}");
+                _sportsQuestion.Questions.AddLast($"Sports Question {i}");
+                _rockQuestion.Questions.AddLast($"Rock Question {i}");
             }
-        }
-
-        private void AddDefaultQuestions(int i)
-        {
-            _popQuestions.AddLast($"Pop Question {i}");
-            _scienceQuestions.AddLast($"Science Question {i}");
-            _sportsQuestions.AddLast($"Sports Question {i}");
-            _rockQuestions.AddLast($"Rock Question {i}");
         }
 
         public bool IsPlayable()
@@ -52,7 +56,8 @@ namespace TriviaGame
 
         public bool AddPlayer(string playerName)
         {
-            _gamePlayers.Add(playerName);
+            var newPLayer = new Player(playerName);
+            _gamePlayers.Add(newPLayer);
             _playerPositions[_gamePlayers.Count] = 0;
             _playerPurses[_gamePlayers.Count] = 0;
             _inPenaltyBox[_gamePlayers.Count] = false;
@@ -64,15 +69,15 @@ namespace TriviaGame
 
         public void Roll(int roll)
         {
-            var playerName = _gamePlayers[_currentPlayer];
-            Console.WriteLine($"{playerName} is the current player");
+            _currentPlayerName = _gamePlayers[_currentPlayerIndex].Name;
+            Console.WriteLine($"{_currentPlayerName} is the current player");
             Console.WriteLine($"They have rolled a {roll}");
 
-            if (_inPenaltyBox[_currentPlayer])
+            if (_inPenaltyBox[_currentPlayerIndex])
             {
                 if (CanLeavePenaltyBox(roll))
                 {
-                    MovePlayer(roll, playerName, true);
+                    MovePlayer(roll, _currentPlayerName, true);
                     AskQuestion();
                 }
                 else
@@ -83,7 +88,7 @@ namespace TriviaGame
             }
             else
             {
-                MovePlayer(roll, playerName);
+                MovePlayer(roll, _currentPlayerName);
                 AskQuestion();
             }
         }
@@ -96,20 +101,20 @@ namespace TriviaGame
             {
                 WritePenaltyBoxMessage(_playerCanAnswerQuestion);
             }
-            _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] + roll;
-            if (_playerPositions[_currentPlayer] > EndOfBoard)
+            _playerPositions[_currentPlayerIndex] = _playerPositions[_currentPlayerIndex] + roll;
+            if (_playerPositions[_currentPlayerIndex] > EndOfBoard)
             {
-                _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
+                _playerPositions[_currentPlayerIndex] = _playerPositions[_currentPlayerIndex] - LengthOfBoard;
             }
 
-            Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayer]}");
+            Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayerIndex]}");
             Console.WriteLine($"The category is {CurrentCategory()}");
         }
 
         private void WritePenaltyBoxMessage(bool gettingOut = false)
         {
             Console.WriteLine(
-                $"{_gamePlayers[_currentPlayer]} {(gettingOut ? "is" : "is not")} getting out of the penalty box");
+                $"{_currentPlayerName} {(gettingOut ? "is" : "is not")} getting out of the penalty box");
         }
 
         private static bool CanLeavePenaltyBox(int roll)
@@ -121,26 +126,26 @@ namespace TriviaGame
         {
             if (CurrentCategory() == Category.Pop)
             {
-                Console.WriteLine(_popQuestions.First());
-                _popQuestions.RemoveFirst();
+                Console.WriteLine(_popQuestion.Questions.First());
+                _popQuestion.Questions.RemoveFirst();
             }
 
             if (CurrentCategory() == Category.Science)
             {
-                Console.WriteLine(_scienceQuestions.First());
-                _scienceQuestions.RemoveFirst();
+                Console.WriteLine(_scienceQuestion.Questions.First());
+                _scienceQuestion.Questions.RemoveFirst();
             }
 
             if (CurrentCategory() == Category.Sports)
             {
-                Console.WriteLine(_sportsQuestions.First());
-                _sportsQuestions.RemoveFirst();
+                Console.WriteLine(_sportsQuestion.Questions.First());
+                _sportsQuestion.Questions.RemoveFirst();
             }
 
             if (CurrentCategory() == Category.Rock)
             {
-                Console.WriteLine(_rockQuestions.First());
-                _rockQuestions.RemoveFirst();
+                Console.WriteLine(_rockQuestion.Questions.First());
+                _rockQuestion.Questions.RemoveFirst();
             }
         }
 
@@ -168,37 +173,37 @@ namespace TriviaGame
 
         private int CurrentPlayerPosition()
         {
-            return _playerPositions[_currentPlayer];
+            return _playerPositions[_currentPlayerIndex];
         }
 
         public bool WasCorrectlyAnswered()
         {
             bool winner;
-            if (_inPenaltyBox[_currentPlayer])
+            if (_inPenaltyBox[_currentPlayerIndex])
             {
                 if (_playerCanAnswerQuestion)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    _playerPurses[_currentPlayer]++;
+                    _playerPurses[_currentPlayerIndex]++;
                     PrintCurrentPlayerCoins();
                     winner = DidPlayerWin();
-                    _currentPlayer++;
+                    _currentPlayerIndex++;
                     CheckPlayerWrapAround();
 
                     return winner;
                 }
                 
-                _currentPlayer++;
+                _currentPlayerIndex++;
                 CheckPlayerWrapAround();
                 return true;
             }
             
             Console.WriteLine("Answer was corrent!!!!");
-            _playerPurses[_currentPlayer]++;
+            _playerPurses[_currentPlayerIndex]++;
             PrintCurrentPlayerCoins();
             
             winner = DidPlayerWin();
-            _currentPlayer++;
+            _currentPlayerIndex++;
             CheckPlayerWrapAround();
 
             return winner;
@@ -206,25 +211,25 @@ namespace TriviaGame
 
         private void CheckPlayerWrapAround()
         {
-            if (_currentPlayer == _gamePlayers.Count)
+            if (_currentPlayerIndex == _gamePlayers.Count)
             {
-                _currentPlayer = FirstPlayer;
+                _currentPlayerIndex = FirstPlayer;
             }
         }
 
         private void PrintCurrentPlayerCoins()
         {
             Console.WriteLine(
-                $"{_gamePlayers[_currentPlayer]} now has {_playerPurses[_currentPlayer]} Gold Coins.");
+                $"{_currentPlayerName} now has {_playerPurses[_currentPlayerIndex]} Gold Coins.");
         }
 
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine($"{_gamePlayers[_currentPlayer]} was sent to the penalty box");
-            _inPenaltyBox[_currentPlayer] = true;
+            Console.WriteLine($"{_currentPlayerName} was sent to the penalty box");
+            _inPenaltyBox[_currentPlayerIndex] = true;
 
-            _currentPlayer++;
+            _currentPlayerIndex++;
             CheckPlayerWrapAround();
             return true;
         }
@@ -232,7 +237,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return _playerPurses[_currentPlayer] != WinningScore;
+            return _playerPurses[_currentPlayerIndex] != WinningScore;
         }
     }
 }

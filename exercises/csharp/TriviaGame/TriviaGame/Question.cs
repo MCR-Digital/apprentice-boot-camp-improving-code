@@ -1,36 +1,28 @@
-﻿namespace TriviaGame
+﻿using System.Collections.Generic;
+
+namespace TriviaGame
 {
     public abstract class Question
     {
-        public string Name;
-        public Question(string name)
-        {
-            Name = name;
-        }
+        public LinkedList<string> Questions { get; } = new LinkedList<string>();
+
     }
 
     public class ScienceQuestion : Question
     {
-        public ScienceQuestion(string name) : base(name)
-        {
-        }
+        public static int[] ScienceSpaces { get; set; }
+
     }    
     public class PopQuestion : Question
     {
-        public PopQuestion(string name) : base(name)
-        {
-        }
+    
     }    
     public class SportsQuestion : Question
     {
-        public SportsQuestion(string name) : base(name)
-        {
-        }
+
     }    
     public class RockQuestion : Question
     {
-        public RockQuestion(string name) : base(name)
-        {
-        }
+
     }
 }
