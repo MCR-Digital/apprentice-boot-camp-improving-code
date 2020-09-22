@@ -38,9 +38,9 @@ namespace TriviaGame
             }
         }
 
-        public string CreateQuestionText(string category, int index)
+        public string CreateQuestionText(string categoryName, int index)
         {
-            return $"{category} Question " + index;
+            return $"{categoryName} Question " + index;
         }
 
         public bool IsGamePlayable()
@@ -103,28 +103,13 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayer]
                     + "'s new location is "
                     + playerLocations[currentPlayer]);
-            Console.WriteLine("The category is " + CurrentCategory());
+            Console.WriteLine("The category is " + CurrentCategory().name);
             AskQuestion();
         }
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == POP_CATEGORY)
-            {
-                AskQuestionFrom(pop.questions);
-            }
-            if (CurrentCategory() == SCIENCE_CATEGORY)
-            {
-                AskQuestionFrom(science.questions);
-            }
-            if (CurrentCategory() == SPORTS_CATEGORY)
-            {
-                AskQuestionFrom(sports.questions);
-            }
-            if (CurrentCategory() == ROCK_CATEGORY)
-            {
-                AskQuestionFrom(rock.questions);
-            }
+            AskQuestionFrom(CurrentCategory().questions);
         }
 
         private void AskQuestionFrom(LinkedList<string> categoryQuestions)
@@ -133,13 +118,13 @@ namespace TriviaGame
             categoryQuestions.RemoveFirst();
         }
 
-        private string CurrentCategory()
+        private Category CurrentCategory()
         {
             int playerLocation = playerLocations[currentPlayer];
-            string result = ROCK_CATEGORY;
-            if (playerLocation % NUMBER_OF_CATEGORIES == 0) result = POP_CATEGORY;
-            if (playerLocation % NUMBER_OF_CATEGORIES == 1) result = SCIENCE_CATEGORY;
-            if (playerLocation % NUMBER_OF_CATEGORIES == 2) result = SPORTS_CATEGORY;
+            Category result = rock;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 0) result = pop;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 1) result = science;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 2) result = sports;
             return result;
         }
 
