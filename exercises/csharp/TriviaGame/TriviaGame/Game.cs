@@ -113,17 +113,17 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (SubjectOfQuestion() == "Pop")
+            if (SubjectOfQuestion() == POP_CATEGORY)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (SubjectOfQuestion() == "Science")
+            if (SubjectOfQuestion() == SCIENCE_CATEGORY)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (SubjectOfQuestion() == "Sports")
+            if (SubjectOfQuestion() == SPORTS_CATEGORY)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
@@ -136,18 +136,13 @@ namespace TriviaGame
         }
 
 
+
         private string SubjectOfQuestion()
         {
             int positionOnBoard = places[currentPlayer];
-            if (positionOnBoard == 0) return POP_CATEGORY;
-            if (positionOnBoard == 4) return POP_CATEGORY;
-            if (positionOnBoard == 8) return POP_CATEGORY;
-            if (positionOnBoard == 1) return SCIENCE_CATEGORY;
-            if (positionOnBoard == 5) return SCIENCE_CATEGORY;
-            if (positionOnBoard == 9) return SCIENCE_CATEGORY;
-            if (positionOnBoard == 2) return SPORTS_CATEGORY;
-            if (positionOnBoard == 6) return SPORTS_CATEGORY;
-            if (positionOnBoard == 10) return SPORTS_CATEGORY;
+            if ((positionOnBoard == 0) || (positionOnBoard == 4) || (positionOnBoard == 8))  return POP_CATEGORY;            
+            if ((positionOnBoard == 1) || (positionOnBoard == 5) || (positionOnBoard == 9)) return SCIENCE_CATEGORY;            
+            if ((positionOnBoard == 2) || (positionOnBoard == 6) || (positionOnBoard == 10)) return SPORTS_CATEGORY;          
             return "Rock";
         }
 
