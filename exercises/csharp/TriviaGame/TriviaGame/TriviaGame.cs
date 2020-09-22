@@ -60,7 +60,7 @@ namespace TriviaGame
 
         public void RollDice(int roll)
         {
-            Console.WriteLine(players[currentPlayerIndex].name + " is the current player");
+            Console.WriteLine(CurrentPlayer().name + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
             if (CurrentPlayer().isInPenaltyBox)
