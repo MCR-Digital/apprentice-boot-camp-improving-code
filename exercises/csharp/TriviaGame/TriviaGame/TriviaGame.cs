@@ -14,7 +14,7 @@ namespace TriviaGame
         private const string SCIENCE_CATEGORY = "Science";
         private const string SPORTS_CATEGORY = "Sports";
         private const string ROCK_CATEGORY = "Rock";
-        List<Player> players = new List<Player>();
+        readonly List<Player> players = new List<Player>();
 
         private readonly Category pop = new Category(POP_CATEGORY, new LinkedList<Question>());
         private readonly Category science = new Category(SCIENCE_CATEGORY, new LinkedList<Question>());
@@ -182,7 +182,10 @@ namespace TriviaGame
         private void ChangeCurrentPlayer()
         {
             currentPlayerIndex++;
-            if (currentPlayerIndex == NumberOfPlayers()) currentPlayerIndex = 0;
+            if (currentPlayerIndex == NumberOfPlayers())
+            {
+                currentPlayerIndex = 0;
+            }
         }
 
         private bool CanGameContinue()
