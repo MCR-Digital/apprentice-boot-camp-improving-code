@@ -148,10 +148,10 @@ namespace TriviaGame
         private void CorrectAnswer(string answerMessage)
         {
             Console.WriteLine(answerMessage);
-            playerPurses[currentPlayerIndex]++;
+            CurrentPlayer().playerPurse++;
             Console.WriteLine(CurrentPlayer().playerName
                     + " now has "
-                    + playerPurses[currentPlayerIndex]
+                    + CurrentPlayer().playerPurse
                     + " Gold Coins.");
         }
 
@@ -172,7 +172,7 @@ namespace TriviaGame
 
         private bool CanGameContinue()
         {
-            return !(playerPurses[currentPlayerIndex] == WINNING_SCORE);
+            return !(CurrentPlayer().playerPurse == WINNING_SCORE);
         }
     }
 
