@@ -101,8 +101,7 @@ namespace TriviaGame
                         + " Gold Coins.");
 
                 bool isPlayerWinner = currentPlayer.DidPlayerWin();
-                currentPlayerIndex++;
-                if (currentPlayerIndex == GetPlayerCount()) currentPlayerIndex = 0;
+                NextPlayer();
 
                 return isPlayerWinner;
             }
