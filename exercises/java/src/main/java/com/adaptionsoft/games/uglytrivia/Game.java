@@ -3,7 +3,6 @@ package com.adaptionsoft.games.uglytrivia;
 import com.adaptionsoft.games.player.Player;
 import com.adaptionsoft.games.question.Questions;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
 
@@ -158,7 +157,7 @@ public class Game {
     }
 
     private boolean didPlayerWin() {
-        return !(getPlayer(currentPlayer).getCollectedCoins() == 6);
+        return (getPlayer(currentPlayer).getCollectedCoins() != 6);
     }
 
     private Player getPlayer(int currentPlayer) {
