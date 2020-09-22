@@ -99,7 +99,10 @@ namespace TriviaGame
         private void PlayTurn(int roll)
         {
             currentPlayer.location = currentPlayer.location + roll;
-            if (currentPlayer.location > 11) currentPlayer.location = currentPlayer.location - 12;
+            if (currentPlayer.location > 11)
+            {
+                currentPlayer.location = currentPlayer.location - 12;
+            }
 
             Console.WriteLine(currentPlayer.name
                     + "'s new location is "
@@ -118,9 +121,18 @@ namespace TriviaGame
         {
             int playerLocation = currentPlayer.location;
             Category result = rock;
-            if (playerLocation % NUMBER_OF_CATEGORIES == 0) result = pop;
-            if (playerLocation % NUMBER_OF_CATEGORIES == 1) result = science;
-            if (playerLocation % NUMBER_OF_CATEGORIES == 2) result = sports;
+            if (playerLocation % NUMBER_OF_CATEGORIES == 0)
+            {
+                result = pop;
+            }
+            if (playerLocation % NUMBER_OF_CATEGORIES == 1)
+            {
+                result = science;
+            }
+            if (playerLocation % NUMBER_OF_CATEGORIES == 2)
+            {
+                result = sports;
+            }
             return result;
         }
 
@@ -175,7 +187,7 @@ namespace TriviaGame
 
         private bool CanGameContinue()
         {
-            return !(currentPlayer.purse == WINNING_SCORE);
+            return currentPlayer.purse != WINNING_SCORE;
         }
     }
 
