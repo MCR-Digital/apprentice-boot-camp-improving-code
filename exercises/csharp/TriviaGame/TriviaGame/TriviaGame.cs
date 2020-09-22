@@ -190,7 +190,7 @@ namespace TriviaGame
         private void ChangeCurrentPlayer()
         {
             currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            if (currentPlayer == NumberOfPlayers()) currentPlayer = 0;
         }
 
         private bool CanGameContinue()
