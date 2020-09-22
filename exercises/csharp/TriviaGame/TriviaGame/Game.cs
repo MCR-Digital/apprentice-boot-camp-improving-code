@@ -19,17 +19,23 @@ namespace TriviaGame
         LinkedList<string> sportsQuestions = new LinkedList<string>();
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
+        string POP_CATEGORY = "Pop";
+        string SCIENCE_CATEGORY = "Science";
+        string SPORTS_CATEGORY = "Sports";
+
+        int totalQuestions = 50;
+
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int gameIndex = 0; gameIndex < totalQuestions; gameIndex++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
+                popQuestions.AddLast("Pop Question " + gameIndex);
+                scienceQuestions.AddLast(("Science Question " + gameIndex));
+                sportsQuestions.AddLast(("Sports Question " + gameIndex));
+                rockQuestions.AddLast(CreateRockQuestion(gameIndex));
             }
         }
 
@@ -40,7 +46,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (HowManyPlayers() >= 2);
+            return (NumberOfPlayers() >= 2);
         }
 
         public bool Add(string playerName)
@@ -48,16 +54,16 @@ namespace TriviaGame
 
 
             players.Add(playerName);
-            places[HowManyPlayers()] = 0;
-            purses[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            places[NumberOfPlayers()] = 0;
+            purses[NumberOfPlayers()] = 0;
+            inPenaltyBox[NumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
         }
 
-        public int HowManyPlayers()
+        public int NumberOfPlayers()
         {
             return players.Count;
         }
@@ -80,7 +86,7 @@ namespace TriviaGame
                     Console.WriteLine(players[currentPlayer]
                             + "'s new location is "
                             + places[currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
+                    Console.WriteLine("The category is " + SubjectOfQuestion());
                     AskQuestion();
                 }
                 else
@@ -99,7 +105,7 @@ namespace TriviaGame
                 Console.WriteLine(players[currentPlayer]
                         + "'s new location is "
                         + places[currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
+                Console.WriteLine("The category is " + SubjectOfQuestion());
                 AskQuestion();
             }
 
@@ -107,22 +113,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            if (SubjectOfQuestion() == POP_CATEGORY)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Science")
+            if (SubjectOfQuestion() == SCIENCE_CATEGORY)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Sports")
+            if (SubjectOfQuestion() == SPORTS_CATEGORY)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (CurrentCategory() == "Rock")
+            if (SubjectOfQuestion() == "Rock")
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -130,17 +136,13 @@ namespace TriviaGame
         }
 
 
-        private string CurrentCategory()
+
+        private string SubjectOfQuestion()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
+            int positionOnBoard = places[currentPlayer];
+            if ((positionOnBoard == 0) || (positionOnBoard == 4) || (positionOnBoard == 8))  return POP_CATEGORY;            
+            if ((positionOnBoard == 1) || (positionOnBoard == 5) || (positionOnBoard == 9)) return SCIENCE_CATEGORY;            
+            if ((positionOnBoard == 2) || (positionOnBoard == 6) || (positionOnBoard == 10)) return SPORTS_CATEGORY;          
             return "Rock";
         }
 
