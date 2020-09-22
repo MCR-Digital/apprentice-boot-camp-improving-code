@@ -8,6 +8,8 @@ namespace TriviaGame
     {
         private const int WINNING_SCORE = 6;
         private const int NUMBER_OF_CATEGORIES = 4;
+        private const int NUMBER_OF_QUESTIONS_PER_CATEGORY = 50;
+        private const int MINIMUM_NUMBER_OF_PLAYERS = 2;
         private const string POP_CATEGORY = "Pop";
         private const string SCIENCE_CATEGORY = "Science";
         private const string SPORTS_CATEGORY = "Sports";
@@ -23,7 +25,7 @@ namespace TriviaGame
 
         public TriviaGame()
         {
-            for (int questionIndex = 0; questionIndex < 50; questionIndex++)
+            for (int questionIndex = 0; questionIndex < NUMBER_OF_QUESTIONS_PER_CATEGORY; questionIndex++)
             {
                 pop.AddQuestion(questionIndex);
                 science.AddQuestion(questionIndex);
@@ -34,7 +36,7 @@ namespace TriviaGame
 
         public bool IsGamePlayable()
         {
-            return (NumberOfPlayers() >= 2);
+            return (NumberOfPlayers() >= MINIMUM_NUMBER_OF_PLAYERS);
         }
 
         public bool AddPlayer(string playerName)
