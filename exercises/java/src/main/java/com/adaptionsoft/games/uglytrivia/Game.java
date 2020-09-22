@@ -9,8 +9,6 @@ public class Game {
 
     private final Questions questions = new Questions();
     private final ArrayList<Player> players = new ArrayList<>();
-    private final boolean[] inPenaltyBox = new boolean[6];
-
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
@@ -36,18 +34,18 @@ public class Game {
     }
 
     public void rollDice(int roll) {
-        System.out.println(getPlayerName(currentPlayer) + " is the current player");
+        System.out.println(getPlayer(currentPlayer).getName() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
         if (getPlayer(currentPlayer).isInPenaltyBox()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
-                System.out.println(getPlayerName(currentPlayer) + " is getting out of the penalty box");
+                System.out.println(getPlayer(currentPlayer).getName() + " is getting out of the penalty box");
                 changePlayerPositions(roll);
                 askQuestion(currentCategory(getPlayer(currentPlayer).getPosition()));
             } else {
-                System.out.println(getPlayerName(currentPlayer) + " is not getting out of the penalty box");
+                System.out.println(getPlayer(currentPlayer).getName() + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
 
@@ -64,7 +62,7 @@ public class Game {
             getPlayer(currentPlayer).setPosition(getPlayer(currentPlayer).getPosition() - 12);
         }
 
-        System.out.println(getPlayerName(currentPlayer)
+        System.out.println(getPlayer(currentPlayer).getName()
                 + "'s new location is "
                 + getPlayer(currentPlayer).getPosition());
 
@@ -130,7 +128,7 @@ public class Game {
 
     private void giveCoinToPlayer() {
         getPlayer(currentPlayer).setCollectedCoins(getPlayer(currentPlayer).getCollectedCoins() + 1);
-        System.out.println(getPlayerName(currentPlayer)
+        System.out.println(getPlayer(currentPlayer).getName()
                 + " now has "
                 + getPlayer(currentPlayer).getCollectedCoins()
                 + " Gold Coins.");
@@ -149,7 +147,7 @@ public class Game {
 
     public boolean wrongAnswer() {
         System.out.println("Question was incorrectly answered");
-        System.out.println(getPlayerName(currentPlayer) + " was sent to the penalty box");
+        System.out.println(getPlayer(currentPlayer).getName() + " was sent to the penalty box");
         getPlayer(currentPlayer).setInPenaltyBox(true);
 
         currentPlayer++;
@@ -161,10 +159,6 @@ public class Game {
 
     private boolean didPlayerWin() {
         return !(getPlayer(currentPlayer).getCollectedCoins() == 6);
-    }
-
-    private String getPlayerName(int currentPlayer) {
-        return getPlayer(currentPlayer).getName();
     }
 
     private Player getPlayer(int currentPlayer) {
