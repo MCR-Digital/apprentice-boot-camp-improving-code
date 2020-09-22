@@ -24,6 +24,10 @@ public class Player {
     }
 
     public Integer getCoinPurse() {
+        System.out.println(playerName
+                + " now has "
+                + coinPurse
+                + " Gold Coins.");
         return coinPurse;
     }
 

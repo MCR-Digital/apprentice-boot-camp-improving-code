@@ -16,6 +16,7 @@ public class Game {
 	LinkedList rockQuestions = new LinkedList();
 
 	int currentPlayerIndex = 0;
+	Player currentPlayer;
 	boolean isGettingOutOfPenaltyBox;
 
 	public  Game(){
@@ -40,15 +41,12 @@ public class Game {
 		return true;
 	}
 
-	public int howManyPlayers() {
-		return playerList.size();
-	}
-
 	public void roll(int roll) {
-		System.out.println(playerList.get(currentPlayerIndex).playerName + " is the current player");
+		currentPlayer = playerList.get(currentPlayerIndex);
+		System.out.println(currentPlayer.playerName + " is the current player");
 		System.out.println("They have rolled a " + roll);
 
-		if (playerList.get(currentPlayerIndex).isPlayerInPenaltyBox) {
+		if (currentPlayer.isPlayerInPenaltyBox) {
 			isCurrentPlayerGettingOutOfPenaltyBox(roll);
 
 		} else {
@@ -64,23 +62,23 @@ public class Game {
 		if (roll % 2 != 0) {
 			isGettingOutOfPenaltyBox = true;
 
-			System.out.println(playerList.get(currentPlayerIndex).playerName + " is getting out of the penalty box");
+			System.out.println(currentPlayer.playerName + " is getting out of the penalty box");
 			moveCurrentPlayerPosition(roll);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		} else {
-			System.out.println(playerList.get(currentPlayerIndex).playerName + " is not getting out of the penalty box");
+			System.out.println(currentPlayer.playerName + " is not getting out of the penalty box");
 			isGettingOutOfPenaltyBox = false;
 		}
 	}
 
 	private void moveCurrentPlayerPosition(int roll) {
-		playerList.get(currentPlayerIndex).positionOnBoard = playerList.get(currentPlayerIndex).positionOnBoard + roll;
-		if (playerList.get(currentPlayerIndex).positionOnBoard  > 11) playerList.get(currentPlayerIndex).positionOnBoard  = playerList.get(currentPlayerIndex).positionOnBoard  - 12;
+		currentPlayer.positionOnBoard = currentPlayer.positionOnBoard + roll;
+		if (currentPlayer.positionOnBoard  > 11) currentPlayer.positionOnBoard  = currentPlayer.positionOnBoard  - 12;
 
-		System.out.println(playerList.get(currentPlayerIndex).playerName
+		System.out.println(currentPlayer.playerName
 				+ "'s new location is "
-				+ playerList.get(currentPlayerIndex).positionOnBoard );
+				+ currentPlayer.positionOnBoard );
 	}
 
 	private void askQuestion() {
@@ -96,15 +94,15 @@ public class Game {
 
 
 	private String currentCategory() {
-		if (playerList.get(currentPlayerIndex).positionOnBoard %4 == 0) return "Pop";
-		if (playerList.get(currentPlayerIndex).positionOnBoard %4 == 1) return "Science";
-		if (playerList.get(currentPlayerIndex).positionOnBoard %4 == 2) return "Sports";
+		if (currentPlayer.positionOnBoard %4 == 0) return "Pop";
+		if (currentPlayer.positionOnBoard %4 == 1) return "Science";
+		if (currentPlayer.positionOnBoard %4 == 2) return "Sports";
 
 		return "Rock";
 	}
 
 	public boolean isCorrectAnswer() {
-		if (playerList.get(currentPlayerIndex).isPlayerInPenaltyBox ){
+		if (currentPlayer.isPlayerInPenaltyBox ){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 				return isPlayerWinner();
@@ -122,11 +120,8 @@ public class Game {
 	}
 
 	private boolean isPlayerWinner() {
-		playerList.get(currentPlayerIndex).coinPurse++;
-		System.out.println(playerList.get(currentPlayerIndex).playerName
-				+ " now has "
-				+ playerList.get(currentPlayerIndex).coinPurse
-				+ " Gold Coins.");
+		currentPlayer.coinPurse++;
+currentPlayer.getCoinPurse();
 
 		boolean winner = didPlayerNotWin();
 		chooseNextPlayer();
@@ -136,8 +131,8 @@ public class Game {
 
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(playerList.get(currentPlayerIndex).playerName+ " was sent to the penalty box");
-		playerList.get(currentPlayerIndex).isPlayerInPenaltyBox = true;
+		System.out.println(currentPlayer.playerName+ " was sent to the penalty box");
+		currentPlayer.isPlayerInPenaltyBox = true;
 
 		chooseNextPlayer();
 		return true;
@@ -150,6 +145,6 @@ public class Game {
 
 
 	private boolean didPlayerNotWin() {
-		return !(playerList.get(currentPlayerIndex).coinPurse == NUMBER_OF_COINS_TO_WIN);
+		return !(currentPlayer.coinPurse == NUMBER_OF_COINS_TO_WIN);
 	}
 }
