@@ -14,8 +14,6 @@ namespace TriviaGame
         private const string ROCK_CATEGORY = "Rock";
         List<Player> players = new List<Player>();
 
-        bool[] inPenaltyBox = new bool[6];
-
         private readonly Category pop = new Category(POP_CATEGORY, new LinkedList<string>());
         private readonly Category science = new Category(SCIENCE_CATEGORY, new LinkedList<string>());
         private readonly Category sports = new Category(SPORTS_CATEGORY, new LinkedList<string>());
@@ -43,7 +41,6 @@ namespace TriviaGame
         public bool AddPlayer(string playerName)
         {
             players.Add(new Player(playerName));
-            inPenaltyBox[NumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
