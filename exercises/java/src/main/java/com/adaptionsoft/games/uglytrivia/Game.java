@@ -7,21 +7,20 @@ import java.util.List;
 public class Game {
     public static final int NUMBER_OF_COINS_TO_WIN = 6;
     List<Player> playerList = new ArrayList<>();
-    Questions questionType;
-    Questions popQuestionList;
-    Questions scienceQuestionList;
-    Questions sportsQuestionList;
-    Questions rockQuestionList;
+    Questions currentQuestions;
+    Questions popQuestions;
+    Questions scienceQuestions;
+    Questions sportsQuestions;
+    Questions rockQuestions;
     int currentPlayerIndex = 0;
     Player currentPlayer;
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        popQuestionList = new Questions("Pop");
-        sportsQuestionList = new Questions("Sports");
-        scienceQuestionList = new Questions("Science");
-        rockQuestionList = new Questions("Rock");
-
+        popQuestions = new Questions("Pop");
+        sportsQuestions = new Questions("Sports");
+        scienceQuestions = new Questions("Science");
+        rockQuestions = new Questions("Rock");
     }
 
 
@@ -41,9 +40,7 @@ public class Game {
 
         if (currentPlayer.isPlayerInPenaltyBox) {
             isCurrentPlayerGettingOutOfPenaltyBox(roll);
-
         } else {
-
             moveCurrentPlayerPosition(roll);
             System.out.println("The category is " + currentCategory());
             askQuestion();
@@ -75,36 +72,36 @@ public class Game {
     }
 
     private void askQuestion() {
-        System.out.println(questionType.questions.removeFirst());
+        System.out.println(currentQuestions.questions.removeFirst());
     }
 
 
     private String currentCategory() {
         if (currentPlayer.positionOnBoard % 4 == 0) {
-            questionType = popQuestionList;
-            return popQuestionList.questionType;
+            currentQuestions = popQuestions;
+            return popQuestions.questionType;
         }
         if (currentPlayer.positionOnBoard % 4 == 1) {
-            questionType = scienceQuestionList;
-            return scienceQuestionList.questionType;
+            currentQuestions = scienceQuestions;
+            return scienceQuestions.questionType;
         }
         if (currentPlayer.positionOnBoard % 4 == 2) {
-            questionType = sportsQuestionList;
+            currentQuestions = sportsQuestions;
 
-            return sportsQuestionList.questionType;
+            return sportsQuestions.questionType;
         }
-        questionType = rockQuestionList;
-        return rockQuestionList.questionType;
+        currentQuestions = rockQuestions;
+        return rockQuestions.questionType;
     }
 
     public boolean isCorrectAnswer() {
         if (!currentPlayer.isPlayerInPenaltyBox) {
             System.out.println("Answer was corrent!!!!");
-            return isPlayerWinner();
+            return isPlayerNotWinner();
         }
         if (isGettingOutOfPenaltyBox) {
             System.out.println("Answer was correct!!!!");
-            return isPlayerWinner();
+            return isPlayerNotWinner();
         }
         chooseNextPlayer();
         return true;
@@ -112,16 +109,15 @@ public class Game {
     }
 
 
-    private boolean isPlayerWinner() {
+    private boolean isPlayerNotWinner() {
         currentPlayer.coinPurse++;
         currentPlayer.getCoinPurse();
-        boolean winner = didPlayerNotWin();
         chooseNextPlayer();
 
-        return winner;
+        return didPlayerNotWin();
     }
 
-    public boolean wrongAnswer() {
+    public boolean isIncorrectAnswer() {
         currentPlayer.setPlayerInPenaltyBox(true);
         chooseNextPlayer();
         return true;
