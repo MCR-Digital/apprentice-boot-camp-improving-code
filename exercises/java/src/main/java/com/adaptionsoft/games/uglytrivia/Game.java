@@ -105,28 +105,35 @@ public class Game {
 	}
 
 	private void askQuestion() {
-    	//CASE?
 		switch (currentCategory()){
-			case Pop: displayMessage(popQuestions.removeFirst()); break;
-			case Science: displayMessage(scienceQuestions.removeFirst()); break;
-			case Sports: displayMessage(sportsQuestions.removeFirst()); break;
-			case Rock: displayMessage(rockQuestions.removeFirst()); break;
+			case Pop: displayMessage(popQuestions.removeFirst());
+				break;
+			case Science: displayMessage(scienceQuestions.removeFirst());
+				break;
+			case Sports: displayMessage(sportsQuestions.removeFirst());
+				break;
+			case Rock: displayMessage(rockQuestions.removeFirst());
+				break;
 		}
 	}
 	
 	
 	private QuestionTypes currentCategory() {
-    	//FOR LOOP UP TO 11
-		if (playerPositions[currentPlayer] == 0) return QuestionTypes.Pop;
-		if (playerPositions[currentPlayer] == 4) return QuestionTypes.Pop;
-		if (playerPositions[currentPlayer] == 8) return QuestionTypes.Pop;
-		if (playerPositions[currentPlayer] == 1) return QuestionTypes.Science;
-		if (playerPositions[currentPlayer] == 5) return QuestionTypes.Science;
-		if (playerPositions[currentPlayer] == 9) return QuestionTypes.Science;
-		if (playerPositions[currentPlayer] == 2) return QuestionTypes.Sports;
-		if (playerPositions[currentPlayer] == 6) return QuestionTypes.Sports;
-		if (playerPositions[currentPlayer] == 10) return QuestionTypes.Sports;
+		int playerPosition = playerPositions[currentPlayer];
+		if (isNumberMultipleOf4(playerPosition, 0)) {
+			return QuestionTypes.Pop;
+		}
+		if (isNumberMultipleOf4(playerPosition, 1)) {
+			return QuestionTypes.Science;
+		}
+		if (isNumberMultipleOf4(playerPosition, 2)) {
+			return QuestionTypes.Sports;
+		}
 		return QuestionTypes.Rock;
+	}
+
+	private boolean isNumberMultipleOf4(int number, int offset) {
+		return number % 4 == offset;
 	}
 
 	public boolean wasCorrectlyAnswered() {
