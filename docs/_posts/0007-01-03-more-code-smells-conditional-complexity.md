@@ -34,7 +34,7 @@ Highlight the opposing points of view form OO purists to common attitudes.
 + [Consolidate Conditional Expression](https://refactoring.guru/consolidate-conditional-expression)
 + [Consolidate Duplicate Conditional Fragments](https://refactoring.guru/consolidate-duplicate-conditional-fragments)
 + [Remove Control Flag](https://refactoring.guru/remove-control-flag)
-+ [Replace Conditional with Polymorphism](Replace Conditional with Polymorphism)
++ [Replace Conditional with Polymorphism](https://refactoring.guru/replace-conditional-with-polymorphism)
 + [Complete list and when to use each here](https://refactoring.guru/refactoring/techniques/simplifying-conditional-expressions)
 
 --
