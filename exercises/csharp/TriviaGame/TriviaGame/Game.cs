@@ -7,17 +7,17 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
+        readonly List<string> players = new List<string>();
 
-        int[] places = new int[6];
-        int[] coins = new int[6];
+        readonly int[] places = new int[6];
+        readonly int[] coins = new int[6];
 
-        bool[] inPenaltyBox = new bool[6];
+        readonly bool[] inPenaltyBox = new bool[6];
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        readonly LinkedList<string> popQuestions = new LinkedList<string>();
+        readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
