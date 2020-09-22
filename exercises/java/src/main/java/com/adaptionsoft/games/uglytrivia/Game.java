@@ -69,19 +69,23 @@ public class Game {
 	public void roll(int roll) {
 		displayMessage(players.get(currentPlayer) + " is the current player");
 		displayMessage("They have rolled a " + roll);
-
-		if (playerInPenaltyBox[currentPlayer]) {
-			boolean isRoleOdd = roll % 2 != 0;
-			if (isRoleOdd) { //EXTRACT TO VARIABLE "isRoleOdd"
-				isGettingOutOfPenaltyBox = true;
-				displayMessage(players.get(currentPlayer) + " is getting out of the penalty box");
-			} else {
-				displayMessage(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
-				return;
-			}
+		if (isCurrentPlayerAllowedRoll(roll)){
+			playerRolls(roll);
+			askQuestion();
 		}
-		playerRolls(roll);
+	}
+
+	private boolean isCurrentPlayerAllowedRoll(int roll) {
+		boolean isRoleOdd = roll % 2 != 0;
+		if (playerInPenaltyBox[currentPlayer] && isRoleOdd) {
+			setIsGettingOutOfPenaltyBox(true);
+			displayMessage(players.get(currentPlayer) + " is getting out of the penalty box");
+		} else if (playerInPenaltyBox[currentPlayer] && !isRoleOdd) {
+			displayMessage(players.get(currentPlayer) + " is not getting out of the penalty box");
+			setIsGettingOutOfPenaltyBox(false);
+			return false;
+		}
+		return true;
 	}
 
 	private void playerRolls(int roll) {
@@ -94,7 +98,10 @@ public class Game {
 				+ "'s new location is "
 				+ playerPositions[currentPlayer]);
 		displayMessage("The category is " + currentCategory());
-		askQuestion();
+	}
+
+	private void setIsGettingOutOfPenaltyBox(boolean isGettingOut) {
+		isGettingOutOfPenaltyBox = isGettingOut;
 	}
 
 	private void askQuestion() {
