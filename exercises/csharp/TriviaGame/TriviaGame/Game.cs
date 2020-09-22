@@ -93,15 +93,18 @@ namespace TriviaGame
             else
             {
 
-                Console.WriteLine("Answer was corrent!!!!");
+                Console.WriteLine("Answer was correct!!!!");
                 currentPlayer.Purse++;
                 Console.WriteLine(currentPlayer.Name
                         + " now has "
                         + currentPlayer.Purse
                         + " Gold Coins.");
 
+                bool isPlayerWinner = currentPlayer.DidPlayerWin();
+                currentPlayerIndex++;
+                if (currentPlayerIndex == GetPlayerCount()) currentPlayerIndex = 0;
 
-                return winner;
+                return isPlayerWinner;
             }
         }
 
