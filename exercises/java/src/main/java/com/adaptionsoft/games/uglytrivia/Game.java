@@ -26,8 +26,6 @@ public class Game {
         player.setCollectedCoins(0);
         player.setInPenaltyBox(false);
 
-        inPenaltyBox[numberOfPlayers()] = false;
-
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
         return true;
@@ -41,34 +39,34 @@ public class Game {
         System.out.println(getPlayerName(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (players.get(currentPlayer).isInPenaltyBox()) {
+        if (getPlayer(currentPlayer).isInPenaltyBox()) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
                 System.out.println(getPlayerName(currentPlayer) + " is getting out of the penalty box");
-                changePlayerPositions(roll, currentPlayer);
-                askQuestion(currentCategory(players.get(currentPlayer).getPosition()));
+                changePlayerPositions(roll);
+                askQuestion(currentCategory(getPlayer(currentPlayer).getPosition()));
             } else {
                 System.out.println(getPlayerName(currentPlayer) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
 
         } else {
-            changePlayerPositions(roll, currentPlayer);
-            askQuestion(currentCategory(players.get(currentPlayer).getPosition()));
+            changePlayerPositions(roll);
+            askQuestion(currentCategory(getPlayer(currentPlayer).getPosition()));
         }
 
     }
 
-    private void changePlayerPositions(int roll, int currentPlayer) {
-        players.get(currentPlayer).setPosition(players.get(currentPlayer).getPosition() + roll);
-        if (players.get(currentPlayer).getPosition() > 11) {
-            players.get(currentPlayer).setPosition(players.get(currentPlayer).getPosition() - 12);
+    private void changePlayerPositions(int roll) {
+        getPlayer(currentPlayer).setPosition(getPlayer(currentPlayer).getPosition() + roll);
+        if (getPlayer(currentPlayer).getPosition() > 11) {
+            getPlayer(currentPlayer).setPosition(getPlayer(currentPlayer).getPosition() - 12);
         }
 
         System.out.println(getPlayerName(currentPlayer)
                 + "'s new location is "
-                + players.get(currentPlayer).getPosition());
+                + getPlayer(currentPlayer).getPosition());
 
     }
 
@@ -109,7 +107,7 @@ public class Game {
     }
 
     public boolean correctAnswer() {
-        if (players.get(currentPlayer).isInPenaltyBox()) {
+        if (getPlayer(currentPlayer).isInPenaltyBox()) {
             if (isGettingOutOfPenaltyBox) {
                 System.out.println("Answer was correct!!!!");
                 giveCoinToPlayer();
@@ -131,10 +129,10 @@ public class Game {
     }
 
     private void giveCoinToPlayer() {
-        players.get(currentPlayer).setCollectedCoins(players.get(currentPlayer).getCollectedCoins() + 1);
+        getPlayer(currentPlayer).setCollectedCoins(getPlayer(currentPlayer).getCollectedCoins() + 1);
         System.out.println(getPlayerName(currentPlayer)
                 + " now has "
-                + players.get(currentPlayer).getCollectedCoins()
+                + getPlayer(currentPlayer).getCollectedCoins()
                 + " Gold Coins.");
     }
 
@@ -152,7 +150,7 @@ public class Game {
     public boolean wrongAnswer() {
         System.out.println("Question was incorrectly answered");
         System.out.println(getPlayerName(currentPlayer) + " was sent to the penalty box");
-        players.get(currentPlayer).setInPenaltyBox(true);
+        getPlayer(currentPlayer).setInPenaltyBox(true);
 
         currentPlayer++;
         if (currentPlayer == players.size()) {
@@ -162,11 +160,11 @@ public class Game {
     }
 
     private boolean didPlayerWin() {
-        return !(players.get(currentPlayer).getCollectedCoins() == 6);
+        return !(getPlayer(currentPlayer).getCollectedCoins() == 6);
     }
 
     private String getPlayerName(int currentPlayer) {
-        return players.get(currentPlayer).getName();
+        return getPlayer(currentPlayer).getName();
     }
 
     private Player getPlayer(int currentPlayer) {
