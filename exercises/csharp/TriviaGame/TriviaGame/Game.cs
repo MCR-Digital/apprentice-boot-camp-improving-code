@@ -69,24 +69,33 @@ namespace TriviaGame
             Console.WriteLine(players[_currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
+            void LeftPenaltyBox()
+            {
+                _leavingPenaltyBox = true;
+
+                Console.WriteLine(players[_currentPlayer] + " is getting out of the penalty box");
+                places[_currentPlayer] = places[_currentPlayer] + roll;
+                if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
+            }
+
+            void StaysInPenaltyBox()
+            {
+                Console.WriteLine(players[_currentPlayer] + " is not getting out of the penalty box");
+                _leavingPenaltyBox = false;
+            }
+
             if (inPenaltyBox[_currentPlayer])
             {
                 if (roll % 2 != 0)
                 {
-                    _leavingPenaltyBox = true;
-
-                    Console.WriteLine(players[_currentPlayer] + " is getting out of the penalty box");
-                    places[_currentPlayer] = places[_currentPlayer] + roll;
-                    if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
-
+                    LeftPenaltyBox();
                     NewPlayerLocation();
                     StateCurrentCategory();
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(players[_currentPlayer] + " is not getting out of the penalty box");
-                    _leavingPenaltyBox = false;
+                    StaysInPenaltyBox();
                 }
 
             }
