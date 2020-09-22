@@ -6,6 +6,7 @@
         public int purse { get; set; }
         public int location { get; set; }
         public bool isInPenaltyBox { get; set; }
+        public bool canAnswerQuestion { get; set; }
 
         public Player(string name)
         {

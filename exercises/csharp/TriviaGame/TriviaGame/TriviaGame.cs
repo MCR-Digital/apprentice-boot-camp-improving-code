@@ -20,7 +20,6 @@ namespace TriviaGame
         private readonly Category rock = new Category(ROCK_CATEGORY, new LinkedList<string>());
 
         int currentPlayerIndex = 0;
-        bool playerCanAnswerQuestion;
 
         public TriviaGame()
         {
@@ -76,14 +75,14 @@ namespace TriviaGame
         {
             if (roll % 2 != 0)
             {
-                playerCanAnswerQuestion = true;
+                CurrentPlayer().canAnswerQuestion = true;
                 Console.WriteLine(CurrentPlayer().name + " is getting out of the penalty box");
                 PlayTurn(roll);
             }
             else
             {
                 Console.WriteLine(CurrentPlayer().name + " is not getting out of the penalty box");
-                playerCanAnswerQuestion = false;
+                CurrentPlayer().canAnswerQuestion = false;
             }
         }
 
@@ -120,7 +119,7 @@ namespace TriviaGame
             bool result;
             if (CurrentPlayer().isInPenaltyBox)
             {
-                if (playerCanAnswerQuestion)
+                if (CurrentPlayer().canAnswerQuestion)
                 {
                     CorrectAnswer("Answer was correct!!!!");
                     result = CanGameContinue();
