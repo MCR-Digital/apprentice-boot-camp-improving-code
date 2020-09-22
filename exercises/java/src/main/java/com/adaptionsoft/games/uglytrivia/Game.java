@@ -18,6 +18,7 @@ public class Game {
     int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
 	private String currentCategory;
+	private Player currentPlayer;
 
 	public  Game(){
 		new Questions().addQuestionsToList();
@@ -104,23 +105,26 @@ public class Game {
 				System.out.println("Answer was correct!!!!");
 				playersPurses[currentPlayerIndex]++;
 				boolean winner = isWinner();
-				currentPlayerIndex++;
-				if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+				changeToNextPlayer();
 				return winner;
 			} else {
-				currentPlayerIndex++;
-				if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+				changeToNextPlayer();
 				return true;
 			}
 		} else {
 			System.out.println("Answer was corrent!!!!");
 			playersPurses[currentPlayerIndex]++;
 			boolean winner = isWinner();
-			currentPlayerIndex++;
-			if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-			
+			changeToNextPlayer();
+
 			return winner;
 		}
+	}
+
+	private void changeToNextPlayer() {
+		currentPlayerIndex++;
+		if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+		currentPlayer = new Player(players.get(currentPlayerIndex));
 	}
 
 	private boolean isWinner() {
@@ -136,9 +140,8 @@ public class Game {
 		System.out.println("Question was incorrectly answered");
 		System.out.println(getCurrentPlayer().getName() + " was sent to the penalty box");
 		playersInPenaltyBox[currentPlayerIndex] = true;
-		
-		currentPlayerIndex++;
-		if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+
+		changeToNextPlayer();
 		return true;
 	}
 
