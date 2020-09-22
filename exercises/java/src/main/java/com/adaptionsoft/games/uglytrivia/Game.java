@@ -10,6 +10,7 @@ public class Game {
 	public static final String ROCK_CATEGORY = "Rock";
 	public static final int WINNING_SCORE = 6;
 	ArrayList players = new ArrayList();
+
     int[] playerPositions = new int[6];
     int[] playerPurses = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -119,7 +120,7 @@ public class Game {
 				System.out.println("Answer was correct!!!!");
 				return runTurnRound();
 			} else {
-				getNextPlayer();
+				advanceNextPLayer();
 				return true;
 			}
 		} else {
@@ -133,19 +134,19 @@ public class Game {
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
 
-		getNextPlayer();
+		advanceNextPLayer();
 		return true;
 	}
 
 	private boolean runTurnRound() {
 		addCoinToPlayersPurse();
 		boolean noWinner = isGameContinuing();
-		getNextPlayer();
+		advanceNextPLayer();
 		return noWinner;
 	}
 
 
-	private void getNextPlayer() {
+	private void advanceNextPLayer() {
 		currentPlayer++;
 		if (currentPlayer == players.size()) currentPlayer = 0;
 	}
