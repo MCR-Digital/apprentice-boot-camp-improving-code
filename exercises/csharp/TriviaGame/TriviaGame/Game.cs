@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TriviaGame
 {
     public class Game
     {
+        private const int cardQuestionNumber = 50;
         List<string> players = new List<string>();
 
         int[] places = new int[6];
@@ -24,13 +24,13 @@ namespace TriviaGame
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < cardQuestionNumber; i++)
             {
                 popQuestions.AddLast("Pop Question " + i);
                 scienceQuestions.AddLast(("Science Question " + i));
                 sportsQuestions.AddLast(("Sports Question " + i));
                 rockQuestions.AddLast(("Rock Question " + i));
-                            }
+            }
         }
 
         //public string CreateRockQuestion(int index)

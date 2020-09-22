@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriviaGame
 {
-   public class GameRunner
+    public class GameRunner
     {
 
         private static bool notAWinner;
