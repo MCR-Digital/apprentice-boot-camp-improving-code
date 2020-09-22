@@ -125,7 +125,8 @@ namespace TriviaGame
             {
                 if (playerCanAnswerQuestion)
                 {
-                    result = CorrectAnswer("Answer was correct!!!!");
+                    CorrectAnswer("Answer was correct!!!!");
+                    result = CanGameContinue();
                 }
                 else
                 {
@@ -134,13 +135,14 @@ namespace TriviaGame
             }
             else
             {
-                result = CorrectAnswer("Answer was corrent!!!!");
+                CorrectAnswer("Answer was corrent!!!!");
+                result = CanGameContinue();
             }
             ChangeCurrentPlayer();
             return result;
         }
 
-        private bool CorrectAnswer(string answerMessage)
+        private void CorrectAnswer(string answerMessage)
         {
             Console.WriteLine(answerMessage);
             playerPurses[currentPlayer]++;
@@ -148,8 +150,6 @@ namespace TriviaGame
                     + " now has "
                     + playerPurses[currentPlayer]
                     + " Gold Coins.");
-
-            return CanGameContinue();
         }
 
         public bool WrongAnswer()
