@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Transactions;
 
 namespace TriviaGame
 {
@@ -58,7 +59,7 @@ namespace TriviaGame
         {
             Console.WriteLine($"{players[currentPlayer]} is the current player");
             Console.WriteLine($"They have rolled a {roll}");
-                                 
+
             if (inPenaltyBox[currentPlayer])
             {
                 if (roll % 2 != 0)
@@ -128,6 +129,15 @@ namespace TriviaGame
             else return "Rock";
         }
 
+        public bool PlayerOnesTurnAgain()
+        {
+            if (currentPlayer == players.Count)
+            {
+                currentPlayer = 0;
+            }
+            return true;
+        }           
+
         public bool CorrectAnswer()
         {
             if (inPenaltyBox[currentPlayer])
@@ -140,14 +150,14 @@ namespace TriviaGame
 
                     bool winner = DidPlayerWin();
                     currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    PlayerOnesTurnAgain();
 
                     return winner;
                 }
                 else
                 {
                     currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    PlayerOnesTurnAgain();
                     return true;
                 }
             }
@@ -159,7 +169,7 @@ namespace TriviaGame
 
                 bool winner = DidPlayerWin();
                 currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                PlayerOnesTurnAgain();
 
                 return winner;
             }
@@ -172,7 +182,7 @@ namespace TriviaGame
             inPenaltyBox[currentPlayer] = true;
 
             currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            PlayerOnesTurnAgain();
             return true;
         }
 
