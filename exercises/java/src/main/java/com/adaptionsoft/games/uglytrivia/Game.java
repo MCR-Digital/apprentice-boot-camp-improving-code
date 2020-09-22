@@ -40,10 +40,23 @@ public class Game {
 	}
 
 	private void resetPlayer(int number) {
-		playerPositions[number] = 0; //0 TO VARIABLE
-		playerPositions[number] = 0; // ^
+		resetPlayerPosition(number);
+		resetPlayerPurse(number);
+		resetPlayerInPenaltyBox(number);
+	}
+
+	private void resetPlayerInPenaltyBox(int number) {
 		playerInPenaltyBox[number] = false;
 	}
+
+	private void resetPlayerPurse(int number) {
+		playerPurses[number] = 0; //0 TO VARIABLE
+	}
+
+	private void resetPlayerPosition(int number) {
+		playerPositions[number] = 0; //0 TO VARIABLE
+	}
+
 
 	//AMOUNTOFPLAYERS
 	public int howManyPlayers() {
