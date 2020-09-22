@@ -10,7 +10,6 @@ public class Game {
     private final Questions questions = new Questions();
 
     private final ArrayList<Player> players = new ArrayList<>();
-    private final int[] playerPositions = new int[6];
     private final int[] playerCollectedCoins = new int[6];
     private final boolean[] inPenaltyBox = new boolean[6];
 
@@ -23,8 +22,10 @@ public class Game {
 
     public boolean addPlayer(String playerName) {
 
-        players.add(new Player(playerName));
-        playerPositions[numberOfPlayers()] = 0;
+        Player player = new Player(playerName);
+
+        players.add(player);
+        player.setPosition(0);
         playerCollectedCoins[numberOfPlayers()] = 0;
         inPenaltyBox[numberOfPlayers()] = false;
 
@@ -47,7 +48,7 @@ public class Game {
 
                 System.out.println(getPlayerName(currentPlayer) + " is getting out of the penalty box");
                 changePlayerPositions(roll, currentPlayer);
-                askQuestion(currentCategory(playerPositions[currentPlayer]));
+                askQuestion(currentCategory(players.get(currentPlayer).getPosition()));
             } else {
                 System.out.println(getPlayerName(currentPlayer) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
@@ -55,20 +56,20 @@ public class Game {
 
         } else {
             changePlayerPositions(roll, currentPlayer);
-            askQuestion(currentCategory(playerPositions[currentPlayer]));
+            askQuestion(currentCategory(players.get(currentPlayer).getPosition()));
         }
 
     }
 
     private void changePlayerPositions(int roll, int currentPlayer) {
-        playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
-        if (playerPositions[currentPlayer] > 11) {
-            playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
+        players.get(currentPlayer).setPosition(players.get(currentPlayer).getPosition() + roll);
+        if (players.get(currentPlayer).getPosition() > 11) {
+            players.get(currentPlayer).setPosition(players.get(currentPlayer).getPosition() - 12);
         }
 
         System.out.println(getPlayerName(currentPlayer)
                 + "'s new location is "
-                + playerPositions[currentPlayer]);
+                + players.get(currentPlayer).getPosition());
 
     }
 
