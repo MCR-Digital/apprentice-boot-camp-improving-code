@@ -7,75 +7,61 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<Player> players = new List<Player>();
-        Questions questions = new Questions();
-        int currentPlayerIndex = 0;
-        Player currentPlayer;
+        Questions questions;
+        Players players;
 
-        public Game()
+        public Game(params string[] playerNames)
         {
-            
-        }
-
-        public void AddPlayer(string playerName)
-        {
-            players.Add(new Player(playerName));
-
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + GetPlayerCount());
-        }
-
-        public int GetPlayerCount()
-        {
-            return players.Count;
-        }
-
-        public Player GetCurrentPlayer(int currentPlayerIndex)
-        {
-            return players[currentPlayerIndex];
+            if (playerNames.Length < 2)
+            {
+                throw new System.ArgumentException("The game needs a minumum of 2 players!");
+            }
+            questions = new Questions();
+            players = new Players();
+            foreach (var playerName in playerNames)
+            {
+                players.AddPlayer(playerName);
+            }
         }
 
         public void ProcessRoll(int diceResult)
         {
-            currentPlayer = GetCurrentPlayer(currentPlayerIndex);
-            Console.WriteLine(currentPlayer.Name + " is the current player");
+            players.currentPlayer = players.GetCurrentPlayer();
+            Console.WriteLine(players.currentPlayer.Name + " is the current player");
             Console.WriteLine("They have rolled a " + diceResult);
 
-            if (currentPlayer.InPenaltyBox)
+            if (players.currentPlayer.InPenaltyBox)
             {
                 if (IsDiceResultOdd(diceResult))
                 {
-                    currentPlayer.GettingOutOfPenaltyBox = true;
-                    Console.WriteLine(currentPlayer.Name + " is getting out of the penalty box");
+                    players.currentPlayer.GettingOutOfPenaltyBox = true;
+                    Console.WriteLine(players.currentPlayer.Name + " is getting out of the penalty box");
 
                     MovePlayer(diceResult);
-                    questions.AskQuestion(currentPlayer.Place);
+                    questions.AskQuestion(players.currentPlayer.Place);
                 }
                 else
                 {
-                    Console.WriteLine(currentPlayer.Name + " is not getting out of the penalty box");
-                    currentPlayer.GettingOutOfPenaltyBox = false;
+                    Console.WriteLine(players.currentPlayer.Name + " is not getting out of the penalty box");
+                    players.currentPlayer.GettingOutOfPenaltyBox = false;
                 }
 
             }
             else
             {
                 MovePlayer(diceResult);
-                questions.AskQuestion(currentPlayer.Place);
+                questions.AskQuestion(players.currentPlayer.Place);
             }
         }
 
         public void MovePlayer(int numberOfSpaces)
         {
-            var gameBoardSize = 12;
+            players.MoveCurrentPlayer(numberOfSpaces);
 
-            currentPlayer.Place = currentPlayer.Place + numberOfSpaces;
-            if (currentPlayer.Place > gameBoardSize - 1) currentPlayer.Place = currentPlayer.Place - gameBoardSize;
-
-            Console.WriteLine(currentPlayer.Name
+            Console.WriteLine(players.currentPlayer.Name
                     + "'s new location is "
-                    + currentPlayer.Place);
-            Console.WriteLine("The category is " + questions.GetCurrentQuestionCategory(currentPlayer.Place));
+                    + players.currentPlayer.Place);
+            Console.WriteLine("The category is " + questions.GetCurrentQuestionCategory(players.currentPlayer.Place));
         }
 
         public bool IsDiceResultOdd(int diceResult)
@@ -85,23 +71,23 @@ namespace TriviaGame
 
         public bool CorrectAnswer()
         {
-            if (currentPlayer.InPenaltyBox && !currentPlayer.GettingOutOfPenaltyBox)
+            if (players.currentPlayer.InPenaltyBox && !players.currentPlayer.GettingOutOfPenaltyBox)
             {
-                    NextPlayer();
-                    return true;
+                players.NextPlayer();
+                return true;
             }
             else
             {
 
                 Console.WriteLine("Answer was correct!!!!");
-                currentPlayer.Purse++;
-                Console.WriteLine(currentPlayer.Name
+                players.currentPlayer.Purse++;
+                Console.WriteLine(players.currentPlayer.Name
                         + " now has "
-                        + currentPlayer.Purse
+                        + players.currentPlayer.Purse
                         + " Gold Coins.");
 
-                bool isPlayerWinner = currentPlayer.DidPlayerWin();
-                NextPlayer();
+                bool isPlayerWinner = players.currentPlayer.DidPlayerWin();
+                players.NextPlayer();
 
                 return isPlayerWinner;
             }
@@ -110,17 +96,11 @@ namespace TriviaGame
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(currentPlayer.Name + " was sent to the penalty box");
-            currentPlayer.InPenaltyBox = true;
-            NextPlayer();
+            Console.WriteLine(players.currentPlayer.Name + " was sent to the penalty box");
+            players.currentPlayer.InPenaltyBox = true;
+            players.NextPlayer();
 
             return true;
-        }
-
-        public void NextPlayer()
-        {
-            currentPlayerIndex++;
-            if (currentPlayerIndex == GetPlayerCount()) currentPlayerIndex = 0;
         }
     }
 

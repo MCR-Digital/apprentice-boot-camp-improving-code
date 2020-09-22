@@ -14,11 +14,7 @@ namespace TriviaGame
 
         public static void Main(String[] args)
         {
-            Game currentGame = new Game();
-
-            currentGame.AddPlayer("Chet");
-            currentGame.AddPlayer("Pat");
-            currentGame.AddPlayer("Sue");
+            Game currentGame = new Game("Chet", "Pat", "Sue");
 
             Random dice = new Random(Int32.Parse(args[0]));
 
