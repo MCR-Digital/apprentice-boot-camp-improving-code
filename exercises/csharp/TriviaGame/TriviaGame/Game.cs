@@ -27,8 +27,8 @@ namespace TriviaGame
 
         public Trivia_Game()
         {
-            const int V = 50;
-            for (int questionNumber = 0; questionNumber < V; questionNumber++)
+            const int maxQuestionNumber = 50;
+            for (int questionNumber = 0; questionNumber < maxQuestionNumber; questionNumber++)
             {
                 popQuestions.AddLast("Pop Question " + questionNumber);
                 scienceQuestions.AddLast(("Science Question " + questionNumber));
