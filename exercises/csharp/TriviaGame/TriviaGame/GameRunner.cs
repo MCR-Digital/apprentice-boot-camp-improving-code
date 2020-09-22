@@ -26,16 +26,9 @@ namespace TriviaGame
             {
                 aGame.RollDice(randomNumber.Next(5) + 1);
 
-                if (randomNumber.Next(9) == 7)
-                {
-                    notAWinner = aGame.WrongAnswer();
-                }
-                else
-                {
-                    notAWinner = aGame.CorrectAnswer();
-                }
-            } while (notAWinner);
+                notAWinner = (randomNumber.Next(9) == 7) ? aGame.WrongAnswer() : aGame.CorrectAnswer();
 
+            } while (notAWinner);
         }
     }
 }
