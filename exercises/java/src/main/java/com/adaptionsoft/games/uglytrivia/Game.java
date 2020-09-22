@@ -117,21 +117,14 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-
-				boolean noWinner = runTurnRound();
-
-				return noWinner;
+				return runTurnRound();
 			} else {
 				getNextPlayer();
 				return true;
 			}
-
-
 		} else {
 			System.out.println("Answer was corrent!!!!");
-			boolean noWinner = runTurnRound();
-
-			return noWinner;
+			return runTurnRound();
 		}
 	}
 
