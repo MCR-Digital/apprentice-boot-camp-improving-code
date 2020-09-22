@@ -100,7 +100,7 @@ namespace TriviaGame
                     Console.WriteLine(totalPlayers[currentPlayer]
                             + "'s new location is "
                             + playerBoardPositionState[currentPlayer]);
-                    Console.WriteLine("The category is " + FindCurrentQuestionCategory());
+                    Console.WriteLine("The category is " + FindCurrentQuestionCategoryByPlayerPosition());
                     AskQuestion();
                 }
                 else
@@ -119,7 +119,7 @@ namespace TriviaGame
                 Console.WriteLine(totalPlayers[currentPlayer]
                         + "'s new location is "
                         + playerBoardPositionState[currentPlayer]);
-                Console.WriteLine("The category is " + FindCurrentQuestionCategory());
+                Console.WriteLine("The category is " + FindCurrentQuestionCategoryByPlayerPosition());
                 AskQuestion();
             }
 
@@ -132,22 +132,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (FindCurrentQuestionCategory() == popCategory)
+            if (FindCurrentQuestionCategoryByPlayerPosition() == popCategory)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (FindCurrentQuestionCategory() == scienceCategory)
+            if (FindCurrentQuestionCategoryByPlayerPosition() == scienceCategory)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (FindCurrentQuestionCategory() == sportsCategory)
+            if (FindCurrentQuestionCategoryByPlayerPosition() == sportsCategory)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (FindCurrentQuestionCategory() == rockCategory)
+            if (FindCurrentQuestionCategoryByPlayerPosition() == rockCategory)
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -155,7 +155,7 @@ namespace TriviaGame
         }
 
 
-        private string FindCurrentQuestionCategory()
+        private string FindCurrentQuestionCategoryByPlayerPosition()
         {
             var playerPosition = playerBoardPositionState[currentPlayer];
 
