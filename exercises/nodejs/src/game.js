@@ -19,34 +19,28 @@ var Game = function () {
   };
 
   var currentCategory = function () {
-    if (boardSquares[currentPlayer] == 0) {
-      return "Pop";
+    let returnVal;
+    switch (boardSquares[currentPlayer]) {
+      case 0:
+      case 4:
+      case 8:
+        returnVal = "Pop";
+        break;
+      case 1:
+      case 5:
+      case 9:
+        returnVal = "Science";
+        break;
+      case 2:
+      case 6:
+      case 10:
+        returnVal = "Sports";
+        break;
+      default:
+        returnVal = "Rock";
+        break;
     }
-    if (boardSquares[currentPlayer] == 4) {
-      return "Pop";
-    }
-    if (boardSquares[currentPlayer] == 8) {
-      return "Pop";
-    }
-    if (boardSquares[currentPlayer] == 1) {
-      return "Science";
-    }
-    if (boardSquares[currentPlayer] == 5) {
-      return "Science";
-    }
-    if (boardSquares[currentPlayer] == 9) {
-      return "Science";
-    }
-    if (boardSquares[currentPlayer] == 2) {
-      return "Sports";
-    }
-    if (boardSquares[currentPlayer] == 6) {
-      return "Sports";
-    }
-    if (boardSquares[currentPlayer] == 10) {
-      return "Sports";
-    }
-    return "Rock";
+    return returnVal;
   };
 
   this.createRockQuestion = function (index) {
@@ -102,17 +96,17 @@ var Game = function () {
     }
   };
 
-  this.roll = function (roll) {
-    var afterRoll = function () {
-      console.log(
-        players[currentPlayer] +
-          "'s new location is " +
-          boardSquares[currentPlayer]
-      );
-      console.log("The category is " + currentCategory());
-      askQuestion();
-    };
+  var afterRoll = function () {
+    console.log(
+      players[currentPlayer] +
+        "'s new location is " +
+        boardSquares[currentPlayer]
+    );
+    console.log("The category is " + currentCategory());
+    askQuestion();
+  };
 
+  this.roll = function (roll) {
     console.log(players[currentPlayer] + " is the current player");
     console.log("They have rolled a " + roll);
 
