@@ -15,7 +15,7 @@ var Game = function () {
   var isGettingOutOfPenaltyBox = false;
 
   var didPlayerWin = function () {
-    return !(playerCoins[currentPlayer] == 6);
+    return !(playerCoins[currentPlayer] === 6);
   };
 
   var currentCategory = function () {
@@ -75,16 +75,16 @@ var Game = function () {
   };
 
   var askQuestion = function () {
-    if (currentCategory() == "Pop") {
+    if (currentCategory() === "Pop") {
       console.log(popQuestions.shift());
     }
-    if (currentCategory() == "Science") {
+    if (currentCategory() === "Science") {
       console.log(scienceQuestions.shift());
     }
-    if (currentCategory() == "Sports") {
+    if (currentCategory() === "Sports") {
       console.log(sportsQuestions.shift());
     }
-    if (currentCategory() == "Rock") {
+    if (currentCategory() === "Rock") {
       console.log(rockQuestions.shift());
     }
   };
@@ -134,7 +134,7 @@ var Game = function () {
 
   var changePlayerCounter = function (currentPlayer, players) {
     currentPlayer += 1;
-    if (currentPlayer == players.length) {
+    if (currentPlayer === players.length) {
       currentPlayer = 0;
     }
     return currentPlayer;
@@ -197,7 +197,7 @@ const gameRunner = (i) => {
   do {
     game.roll(random.range(5) + 1);
 
-    if (random.range(9) == 7) {
+    if (random.range(9) === 7) {
       notAWinner = game.wrongAnswer();
     } else {
       notAWinner = game.wasCorrectlyAnswered();
