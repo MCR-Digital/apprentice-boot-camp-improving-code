@@ -7,7 +7,7 @@ namespace TriviaGame
 {
     public class Trivia_Game
     {
-        List<string> listOfAllPlayers = new List<string>();
+        public Player player = new Player();
 
         int[] playersPosition = new int[6];
         int[] playersPurses = new int[6];
@@ -16,7 +16,7 @@ namespace TriviaGame
         int[] SportsArray = { 2, 6, 10 };
 
         bool[] inPenaltyBox = new bool[6];
-
+        
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
         LinkedList<string> sportsQuestions = new LinkedList<string>();
@@ -33,40 +33,18 @@ namespace TriviaGame
                 popQuestions.AddLast("Pop Question " + questionNumber);
                 scienceQuestions.AddLast(("Science Question " + questionNumber));
                 sportsQuestions.AddLast(("Sports Question " + questionNumber));
-                rockQuestions.AddLast(CreateRockQuestion(questionNumber));
+                rockQuestions.AddLast(("Rock Question " + questionNumber));
             }
-        }
-
-        public string CreateRockQuestion(int index)
-        {
-            return "Rock Question " + index;
         }
 
         public bool IsValidNumberOfPlayers()
         {
-            return (HowManyPlayersInCurrentGame() >= 2);
-        }
-
-        public bool AddNewPlayer(string playerName)
-        {
-            listOfAllPlayers.Add(playerName);
-            playersPosition[HowManyPlayersInCurrentGame()] = 0;
-            playersPurses[HowManyPlayersInCurrentGame()] = 0;
-            inPenaltyBox[HowManyPlayersInCurrentGame()] = false;
-
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + listOfAllPlayers.Count);
-            return true;
-        }
-
-        public int HowManyPlayersInCurrentGame()
-        {
-            return listOfAllPlayers.Count;
+            return (player.HowManyPlayersInCurrentGame() >= 2);
         }
 
         public void RollDice(int DiceRollResult)
         {
-            Console.WriteLine(listOfAllPlayers[currentPlayer] + " is the current player");
+            Console.WriteLine(player.listOfAllPlayers[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + DiceRollResult);
 
             if (inPenaltyBox[currentPlayer])
@@ -75,12 +53,12 @@ namespace TriviaGame
                 {
                     isGettingOutOfPenaltyBox = true;
 
-                    Console.WriteLine(listOfAllPlayers[currentPlayer] + " is getting out of the penalty box");
+                    Console.WriteLine(player.listOfAllPlayers[currentPlayer] + " is getting out of the penalty box");
                     MovePlayerToNewPosition(DiceRollResult);
                 }
                 else
                 {
-                    Console.WriteLine(listOfAllPlayers[currentPlayer] + " is not getting out of the penalty box");
+                    Console.WriteLine(player.listOfAllPlayers[currentPlayer] + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
 
@@ -97,7 +75,7 @@ namespace TriviaGame
             playersPosition[currentPlayer] = playersPosition[currentPlayer] + DiceRollResult;
             if (playersPosition[currentPlayer] > 11) playersPosition[currentPlayer] = playersPosition[currentPlayer] - 12;
 
-            Console.WriteLine(listOfAllPlayers[currentPlayer]
+            Console.WriteLine(player.listOfAllPlayers[currentPlayer]
                     + "'s new location is "
                     + playersPosition[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
@@ -136,7 +114,7 @@ namespace TriviaGame
             return "Rock";
         }
 
-        public bool WasCorrectlyAnswered()
+        public bool IsCorrectAnswer()
         {
             if (inPenaltyBox[currentPlayer])
             {
@@ -144,21 +122,21 @@ namespace TriviaGame
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     playersPurses[currentPlayer]++;
-                    Console.WriteLine(listOfAllPlayers[currentPlayer]
+                    Console.WriteLine(player.listOfAllPlayers[currentPlayer]
                             + " now has "
                             + playersPurses[currentPlayer]
                             + " Gold Coins.");
 
                     bool winner = HasPlayerWon();
                     currentPlayer++;
-                    if (currentPlayer == listOfAllPlayers.Count) currentPlayer = 0;
+                    if (currentPlayer == player.listOfAllPlayers.Count) currentPlayer = 0;
 
                     return winner;
                 }
                 else
                 {
                     currentPlayer++;
-                    if (currentPlayer == listOfAllPlayers.Count) currentPlayer = 0;
+                    if (currentPlayer == player.listOfAllPlayers.Count) currentPlayer = 0;
                     return true;
                 }
             }
@@ -166,14 +144,14 @@ namespace TriviaGame
             {
                 Console.WriteLine("Answer was corrent!!!!");
                 playersPurses[currentPlayer]++;
-                Console.WriteLine(listOfAllPlayers[currentPlayer]
+                Console.WriteLine(player.listOfAllPlayers[currentPlayer]
                         + " now has "
                         + playersPurses[currentPlayer]
                         + " Gold Coins.");
 
                 bool winner = HasPlayerWon();
                 currentPlayer++;
-                if (currentPlayer == listOfAllPlayers.Count) currentPlayer = 0;
+                if (currentPlayer == player.listOfAllPlayers.Count) currentPlayer = 0;
 
                 return winner;
             }
@@ -182,11 +160,11 @@ namespace TriviaGame
         public bool IsWrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(listOfAllPlayers[currentPlayer] + " was sent to the penalty box");
+            Console.WriteLine(player.listOfAllPlayers[currentPlayer] + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
             currentPlayer++;
-            if (currentPlayer == listOfAllPlayers.Count) currentPlayer = 0;
+            if (currentPlayer == player.listOfAllPlayers.Count) currentPlayer = 0;
             return true;
         }
 
@@ -196,5 +174,4 @@ namespace TriviaGame
             return !(playersPurses[currentPlayer] == WinningTotal);
         }
     }
-
 }

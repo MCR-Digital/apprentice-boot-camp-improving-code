@@ -9,15 +9,16 @@ namespace TriviaGame
 {
    public class GameRunner
     {
+
         private static bool notAWinner;
 
         public static void Main(String[] args)
         {
             Trivia_Game CreateNewTriviaGame = new Trivia_Game();
 
-            CreateNewTriviaGame.AddNewPlayer("Chet");
-            CreateNewTriviaGame.AddNewPlayer("Pat");
-            CreateNewTriviaGame.AddNewPlayer("Sue");
+            CreateNewTriviaGame.player.AddNewPlayer("Chet");
+            CreateNewTriviaGame.player.AddNewPlayer("Pat");
+            CreateNewTriviaGame.player.AddNewPlayer("Sue");
 
             Random RandomNumber = new Random(Int32.Parse(args[0]));
 
@@ -31,9 +32,10 @@ namespace TriviaGame
                 }
                 else
                 {
-                    notAWinner = CreateNewTriviaGame.WasCorrectlyAnswered();
+                    notAWinner = CreateNewTriviaGame.IsCorrectAnswer();
                 }
             } while (notAWinner);
+
         }
     }
 }
