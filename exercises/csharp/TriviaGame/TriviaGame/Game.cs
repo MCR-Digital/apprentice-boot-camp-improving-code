@@ -77,6 +77,7 @@ namespace TriviaGame
         {
             if (currentPlayer.InPenaltyBox && !currentPlayer.GettingOutOfPenaltyBox)
             {
+                    NextPlayer();
                     return true;
             }
             else
@@ -99,13 +100,15 @@ namespace TriviaGame
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(currentPlayer.Name + " was sent to the penalty box");
             currentPlayer.InPenaltyBox = true;
+            NextPlayer();
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
             return true;
         }
 
+        public void NextPlayer()
         {
+            currentPlayerIndex++;
+            if (currentPlayerIndex == GetPlayerCount()) currentPlayerIndex = 0;
         }
     }
 
