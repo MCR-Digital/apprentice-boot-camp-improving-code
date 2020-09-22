@@ -1,5 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
+import com.adaptionsoft.games.question.Questions;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -10,20 +11,18 @@ public class Game {
     int[] playerCollectedCoins = new int[6];
     boolean[] inPenaltyBox = new boolean[6];
 
-    LinkedList<String> popQuestions = new LinkedList<>();
-    LinkedList<String> scienceQuestions = new LinkedList<>();
-    LinkedList<String> sportsQuestions = new LinkedList<>();
-    LinkedList<String> rockQuestions = new LinkedList<>();
+    Questions questions = new Questions();
+
 
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
         for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast(createRockQuestion(i));
+            questions.getPopQuestions().addLast("Pop Question " + i);
+            questions.getScienceQuestions().addLast(("Science Question " + i));
+            questions.getSportsQuestions().addLast(("Sports Question " + i));
+            questions.getRockQuestions().addLast(createRockQuestion(i));
         }
     }
 
@@ -91,16 +90,16 @@ public class Game {
 
     private void askQuestion() {
         if (currentCategory().equals("Pop")) {
-            System.out.println(popQuestions.removeFirst());
+            System.out.println(questions.getPopQuestions().removeFirst());
         }
         if (currentCategory().equals("Science")) {
-            System.out.println(scienceQuestions.removeFirst());
+            System.out.println(questions.getScienceQuestions().removeFirst());
         }
         if (currentCategory().equals("Sports")) {
-            System.out.println(sportsQuestions.removeFirst());
+            System.out.println(questions.getSportsQuestions().removeFirst());
         }
         if (currentCategory().equals("Rock")) {
-            System.out.println(rockQuestions.removeFirst());
+            System.out.println(questions.getRockQuestions().removeFirst());
         }
     }
 
