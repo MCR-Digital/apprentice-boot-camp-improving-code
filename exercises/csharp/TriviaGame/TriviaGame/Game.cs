@@ -19,17 +19,21 @@ namespace TriviaGame
         LinkedList<string> sportsQuestions = new LinkedList<string>();
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
+        string POP_CATEGORY = "Pop";
+        string SCIENCE_CATEGORY = "Science";
+        string SPORTS_CATEGORY = "Sports";
+
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int gameIndex = 0; gameIndex < 50; gameIndex++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
+                popQuestions.AddLast("Pop Question " + gameIndex);
+                scienceQuestions.AddLast(("Science Question " + gameIndex));
+                sportsQuestions.AddLast(("Sports Question " + gameIndex));
+                rockQuestions.AddLast(CreateRockQuestion(gameIndex));
             }
         }
 
@@ -132,15 +136,16 @@ namespace TriviaGame
 
         private string SubjectOfQuestion()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
+            int positionOnBoard = places[currentPlayer];
+            if (positionOnBoard == 0) return POP_CATEGORY;
+            if (positionOnBoard == 4) return POP_CATEGORY;
+            if (positionOnBoard == 8) return POP_CATEGORY;
+            if (positionOnBoard == 1) return SCIENCE_CATEGORY;
+            if (positionOnBoard == 5) return SCIENCE_CATEGORY;
+            if (positionOnBoard == 9) return SCIENCE_CATEGORY;
+            if (positionOnBoard == 2) return SPORTS_CATEGORY;
+            if (positionOnBoard == 6) return SPORTS_CATEGORY;
+            if (positionOnBoard == 10) return SPORTS_CATEGORY;
             return "Rock";
         }
 
@@ -176,7 +181,7 @@ namespace TriviaGame
             else
             {
 
-                Console.WriteLine("Answer was correct!!!!");
+                Console.WriteLine("Answer was corrent!!!!");
                 purses[currentPlayer]++;
                 Console.WriteLine(players[currentPlayer]
                         + " now has "
