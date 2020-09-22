@@ -13,14 +13,14 @@ namespace TriviaGame
             this.questions = questions;
         }
 
-        private string CreateQuestionText(string categoryName, int index)
+        private string CreateQuestionText(int index)
         {
-            return $"{categoryName} Question " + index;
+            return $"{name} Question " + index;
         }
 
         public void AddQuestion(int questionIndex)
         {
-            questions.AddLast(CreateQuestionText(name, questionIndex));
+            questions.AddLast(CreateQuestionText(questionIndex));
         }
     }
 }
