@@ -117,9 +117,7 @@ public class Game {
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
 
-				addCoinToPlayersPurse();
-				boolean noWinner = isGameContinuing();
-				getNextPlayer();
+				boolean noWinner = runTurnRound();
 
 				return noWinner;
 			} else {
@@ -128,16 +126,19 @@ public class Game {
 			}
 
 
-
 		} else {
 			System.out.println("Answer was corrent!!!!");
-
-			addCoinToPlayersPurse();
-			boolean noWinner = isGameContinuing();
-			getNextPlayer();
+			boolean noWinner = runTurnRound();
 
 			return noWinner;
 		}
+	}
+
+	private boolean runTurnRound() {
+		addCoinToPlayersPurse();
+		boolean noWinner = isGameContinuing();
+		getNextPlayer();
+		return noWinner;
 	}
 
 	public boolean isWrongAnswer(){
