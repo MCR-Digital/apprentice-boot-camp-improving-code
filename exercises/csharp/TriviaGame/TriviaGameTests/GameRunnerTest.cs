@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
-using TriviaGame;
 
-namespace TriviaGameTests
+namespace TriviaGame
 {
     public class GameRunnerTest
     {

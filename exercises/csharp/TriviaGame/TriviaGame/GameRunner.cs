@@ -14,11 +14,7 @@ namespace TriviaGame
 
         public static void Main(String[] args)
         {
-            Player player = new Player();
-            Category category = new Category(player);
-            Board board = new Board(player, category);
-
-            Game aGame = new Game(player, board, category);
+            Game aGame = new Game();
 
             aGame.Add("Chet");
             aGame.Add("Pat");
