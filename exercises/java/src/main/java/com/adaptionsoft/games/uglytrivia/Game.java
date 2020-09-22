@@ -124,43 +124,33 @@ public class Game {
 		if (playerInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				playerPurses[currentPlayer]++;
-				System.out.println(players.get(currentPlayer)  // TO VARIABLE
-						+ " now has "
-						+ playerPurses[currentPlayer]
-						+ " Gold Coins.");
-				
-				boolean winner = didPlayerWin(); // rename
-				currentPlayer++; // change player variable
-				if (currentPlayer == players.size()) currentPlayer = 0; // brackets
-				
-				return winner;
+				return isWinnerFromCorrectAnswer();
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
-			
-			
-			
 		} else {
-		
 			System.out.println("Answer was corrent!!!!");
-			playerPurses[currentPlayer]++;
-			// duplication
-			System.out.println(players.get(currentPlayer)
-					+ " now has "
-					+ playerPurses[currentPlayer]
-					+ " Gold Coins.");
-			
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-			
-			return winner;
+			return isWinnerFromCorrectAnswer();
 		}
 	}
-	
+
+	private boolean isWinnerFromCorrectAnswer() {
+		playerPurses[currentPlayer]++;
+		// duplication
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ playerPurses[currentPlayer]
+				+ " Gold Coins.");
+
+		boolean winner = didPlayerWin();
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
+
+		return winner;
+	}
+
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
