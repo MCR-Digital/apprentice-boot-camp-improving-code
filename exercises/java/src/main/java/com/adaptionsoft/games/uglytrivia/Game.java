@@ -3,6 +3,7 @@ package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Game {
 	public static final int NUMBER_OF_COINS_TO_WIN = 6;
@@ -10,6 +11,9 @@ public class Game {
 	int[] positionOnBoard = new int[6];
 	int[] purses  = new int[6];
 	boolean[] inPenaltyBox  = new boolean[6];
+	List<Player> playerList = new ArrayList<>();
+
+
 
 	LinkedList popQuestions = new LinkedList();
 	LinkedList scienceQuestions = new LinkedList();
@@ -24,12 +28,12 @@ public class Game {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
 			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+			rockQuestions.addLast(createQuestion("Rock Question", i));
 		}
 	}
 
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
+	public String createQuestion(String questionType, int index){
+		return questionType + " " + index;
 	}
 
 	public boolean addPlayer(String playerName) {
@@ -54,28 +58,32 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
-
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				movePlayerPosition(roll);
-				System.out.println("The category is " + currentCategory());
-				askQuestion();
-			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
-			}
+			isCurrentPlayerGettingOutOfPenaltyBox(roll);
 
 		} else {
 
-			movePlayerPosition(roll);
+			moveCurrentPlayerPosition(roll);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
 
 	}
 
-	private void movePlayerPosition(int roll) {
+	private void isCurrentPlayerGettingOutOfPenaltyBox(int roll) {
+		if (roll % 2 != 0) {
+			isGettingOutOfPenaltyBox = true;
+
+			System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+			moveCurrentPlayerPosition(roll);
+			System.out.println("The category is " + currentCategory());
+			askQuestion();
+		} else {
+			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+			isGettingOutOfPenaltyBox = false;
+		}
+	}
+
+	private void moveCurrentPlayerPosition(int roll) {
 		positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] + roll;
 		if (positionOnBoard[currentPlayer] > 11) positionOnBoard[currentPlayer] = positionOnBoard[currentPlayer] - 12;
 
