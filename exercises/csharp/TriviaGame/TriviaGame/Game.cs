@@ -38,10 +38,7 @@ namespace TriviaGame
             return $"Rock Question {index}";
         }
 
-        public bool IsPlayable()
-        {
-            return (HowManyPlayers() >= 2);
-        }
+        public bool IsPlayable() => (HowManyPlayers() >= 2);
 
         public bool Add(string playerName)
         {
@@ -55,16 +52,13 @@ namespace TriviaGame
             return true;
         }
 
-        public int HowManyPlayers()
-        {
-            return players.Count;
-        }
+        public int HowManyPlayers() => players.Count;
 
         public void RollDice(int roll)
         {
             Console.WriteLine($"{players[currentPlayer]} is the current player");
             Console.WriteLine($"They have rolled a {roll}");
-
+                                 
             if (inPenaltyBox[currentPlayer])
             {
                 if (roll % 2 != 0)
@@ -182,9 +176,6 @@ namespace TriviaGame
             return true;
         }
 
-        private bool DidPlayerWin()
-        {
-            return (coins[currentPlayer] != 6);
-        }
+        private bool DidPlayerWin() => (coins[currentPlayer] != 6);
     }
 }
