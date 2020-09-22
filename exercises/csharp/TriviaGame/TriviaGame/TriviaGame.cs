@@ -22,6 +22,7 @@ namespace TriviaGame
         private readonly Category rock = new Category(ROCK_CATEGORY, new LinkedList<Question>());
 
         int currentPlayerIndex = 0;
+        Player currentPlayer;
 
         public TriviaGame()
         {
@@ -53,17 +54,13 @@ namespace TriviaGame
             return players.Count;
         }
 
-        private Player CurrentPlayer()
-        {
-            return players[currentPlayerIndex];
-        }
-
         public void RollDice(int roll)
         {
-            Console.WriteLine(CurrentPlayer().name + " is the current player");
+            currentPlayer = players[currentPlayerIndex];
+            Console.WriteLine(currentPlayer.name + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (CurrentPlayer().isInPenaltyBox)
+            if (currentPlayer.isInPenaltyBox)
             {
                 PenaltyBoxPlayerTurn(roll);
             }
@@ -77,25 +74,25 @@ namespace TriviaGame
         {
             if (roll % 2 != 0)
             {
-                CurrentPlayer().canAnswerQuestion = true;
-                Console.WriteLine(CurrentPlayer().name + " is getting out of the penalty box");
+                currentPlayer.canAnswerQuestion = true;
+                Console.WriteLine(currentPlayer.name + " is getting out of the penalty box");
                 PlayTurn(roll);
             }
             else
             {
-                Console.WriteLine(CurrentPlayer().name + " is not getting out of the penalty box");
-                CurrentPlayer().canAnswerQuestion = false;
+                Console.WriteLine(currentPlayer.name + " is not getting out of the penalty box");
+                currentPlayer.canAnswerQuestion = false;
             }
         }
 
         private void PlayTurn(int roll)
         {
-            CurrentPlayer().location = CurrentPlayer().location + roll;
-            if (CurrentPlayer().location > 11) CurrentPlayer().location = CurrentPlayer().location - 12;
+            currentPlayer.location = currentPlayer.location + roll;
+            if (currentPlayer.location > 11) currentPlayer.location = currentPlayer.location - 12;
 
-            Console.WriteLine(CurrentPlayer().name
+            Console.WriteLine(currentPlayer.name
                     + "'s new location is "
-                    + CurrentPlayer().location);
+                    + currentPlayer.location);
             Console.WriteLine("The category is " + CurrentCategory().name);
             AskQuestionFrom(CurrentCategory().questions);
         }
@@ -108,7 +105,7 @@ namespace TriviaGame
 
         private Category CurrentCategory()
         {
-            int playerLocation = CurrentPlayer().location;
+            int playerLocation = currentPlayer.location;
             Category result = rock;
             if (playerLocation % NUMBER_OF_CATEGORIES == 0) result = pop;
             if (playerLocation % NUMBER_OF_CATEGORIES == 1) result = science;
@@ -119,9 +116,9 @@ namespace TriviaGame
         public bool CanGameContinueAfterCorrectAnswer()
         {
             bool result;
-            if (CurrentPlayer().isInPenaltyBox)
+            if (currentPlayer.isInPenaltyBox)
             {
-                if (CurrentPlayer().canAnswerQuestion)
+                if (currentPlayer.canAnswerQuestion)
                 {
                     CorrectAnswer("Answer was correct!!!!");
                     result = CanGameContinue();
@@ -143,18 +140,18 @@ namespace TriviaGame
         private void CorrectAnswer(string answerMessage)
         {
             Console.WriteLine(answerMessage);
-            CurrentPlayer().purse++;
-            Console.WriteLine(CurrentPlayer().name
+            currentPlayer.purse++;
+            Console.WriteLine(currentPlayer.name
                     + " now has "
-                    + CurrentPlayer().purse
+                    + currentPlayer.purse
                     + " Gold Coins.");
         }
 
         public bool WrongAnswer()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(CurrentPlayer().name + " was sent to the penalty box");
-            CurrentPlayer().isInPenaltyBox = true;
+            Console.WriteLine(currentPlayer.name + " was sent to the penalty box");
+            currentPlayer.isInPenaltyBox = true;
             ChangeCurrentPlayer();
             return true;
         }
@@ -167,7 +164,7 @@ namespace TriviaGame
 
         private bool CanGameContinue()
         {
-            return !(CurrentPlayer().purse == WINNING_SCORE);
+            return !(currentPlayer.purse == WINNING_SCORE);
         }
     }
 
