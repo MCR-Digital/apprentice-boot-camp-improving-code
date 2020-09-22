@@ -1,44 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriviaGame
 {
-   public class GameRunner
+    public class GameRunner
     {
 
-        private static bool notAWinner;
+        private static bool doesGameHaveNoWinner;
 
         public static void Main(String[] args)
         {
-            Game aGame = new Game();
+            Game currentGame = new Game("Chet", "Pat", "Sue");
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            Random dice = new Random(Int32.Parse(args[0]));
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            int RollDice(int maxValue)
+            {
+                return dice.Next(maxValue);
+            }
 
             do
             {
+                currentGame.ProcessRoll(RollDice(5) + 1);
 
-                aGame.Roll(rand.Next(5) + 1);
-
-                if (rand.Next(9) == 7)
+                if (RollDice(9) == 7)
                 {
-                    notAWinner = aGame.WrongAnswer();
+                    doesGameHaveNoWinner = currentGame.WrongAnswer();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    doesGameHaveNoWinner = currentGame.CorrectAnswer();
                 }
 
-
-
-            } while (notAWinner);
+            } while (doesGameHaveNoWinner);
 
         }
     }
