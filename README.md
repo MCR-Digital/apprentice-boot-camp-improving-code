@@ -4,6 +4,8 @@
 - Introducing some sort of test or quiz on basic concept learning points from the bootcamp to validate that they have taken stuff in, and provide organisation mentors with results to help them focus follow ups
 --->
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e1fa3d07bed44ff0b202880ad728fd90)](https://app.codacy.com/manual/tomtomdurrant/apprentice-boot-camp-improving-code?utm_source=github.com&utm_medium=referral&utm_content=tomtomdurrant/apprentice-boot-camp-improving-code&utm_campaign=Badge_Grade_Dashboard)
+
 ## Competencies, Behaviours and Knowledge units
 
 * TC10: Applying Good Practice
