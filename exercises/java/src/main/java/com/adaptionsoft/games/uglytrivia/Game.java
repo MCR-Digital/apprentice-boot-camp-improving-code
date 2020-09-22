@@ -33,9 +33,9 @@ public class Game {
 	public boolean addPlayer(String playerName) {
 	    players.add(playerName);
 		resetPlayer(howManyPlayers());
-	    
-	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.size());
+
+		displayMessage(playerName + " was added");
+		displayMessage("They are player number " + players.size());
 		return true;
 	}
 
@@ -64,15 +64,15 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		System.out.println(players.get(currentPlayer) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		displayMessage(players.get(currentPlayer) + " is the current player");
+		displayMessage("They have rolled a " + roll);
 
 		if (playerInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) { //EXTRACT TO VARIABLE "isRoleOdd"
 				isGettingOutOfPenaltyBox = true;
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+				displayMessage(players.get(currentPlayer) + " is getting out of the penalty box");
 			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+				displayMessage(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
 				return;
 			}
@@ -86,23 +86,23 @@ public class Game {
 			playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12; // EXPLANATION?
 		}
 
-		System.out.println(players.get(currentPlayer)
+		displayMessage(players.get(currentPlayer)
 				+ "'s new location is "
 				+ playerPositions[currentPlayer]);
-		System.out.println("The category is " + currentCategory());
+		displayMessage("The category is " + currentCategory());
 		askQuestion();
 	}
 
 	private void askQuestion() {
     	//CASE?
 		if (currentCategory() == QuestionTypes.Pop)
-			System.out.println(popQuestions.removeFirst());
+			displayMessage(popQuestions.removeFirst());
 		if (currentCategory() == QuestionTypes.Science)
-			System.out.println(scienceQuestions.removeFirst());
+			displayMessage(scienceQuestions.removeFirst());
 		if (currentCategory() == QuestionTypes.Sports)
-			System.out.println(sportsQuestions.removeFirst());
+			displayMessage(sportsQuestions.removeFirst());
 		if (currentCategory() == QuestionTypes.Rock)
-			System.out.println(rockQuestions.removeFirst());
+			displayMessage(rockQuestions.removeFirst());
 	}
 	
 	
@@ -123,44 +123,47 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (playerInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
+				displayMessage("Answer was correct!!!!");
 				return isWinnerFromCorrectAnswer();
 			} else {
 				changePlayer();
 				return true;
 			}
 		} else {
-			System.out.println("Answer was corrent!!!!");
+			displayMessage("Answer was corrent!!!!");
 			return isWinnerFromCorrectAnswer();
 		}
 	}
 
 	private boolean isWinnerFromCorrectAnswer() {
-		playerPurses[currentPlayer]++;
+		addCoinToCurrentPlayer();
 		// duplication
-		System.out.println(players.get(currentPlayer)
+		displayMessage(players.get(currentPlayer)
 				+ " now has "
 				+ playerPurses[currentPlayer]
 				+ " Gold Coins.");
 
-		boolean winner = didPlayerWin();
+		boolean winner = isCurrentPlayerWinner();
 		changePlayer();
 
 		return winner;
 	}
 
 	public boolean wrongAnswer(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
+		displayMessage("Question was incorrectly answered");
+		displayMessage(players.get(currentPlayer)+ " was sent to the penalty box");
 		moveCurrentPlayerInPenaltyBox();
-
 		changePlayer();
 		return true;
 	}
 
 
-	private boolean didPlayerWin() {
+	private boolean isCurrentPlayerWinner() {
 		return playerPurses[currentPlayer] != 6;
+	}
+
+	private void addCoinToCurrentPlayer() {
+		playerPurses[currentPlayer]++;
 	}
 
 	private void moveCurrentPlayerInPenaltyBox() {
@@ -172,5 +175,9 @@ public class Game {
 		if (currentPlayer == players.size()) {
 			currentPlayer = 0;
 		}
+	}
+
+	private void displayMessage(Object message) {
+		System.out.println(message);
 	}
 }
