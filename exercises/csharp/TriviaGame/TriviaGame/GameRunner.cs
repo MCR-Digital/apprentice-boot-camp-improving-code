@@ -22,12 +22,16 @@ namespace TriviaGame
 
             Random dice = new Random(Int32.Parse(args[0]));
 
+            int RollDice(int maxValue)
+            {
+                return dice.Next(maxValue);
+            }
+
             do
             {
+                currentGame.ProcessRoll(RollDice(5) + 1);
 
-                currentGame.RollDice(dice.Next(5) + 1);
-
-                if (dice.Next(9) == 7)
+                if (RollDice(9) == 7)
                 {
                     doesGameHaveNoWinner = currentGame.WrongAnswer();
                 }
