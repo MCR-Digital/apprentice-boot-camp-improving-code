@@ -10,8 +10,7 @@ namespace TriviaGame
             Console.WriteLine($"{playerName} was added");
         }
 
-        public int Coins { get; set; } = 0;
-        public int Index { get; set; }
+        public int Coins { get; set; }
         public string Name { get; set; }
         public int Position { get; set; }
         public bool InPenaltyBox { get; set; }

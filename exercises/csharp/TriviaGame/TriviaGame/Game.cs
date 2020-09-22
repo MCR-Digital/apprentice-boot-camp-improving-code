@@ -14,11 +14,10 @@ namespace TriviaGame
         private readonly List<Player> _gamePlayers = new List<Player>();
 
         private int _currentPlayerIndex;
-        // private bool _playerCanAnswerQuestion;
         private readonly ScienceQuestion _scienceQuestion;
-        private RockQuestion _rockQuestion;
-        private SportsQuestion _sportsQuestion;
-        private PopQuestion _popQuestion;
+        private readonly RockQuestion _rockQuestion;
+        private readonly SportsQuestion _sportsQuestion;
+        private readonly PopQuestion _popQuestion;
 
         private Player _currentPlayer;
         public Game()
@@ -61,7 +60,7 @@ namespace TriviaGame
             {
                 if (CanLeavePenaltyBox(roll))
                 {
-                    MovePlayer(roll, _currentPlayer.Name, true);
+                    MovePlayer(roll, _currentPlayer.Name);
                     AskQuestion();
                 }
                 else
@@ -77,22 +76,27 @@ namespace TriviaGame
             }
         }
 
-        private void MovePlayer(int roll, string playerName, bool showPenaltyBoxMessage = false)
+        private void MovePlayer(int roll, string playerName)
         {
             _currentPlayer.CanAnswerQuestion = true;
 
-            if (showPenaltyBoxMessage)
+            if (_currentPlayer.InPenaltyBox)
             {
                 WritePenaltyBoxMessage(_currentPlayer.CanAnswerQuestion);
             }
             _currentPlayer.Position += roll;
+            BoardWrapAround();
+
+            Console.WriteLine($"{playerName}'s new location is {_currentPlayer.Position}");
+            Console.WriteLine($"The category is {CurrentCategory()}");
+        }
+
+        private void BoardWrapAround()
+        {
             if (_currentPlayer.Position > Constants.EndOfBoard)
             {
                 _currentPlayer.Position -= Constants.LengthOfBoard;
             }
-
-            Console.WriteLine($"{playerName}'s new location is {_currentPlayer.Position}");
-            Console.WriteLine($"The category is {CurrentCategory()}");
         }
 
         private void WritePenaltyBoxMessage(bool gettingOut = false)
