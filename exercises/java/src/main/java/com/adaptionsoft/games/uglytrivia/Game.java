@@ -8,6 +8,7 @@ public class Game {
 	public static final String SCIENCE_CATEGORY = "Science";
 	public static final String SPORTS_CATEGORY = "Sports";
 	public static final String ROCK_CATEGORY = "Rock";
+	public static final int WINNING_SCORE = 6;
 	ArrayList players = new ArrayList();
     int[] playerPositions = new int[6];
     int[] playerPurses = new int[6];
@@ -157,7 +158,7 @@ public class Game {
 	}
 
 	private boolean isGameContinuing() {
-		return !(playerPurses[currentPlayer] == 6);
+		return !(playerPurses[currentPlayer] == WINNING_SCORE);
 	}
 
 	private void addCoinToPlayersPurse() {
