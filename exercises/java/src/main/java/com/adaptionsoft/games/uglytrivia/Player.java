@@ -1,20 +1,18 @@
 package com.adaptionsoft.games.uglytrivia;
 
 public class Player {
-    Boolean isPlayerInPenaltyBox;
-    String playerName;
-    Integer coinPurse;
+    private Boolean PlayerInPenaltyBox;
+    private String playerName;
+    private Integer coinPurse;
     private Integer positionOnBoard;
-    Integer playerNumber;
+   private Integer playerNumber;
 
-    public Boolean getPlayerInPenaltyBox() {
-        return isPlayerInPenaltyBox;
+    public Boolean isPlayerInPenaltyBox() {
+        return PlayerInPenaltyBox;
     }
 
     public void setPlayerInPenaltyBox(Boolean playerInPenaltyBox) {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(playerName + " was sent to the penalty box");
-        isPlayerInPenaltyBox = playerInPenaltyBox;
+        PlayerInPenaltyBox = playerInPenaltyBox;
     }
 
     public String getPlayerName() {
@@ -22,7 +20,6 @@ public class Player {
     }
 
     public Integer getCoinPurse() {
-        System.out.println(playerName + " now has " + coinPurse + " Gold Coins.");
         return coinPurse;
     }
 
@@ -47,7 +44,7 @@ public class Player {
     }
 
     public Player(String playerName, Integer playerNumber) {
-        this.isPlayerInPenaltyBox = false;
+        this.PlayerInPenaltyBox = false;
         this.playerName = playerName;
         this.coinPurse = 0;
         this.positionOnBoard =0;

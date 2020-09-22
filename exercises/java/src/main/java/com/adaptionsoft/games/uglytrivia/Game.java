@@ -26,20 +26,19 @@ public class Game {
     }
 
 
-    public boolean addPlayer(String playerName) {
+    public void addPlayer(String playerName) {
         Player newPlayer = new Player(playerName, playerList.size());
         playerList.add(newPlayer);
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + (newPlayer.getPlayerNumber() + 1));
-        return true;
     }
 
     public void roll(int roll) {
         currentPlayer = playerList.get(currentPlayerIndex);
-        System.out.println(currentPlayer.playerName + " is the current player");
+        System.out.println(currentPlayer.getPlayerName() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-        if (currentPlayer.isPlayerInPenaltyBox) {
+        if (currentPlayer.isPlayerInPenaltyBox()) {
             isCurrentPlayerGettingOutOfPenaltyBox(roll);
         } else {
             moveCurrentPlayerPosition(roll);
@@ -95,7 +94,7 @@ public class Game {
     }
 
     public boolean isCorrectAnswer() {
-        if (!currentPlayer.isPlayerInPenaltyBox) {
+        if (!currentPlayer.isPlayerInPenaltyBox()) {
             System.out.println("Answer was corrent!!!!");
             return isGameContinuing();
         }
@@ -111,6 +110,7 @@ public class Game {
     private boolean isGameContinuing() {
         currentPlayer.addCoinToPurse();
         currentPlayer.getCoinPurse();
+        System.out.println(currentPlayer.getPlayerName() + " now has " + currentPlayer.getCoinPurse() + " Gold Coins.");
         chooseNextPlayer();
 
         return didPlayerNotWin();
@@ -118,6 +118,8 @@ public class Game {
 
     public boolean isIncorrectAnswer() {
         currentPlayer.setPlayerInPenaltyBox(true);
+        System.out.println("Question was incorrectly answered");
+        System.out.println(currentPlayer.getPlayerName() + " was sent to the penalty box");
         chooseNextPlayer();
         return true;
     }
@@ -129,6 +131,6 @@ public class Game {
 
 
     private boolean didPlayerNotWin() {
-        return !(currentPlayer.coinPurse == NUMBER_OF_COINS_TO_WIN);
+        return !(currentPlayer.getCoinPurse() == NUMBER_OF_COINS_TO_WIN);
     }
 }
