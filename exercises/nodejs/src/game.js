@@ -19,28 +19,24 @@ var Game = function () {
   };
 
   var currentCategory = function () {
-    let returnVal;
-    switch (boardSquares[parseInt(currentPlayer)]) {
-      case 0:
-      case 4:
-      case 8:
-        returnVal = "Pop";
-        break;
-      case 1:
-      case 5:
-      case 9:
-        returnVal = "Science";
-        break;
-      case 2:
-      case 6:
-      case 10:
-        returnVal = "Sports";
-        break;
-      default:
-        returnVal = "Rock";
-        break;
-    }
-    return returnVal;
+    const popCategory = "Pop";
+    const scienceCategory = "Science";
+    const sportsCategory = "Sports";
+
+    const editors = {
+      0: popCategory,
+      1: scienceCategory,
+      2: sportsCategory,
+      4: popCategory,
+      5: scienceCategory,
+      6: sportsCategory,
+      8: popCategory,
+      9: scienceCategory,
+      10: sportsCategory,
+      default: "Rock",
+    };
+
+    return editors[boardSquares[parseInt(currentPlayer)]] || editors.default;
   };
 
   this.createRockQuestion = function (index) {
