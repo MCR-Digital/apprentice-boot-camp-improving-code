@@ -72,22 +72,27 @@ namespace TriviaGame
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
-                {
-                    playerCanAnswerQuestion = true;
-
-                    Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    PlayTurn(roll);
-                }
-                else
-                {
-                    Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    playerCanAnswerQuestion = false;
-                }
+                PenaltyBoxPlayerTurn(roll);
             }
             else
             {
                 PlayTurn(roll);
+            }
+        }
+
+        private void PenaltyBoxPlayerTurn(int roll)
+        {
+            if (roll % 2 != 0)
+            {
+                playerCanAnswerQuestion = true;
+
+                Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
+                PlayTurn(roll);
+            }
+            else
+            {
+                Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
+                playerCanAnswerQuestion = false;
             }
         }
 
