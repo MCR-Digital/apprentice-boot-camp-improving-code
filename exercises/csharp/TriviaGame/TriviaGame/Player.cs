@@ -2,17 +2,17 @@
 {
     public class Player
     {
-        public string playerName { get; set; }
-        public int playerPurse { get; set; }
-        public int playerLocation { get; set; }
-        public bool isPlayerInPenaltyBox { get; set; }
+        public string name { get; set; }
+        public int purse { get; set; }
+        public int location { get; set; }
+        public bool isInPenaltyBox { get; set; }
 
         public Player(string name)
         {
-            playerName = name;
-            playerPurse = 0;
-            playerLocation = 0;
-            isPlayerInPenaltyBox = false;
+            this.name = name;
+            purse = 0;
+            location = 0;
+            isInPenaltyBox = false;
         }
     }
 }
