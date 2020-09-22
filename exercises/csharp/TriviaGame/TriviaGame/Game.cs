@@ -11,8 +11,6 @@ namespace TriviaGame
         private readonly int[] places = new int[Constants.MaxPlayers];
         private readonly int[] purses = new int[Constants.MaxPlayers];
 
-        private readonly bool[] inPenaltyBox = new bool[Constants.MaxPlayers];
-
         private readonly LinkedList<string> popularQuestions = new LinkedList<string>();
         private readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
         private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
@@ -20,6 +18,8 @@ namespace TriviaGame
 
         private int currentPlayer = 0;
         private bool isGettingOutOfPenaltyBox;
+
+        private readonly Board board;
 
         private enum QuestionCategory
         {
@@ -31,6 +31,8 @@ namespace TriviaGame
 
         public Game()
         {
+            board = new Board();
+
             CreateQuestions();
         }
 
@@ -56,7 +58,7 @@ namespace TriviaGame
             places[NumberOfPlayers] = 0;
             purses[NumberOfPlayers] = 0;
 
-            inPenaltyBox[NumberOfPlayers] = false;
+            board.InitialisePlayerStateInPenaltyBox(playerNumber: NumberOfPlayers);
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
@@ -68,7 +70,7 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (inPenaltyBox[currentPlayer])
+            if (board.IsPlayerInPenaltyBox(currentPlayer))
             {
                 if (roll % 2 != 0)
                 {
@@ -154,7 +156,7 @@ namespace TriviaGame
 
         public bool WasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayer])
+            if (board.IsPlayerInPenaltyBox(currentPlayer))
             {
                 if (isGettingOutOfPenaltyBox)
                 {
@@ -203,7 +205,7 @@ namespace TriviaGame
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
+            board.AddPlayerToPenaltyBox(playerNumber: currentPlayer);
 
             currentPlayer++;
             if (currentPlayer == players.Count) currentPlayer = 0;
