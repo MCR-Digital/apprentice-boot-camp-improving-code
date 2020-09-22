@@ -104,11 +104,6 @@ namespace TriviaGame
                     + "'s new location is "
                     + playerLocations[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory().name);
-            AskQuestion();
-        }
-
-        private void AskQuestion()
-        {
             AskQuestionFrom(CurrentCategory().questions);
         }
 
