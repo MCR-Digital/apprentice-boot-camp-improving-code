@@ -98,16 +98,17 @@ public class Game {
 	}
 
 	private String currentCategory() {
-		if (playerPosition[currentPlayer] == 0) return "Pop";
-		if (playerPosition[currentPlayer] == 4) return "Pop";
-		if (playerPosition[currentPlayer] == 8) return "Pop";
-		if (playerPosition[currentPlayer] == 1) return "Science";
-		if (playerPosition[currentPlayer] == 5) return "Science";
-		if (playerPosition[currentPlayer] == 9) return "Science";
-		if (playerPosition[currentPlayer] == 2) return "Sports";
-		if (playerPosition[currentPlayer] == 6) return "Sports";
-		if (playerPosition[currentPlayer] == 10) return "Sports";
-		return "Rock";
+
+		int position = playerPosition[currentPlayer];
+
+		boolean positionEqualsPop = position == 0 || position == 4 || position == 8;
+		boolean positionEqualsScience = position == 1 || position == 5 || position == 9;
+		boolean positionEqualsSports = position == 2 || position == 6 || position == 10;
+
+		if (positionEqualsPop) return "Pop";
+		else if (positionEqualsScience) return "Science";
+		else if (positionEqualsSports) return "Sports";
+		else return "Rock";
 	}
 
 	public boolean correctAnswer() {
