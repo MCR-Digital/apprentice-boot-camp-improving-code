@@ -84,22 +84,17 @@ namespace TriviaGame
         {
             Console.WriteLine(totalPlayers[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + rollResult);
-
             if (playerPenaltyBoxState[currentPlayer])
             {
                 if (IsRollResultOdd(rollResult))
                 {
                     isGettingOutOfPenaltyBox = true;
-
                     Console.WriteLine(totalPlayers[currentPlayer] + " is getting out of the penalty box");
-
                     playerBoardPositionState[currentPlayer] = UpdatePlayerPositionState(playerBoardPositionState[currentPlayer], rollResult);
-
                     if (IsPlayerPositionGreaterThanEleven(playerBoardPositionState[currentPlayer]))
                     {
                         playerBoardPositionState[currentPlayer] = ResetPlayerToPositionZero(playerBoardPositionState[currentPlayer]);
                     }
-
                     PrintPlayerPositionAndQuestionCategory();
                     AskQuestion();
                 }
@@ -108,18 +103,14 @@ namespace TriviaGame
                     Console.WriteLine(totalPlayers[currentPlayer] + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
-
             }
             else
             {
-
                 playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + rollResult;
                 if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
-
                 PrintPlayerPositionAndQuestionCategory();
                 AskQuestion();
             }
-
         }
 
         private void PrintPlayerPositionAndQuestionCategory()
