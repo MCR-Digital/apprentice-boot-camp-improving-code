@@ -19,7 +19,7 @@ namespace TriviaGame
 
         bool[] inPenaltyBox = new bool[6];
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
+        private readonly Category Pop = new Category(POP_CATEGORY, new LinkedList<string>());
         LinkedList<string> scienceQuestions = new LinkedList<string>();
         LinkedList<string> sportsQuestions = new LinkedList<string>();
         LinkedList<string> rockQuestions = new LinkedList<string>();
@@ -31,7 +31,7 @@ namespace TriviaGame
         {
             for (int questionIndex = 0; questionIndex < 50; questionIndex++)
             {
-                popQuestions.AddLast(CreateQuestionText(POP_CATEGORY, questionIndex));
+                Pop.questions.AddLast(CreateQuestionText(POP_CATEGORY, questionIndex));
                 scienceQuestions.AddLast(CreateQuestionText(SCIENCE_CATEGORY, questionIndex));
                 sportsQuestions.AddLast(CreateQuestionText(SPORTS_CATEGORY, questionIndex));
                 rockQuestions.AddLast(CreateQuestionText(ROCK_CATEGORY, questionIndex));
@@ -111,7 +111,7 @@ namespace TriviaGame
         {
             if (CurrentCategory() == POP_CATEGORY)
             {
-                AskQuestionFrom(popQuestions);
+                AskQuestionFrom(Pop.questions);
             }
             if (CurrentCategory() == SCIENCE_CATEGORY)
             {
