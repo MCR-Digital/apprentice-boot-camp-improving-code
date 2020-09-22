@@ -64,7 +64,7 @@ namespace TriviaGame
             return players.Count;
         }
 
-        public void Roll(int roll)
+        public void NextPlayerRolls(int roll)
         {
             Console.WriteLine(players[_currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
@@ -79,10 +79,8 @@ namespace TriviaGame
                     places[_currentPlayer] = places[_currentPlayer] + roll;
                     if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
 
-                    Console.WriteLine(players[_currentPlayer]
-                            + "'s new location is "
-                            + places[_currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
+                    NewPlayerLocation();
+                    StateCurrentCategory();
                     AskQuestion();
                 }
                 else
@@ -98,13 +96,23 @@ namespace TriviaGame
                 places[_currentPlayer] = places[_currentPlayer] + roll;
                 if (places[_currentPlayer] > 11) places[_currentPlayer] = places[_currentPlayer] - 12;
 
-                Console.WriteLine(players[_currentPlayer]
-                        + "'s new location is "
-                        + places[_currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
+                NewPlayerLocation();
+                StateCurrentCategory();
                 AskQuestion();
             }
 
+        }
+
+        private void StateCurrentCategory()
+        {
+            Console.WriteLine("The category is " + CurrentCategory());
+        }
+
+        private void NewPlayerLocation()
+        {
+            Console.WriteLine(players[_currentPlayer]
+                              + "'s new location is "
+                              + places[_currentPlayer]);
         }
 
         private void AskQuestion()

@@ -20,7 +20,7 @@ namespace TriviaGame
             do
             {
 
-                aGame.Roll(rand.Next(5) + 1);
+                aGame.NextPlayerRolls(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {
