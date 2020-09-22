@@ -14,29 +14,29 @@ namespace TriviaGame
 
         public static void Main(String[] args)
         {
-            // 1. There should be a method in here to create the game
-            // 2. Then a method to run the game
+            Game game = new Game();
+            Player player = new Player();
 
-            Game createGame = new Game();
+            player.AddPlayer("Chet");
+            player.AddPlayer("Pat");
+            player.AddPlayer("Sue");
 
-            createGame.AddPlayer("Chet");
-            createGame.AddPlayer("Pat");
-            createGame.AddPlayer("Sue");
+            game._player = player;
 
             Random rand = new Random(Int32.Parse(args[0]));
 
             do
             {
                 // turn the below to a method that generates a random dice number
-                createGame.RollDice(rand.Next(5) + 1);
+                game.RollDice(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {
-                    doesGameHaveWinner = createGame.WasIncorrectlyAnswered();
+                    doesGameHaveWinner = game.WasIncorrectlyAnswered();
                 }
                 else
                 {
-                    doesGameHaveWinner = createGame.WasCorrectlyAnswered();
+                    doesGameHaveWinner = game.WasCorrectlyAnswered();
                 }
 
 

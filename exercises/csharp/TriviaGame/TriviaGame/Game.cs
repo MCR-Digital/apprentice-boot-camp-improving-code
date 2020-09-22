@@ -7,10 +7,8 @@ namespace TriviaGame
 {
     public class Game
     {
-        // Place all of the models in a separate file
-        // Add all models through dependency injection?
-
-        List<string> totalPlayers = new List<string>();
+        public Player _player;
+        public Board _board;
 
         private readonly int totalQuestions = 50;
 
@@ -18,11 +16,6 @@ namespace TriviaGame
         private readonly string scienceCategory = "Science";
         private readonly string sportsCategory = "Sports";
         private readonly string rockCategory = "Rock";
-
-        int[] playerBoardPositionState = new int[6];
-        int[] playerPurseTotalState = new int[6];
-
-        bool[] playerPenaltyBoxState = new bool[6];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -45,70 +38,37 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (GetTotalPlayersCount() >= 2);
+            return (_player.GetTotalPlayersCount() >= 2);
         }
-
-        public bool AddPlayer(string playerName)
-        {
-            totalPlayers.Add(playerName);
-            playerBoardPositionState[GetTotalPlayersCount()] = 0;
-            playerPurseTotalState[GetTotalPlayersCount()] = 0;
-            playerPenaltyBoxState[GetTotalPlayersCount()] = false;
-            PrintNewPlayerDetails(playerName);
-            return true;
-        }
-
-        private void PrintNewPlayerDetails(string playerName)
-        {
-            Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + totalPlayers.Count);
-        }
-
-        public int GetTotalPlayersCount()
-        {
-            return totalPlayers.Count;
-        }
-
-        private static bool IsRollResultOdd(int rollResult)
-        {
-            if (rollResult % 2 != 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
+        
         public void RollDice(int rollResult)
         {
-            Console.WriteLine(totalPlayers[currentPlayer] + " is the current player");
+            Console.WriteLine(_player.totalPlayers[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + rollResult);
-            if (playerPenaltyBoxState[currentPlayer])
+            if (_player.playerPenaltyBoxState[currentPlayer])
             {
-                if (IsRollResultOdd(rollResult))
+                if (_board.IsRollResultOdd(rollResult))
                 {
                     isGettingOutOfPenaltyBox = true;
-                    Console.WriteLine(totalPlayers[currentPlayer] + " is getting out of the penalty box");
-                    playerBoardPositionState[currentPlayer] = UpdatePlayerPositionState(playerBoardPositionState[currentPlayer], rollResult);
-                    if (IsPlayerPositionGreaterThanEleven(playerBoardPositionState[currentPlayer]))
+                    Console.WriteLine(_player.totalPlayers[currentPlayer] + " is getting out of the penalty box");
+                    _player.playerBoardPositionState[currentPlayer] = UpdatePlayerPositionState(_player.playerBoardPositionState[currentPlayer], rollResult);
+                    if (IsPlayerPositionGreaterThanEleven(_player.playerBoardPositionState[currentPlayer]))
                     {
-                        playerBoardPositionState[currentPlayer] = ResetPlayerToPositionZero(playerBoardPositionState[currentPlayer]);
+                        _player.playerBoardPositionState[currentPlayer] = ResetPlayerToPositionZero(_player.playerBoardPositionState[currentPlayer]);
                     }
                     PrintPlayerPositionAndQuestionCategory();
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(totalPlayers[currentPlayer] + " is not getting out of the penalty box");
+                    Console.WriteLine(_player.totalPlayers[currentPlayer] + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
             }
             else
             {
-                playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + rollResult;
-                if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
+                _player.playerBoardPositionState[currentPlayer] = _player.playerBoardPositionState[currentPlayer] + rollResult;
+                if (_player.playerBoardPositionState[currentPlayer] > 11) _player.playerBoardPositionState[currentPlayer] = _player.playerBoardPositionState[currentPlayer] - 12;
                 PrintPlayerPositionAndQuestionCategory();
                 AskQuestion();
             }
@@ -116,9 +76,9 @@ namespace TriviaGame
 
         private void PrintPlayerPositionAndQuestionCategory()
         {
-            Console.WriteLine(totalPlayers[currentPlayer]
+            Console.WriteLine(_player.totalPlayers[currentPlayer]
                     + "'s new location is "
-                    + playerBoardPositionState[currentPlayer]);
+                    + _player.playerBoardPositionState[currentPlayer]);
             Console.WriteLine("The category is " + FindCurrentQuestionCategoryByPlayerPosition());
         }
 
@@ -165,7 +125,7 @@ namespace TriviaGame
 
         private string FindCurrentQuestionCategoryByPlayerPosition()
         {
-            var playerPosition = playerBoardPositionState[currentPlayer];
+            var playerPosition = _player.playerBoardPositionState[currentPlayer];
 
             if (playerPosition == 0 || playerPosition ==  4 || playerPosition == 8)
             {
@@ -187,7 +147,7 @@ namespace TriviaGame
 
         public bool WasCorrectlyAnswered()
         {
-            if (playerPenaltyBoxState[currentPlayer])
+            if (_player.playerPenaltyBoxState[currentPlayer])
             {
                 if (isGettingOutOfPenaltyBox)
                 {
@@ -207,7 +167,7 @@ namespace TriviaGame
             else
             {
                 Console.WriteLine("Answer was corrent!!!!");
-                playerPurseTotalState[currentPlayer]++;
+                _player.playerPurseTotalState[currentPlayer]++;
                 PrintPlayerPurseCount();
                 bool winner = DidPlayerWin();
                 MoveToNextPlayer();
@@ -217,28 +177,28 @@ namespace TriviaGame
 
         private void PrintPlayerPurseCount()
         {
-            Console.WriteLine(totalPlayers[currentPlayer]
+            Console.WriteLine(_player.totalPlayers[currentPlayer]
                     + " now has "
-                    + playerPurseTotalState[currentPlayer]
+                    + _player.playerPurseTotalState[currentPlayer]
                     + " Gold Coins.");
         }
 
         private void MoveToNextPlayer()
         {
             currentPlayer++;
-            if (currentPlayer == totalPlayers.Count) currentPlayer = 0;
+            if (currentPlayer == _player.totalPlayers.Count) currentPlayer = 0;
         }
 
         private void IncreasePlayerPurseTotal()
         {
-            playerPurseTotalState[currentPlayer]++;
+            _player.playerPurseTotalState[currentPlayer]++;
         }
 
         public bool WasIncorrectlyAnswered()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(totalPlayers[currentPlayer] + " was sent to the penalty box");
-            playerPenaltyBoxState[currentPlayer] = true;
+            Console.WriteLine(_player.totalPlayers[currentPlayer] + " was sent to the penalty box");
+            _player.playerPenaltyBoxState[currentPlayer] = true;
 
             MoveToNextPlayer();
             return true;
@@ -247,7 +207,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(playerPurseTotalState[currentPlayer] == 6);
+            return !(_player.playerPurseTotalState[currentPlayer] == 6);
         }
     }
 
