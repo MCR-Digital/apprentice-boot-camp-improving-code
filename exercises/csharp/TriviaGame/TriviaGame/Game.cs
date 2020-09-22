@@ -50,7 +50,7 @@ namespace TriviaGame
             return _gamePlayers.Count >= MinPlayers;
         }
 
-        public bool Add(string playerName)
+        public bool AddPlayer(string playerName)
         {
             _gamePlayers.Add(playerName);
             _playerPositions[_gamePlayers.Count] = 0;
