@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList<String> players = new ArrayList<>();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+	public static final int SIZE = 6;
+	ArrayList<String> players = new ArrayList<>();
+    int[] playersPositions = new int[SIZE];
+    int[] playersPurses = new int[SIZE];
+    boolean[] playersInPenaltyBox = new boolean[SIZE];
     
     LinkedList<String> popQuestions = new LinkedList<>();
     LinkedList<String> scienceQuestions = new LinkedList<>();
@@ -32,15 +33,14 @@ public class Game {
 	}
 
 
-	public boolean addPlayerNames(String playerName) {
+	public void addPlayerNames(String playerName) {
 	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
-	    inPenaltyBox[howManyPlayers()] = false;
+	    playersPositions[howManyPlayers()] = 0;
+	    playersPurses[howManyPlayers()] = 0;
+	    playersInPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
-		return true;
 	}
 	
 	public int howManyPlayers() {
@@ -50,7 +50,7 @@ public class Game {
 	public void playTrivia(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
-		if (inPenaltyBox[currentPlayer]) {
+		if (playersInPenaltyBox[currentPlayer]) {
 			isGettingOutOfPenaltyBox(roll);
 		} else {
 			isNotInPenaltyBox(roll);
@@ -59,10 +59,11 @@ public class Game {
 	}
 
 	private void isNotInPenaltyBox(int roll) {
-		places[currentPlayer] = places[currentPlayer] + roll;
-		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+		playersPositions[currentPlayer] = playersPositions[currentPlayer] + roll;
 
-		System.out.println(players.get(currentPlayer) + "'s new location is " + places[currentPlayer]);
+		if (playersPositions[currentPlayer] > 11) playersPositions[currentPlayer] = playersPositions[currentPlayer] - 12;
+
+		System.out.println(players.get(currentPlayer) + "'s new location is " + playersPositions[currentPlayer]);
 		System.out.println("The category is " + currentCategory());
 		currentCategory = currentCategory();
 		printQuestionByCategory(currentCategory);
@@ -98,27 +99,22 @@ public class Game {
 
 
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		switch ((playersPositions[currentPlayer])){
+			case 0: case 4: case 8: return "Pop";
+			case 1: case 5: case 9: return "Science";
+			case 2: case 6: case 10: return "Sports";
+			default: return "Rock";
+		}
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[currentPlayer]){
+		if (playersInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				purses[currentPlayer]++;
+				playersPurses[currentPlayer]++;
 				boolean winner = isWinner();
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
-
 				return winner;
 			} else {
 				currentPlayer++;
@@ -127,7 +123,7 @@ public class Game {
 			}
 		} else {
 			System.out.println("Answer was corrent!!!!");
-			purses[currentPlayer]++;
+			playersPurses[currentPlayer]++;
 			boolean winner = isWinner();
 			currentPlayer++;
 			if (currentPlayer == players.size()) currentPlayer = 0;
@@ -137,15 +133,14 @@ public class Game {
 	}
 
 	private boolean isWinner() {
-		System.out.println(players.get(currentPlayer) + " now has " + purses[currentPlayer] + " Gold Coins.");
-
+		System.out.println(players.get(currentPlayer) + " now has " + playersPurses[currentPlayer] + " Gold Coins.");
 		return didPlayerWin();
 	}
 
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
+		playersInPenaltyBox[currentPlayer] = true;
 		
 		currentPlayer++;
 		if (currentPlayer == players.size()) currentPlayer = 0;
@@ -154,6 +149,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return !(playersPurses[currentPlayer] == 6);
 	}
 }
