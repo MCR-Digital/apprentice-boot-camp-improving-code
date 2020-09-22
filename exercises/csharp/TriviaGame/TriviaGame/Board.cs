@@ -3,11 +3,13 @@
     public class Board
     {
         // TODO: List<Player>?
-        private readonly bool[] PenaltyBox = new bool[Constants.MaxPlayers];
+        private readonly bool[] penaltyBox = new bool[Constants.MaxPlayers];
+        // TODO: Place class with category and place number?
+        private readonly int[] places = new int[Constants.MaxPlayers];
 
         public bool IsPlayerInPenaltyBox(int playerNumber)
         {
-            return PenaltyBox[playerNumber];
+            return penaltyBox[playerNumber];
         }
 
         // TODO: initialise in better way
@@ -21,9 +23,14 @@
             UpdatePlayerPenaltyBoxState(playerNumber, true);
         }
 
+        public void InitializePlayerAtStartingPosition(int playerNumber)
+        {
+            places[playerNumber] = 0;
+        }
+
         private void UpdatePlayerPenaltyBoxState(int playerNumber, bool playerState)
         {
-            PenaltyBox[playerNumber] = playerState;
+            penaltyBox[playerNumber] = playerState;
         }
     }
 }

@@ -55,7 +55,7 @@ namespace TriviaGame
         public bool AddPlayer(string playerName)
         {
             players.Add(playerName);
-            places[NumberOfPlayers] = 0;
+            board.InitializePlayerAtStartingPosition(playerNumber: NumberOfPlayers);
             purses[NumberOfPlayers] = 0;
 
             board.InitialisePlayerStateInPenaltyBox(playerNumber: NumberOfPlayers);
@@ -97,8 +97,10 @@ namespace TriviaGame
             {
 
                 places[currentPlayer] += roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] -= 12;
-
+                if (places[currentPlayer] > Constants.NumberOfPlaces - 1)
+                {
+                    places[currentPlayer] -= Constants.NumberOfPlaces;
+                }
                 Console.WriteLine(players[currentPlayer]
                         + "'s new location is "
                         + places[currentPlayer]);
@@ -160,6 +162,7 @@ namespace TriviaGame
             {
                 if (isGettingOutOfPenaltyBox)
                 {
+                    // TODO: Never leaves box 
                     Console.WriteLine("Answer was correct!!!!");
                     purses[currentPlayer]++;
                     Console.WriteLine(players[currentPlayer]
