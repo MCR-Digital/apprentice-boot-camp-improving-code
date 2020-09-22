@@ -12,5 +12,15 @@ namespace TriviaGame
             this.name = name;
             this.questions = questions;
         }
+
+        private string CreateQuestionText(string categoryName, int index)
+        {
+            return $"{categoryName} Question " + index;
+        }
+
+        public void AddQuestion(int questionIndex)
+        {
+            questions.AddLast(CreateQuestionText(name, questionIndex));
+        }
     }
 }
