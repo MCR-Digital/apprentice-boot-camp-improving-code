@@ -32,15 +32,19 @@ public class Game {
 
 	public boolean addPlayer(String playerName) {
 	    players.add(playerName);
-	    //VARIABLE
-		playerPositions[howManyPlayers()] = 0; //0 TO VARIABLE
-		playerPositions[howManyPlayers()] = 0; // ^
-	    playerInPenaltyBox[howManyPlayers()] = false;
+		resetPlayer(howManyPlayers());
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
+
+	private void resetPlayer(int number) {
+		playerPositions[number] = 0; //0 TO VARIABLE
+		playerPositions[number] = 0; // ^
+		playerInPenaltyBox[number] = false;
+	}
+
 	//AMOUNTOFPLAYERS
 	public int howManyPlayers() {
 		return players.size();
@@ -83,7 +87,7 @@ public class Game {
 		if (currentCategory() == QuestionTypes.Sports)
 			System.out.println(sportsQuestions.removeFirst());
 		if (currentCategory() == QuestionTypes.Rock)
-			System.out.println(rockQuestions.removeFirst());		
+			System.out.println(rockQuestions.removeFirst());
 	}
 	
 	
@@ -129,7 +133,7 @@ public class Game {
 			System.out.println("Answer was corrent!!!!");
 			playerPurses[currentPlayer]++;
 			// duplication
-			System.out.println(players.get(currentPlayer) 
+			System.out.println(players.get(currentPlayer)
 					+ " now has "
 					+ playerPurses[currentPlayer]
 					+ " Gold Coins.");
