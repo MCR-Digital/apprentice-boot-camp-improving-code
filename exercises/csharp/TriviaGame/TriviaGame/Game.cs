@@ -100,10 +100,7 @@ namespace TriviaGame
                         playerBoardPositionState[currentPlayer] = ResetPlayerToPositionZero(playerBoardPositionState[currentPlayer]);
                     }
 
-                    Console.WriteLine(totalPlayers[currentPlayer]
-                            + "'s new location is "
-                            + playerBoardPositionState[currentPlayer]);
-                    Console.WriteLine("The category is " + FindCurrentQuestionCategoryByPlayerPosition());
+                    PrintPlayerPositionAndQuestionCategory();
                     AskQuestion();
                 }
                 else
@@ -119,13 +116,18 @@ namespace TriviaGame
                 playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] + rollResult;
                 if (playerBoardPositionState[currentPlayer] > 11) playerBoardPositionState[currentPlayer] = playerBoardPositionState[currentPlayer] - 12;
 
-                Console.WriteLine(totalPlayers[currentPlayer]
-                        + "'s new location is "
-                        + playerBoardPositionState[currentPlayer]);
-                Console.WriteLine("The category is " + FindCurrentQuestionCategoryByPlayerPosition());
+                PrintPlayerPositionAndQuestionCategory();
                 AskQuestion();
             }
 
+        }
+
+        private void PrintPlayerPositionAndQuestionCategory()
+        {
+            Console.WriteLine(totalPlayers[currentPlayer]
+                    + "'s new location is "
+                    + playerBoardPositionState[currentPlayer]);
+            Console.WriteLine("The category is " + FindCurrentQuestionCategoryByPlayerPosition());
         }
 
         private int ResetPlayerToPositionZero(int v)
