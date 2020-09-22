@@ -82,7 +82,9 @@ public class Game {
 
 	private void playerRolls(int roll) {
 		playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
-		if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12; // EXPLANATION?
+		if (playerPositions[currentPlayer] > 11) {
+			playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12; // EXPLANATION?
+		}
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
