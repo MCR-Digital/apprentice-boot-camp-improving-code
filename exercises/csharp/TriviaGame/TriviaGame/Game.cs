@@ -7,12 +7,6 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
-
-        int[] playerPlaces = new int[6];
-        int[] playerPurses = new int[6];
-
-        bool[] playerPenaltyBoxStatuses = new bool[6];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -21,6 +15,7 @@ namespace TriviaGame
 
         int currentPlayer = 0;
         bool isPlayerGettingOutOfPenaltyBox;
+        List<Player> players = new List<Player>();
 
         public Game()
         {
@@ -34,25 +29,15 @@ namespace TriviaGame
         }
 
         public string CreateRockQuestion(int index)
+        public void AddPlayer(string playerName)
         {
-            return "Rock Question " + index;
-        }
-
-        public bool IsGamePlayable()
-        {
-            return (PlayerCount() >= 2);
-        }
-
-        public bool AddPlayer(string playerName)
-        {
-            players.Add(playerName);
-            playerPlaces[PlayerCount()] = 0;
-            playerPurses[PlayerCount()] = 0;
-            playerPenaltyBoxStatuses[PlayerCount()] = false;
+            players.Add(new Player(playerName));
 
             Console.WriteLine(playerName + " was added");
-            Console.WriteLine("They are player number " + players.Count);
-            return true;
+            Console.WriteLine("They are player number " + GetPlayerCount());
+        }
+
+        {
         }
 
         public int PlayerCount()
@@ -200,10 +185,7 @@ namespace TriviaGame
             return true;
         }
 
-
-        private bool DidPlayerWin()
         {
-            return !(playerPurses[currentPlayer] == 6);
         }
     }
 
