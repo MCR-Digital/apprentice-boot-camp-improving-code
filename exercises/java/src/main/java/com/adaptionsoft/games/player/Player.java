@@ -6,6 +6,7 @@ public class Player {
     private int position;
     private String name;
     private int collectedCoins;
+    private boolean inPenaltyBox;
 
     public Player(String name) {
         this.name = name;
@@ -41,5 +42,13 @@ public class Player {
 
     public void setCollectedCoins(int collectedCoins) {
         this.collectedCoins = collectedCoins;
+    }
+
+    public boolean isInPenaltyBox() {
+        return inPenaltyBox;
+    }
+
+    public void setInPenaltyBox(boolean inPenaltyBox) {
+        this.inPenaltyBox = inPenaltyBox;
     }
 }
