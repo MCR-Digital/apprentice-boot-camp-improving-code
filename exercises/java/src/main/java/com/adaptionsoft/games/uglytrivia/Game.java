@@ -126,7 +126,7 @@ public class Game {
 				System.out.println("Answer was correct!!!!");
 				return isWinnerFromCorrectAnswer();
 			} else {
-				currentPlayer++;
+				changePlayer();
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
@@ -145,7 +145,7 @@ public class Game {
 				+ " Gold Coins.");
 
 		boolean winner = didPlayerWin();
-		currentPlayer++;
+		changePlayer();
 		if (currentPlayer == players.size()) currentPlayer = 0;
 
 		return winner;
@@ -155,8 +155,8 @@ public class Game {
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		playerInPenaltyBox[currentPlayer] = true;
-		
-		currentPlayer++;
+
+		changePlayer();
 		if (currentPlayer == players.size()) currentPlayer = 0; // brackets
 		return true;
 	}
@@ -164,5 +164,9 @@ public class Game {
 
 	private boolean didPlayerWin() {
 		return playerPurses[currentPlayer] != 6;
+	}
+
+	private void changePlayer() {
+		currentPlayer++;
 	}
 }
