@@ -71,40 +71,41 @@ namespace TriviaGame
             {
                 if (CanLeavePenaltyBox(roll))
                 {
-                    _playerCanAnswerQuestion = true;
-
-                    PenaltyBoxMessage(_playerCanAnswerQuestion);
-                    _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] + roll;
-                    if (_playerPositions[_currentPlayer] > EndOfBoard)
-                    {
-                        _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
-                    }
-
-                    Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayer]}");
-                    Console.WriteLine($"The category is {CurrentCategory()}");
+                    MovePlayer(roll, playerName, true);
                     AskQuestion();
                 }
                 else
                 {
-                    PenaltyBoxMessage();
+                    WritePenaltyBoxMessage();
                     _playerCanAnswerQuestion = false;
                 }
             }
             else
             {
-                _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] + roll;
-                if (_playerPositions[_currentPlayer] > EndOfBoard)
-                {
-                    _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
-                }
-
-                Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayer]}");
-                Console.WriteLine($"The category is {CurrentCategory()}");
+                MovePlayer(roll, playerName);
                 AskQuestion();
             }
         }
 
-        private void PenaltyBoxMessage(bool gettingOut = false)
+        private void MovePlayer(int roll, string playerName, bool showPenaltyBoxMessage = false)
+        {
+            _playerCanAnswerQuestion = true;
+
+            if (showPenaltyBoxMessage)
+            {
+                WritePenaltyBoxMessage(_playerCanAnswerQuestion);
+            }
+            _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] + roll;
+            if (_playerPositions[_currentPlayer] > EndOfBoard)
+            {
+                _playerPositions[_currentPlayer] = _playerPositions[_currentPlayer] - LengthOfBoard;
+            }
+
+            Console.WriteLine($"{playerName}'s new location is {_playerPositions[_currentPlayer]}");
+            Console.WriteLine($"The category is {CurrentCategory()}");
+        }
+
+        private void WritePenaltyBoxMessage(bool gettingOut = false)
         {
             Console.WriteLine(
                 $"{_gamePlayers[_currentPlayer]} {(gettingOut ? "is" : "is not")} getting out of the penalty box");
@@ -145,17 +146,21 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            var playerPosition = _playerPositions[_currentPlayer];
-            if (playerPosition == 0) return Category.Pop;
-            if (playerPosition == 4) return Category.Pop;
-            if (playerPosition == 8) return Category.Pop;
-            if (playerPosition == 1) return Category.Science;
-            if (playerPosition == 5) return Category.Science;
-            if (playerPosition == 9) return Category.Science;
-            if (playerPosition == 2) return Category.Sports;
-            if (playerPosition == 6) return Category.Sports;
-            if (playerPosition == 10) return Category.Sports;
+            if (CurrentPlayerPosition() == 0) return Category.Pop;
+            if (CurrentPlayerPosition() == 4) return Category.Pop;
+            if (CurrentPlayerPosition() == 8) return Category.Pop;
+            if (CurrentPlayerPosition() == 1) return Category.Science;
+            if (CurrentPlayerPosition() == 5) return Category.Science;
+            if (CurrentPlayerPosition() == 9) return Category.Science;
+            if (CurrentPlayerPosition() == 2) return Category.Sports;
+            if (CurrentPlayerPosition() == 6) return Category.Sports;
+            if (CurrentPlayerPosition() == 10) return Category.Sports;
             return Category.Rock;
+        }
+
+        private int CurrentPlayerPosition()
+        {
+            return _playerPositions[_currentPlayer];
         }
 
         public bool WasCorrectlyAnswered()
