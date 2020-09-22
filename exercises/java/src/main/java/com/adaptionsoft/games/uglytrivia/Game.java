@@ -16,7 +16,6 @@ public class Game {
     private int currentPlayer = 0;
     private boolean isGettingOutOfPenaltyBox;
 
-
     public boolean isPlayable() {
         return (numberOfPlayers() >= 2);
     }
@@ -41,29 +40,26 @@ public class Game {
         System.out.println(players.get(currentPlayer) + " is the current player");
         System.out.println("They have rolled a " + roll);
 
-
-
         if (inPenaltyBox[currentPlayer]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true;
 
                 System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-                changePlayerPositions(roll);
-                askQuestion(currentCategory());
+                changePlayerPositions(roll, currentPlayer);
+                askQuestion(currentCategory(playerPositions[currentPlayer]));
             } else {
                 System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
 
         } else {
-
-            changePlayerPositions(roll);
-            askQuestion(currentCategory());
+            changePlayerPositions(roll, currentPlayer);
+            askQuestion(currentCategory(playerPositions[currentPlayer]));
         }
 
     }
 
-    private void changePlayerPositions(int roll) {
+    private void changePlayerPositions(int roll, int currentPlayer) {
         playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
         if (playerPositions[currentPlayer] > 11) {
             playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
@@ -92,19 +88,18 @@ public class Game {
 
     }
 
-    private String currentCategory() {
+    private String currentCategory(int playerPosition) {
 
         String category = "Rock";
 
-        int currentPlayerPosition = playerPositions[currentPlayer];
-        if (currentPlayerPosition == 0 || currentPlayerPosition == 4
-                || currentPlayerPosition == 8) {
+        if (playerPosition == 0 || playerPosition == 4
+                || playerPosition == 8) {
             category = "Pop";
-        } else if (currentPlayerPosition == 1 || currentPlayerPosition == 5
-                || currentPlayerPosition == 9) {
+        } else if (playerPosition == 1 || playerPosition == 5
+                || playerPosition == 9) {
             category = "Science";
-        } else if (currentPlayerPosition == 2 || currentPlayerPosition == 6
-                || currentPlayerPosition == 10) {
+        } else if (playerPosition == 2 || playerPosition == 6
+                || playerPosition == 10) {
             category = "Sports";
         }
 
