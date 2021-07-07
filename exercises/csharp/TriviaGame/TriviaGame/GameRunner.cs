@@ -1,45 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TriviaGame
 {
-   public class GameRunner
+    public static class GameRunner
     {
+        private static bool noWinner;
 
-        private static bool notAWinner;
-
-        public static void Main(String[] args)
+        public static void Main(string[] args)
         {
-            Game aGame = new Game();
+            Game game = new Game();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            game.AddPlayer("Chet");
+            game.AddPlayer("Pat");
+            game.AddPlayer("Sue");
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            Random randomNumberGenerator = new Random(int.Parse(args[0]));
 
             do
             {
+                game.RollDice(randomNumberGenerator.Next(5) + 1);
 
-                aGame.Roll(rand.Next(5) + 1);
-
-                if (rand.Next(9) == 7)
+                if (randomNumberGenerator.Next(9) == 7)
                 {
-                    notAWinner = aGame.WrongAnswer();
+                    noWinner = game.WrongAnswer();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    noWinner = game.WasCorrectlyAnswered();
                 }
-
-
-
-            } while (notAWinner);
-
+            }
+            while (noWinner);
         }
     }
 }
