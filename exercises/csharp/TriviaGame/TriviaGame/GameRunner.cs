@@ -10,35 +10,38 @@ namespace TriviaGame
    public class GameRunner
     {
 
-        private static bool notAWinner;
+        private static bool doesGameHaveWinner;
 
         public static void Main(String[] args)
         {
-            Game aGame = new Game();
+            Game game = new Game();
+            Player player = new Player();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            player.AddPlayer("Chet");
+            player.AddPlayer("Pat");
+            player.AddPlayer("Sue");
+
+            game._player = player;
 
             Random rand = new Random(Int32.Parse(args[0]));
 
             do
             {
-
-                aGame.Roll(rand.Next(5) + 1);
+                // turn the below to a method that generates a random dice number
+                game.RollDice(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {
-                    notAWinner = aGame.WrongAnswer();
+                    doesGameHaveWinner = game.WasIncorrectlyAnswered();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    doesGameHaveWinner = game.WasCorrectlyAnswered();
                 }
 
 
 
-            } while (notAWinner);
+            } while (doesGameHaveWinner);
 
         }
     }
