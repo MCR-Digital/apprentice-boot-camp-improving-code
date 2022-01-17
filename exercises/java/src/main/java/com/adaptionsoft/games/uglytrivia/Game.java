@@ -10,10 +10,10 @@ public class Game {
     boolean[] penaltyShoes = new boolean[6];
 
 	// Create game categories - lists of questions
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    LinkedList<Question> popQuestions = new LinkedList();
+    LinkedList<Question> scienceQuestions = new LinkedList();
+    LinkedList<Question> sportsQuestions = new LinkedList();
+    LinkedList<Question> rockQuestions = new LinkedList();
     
     int currentPlayer = 0;
     boolean isTakingOffPenaltyShoes;
@@ -21,17 +21,12 @@ public class Game {
     public Game(){
 		// Generate 50 questions for each game category
     	for (int questionIndex = 0; questionIndex < 50; questionIndex++) {
-			popQuestions.addLast("Pop Question " + questionIndex);
-			scienceQuestions.addLast(("Science Question " + questionIndex));
-			sportsQuestions.addLast(("Sports Question " + questionIndex));
-			rockQuestions.addLast("Rock Question " + questionIndex);
+			popQuestions.addLast(new Question("Pop", questionIndex));
+			scienceQuestions.addLast(new Question("Science", questionIndex));
+			sportsQuestions.addLast(new Question("Sports", questionIndex));
+			rockQuestions.addLast(new Question("Rock", questionIndex));
     	}
     }
-
-	// If there are 2 or more players, the game can be played
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
-	}
 
 	public boolean add(String playerName) {
 		
