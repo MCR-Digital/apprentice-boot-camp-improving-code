@@ -43,21 +43,14 @@ namespace TriviaGame
 
         public bool Add(string playerName)
         {
-
-
             players.Add(playerName);
-            playerPosition[HowManyPlayers()] = 0;
-            playerScores[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            playerPosition[players.Count] = 0;
+            playerScores[players.Count] = 0;
+            inPenaltyBox[players.Count] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
-        }
-
-        public int HowManyPlayers()
-        {
-            return players.Count;
         }
 
         public void Roll(int roll)
