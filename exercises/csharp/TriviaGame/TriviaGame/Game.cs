@@ -13,6 +13,7 @@ namespace TriviaGame
         int[] playerScores = new int[6];
 
         bool[] inPenaltyBox = new bool[6];
+        int maximumBoardGameSpaces = 12;
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -94,8 +95,8 @@ namespace TriviaGame
         public void SetNewPosition(int roll)
         {
             playerPosition [currentPlayer] = playerPosition [currentPlayer] + roll;
-            if (playerPosition[currentPlayer] > 11) 
-            playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
+            if (playerPosition[currentPlayer] > (maximumBoardGameSpaces - 1)) 
+            playerPosition[currentPlayer] = playerPosition[currentPlayer] - maximumBoardGameSpaces;
             Console.WriteLine(players[currentPlayer]
         + "'s new location is "
         + playerPosition[currentPlayer]);
