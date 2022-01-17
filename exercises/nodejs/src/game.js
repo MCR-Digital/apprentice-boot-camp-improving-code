@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import generator from "random-seed";
 
 var Game = function () {
@@ -14,8 +16,8 @@ var Game = function () {
   var currentPlayer = 0;
   var isGettingOutOfPenaltyBox = false;
 
-  var checkPlayerHasWon = function () {
-    return !(purses[currentPlayer] == 6);
+  const checkPlayerHasWon = () => {
+    return !(purses[currentPlayer] === 6);
   };
 
   const currentCategory = () => {
@@ -101,7 +103,7 @@ var Game = function () {
     console.log("They have rolled a " + roll);
 
     if (inPenaltyBox[currentPlayer]) {
-      if (roll % 2 != 0) {
+      if (roll % 2 !== 0) {
         isGettingOutOfPenaltyBox = true;
 
         console.log(
@@ -122,7 +124,7 @@ var Game = function () {
 
   const nextPlayer = () => {
     currentPlayer += 1;
-    if (currentPlayer == players.length) {
+    if (currentPlayer === players.length) {
       currentPlayer = 0;
     }
     return true;
@@ -134,14 +136,14 @@ var Game = function () {
       purses[currentPlayer] += 1;
       console.log(
         players[currentPlayer] +
-          " now has " +
-          purses[currentPlayer] +
-          " Gold Coins."
+        " now has " +
+        purses[currentPlayer] +
+        " Gold Coins."
       );
 
       var winner = checkPlayerHasWon();
       currentPlayer += 1;
-      if (currentPlayer == players.length) {
+      if (currentPlayer === players.length) {
         currentPlayer = 0;
       }
 
@@ -182,7 +184,7 @@ const gameRunner = (i) => {
   do {
     game.roll(random.range(5) + 1);
 
-    if (random.range(9) == 7) {
+    if (random.range(9) === 7) {
       hasWonGame = game.wasIncorrectlyAnswered();
     } else {
       hasWonGame = game.wasCorrectlyAnswered();
