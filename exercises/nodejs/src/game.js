@@ -22,13 +22,13 @@ let Game = function () {
   };
 
   let currentCategory = function () {
-    if (boardPositions[currentPlayer] % numberOfCatagories == 0 ) {
+    if (boardPositions[currentPlayer] % numberOfCatagories === 0 ) {
       return "Pop";
     }
-    if (boardPositions[currentPlayer] % numberOfCatagories == 1) {
+    if (boardPositions[currentPlayer] % numberOfCatagories === 1) {
       return "Science";
     }
-    if (boardPositions[currentPlayer] % numberOfCatagories == 2) {
+    if (boardPositions[currentPlayer] % numberOfCatagories === 2) {
       return "Sports";
     }
     return "Rock";
@@ -79,7 +79,7 @@ let Game = function () {
     console.log("They have rolled a " + roll);
 
     if (inPenaltyBox[currentPlayer]) {
-      if (roll % 2 != 0) {
+      if (roll % 2 !== 0) {
         isGettingOutOfPenaltyBox = true;
 
         console.log(
