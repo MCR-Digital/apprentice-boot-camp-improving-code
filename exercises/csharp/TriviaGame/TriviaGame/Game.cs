@@ -7,7 +7,7 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
+        readonly List<string> players = new List<string>();
         static int maxPlayerCount = 6;
 
         int[] playerPosition = new int[maxPlayerCount];
@@ -16,14 +16,15 @@ namespace TriviaGame
         bool[] inPenaltyBox = new bool[maxPlayerCount];
         int maximumBoardGameSpaces = 12;
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        readonly LinkedList<string> popQuestions = new LinkedList<string>();
+        readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
-        int questionsCountPerCategory = 50;
+        readonly int questionsCountPerCategory = 50;
+        readonly int winningScore = 6;
 
         public Game()
         {
@@ -87,9 +88,9 @@ namespace TriviaGame
 
         }
 
-        public void SetNewPosition(int roll)
+        public void SetNewPosition(int diceNumber)
         {
-            playerPosition [currentPlayer] = playerPosition [currentPlayer] + roll;
+            playerPosition [currentPlayer] = playerPosition [currentPlayer] + diceNumber;
             if (playerPosition[currentPlayer] > (maximumBoardGameSpaces - 1)) 
             playerPosition[currentPlayer] = playerPosition[currentPlayer] - maximumBoardGameSpaces;
             Console.WriteLine(players[currentPlayer]
@@ -189,15 +190,13 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
 
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            MoveToNextPlayer();
             return true;
         }
 
-
         private bool DidPlayerWin()
         {
-            return !(playerScores[currentPlayer] == 6);
+            return (playerScores[currentPlayer] != winningScore);
         }
     }
 
