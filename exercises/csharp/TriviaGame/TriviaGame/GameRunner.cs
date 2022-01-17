@@ -20,14 +20,14 @@ namespace TriviaGame
             aGame.Add("Pat");
             aGame.Add("Sue");
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            Random randomNumberGenerator = new Random(Int32.Parse(args[0]));
 
             do
             {
 
-                aGame.Roll(rand.Next(5) + 1);
+                aGame.Roll(randomNumberGenerator.Next(5) + 1);
 
-                if (rand.Next(9) == 7)
+                if (randomNumberGenerator.Next(9) == 7)
                 {
                     notAWinner = aGame.WrongAnswer();
                 }
