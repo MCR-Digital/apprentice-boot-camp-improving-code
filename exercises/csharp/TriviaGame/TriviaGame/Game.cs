@@ -8,7 +8,7 @@ namespace TriviaGame
     {
         List<string> players = new List<string>();
 
-        int[] playerPositions = new int[6];
+        int[] playerPositions = new int[6]; //what is 6, max players?
         int[] playerScores = new int[6];
 
         bool[] inPenaltyBox = new bool[6];
@@ -19,7 +19,7 @@ namespace TriviaGame
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
         private int currentPlayer;
-        bool isGettingOutOfPenaltyBox;
+        bool isGettingOutOfPenaltyBox; //redundant variable - are players ever removed from penalty box?
         
         public Game()
         {
@@ -32,7 +32,7 @@ namespace TriviaGame
             }
         }
 
-        public string CreateRockQuestion(int index)
+        public string CreateRockQuestion(int index) //can be made reusable by passing in string?
         {
             return "Rock Question " + index;
         }
@@ -49,18 +49,18 @@ namespace TriviaGame
             return true;
         }
 
-        public int HowManyPlayers()
+        public int HowManyPlayers() //what?
         {
             return players.Count;
         }
 
-        public void Roll(int roll)
+        public void Roll(int roll) //does roll param make sense/descriptive enough?
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
+                if (roll % 2 != 0) //pull out to make meaningful, ie isOdd?
                 {
                     isGettingOutOfPenaltyBox = true;
 
@@ -75,7 +75,6 @@ namespace TriviaGame
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
                     isGettingOutOfPenaltyBox = false;
                 }
-
             }
             else
             {
@@ -89,8 +88,8 @@ namespace TriviaGame
 
         private void SetNewPlayerPosition(int roll)
         {
-            playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
-            if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
+            playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll; //+=
+            if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12; //-=
 
             Console.WriteLine(players[currentPlayer]
                               + "'s new location is "
@@ -99,7 +98,7 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            if (CurrentCategory() == "Pop") //could you make this into a single method, passing in the list and string?
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
@@ -136,18 +135,13 @@ namespace TriviaGame
             return "Rock";
         }
 
-        public bool WasCorrectlyAnswered()
+        public bool WasCorrectlyAnswered() //correct and incorrect methods are named differently
         {
-            if (inPenaltyBox[currentPlayer])
+            if (inPenaltyBox[currentPlayer]) //should just do else if in penalty box - is this repeated logic?
             {
                 if (isGettingOutOfPenaltyBox)
                 {
-                    Console.WriteLine("Answer was correct!!!!");
-                    playerScores[currentPlayer]++;
-                    Console.WriteLine(players[currentPlayer]
-                            + " now has "
-                            + playerScores[currentPlayer]
-                            + " Gold Coins.");
+                    IncrementScore();
 
                     bool winner = DidPlayerWin();
                     currentPlayer++;
@@ -161,18 +155,10 @@ namespace TriviaGame
                     if (currentPlayer == players.Count) currentPlayer = 0;
                     return true;
                 }
-
-
-
             }
             else
             {
-                Console.WriteLine("Answer was corrent!!!!");
-                playerScores[currentPlayer]++;
-                Console.WriteLine(players[currentPlayer]
-                        + " now has "
-                        + playerScores[currentPlayer]
-                        + " Gold Coins.");
+                IncrementScore();
 
                 bool winner = DidPlayerWin();
                 currentPlayer++;
@@ -180,6 +166,16 @@ namespace TriviaGame
 
                 return winner;
             }
+        }
+
+        private void IncrementScore()
+        {
+            Console.WriteLine("Answer was correct!!!!");
+            playerScores[currentPlayer]++;
+            Console.WriteLine(players[currentPlayer]
+                              + " now has "
+                              + playerScores[currentPlayer]
+                              + " Gold Coins.");
         }
 
         public bool WrongAnswer()
