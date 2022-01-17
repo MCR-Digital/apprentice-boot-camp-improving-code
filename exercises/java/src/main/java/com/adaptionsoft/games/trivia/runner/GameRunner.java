@@ -3,6 +3,7 @@ package com.adaptionsoft.games.trivia.runner;
 import java.util.Random;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.Player;
 
 
 public class GameRunner {
@@ -13,9 +14,9 @@ public class GameRunner {
 		Game aGame = new Game();
 
 		// Add 3 players with names
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
+		aGame.addPlayer(new Player("Chet"));
+		aGame.addPlayer(new Player("Pat"));
+		aGame.addPlayer(new Player("Sue"));
 
 		// Create new random number generator, with a seed of the first input argument
 		Random rand = new Random(Integer.parseInt(args[0]));

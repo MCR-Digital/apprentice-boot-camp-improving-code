@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	private static final int NUMBER_OF_BOARD_PLACES = 12;
+	ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] penaltyShoes = new boolean[6];
@@ -28,21 +29,18 @@ public class Game {
     	}
     }
 
-	public boolean add(String playerName) {
+	public void addPlayer(Player newPlayer) {
 		
 		// Add player to the game and set default values
-	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
-	    penaltyShoes[howManyPlayers()] = false;
+	    players.add(newPlayer.getName());
+		int numberOfCurrentPlayers = players.size();
+
+		places[numberOfCurrentPlayers] = 0;
+	    purses[numberOfCurrentPlayers] = 0;
+	    penaltyShoes[numberOfCurrentPlayers] = false;
 	    
-	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.size());
-		return true;
-	}
-	
-	public int howManyPlayers() {
-		return players.size();
+	    System.out.println(newPlayer.getName() + " was added");
+	    System.out.println("They are player number " + numberOfCurrentPlayers);
 	}
 
 	public void roll(int roll) {
@@ -52,7 +50,7 @@ public class Game {
 		// If the player is in the penalty box
 		if (penaltyShoes[currentPlayer]) {
 			// If their roll is odd they can get out of the penalty box
-			if (roll % 2 != 0) {
+			if (isRollOdd(roll)) {
 				isTakingOffPenaltyShoes = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
@@ -61,7 +59,7 @@ public class Game {
 				places[currentPlayer] = places[currentPlayer] + roll;
 
 				// If their new number of places is 12 or more, reduce it by 12
-				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+				if (places[currentPlayer] >= NUMBER_OF_BOARD_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_BOARD_PLACES;
 				
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
@@ -84,7 +82,7 @@ public class Game {
 			places[currentPlayer] = places[currentPlayer] + roll;
 
 			// If the new number of places is 12 or more, reduce it by 12
-			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+			if (places[currentPlayer] >= NUMBER_OF_BOARD_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_BOARD_PLACES;
 			
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
@@ -95,6 +93,10 @@ public class Game {
 			askQuestion();
 		}
 		
+	}
+
+	private boolean isRollOdd(int roll) {
+		return roll % 2 != 0;
 	}
 
 	private void askQuestion() {
