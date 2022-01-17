@@ -147,37 +147,32 @@ namespace TriviaGame
             {
                 if (isGettingOutOfPenaltyBox)
                 {
-                    incrementScore();
+                    IncrementScore();
 
                     bool winner = DidPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
 
+                    MoveToNextPlayer();
                     return winner;
                 }
                 else
                 {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    MoveToNextPlayer();
                     return true;
                 }
-
-
 
             }
             else
             {
-                incrementScore();
+                IncrementScore();
 
                 bool winner = DidPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                MoveToNextPlayer();
 
                 return winner;
             }
         }
 
-        public void incrementScore()
+        public void IncrementScore()
         {
             Console.WriteLine("Answer was correct!!!!");
             playerScores[currentPlayer]++;
@@ -185,6 +180,12 @@ namespace TriviaGame
                     + " now has "
                     + playerScores[currentPlayer]
                     + " Gold Coins.");
+        }
+
+        public void MoveToNextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
         }
 
         public bool WrongAnswer()
