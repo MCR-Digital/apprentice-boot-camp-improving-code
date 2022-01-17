@@ -23,15 +23,16 @@ namespace TriviaGame
 
         int currentPlayer = 0;
         bool isGettingOutOfPenaltyBox;
+        int questionsCountPerCategory = 50;
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int questionIndex = 0; questionIndex < questionsCountPerCategory; questionIndex++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
+                popQuestions.AddLast("Pop Question " + questionIndex);
+                scienceQuestions.AddLast(("Science Question " + questionIndex));
+                sportsQuestions.AddLast(("Sports Question " + questionIndex));
+                rockQuestions.AddLast(CreateRockQuestion(questionIndex));
             }
         }
 
