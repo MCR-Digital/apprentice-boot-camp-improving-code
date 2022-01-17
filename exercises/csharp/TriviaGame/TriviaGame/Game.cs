@@ -6,27 +6,28 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
+        readonly List<string> players = new List<string>();
 
-        private int maxBoardSpaces = 12;
-        private static int maxPlayerCount = 6;
-        private int questionCountPerCategory = 50;
-        int[] playerPositions = new int[maxPlayerCount];
-        int[] playerScores = new int[maxPlayerCount];
+        private const int maxBoardSpaces = 12;
+        private const int maxPlayerCount = 6;
+        private const int questionCountPerCategory = 50;
+        private const int winningScore = 6;
+        readonly int[] playerPositions = new int[maxPlayerCount];
+        readonly int[] playerScores = new int[maxPlayerCount];
 
-        bool[] inPenaltyBox = new bool[maxPlayerCount];
+        readonly bool[] inPenaltyBox = new bool[maxPlayerCount];
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
+        readonly LinkedList<string> popQuestions = new LinkedList<string>();
+        readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         private int currentPlayer;
         bool isGettingOutOfPenaltyBox; //redundant variable - are players ever removed from penalty box?
         
         public Game()
         {
-            for (int questionIndex = 0; questionIndex < questionCountPerCategory; questionIndex++)
+            for (var questionIndex = 0; questionIndex < questionCountPerCategory; questionIndex++)
             {
                 popQuestions.AddLast(CreateQuestion("Pop", questionIndex));
                 scienceQuestions.AddLast(CreateQuestion("Science", questionIndex));
@@ -52,18 +53,18 @@ namespace TriviaGame
             return true;
         }
 
-        public void Roll(int roll) //does roll param make sense/descriptive enough?
+        public void Roll(int numberRolled)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            Console.WriteLine("They have rolled a " + numberRolled);
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0) //pull out to make meaningful, ie isOdd?
+                if (numberRolled % 2 != 0) //pull out to make meaningful, ie isOdd?
                 {
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    SetNewPlayerPosition(roll);
+                    SetNewPlayerPosition(numberRolled);
                     
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
@@ -76,7 +77,7 @@ namespace TriviaGame
             }
             else
             {
-                SetNewPlayerPosition(roll);
+                SetNewPlayerPosition(numberRolled);
                 
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
@@ -84,9 +85,9 @@ namespace TriviaGame
 
         }
 
-        private void SetNewPlayerPosition(int roll)
+        private void SetNewPlayerPosition(int numberRolled)
         {
-            playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll; //+=
+            playerPositions[currentPlayer] = playerPositions[currentPlayer] + numberRolled; //+=
             if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - maxBoardSpaces; //-=
 
             Console.WriteLine(players[currentPlayer]
@@ -118,9 +119,9 @@ namespace TriviaGame
             }
         }
 
-
         private string CurrentCategory()
         {
+            //a lot of repetition?
             if (playerPositions[currentPlayer] == 0) return "Pop";
             if (playerPositions[currentPlayer] == 4) return "Pop";
             if (playerPositions[currentPlayer] == 8) return "Pop";
@@ -191,7 +192,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(playerScores[currentPlayer] == 6);
+            return !(playerScores[currentPlayer] == winningScore); //why return true when not won?? should be other way around?
         }
     }
 
