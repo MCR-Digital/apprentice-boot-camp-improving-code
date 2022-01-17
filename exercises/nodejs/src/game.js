@@ -1,33 +1,33 @@
 import generator from 'random-seed'
 
-var Game = function () {
-  var players = new Array()
-  var gameSquare = new Array(6)
-  var purses = new Array(6)
-  var inPenaltyBox = new Array(6)
+let Game = function () {
+  const players = new Array()
+  const boardPositions = new Array(6)
+  const purses = new Array(6)
+  const inPenaltyBox = new Array(6)
 
-  var popQuestions = new Array()
-  var scienceQuestions = new Array()
-  var sportsQuestions = new Array()
-  var rockQuestions = new Array()
+  const popQuestions = new Array()
+  const scienceQuestions = new Array()
+  const sportsQuestions = new Array()
+  const rockQuestions = new Array()
 
-  var currentPlayer = 0
-  var isGettingOutOfPenaltyBox = false
+  let currentPlayer = 0
+  let isGettingOutOfPenaltyBox = false
 
-  var didPlayerWin = function () {
+  let didPlayerWin = function () {
     return !(purses[currentPlayer] == 6)
   }
 
-  var currentCategory = function () {
-    if (gameSquare[currentPlayer] == 0) { return 'Pop' }
-    if (gameSquare[currentPlayer] == 4) { return 'Pop' }
-    if (gameSquare[currentPlayer] == 8) { return 'Pop' }
-    if (gameSquare[currentPlayer] == 1) { return 'Science' }
-    if (gameSquare[currentPlayer] == 5) { return 'Science' }
-    if (gameSquare[currentPlayer] == 9) { return 'Science' }
-    if (gameSquare[currentPlayer] == 2) { return 'Sports' }
-    if (gameSquare[currentPlayer] == 6) { return 'Sports' }
-    if (gameSquare[currentPlayer] == 10) { return 'Sports' }
+  let currentCategory = function () {
+    if (boardPositions[currentPlayer] == 0) { return 'Pop' }
+    if (boardPositions[currentPlayer] == 4) { return 'Pop' }
+    if (boardPositions[currentPlayer] == 8) { return 'Pop' }
+    if (boardPositions[currentPlayer] == 1) { return 'Science' }
+    if (boardPositions[currentPlayer] == 5) { return 'Science' }
+    if (boardPositions[currentPlayer] == 9) { return 'Science' }
+    if (boardPositions[currentPlayer] == 2) { return 'Sports' }
+    if (boardPositions[currentPlayer] == 6) { return 'Sports' }
+    if (boardPositions[currentPlayer] == 10) { return 'Sports' }
     return 'Rock'
   }
 
@@ -35,7 +35,7 @@ var Game = function () {
     return 'Rock Question ' + index
   }
 
-  for (var i = 0; i < 50; i++) {
+  for (let i = 0; i < 50; i++) {
     popQuestions.push('Pop Question ' + i)
     scienceQuestions.push('Science Question ' + i)
     sportsQuestions.push('Sports Question ' + i)
@@ -50,7 +50,7 @@ var Game = function () {
 
   this.add = function (playerName) {
     players.push(playerName)
-    gameSquare[this.howManyPlayers() - 1] = 0
+    boardPositions[this.howManyPlayers() - 1] = 0
     purses[this.howManyPlayers() - 1] = 0
     inPenaltyBox[this.howManyPlayers() - 1] = false
 
@@ -64,7 +64,7 @@ var Game = function () {
     return players.length
   }
 
-  var askQuestion = function () {
+  let askQuestion = function () {
     if (currentCategory() == 'Pop') { console.log(popQuestions.shift()) }
     if (currentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
     if (currentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
@@ -80,12 +80,12 @@ var Game = function () {
         isGettingOutOfPenaltyBox = true
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        gameSquare[currentPlayer] = gameSquare[currentPlayer] + roll
-        if (gameSquare[currentPlayer] > 11) {
-          gameSquare[currentPlayer] = gameSquare[currentPlayer] - 12
+        boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll
+        if (boardPositions[currentPlayer] > 11) {
+          boardPositions[currentPlayer] = boardPositions[currentPlayer] - 12
         }
 
-        console.log(players[currentPlayer] + "'s new location is " + gameSquare[currentPlayer])
+        console.log(players[currentPlayer] + "'s new location is " + boardPositions[currentPlayer])
         console.log('The category is ' + currentCategory())
         askQuestion()
       } else {
@@ -93,12 +93,12 @@ var Game = function () {
         isGettingOutOfPenaltyBox = false
       }
     } else {
-      gameSquare[currentPlayer] = gameSquare[currentPlayer] + roll
-      if (gameSquare[currentPlayer] > 11) {
-        gameSquare[currentPlayer] = gameSquare[currentPlayer] - 12
+      boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll
+      if (boardPositions[currentPlayer] > 11) {
+        boardPositions[currentPlayer] = boardPositions[currentPlayer] - 12
       }
 
-      console.log(players[currentPlayer] + "'s new location is " + gameSquare[currentPlayer])
+      console.log(players[currentPlayer] + "'s new location is " + boardPositions[currentPlayer])
       console.log('The category is ' + currentCategory())
       askQuestion()
     }
@@ -112,7 +112,7 @@ var Game = function () {
         console.log(players[currentPlayer] + ' now has ' +
             purses[currentPlayer] + ' Gold Coins.')
 
-        var winner = didPlayerWin()
+        let winner = didPlayerWin()
         currentPlayer += 1
         if (currentPlayer == players.length) { currentPlayer = 0 }
 
@@ -129,7 +129,7 @@ var Game = function () {
       console.log(players[currentPlayer] + ' now has ' +
           purses[currentPlayer] + ' Gold Coins.')
 
-      var winner = didPlayerWin()
+      let winner = didPlayerWin()
 
       currentPlayer += 1
       if (currentPlayer == players.length) { currentPlayer = 0 }
@@ -138,7 +138,7 @@ var Game = function () {
     }
   }
 
-  this.wrongAnswer = function () {
+  this.wasIncorrectlyAnswered = function () {
     console.log('Question was incorrectly answered')
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
@@ -150,9 +150,9 @@ var Game = function () {
 }
 
 const gameRunner = (i) => {
-  var notAWinner = false
+  let weHaveAWinner = false
 
-  var game = new Game()
+  let game = new Game()
 
   game.add('Chet')
   game.add('Pat')
@@ -164,11 +164,11 @@ const gameRunner = (i) => {
     game.roll(random.range(5) + 1)
 
     if (random.range(9) == 7) {
-      notAWinner = game.wrongAnswer()
+      weHaveAWinner= game.wasIncorrectlyAnswered()
     } else {
-      notAWinner = game.wasCorrectlyAnswered()
+      weHaveAWinner= game.wasCorrectlyAnswered()
     }
-  } while (notAWinner)
+  } while (weHaveAWinner)
 }
 
 export default gameRunner
