@@ -144,15 +144,13 @@ namespace TriviaGame
                     IncrementScore();
 
                     bool winner = DidPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    MoveToNextPlayer();
 
                     return winner;
                 }
                 else
                 {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    MoveToNextPlayer();
                     return true;
                 }
             }
@@ -161,11 +159,16 @@ namespace TriviaGame
                 IncrementScore();
 
                 bool winner = DidPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                MoveToNextPlayer();
 
                 return winner;
             }
+        }
+
+        private void MoveToNextPlayer()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
         }
 
         private void IncrementScore()
@@ -188,8 +191,7 @@ namespace TriviaGame
             if (currentPlayer == players.Count) currentPlayer = 0;
             return true;
         }
-
-
+        
         private bool DidPlayerWin()
         {
             return !(playerScores[currentPlayer] == 6);
