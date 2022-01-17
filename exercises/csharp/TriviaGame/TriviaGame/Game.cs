@@ -10,6 +10,7 @@ namespace TriviaGame
 
         private int maxBoardSpaces = 12;
         private static int maxPlayerCount = 6;
+        private int questionCountPerCategory = 50;
         int[] playerPositions = new int[maxPlayerCount];
         int[] playerScores = new int[maxPlayerCount];
 
@@ -25,12 +26,12 @@ namespace TriviaGame
         
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int questionIndex = 0; questionIndex < questionCountPerCategory; questionIndex++)
             {
-                popQuestions.AddLast("Pop Question " + i);
-                scienceQuestions.AddLast(("Science Question " + i));
-                sportsQuestions.AddLast(("Sports Question " + i));
-                rockQuestions.AddLast(CreateRockQuestion(i));
+                popQuestions.AddLast("Pop Question " + questionIndex);
+                scienceQuestions.AddLast(("Science Question " + questionIndex));
+                sportsQuestions.AddLast(("Sports Question " + questionIndex));
+                rockQuestions.AddLast(CreateRockQuestion(questionIndex));
             }
         }
 
@@ -91,7 +92,7 @@ namespace TriviaGame
         private void SetNewPlayerPosition(int roll)
         {
             playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll; //+=
-            if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12; //-=
+            if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - maxBoardSpaces; //-=
 
             Console.WriteLine(players[currentPlayer]
                               + "'s new location is "
