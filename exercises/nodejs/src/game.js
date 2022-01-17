@@ -14,7 +14,7 @@ var Game = function () {
   var currentPlayer = 0
   var isGettingOutOfPenaltyBox = false
 
-  var didPlayerWin = function () {
+  var checkPlayerHasWon = function () {
     return !(purses[currentPlayer] == 6)
   }
 
@@ -46,7 +46,7 @@ var Game = function () {
     return howManyPlayers >= 2
   }
 
-  this.add = function (playerName) {
+  this.addPlayer = function (playerName) {
     players.push(playerName)
     places[this.howManyPlayers() - 1] = 0
     purses[this.howManyPlayers() - 1] = 0
@@ -110,7 +110,7 @@ var Game = function () {
         console.log(players[currentPlayer] + ' now has ' +
             purses[currentPlayer] + ' Gold Coins.')
 
-        var winner = didPlayerWin()
+        var winner = checkPlayerHasWon()
         currentPlayer += 1
         if (currentPlayer == players.length) { currentPlayer = 0 }
 
@@ -127,7 +127,7 @@ var Game = function () {
       console.log(players[currentPlayer] + ' now has ' +
           purses[currentPlayer] + ' Gold Coins.')
 
-      var winner = didPlayerWin()
+      var winner = checkPlayerHasWon()
 
       currentPlayer += 1
       if (currentPlayer == players.length) { currentPlayer = 0 }
@@ -136,7 +136,7 @@ var Game = function () {
     }
   }
 
-  this.wrongAnswer = function () {
+  this.wasIncorrectlyAnswered = function () {
     console.log('Question was incorrectly answered')
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
@@ -148,13 +148,13 @@ var Game = function () {
 }
 
 const gameRunner = (i) => {
-  var notAWinner = false
+  var hasWonGame = false
 
   var game = new Game()
 
-  game.add('Chet')
-  game.add('Pat')
-  game.add('Sue')
+  game.addPlayer('Chet')
+  game.addPlayer('Pat')
+  game.addPlayer('Sue')
 
   const random = generator.create(i)
 
@@ -162,11 +162,11 @@ const gameRunner = (i) => {
     game.roll(random.range(5) + 1)
 
     if (random.range(9) == 7) {
-      notAWinner = game.wrongAnswer()
+      hasWonGame = game.wasIncorrectlyAnswered()
     } else {
-      notAWinner = game.wasCorrectlyAnswered()
+      hasWonGame = game.wasCorrectlyAnswered()
     }
-  } while (notAWinner)
+  } while (hasWonGame)
 }
 
 export default gameRunner
