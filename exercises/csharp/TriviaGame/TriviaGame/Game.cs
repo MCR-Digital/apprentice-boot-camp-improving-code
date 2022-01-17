@@ -8,8 +8,9 @@ namespace TriviaGame
     public class Game
     {
         List<string> players = new List<string>();
+        static int maxPlayerCount = 6;
 
-        int[] playerPosition = new int[6];
+        int[] playerPosition = new int[maxPlayerCount];
         int[] playerScores = new int[6];
 
         bool[] inPenaltyBox = new bool[6];
