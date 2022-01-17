@@ -22,15 +22,15 @@ namespace TriviaGame
             aGame.Add("Sue");
 
             //creates a random number
-            Random rand = new Random(Int32.Parse(args[0]));
+            Random randomNumberGenerator = new Random(Int32.Parse(args[0]));
 
             do
             {
                 //rolls using a random number below 5?
-                aGame.Roll(rand.Next(5) + 1);
+                aGame.Roll(randomNumberGenerator.Next(5) + 1);
 
                 //generate a random number, if it is 7, the answer is incorrect
-                if (rand.Next(9) == 7)
+                if (randomNumberGenerator.Next(9) == 7)
                 {
                     notAWinner = aGame.WrongAnswer();
                 }
