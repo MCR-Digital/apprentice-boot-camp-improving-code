@@ -28,16 +28,16 @@ namespace TriviaGame
         {
             for (int questionIndex = 0; questionIndex < questionCountPerCategory; questionIndex++)
             {
-                popQuestions.AddLast("Pop Question " + questionIndex);
-                scienceQuestions.AddLast(("Science Question " + questionIndex));
-                sportsQuestions.AddLast(("Sports Question " + questionIndex));
-                rockQuestions.AddLast(CreateRockQuestion(questionIndex));
+                popQuestions.AddLast(CreateQuestion("Pop", questionIndex));
+                scienceQuestions.AddLast(CreateQuestion("Science", questionIndex));
+                sportsQuestions.AddLast(CreateQuestion("Sports", questionIndex));
+                rockQuestions.AddLast(CreateQuestion("Rock", questionIndex));
             }
         }
 
-        public string CreateRockQuestion(int index) //can be made reusable by passing in string?
+        public string CreateQuestion(string category, int index) //can be made reusable by passing in string?
         {
-            return "Rock Question " + index;
+            return $"{category} Question " + index;
         }
 
         public bool Add(string playerName)
