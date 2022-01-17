@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TriviaGame
 {
-    public class GoldenMaster
+    public static class GoldenMaster
     {
 
         public static string GetResult(int i)

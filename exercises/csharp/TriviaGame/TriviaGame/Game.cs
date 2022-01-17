@@ -10,18 +10,18 @@ namespace TriviaGame
         readonly List<string> players = new List<string>();
         static int maxPlayerCount = 6;
 
-        int[] playerPosition = new int[maxPlayerCount];
-        int[] playerScores = new int[maxPlayerCount];
+        readonly  int[] playerPosition = new int[maxPlayerCount];
+        readonly  int[] playerScores = new int[maxPlayerCount];
 
-        bool[] inPenaltyBox = new bool[maxPlayerCount];
-        int maximumBoardGameSpaces = 12;
+        readonly  bool[] inPenaltyBox = new bool[maxPlayerCount];
+        readonly  int maximumBoardGameSpaces = 12;
 
         readonly LinkedList<string> popQuestions = new LinkedList<string>();
         readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
         readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
         readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
-        int currentPlayer = 0;
+        int currentPlayer;
         bool isGettingOutOfPenaltyBox;
         readonly int questionsCountPerCategory = 50;
         readonly int winningScore = 6;
@@ -54,19 +54,19 @@ namespace TriviaGame
             return true;
         }
 
-        public void Roll(int roll)
+        public void Roll(int diceNumber)
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
-            Console.WriteLine("They have rolled a " + roll);
+            Console.WriteLine("They have rolled a " + diceNumber);
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
+                if (diceNumber % 2 != 0)
                 {
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    SetNewPosition(roll);
+                    SetNewPosition(diceNumber);
                   
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
@@ -80,7 +80,7 @@ namespace TriviaGame
             }
             else
             {
-                SetNewPosition(roll);
+                SetNewPosition(diceNumber);
 
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
@@ -88,9 +88,9 @@ namespace TriviaGame
 
         }
 
-        public void SetNewPosition(int diceNumber)
+        public void SetNewPosition(int roll)
         {
-            playerPosition [currentPlayer] = playerPosition [currentPlayer] + diceNumber;
+            playerPosition [currentPlayer] = playerPosition [currentPlayer] + roll;
             if (playerPosition[currentPlayer] > (maximumBoardGameSpaces - 1)) 
             playerPosition[currentPlayer] = playerPosition[currentPlayer] - maximumBoardGameSpaces;
             Console.WriteLine(players[currentPlayer]
