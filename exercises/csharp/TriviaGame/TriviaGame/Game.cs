@@ -69,13 +69,8 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    playerPosition[currentPlayer] = playerPosition[currentPlayer] + roll;
-                    if (playerPosition[currentPlayer] > 11) 
-                        playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
-
-                    Console.WriteLine(players[currentPlayer]
-                            + "'s new location is "
-                            + playerPosition[currentPlayer]);
+                    SetNewPosition(roll);
+                  
                     Console.WriteLine("The category is " + CurrentCategory());
                     AskQuestion();
                 }
@@ -88,17 +83,22 @@ namespace TriviaGame
             }
             else
             {
+                SetNewPosition(roll);
 
-                playerPosition[currentPlayer] = playerPosition[currentPlayer] + roll;
-                if (playerPosition[currentPlayer] > 11) playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
-
-                Console.WriteLine(players[currentPlayer]
-                        + "'s new location is "
-                        + playerPosition[currentPlayer]);
                 Console.WriteLine("The category is " + CurrentCategory());
                 AskQuestion();
             }
 
+        }
+
+        public void SetNewPosition(int roll)
+        {
+            playerPosition [currentPlayer] = playerPosition [currentPlayer] + roll;
+            if (playerPosition[currentPlayer] > 11) 
+            playerPosition[currentPlayer] = playerPosition[currentPlayer] - 12;
+            Console.WriteLine(players[currentPlayer]
+        + "'s new location is "
+        + playerPosition[currentPlayer]);
         }
 
         private void AskQuestion()
