@@ -11,9 +11,9 @@ namespace TriviaGame
         static int maxPlayerCount = 6;
 
         int[] playerPosition = new int[maxPlayerCount];
-        int[] playerScores = new int[6];
+        int[] playerScores = new int[maxPlayerCount];
 
-        bool[] inPenaltyBox = new bool[6];
+        bool[] inPenaltyBox = new bool[maxPlayerCount];
         int maximumBoardGameSpaces = 12;
 
         LinkedList<string> popQuestions = new LinkedList<string>();
