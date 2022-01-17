@@ -18,39 +18,39 @@ var Game = function () {
     return !(purses[currentPlayer] == 6)
   }
 
-  var currentCategory = function () {
-    if (places[currentPlayer] == 0) { return 'Pop' }
-    if (places[currentPlayer] == 4) { return 'Pop' }
-    if (places[currentPlayer] == 8) { return 'Pop' }
-    if (places[currentPlayer] == 1) { return 'Science' }
-    if (places[currentPlayer] == 5) { return 'Science' }
-    if (places[currentPlayer] == 9) { return 'Science' }
-    if (places[currentPlayer] == 2) { return 'Sports' }
-    if (places[currentPlayer] == 6) { return 'Sports' }
-    if (places[currentPlayer] == 10) { return 'Sports' }
-    return 'Rock'
+  const currentCategory = () => {
+    const numberOfCategories = 4
+    const categoryNumber = places[currentPlayer] % numberOfCategories
+
+    switch (categoryNumber) {
+      case 0: return 'Pop'
+      case 1: return 'Science'
+      case 2: return 'Sports'
+      case 3: return 'Rock'
+    }
   }
 
-  this.createRockQuestion = function (index) {
-    return 'Rock Question ' + index
+  const createRockQuestion = (category, index) => {
+    return `${category} Question ${index}`
   }
 
   for (var i = 0; i < 50; i++) {
-    popQuestions.push('Pop Question ' + i)
-    scienceQuestions.push('Science Question ' + i)
-    sportsQuestions.push('Sports Question ' + i)
-    rockQuestions.push(this.createRockQuestion(i))
+    popQuestions.push(createRockQuestion('Pop', i))
+    scienceQuestions.push(createRockQuestion('Science', i))
+    sportsQuestions.push(createRockQuestion('Sports', i))
+    rockQuestions.push(createRockQuestion('Rock', i))
   }
 
-  this.isPlayable = function (howManyPlayers) {
-    return howManyPlayers >= 2
+  const checkIsPlayable = (howManyPlayers) => {
+    const minimumPlayers = 2
+    return howManyPlayers >= minimumPlayers
   }
 
   this.addPlayer = function (playerName) {
     players.push(playerName)
-    places[this.howManyPlayers() - 1] = 0
-    purses[this.howManyPlayers() - 1] = 0
-    inPenaltyBox[this.howManyPlayers() - 1] = false
+    places[this.getNumberOfPlayers() - 1] = 0
+    purses[this.getNumberOfPlayers() - 1] = 0
+    inPenaltyBox[this.getNumberOfPlayers() - 1] = false
 
     console.log(playerName + ' was added')
     console.log('They are player number ' + players.length)
@@ -58,15 +58,28 @@ var Game = function () {
     return true
   }
 
-  this.howManyPlayers = function () {
+  this.getNumberOfPlayers = function () {
     return players.length
   }
 
-  var askQuestion = function () {
-    if (currentCategory() == 'Pop') { console.log(popQuestions.shift()) }
-    if (currentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
-    if (currentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
-    if (currentCategory() == 'Rock') { console.log(rockQuestions.shift()) }
+  const askQuestion = () => {
+    switch (currentCategory()) {
+      case 'Pop': console.log(popQuestions.shift()); break;
+      case 'Science': console.log(scienceQuestions.shift()); break;
+      case 'Sports': console.log(sportsQuestions.shift()); break;
+      case 'Rock': console.log(rockQuestions.shift()); break;
+    }
+  }
+
+  const movePlayer = (roll) => {
+    places[currentPlayer] = places[currentPlayer] + roll
+        if (places[currentPlayer] > 11) {
+          places[currentPlayer] = places[currentPlayer] - 12
+        }
+
+        console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
+        console.log('The category is ' + currentCategory())
+        askQuestion()
   }
 
   this.roll = function (roll) {
@@ -78,34 +91,27 @@ var Game = function () {
         isGettingOutOfPenaltyBox = true
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > 11) {
-          places[currentPlayer] = places[currentPlayer] - 12
-        }
 
-        console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
-        console.log('The category is ' + currentCategory())
-        askQuestion()
+        movePlayer(roll)
       } else {
         console.log(players[currentPlayer] + ' is not getting out of the penalty box')
         isGettingOutOfPenaltyBox = false
       }
     } else {
-      places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > 11) {
-        places[currentPlayer] = places[currentPlayer] - 12
-      }
-
-      console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
-      console.log('The category is ' + currentCategory())
-      askQuestion()
+      movePlayer(roll)
     }
   }
 
+  const nextPlayer = () => {
+    currentPlayer += 1
+        if (currentPlayer == players.length) { currentPlayer = 0 }
+        return true
+  }
+
   this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
-      if (isGettingOutOfPenaltyBox) {
-        console.log('Answer was correct!!!!')
+
+    const addGoldCoin = () => {
+      console.log('Answer was correct!!!!')
         purses[currentPlayer] += 1
         console.log(players[currentPlayer] + ' now has ' +
             purses[currentPlayer] + ' Gold Coins.')
@@ -115,24 +121,16 @@ var Game = function () {
         if (currentPlayer == players.length) { currentPlayer = 0 }
 
         return winner
+    }
+
+    if (inPenaltyBox[currentPlayer]) {
+      if (isGettingOutOfPenaltyBox) {
+        return addGoldCoin()
       } else {
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
-        return true
+        return nextPlayer()
       }
     } else {
-      console.log('Answer was correct!!!!')
-
-      purses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
-
-      var winner = checkPlayerHasWon()
-
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
-
-      return winner
+      return addGoldCoin()
     }
   }
 
@@ -141,9 +139,7 @@ var Game = function () {
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
 
-    currentPlayer += 1
-    if (currentPlayer == players.length) { currentPlayer = 0 }
-    return true
+    return nextPlayer()
   }
 }
 
