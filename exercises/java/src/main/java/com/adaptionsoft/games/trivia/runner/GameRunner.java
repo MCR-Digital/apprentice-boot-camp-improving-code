@@ -30,7 +30,7 @@ public class GameRunner {
 			// Randomly choose if right or wrong
 			boolean isWrongAnswer = rand.nextInt(9) == 7;
 			if (isWrongAnswer) {
-				notAWinner = aGame.wrongAnswer();
+				notAWinner = aGame.penalisePlayer();
 			} else {
 				notAWinner = aGame.wasCorrectlyAnswered();
 			}
