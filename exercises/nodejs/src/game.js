@@ -1,9 +1,13 @@
 import generator from "random-seed";
+
 var Game = function () {
 	var players = new Array();
-	var playersPositionOnTheBoard = new Array(6);
-	var playersScore = new Array(6);
-	var inPenaltyBox = new Array(6);
+	const maxNumberOfPlayers = 6;
+	const numberOfPositionsOnTheBoard = 12;
+	var playersPositionOnTheBoard = new Array(maxNumberOfPlayers);
+	var playersScore = new Array(maxNumberOfPlayers);
+	const maxScore = 6;
+	var inPenaltyBox = new Array(maxNumberOfPlayers);
 	var popQuestions = new Array();
 	var scienceQuestions = new Array();
 	var sportsQuestions = new Array();
@@ -11,19 +15,20 @@ var Game = function () {
 	var currentPlayer = 0;
 	var isGettingOutOfPenaltyBox = false;
 	var didPlayerWin = function () {
-		return !(playersScore[currentPlayer] == 6);
+		return !(playersScore[currentPlayer] == maxScore);
 		//is their purse not equal to 6?
 		//returns true, their purse is NOT equal to 6
 		//or false, their purse is equal to 6
 	};
 	var currentCategory = function () {
-		if ([0, 4, 8].includes(playersPositionOnTheBoard[currentPlayer])) {
+		const playersCurrentPostion = playersPositionOnTheBoard[currentPlayer];
+		if ([0, 4, 8].includes(playersCurrentPostion)) {
 			return "Pop";
 		}
-		if ([1, 5, 9].includes(playersPositionOnTheBoard[currentPlayer])) {
+		if ([1, 5, 9].includes(playersCurrentPostion)) {
 			return "Science";
 		}
-		if ([2, 6, 10].includes(playersPositionOnTheBoard[currentPlayer])) {
+		if ([2, 6, 10].includes(playersCurrentPostion)) {
 			return "Sports";
 		}
 		return "Rock";
@@ -77,8 +82,8 @@ var Game = function () {
 				console.log(players[currentPlayer] + " is getting out of the penalty box");
 				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
 				//their position gets set to their current place + the number they have rolled
-				if (playersPositionOnTheBoard[currentPlayer] > 11) {
-					playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - 12;
+				if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
+					playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
 				}
 				// if their position is greater than 11, their new position is -12
 				console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
@@ -93,8 +98,8 @@ var Game = function () {
 			}
 		} else {
 			playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
-			if (playersPositionOnTheBoard[currentPlayer] > 11) {
-				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - 12;
+			if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
+				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
 			}
 			console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
 			console.log("The category is " + currentCategory());
