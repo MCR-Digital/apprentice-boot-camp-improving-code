@@ -21,7 +21,7 @@ let Game = function () {
   let currentCategory = function () {
     if (boardPositions[currentPlayer] == 0) { return 'Pop' }
     if (boardPositions[currentPlayer] == 4) { return 'Pop' }
-    if (boardPositions[currentPlayer] == 8) { return 'Pop' }
+      if (boardPositions[currentPlayer] == 8) { return 'Pop' }
     if (boardPositions[currentPlayer] == 1) { return 'Science' }
     if (boardPositions[currentPlayer] == 5) { return 'Science' }
     if (boardPositions[currentPlayer] == 9) { return 'Science' }
@@ -104,35 +104,38 @@ let Game = function () {
     }
   }
 
-  this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
-      if (isGettingOutOfPenaltyBox) {
-        console.log('Answer was correct!!!!')
+  function addGoldCoin() {
+    console.log('Answer was correct!!!!')
         purses[currentPlayer] += 1
         console.log(players[currentPlayer] + ' now has ' +
             purses[currentPlayer] + ' Gold Coins.')
+  }
+
+  function changePlayer() {
+    currentPlayer += 1
+        if (currentPlayer == players.length) { currentPlayer = 0 }
+  }
+
+  this.wasCorrectlyAnswered = function () {
+    if (inPenaltyBox[currentPlayer]) {
+      if (isGettingOutOfPenaltyBox) {
+        addGoldCoin()
 
         let winner = didPlayerWin()
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
-
+        
+        changePlayer()
         return winner
       } else {
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
+        
+        changePlayer()
         return true
       }
     } else {
-      console.log('Answer was correct!!!!')
-
-      purses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
+      addGoldCoin()
 
       let winner = didPlayerWin()
 
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
+      changePlayer()
 
       return winner
     }
@@ -143,8 +146,7 @@ let Game = function () {
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
 
-    currentPlayer += 1
-    if (currentPlayer == players.length) { currentPlayer = 0 }
+    changePlayer()
     return true
   }
 }
