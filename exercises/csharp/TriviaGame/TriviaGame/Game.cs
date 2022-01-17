@@ -35,7 +35,7 @@ namespace TriviaGame
             }
         }
 
-        public string CreateQuestion(string category, int index) //can be made reusable by passing in string?
+        public string CreateQuestion(string category, int index)
         {
             return $"{category} Question " + index;
         }
@@ -43,18 +43,13 @@ namespace TriviaGame
         public bool Add(string playerName)
         {
             players.Add(playerName);
-            playerPositions[HowManyPlayers()] = 0;
-            playerScores[HowManyPlayers()] = 0;
-            inPenaltyBox[HowManyPlayers()] = false;
+            playerPositions[players.Count] = 0;
+            playerScores[players.Count] = 0;
+            inPenaltyBox[players.Count] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
             return true;
-        }
-
-        public int HowManyPlayers() //what?
-        {
-            return players.Count;
         }
 
         public void Roll(int roll) //does roll param make sense/descriptive enough?
