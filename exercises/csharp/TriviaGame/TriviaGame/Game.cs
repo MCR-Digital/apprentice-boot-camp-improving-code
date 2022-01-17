@@ -8,10 +8,12 @@ namespace TriviaGame
     {
         List<string> players = new List<string>();
 
-        int[] playerPositions = new int[6]; //what is 6, max players?
-        int[] playerScores = new int[6];
+        private int maxBoardSpaces = 12;
+        private static int maxPlayerCount = 6;
+        int[] playerPositions = new int[maxPlayerCount];
+        int[] playerScores = new int[maxPlayerCount];
 
-        bool[] inPenaltyBox = new bool[6];
+        bool[] inPenaltyBox = new bool[maxPlayerCount];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -164,6 +166,16 @@ namespace TriviaGame
                 return winner;
             }
         }
+        public bool WrongAnswer()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[currentPlayer] = true;
+
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
+            return true;
+        }
 
         private void MoveToNextPlayer()
         {
@@ -181,17 +193,6 @@ namespace TriviaGame
                               + " Gold Coins.");
         }
 
-        public bool WrongAnswer()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
-
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
-            return true;
-        }
-        
         private bool DidPlayerWin()
         {
             return !(playerScores[currentPlayer] == 6);
