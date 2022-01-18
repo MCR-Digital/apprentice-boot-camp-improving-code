@@ -5,7 +5,7 @@ namespace TriviaGame
    public static class GameRunner
     {
 
-        private static bool notAWinner;
+        private static bool winner;
 
         public static void Main(String[] args)
         {
@@ -20,17 +20,12 @@ namespace TriviaGame
             do
             {
                 aGame.Roll(randomNumberGenerator.Next(5) + 1);
-                
-                if (randomNumberGenerator.Next(9) == 7)
-                {
-                    notAWinner = aGame.WasIncorrectlyAnswered();
-                }
-                else
-                {
-                    notAWinner = aGame.WasCorrectlyAnswered();
-                }
 
-            } while (notAWinner);
+                var isWrongAnswer = randomNumberGenerator.Next(9) == 7;
+
+                winner = isWrongAnswer ? aGame.WasIncorrectlyAnswered() : aGame.WasCorrectlyAnswered();
+
+            } while (!winner);
 
         }
     }

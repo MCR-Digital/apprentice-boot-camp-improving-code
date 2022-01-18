@@ -149,15 +149,15 @@ namespace TriviaGame
             if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox) 
             {
                     MoveToNextPlayer();
-                    return true;
+                    return false;
             }
             
             IncrementScore();
 
-            bool winner = DidPlayerWin();
+            bool didPlayerWin = DidPlayerWin();
             MoveToNextPlayer();
 
-            return winner;
+            return didPlayerWin;
         }
 
         public bool WasIncorrectlyAnswered()
@@ -168,7 +168,7 @@ namespace TriviaGame
 
             currentPlayer++;
             if (currentPlayer == players.Count) currentPlayer = 0;
-            return true;
+            return false;
         }
 
         private void MoveToNextPlayer()
@@ -189,7 +189,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return (playerScores[currentPlayer] != winningScore);
+            return playerScores[currentPlayer] == winningScore;
         }
     }
 
