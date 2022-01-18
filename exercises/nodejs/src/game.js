@@ -71,30 +71,36 @@ var Game = function () {
 			console.log(rockQuestions.shift());
 		}
 	};
+
+	this.playerIsInPenaltyBox = function () {
+		return inPenaltyBox[currentPlayer];
+	};
+	this.playerGetsOutOfPenaltyBox = function (roll) {
+		return roll % 2 != 0;
+	};
+
 	this.actionAfterRoll = function (roll) {
 		console.log(players[currentPlayer] + " is the current player");
 		console.log("They have rolled a " + roll);
-		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
-				//if they roll a number NOT divisible by 2 - an ODD NUMBER - thye wll escape the penalty box
-				console.log(players[currentPlayer] + " is getting out of the penalty box");
-				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
-				//their position gets set to their current place + the number they have rolled
-				if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
-					playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
-				}
-				// if their position is greater than 11, their new position is -12
-				console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
-				// say their new position
-				console.log("The category is " + currentCategory());
-				// say what category it is
-				askQuestion();
-				//ask them a question
-			} else {
-				console.log(players[currentPlayer] + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
+		if (this.playerIsInPenaltyBox() && this.playerGetsOutOfPenaltyBox(roll)) {
+			isGettingOutOfPenaltyBox = true;
+			//if they roll a number NOT divisible by 2 - an ODD NUMBER - thye wll escape the penalty box
+			console.log(players[currentPlayer] + " is getting out of the penalty box");
+			playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
+			//their position gets set to their current place + the number they have rolled
+			if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
+				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
 			}
+			// if their position is greater than 11, their new position is -12
+			console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
+			// say their new position
+			console.log("The category is " + currentCategory());
+			// say what category it is
+			askQuestion();
+			//ask them a question
+		} else if (this.playerIsInPenaltyBox() && !this.playerGetsOutOfPenaltyBox(roll)) {
+			console.log(players[currentPlayer] + " is not getting out of the penalty box");
+			isGettingOutOfPenaltyBox = false;
 		} else {
 			playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
 			if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
