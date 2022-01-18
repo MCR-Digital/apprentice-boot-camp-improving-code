@@ -77,11 +77,6 @@ const Game = function () {
     rockQuestions.push(createQuestion("Rock", index));
   }
 
-  this.checkIsPlayable = function (howManyPlayers) {
-    const minimumPlayers = 2;
-    return howManyPlayers >= minimumPlayers;
-  };
-
   this.addPlayer = function (playerName) {
     players.push(playerName);
     this.setLocation(this.getLastPlayer(), 0);
