@@ -24,6 +24,7 @@ var Game = function () {
   var sportsQuestions = new Array();
   var rockQuestions = new Array();
 
+  
   var didPlayerWin = function () {
     return !(playersScore[currentPlayer] == maxScore);
     //is their purse not equal to 6?
@@ -72,12 +73,12 @@ var Game = function () {
     playersScore[this.howManyPlayers() - 1] = 0;
     inPenaltyBox[this.howManyPlayers() - 1] = false;
     console.log(playerName + " was added");
-    console.log("They are player number " + playerNames.length);
+    console.log("They are player number " + this.howManyPlayers());
     return true;
   };
 
   this.howManyPlayers = function () {
-    return playerNames.length;
+    return players.length;
   };
 
   var askQuestion = function () {
@@ -144,7 +145,7 @@ var Game = function () {
 
   this.moveToNextPlayer = function () {
     currentPlayer += 1;
-    if (currentPlayer == playerNames.length) {
+    if (currentPlayer == this.howManyPlayers()) {
       currentPlayer = 0;
     }
   };
@@ -179,7 +180,7 @@ var Game = function () {
     inPenaltyBox[currentPlayer] = true;
     //they are in the penalty box, but can keep playing to get out of this
     currentPlayer += 1;
-    if (currentPlayer == playerNames.length) {
+    if (currentPlayer == this.howManyPlayers()) {
       currentPlayer = 0;
     }
     return true;
