@@ -7,10 +7,12 @@ const Game = function () {
   const purses = new Array(maxNumberOfPlayers);
   const inPenaltyBox = new Array(maxNumberOfPlayers);
 
-  const popQuestions = new Array();
-  const scienceQuestions = new Array();
-  const sportsQuestions = new Array();
-  const rockQuestions = new Array();
+  const questions = {
+    Pop: new Array(),
+    Science: new Array(),
+    Sports: new Array(),
+    Rock: new Array(),
+  };
 
   const numberOfCategories = 4;
   const winningNumberofCoins = 6;
@@ -47,23 +49,18 @@ const Game = function () {
     purses[player] = coins;
   };
 
+  this.getGoldCoins = function () {
+    return purses[currentPlayer];
+  };
+
   this.setPenaltyBox = function (player, inBox) {
     inPenaltyBox[player] = inBox;
   };
 
-  const currentCategory = () => {
+  const getCurrentCategory = () => {
     const categoryNumber = getCurrentLocation() % numberOfCategories;
 
-    switch (categoryNumber) {
-      case 0:
-        return "Pop";
-      case 1:
-        return "Science";
-      case 2:
-        return "Sports";
-      case 3:
-        return "Rock";
-    }
+    return Object.keys(questions)[categoryNumber];
   };
 
   const createQuestion = (category, index) => {
@@ -71,10 +68,9 @@ const Game = function () {
   };
 
   for (let index = 0; index < 50; index++) {
-    popQuestions.push(createQuestion("Pop", index));
-    scienceQuestions.push(createQuestion("Science", index));
-    sportsQuestions.push(createQuestion("Sports", index));
-    rockQuestions.push(createQuestion("Rock", index));
+    Object.keys(questions).forEach((category) => {
+      questions[category].push(createQuestion(category, index));
+    });
   }
 
   this.addPlayer = function (playerName) {
@@ -90,20 +86,7 @@ const Game = function () {
   };
 
   const askQuestion = () => {
-    switch (currentCategory()) {
-      case "Pop":
-        console.log(popQuestions.shift());
-        break;
-      case "Science":
-        console.log(scienceQuestions.shift());
-        break;
-      case "Sports":
-        console.log(sportsQuestions.shift());
-        break;
-      case "Rock":
-        console.log(rockQuestions.shift());
-        break;
-    }
+    console.log(questions[getCurrentCategory()].shift());
   };
 
   const movePlayer = (roll) => {
@@ -115,7 +98,7 @@ const Game = function () {
     console.log(
       players[currentPlayer] + "'s new location is " + places[currentPlayer]
     );
-    console.log("The category is " + currentCategory());
+    console.log("The category is " + getCurrentCategory());
     askQuestion();
   };
 
@@ -156,7 +139,7 @@ const Game = function () {
   this.wasCorrectlyAnswered = function () {
     const addGoldCoin = () => {
       console.log("Answer was correct!!!!");
-      purses[currentPlayer] += 1;
+      this.setGoldCoins(currentPlayer, this.getGoldCoins() + 1);
       console.log(
         getCurrentPlayer() +
           " now has " +
@@ -187,28 +170,6 @@ const Game = function () {
 
     return nextPlayer();
   };
-};
-
-const gameRunner = (i) => {
-  const game = new Game();
-
-  let hasWonGame = false;
-
-  game.addPlayer("Chet");
-  game.addPlayer("Pat");
-  game.addPlayer("Sue");
-
-  const random = generator.create(i);
-
-  do {
-    game.roll(random.range(5) + 1);
-
-    if (random.range(9) === 7) {
-      hasWonGame = game.wasIncorrectlyAnswered();
-    } else {
-      hasWonGame = game.wasCorrectlyAnswered();
-    }
-  } while (hasWonGame);
 };
 
 export default Game;
