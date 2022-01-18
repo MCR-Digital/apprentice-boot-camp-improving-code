@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace TriviaGame
 {
@@ -78,7 +77,6 @@ namespace TriviaGame
             if (diceIsOdd)
             {
                 isGettingOutOfPenaltyBox = true;
-
             }
             else
             {
@@ -90,7 +88,6 @@ namespace TriviaGame
         public void PlayTurn(int diceNumber)
         {
             SetNewPosition(diceNumber);
-
             Console.WriteLine("The category is " + CurrentCategory());
             AskQuestion();
         }
@@ -98,11 +95,12 @@ namespace TriviaGame
         public void SetNewPosition(int roll)
         {
             playerPosition [currentPlayer] = playerPosition [currentPlayer] + roll;
-            if (playerPosition[currentPlayer] > (maximumBoardGameSpaces - 1)) 
-            playerPosition[currentPlayer] = playerPosition[currentPlayer] - maximumBoardGameSpaces;
-            Console.WriteLine(players[currentPlayer]
-        + "'s new location is "
-        + playerPosition[currentPlayer]);
+
+            if (playerPosition[currentPlayer] > (maximumBoardGameSpaces - 1))
+            {
+                playerPosition[currentPlayer] = playerPosition[currentPlayer] - maximumBoardGameSpaces;
+            }
+            Console.WriteLine(players[currentPlayer] + "'s new location is " + playerPosition[currentPlayer]);
         }
 
         private void AskQuestion()
@@ -124,6 +122,10 @@ namespace TriviaGame
                 case "Rock":
                     AskCategoryQuestion(rockQuestions);
                     break;
+
+                default:
+                    break;
+                    //throw new ArgumentException("No categories for this question");
             }
         }
 
@@ -158,21 +160,14 @@ namespace TriviaGame
         {
             if (inPenaltyBox[currentPlayer])
             {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    return IsPlayerWinner();
-                }
-                else
+                if (!isGettingOutOfPenaltyBox)
                 {
                     MoveToNextPlayer();
-                    return true;
+                    return true; 
                 }
 
             }
-            else
-            {
                return IsPlayerWinner();
-            }
         }
 
         private bool IsPlayerWinner()

@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace TriviaGame
 {
-    public class GameRunnerTest
+    public class GameRunnerTest : IDisposable
     {
         private StringWriter _writer;
 
@@ -28,7 +28,7 @@ namespace TriviaGame
         {
             for (int i = 0; i < 10000; i++)
             {
-                GameRunner.Main(new string[] { i.ToString() });
+                GameRunner.Main(new [] { i.ToString() });
 
                 var expectedContent = _writer.ToString();
                 var actualContent = GoldenMaster.GetResult(i);
@@ -37,6 +37,11 @@ namespace TriviaGame
 
                 _writer.GetStringBuilder().Clear();
             }
+        }
+
+        public void Dispose()
+        {
+            _writer?.Dispose();
         }
     }
 }

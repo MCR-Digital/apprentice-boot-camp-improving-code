@@ -8,7 +8,7 @@ namespace TriviaGame
 
         public static string GetResult(int i)
         {
-            string result = null;
+            string result;
 
             try
             {
@@ -26,13 +26,13 @@ namespace TriviaGame
             TextWriter oldOut = Console.Out;
 
             string result;
-            MemoryStream memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
 
-            StreamWriter writer = new StreamWriter(memoryStream);
+            using var writer = new StreamWriter(memoryStream);
 
             Console.SetOut(writer);
 
-            GameRunner.Main(new String[] { i.ToString() });
+            GameRunner.Main(new [] { i.ToString() });
             writer.Flush();
 
             try
@@ -46,7 +46,7 @@ namespace TriviaGame
             finally
             {
                 memoryStream.Position = 0;
-                StreamReader reader = new StreamReader(memoryStream);
+                using var reader = new StreamReader(memoryStream);
                 result = reader.ReadToEnd();
 
                 memoryStream.SetLength(0);
