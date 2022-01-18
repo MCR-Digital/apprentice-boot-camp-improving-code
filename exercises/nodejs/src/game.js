@@ -1,5 +1,4 @@
 import generator from "random-seed";
-
 var Game = function () {
 	var players = new Array();
 	const maxNumberOfPlayers = 6;
@@ -21,14 +20,14 @@ var Game = function () {
 		//or false, their purse is equal to 6
 	};
 	var currentCategory = function () {
-		const playersCurrentPostion = playersPositionOnTheBoard[currentPlayer];
-		if ([0, 4, 8].includes(playersCurrentPostion)) {
+		const playersCurrentPosition = playersPositionOnTheBoard[currentPlayer];
+		if ([0, 4, 8].includes(playersCurrentPosition)) {
 			return "Pop";
 		}
-		if ([1, 5, 9].includes(playersCurrentPostion)) {
+		if ([1, 5, 9].includes(playersCurrentPosition)) {
 			return "Science";
 		}
-		if ([2, 6, 10].includes(playersCurrentPostion)) {
+		if ([2, 6, 10].includes(playersCurrentPosition)) {
 			return "Sports";
 		}
 		return "Rock";
@@ -106,23 +105,23 @@ var Game = function () {
 			askQuestion();
 		}
 	};
-	this.wasCorrectlyAnswered = function () {
+	this.moveToNextPlayer = function () {
+		currentPlayer += 1;
+		if (currentPlayer == players.length) {
+			currentPlayer = 0;
+		}
+	};
+	this.answerWasCorrect = function () {
 		if (inPenaltyBox[currentPlayer]) {
 			if (isGettingOutOfPenaltyBox) {
 				console.log("Answer was correct!!!!");
 				playersScore[currentPlayer] += 1;
 				console.log(players[currentPlayer] + " now has " + playersScore[currentPlayer] + " Gold Coins.");
 				var winner = didPlayerWin();
-				currentPlayer += 1;
-				if (currentPlayer == players.length) {
-					currentPlayer = 0;
-				}
+				this.moveToNextPlayer();
 				return winner;
 			} else {
-				currentPlayer += 1;
-				if (currentPlayer == players.length) {
-					currentPlayer = 0;
-				}
+				this.moveToNextPlayer();
 				return true;
 			}
 		} else {
@@ -131,10 +130,8 @@ var Game = function () {
 			console.log(players[currentPlayer] + " now has " + playersScore[currentPlayer] + " Gold Coins.");
 			var winner = didPlayerWin(); //if true, they don't have 6 coins
 			//if false, they do have six coins?
-			currentPlayer += 1;
-			if (currentPlayer == players.length) {
-				currentPlayer = 0;
-			}
+			this.moveToNextPlayer();
+
 			//turns - if the last player has been go back to player 0
 			return winner;
 		}
@@ -164,7 +161,7 @@ const gameRunner = (i) => {
 		if (random.range(9) == 7) {
 			notAWinner = game.answerWasWrongAndCheckThereIsNoWinner();
 		} else {
-			notAWinner = game.wasCorrectlyAnswered();
+			notAWinner = game.answerWasCorrect();
 		}
 		//set notAWinner variable to point to true or false
 	} while (notAWinner); // while not a winner is true, keep rolling?
