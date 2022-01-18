@@ -57,32 +57,35 @@ namespace TriviaGame
         {
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + numberRolled);
+
             if (inPenaltyBox[currentPlayer])
             {
-                if (numberRolled % 2 != 0) //pull out to make meaningful, ie isOdd?
+                if (IsOdd(numberRolled))
                 {
-                    isGettingOutOfPenaltyBox = true;
-
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    SetNewPlayerPosition(numberRolled);
-                    
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
                 }
                 else
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    return;
                 }
             }
-            else
-            {
-                SetNewPlayerPosition(numberRolled);
-                
-                Console.WriteLine("The category is " + CurrentCategory());
-                AskQuestion();
-            }
 
+            PlayerTurn(numberRolled);
+        }
+
+        private bool IsOdd(int numberRolled)
+        {
+            isGettingOutOfPenaltyBox = numberRolled % 2 != 0;
+            return numberRolled % 2 != 0;
+        }
+
+        private void PlayerTurn(int numberRolled)
+        {
+            SetNewPlayerPosition(numberRolled);
+
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
         }
 
         private void SetNewPlayerPosition(int numberRolled)
