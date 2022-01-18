@@ -78,37 +78,28 @@ var Game = function () {
 	this.playerGetsOutOfPenaltyBox = function (roll) {
 		return roll % 2 != 0;
 	};
+	this.playerTakesTurn = function (roll) {
+		playersPositionOnTheBoard[currentPlayer] += roll;
+		if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
+			playersPositionOnTheBoard[currentPlayer] -= numberOfPositionsOnTheBoard;
+		}
+		console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
+		console.log("The category is " + currentCategory());
+		askQuestion();
+	};
 
 	this.actionAfterRoll = function (roll) {
 		console.log(players[currentPlayer] + " is the current player");
 		console.log("They have rolled a " + roll);
 		if (this.playerIsInPenaltyBox() && this.playerGetsOutOfPenaltyBox(roll)) {
 			isGettingOutOfPenaltyBox = true;
-			//if they roll a number NOT divisible by 2 - an ODD NUMBER - thye wll escape the penalty box
 			console.log(players[currentPlayer] + " is getting out of the penalty box");
-			playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
-			//their position gets set to their current place + the number they have rolled
-			if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
-				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
-			}
-			// if their position is greater than 11, their new position is -12
-			console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
-			// say their new position
-			console.log("The category is " + currentCategory());
-			// say what category it is
-			askQuestion();
-			//ask them a question
+			this.playerTakesTurn(roll);
 		} else if (this.playerIsInPenaltyBox() && !this.playerGetsOutOfPenaltyBox(roll)) {
 			console.log(players[currentPlayer] + " is not getting out of the penalty box");
 			isGettingOutOfPenaltyBox = false;
 		} else {
-			playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll;
-			if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
-				playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
-			}
-			console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer]);
-			console.log("The category is " + currentCategory());
-			askQuestion();
+			this.playerTakesTurn(roll);
 		}
 	};
 	this.moveToNextPlayer = function () {
