@@ -6,10 +6,15 @@
 
 ## Competencies, Behaviours and Knowledge units
 
-* TC10: Applying Good Practice
-* TC1: Logic
-* TC6: Design
-* Knowledge 1.1 (‘Designing for software maintainability and re-use’ aspect)
+* **[S1](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#S1)**: create logical and maintainable code
+* **[S8](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#S8)**: create simple software designs to effectively communicate understanding of the program
+* **[S11](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#S11)**: apply an appropriate software development approach according to the relevant paradigm (for example object oriented, event driven or procedural)
+* **[S12](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#S12)**: follow software designs and functional or technical specifications
+* **[S14](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#S14)**: follow company, team or client approaches to continuous integration, version and source control
+* **[S15](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#S15)**: communicate software solutions and ideas to technical and non-technical stakeholders
+* **[B7](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#B7)**: Communicates effectively in a variety of situations to both a technical and non-technical audience
+* **[B4](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#B4)**: Works collaboratively with a wide range of people in different roles, internally and externally, with a positive attitude to inclusion & diversity
+
 
 ## Resources 
 
@@ -33,7 +38,7 @@ Two–three mentors required in addition to leads. These should be able to cover
   * We'll be using it for collaborative drawings and post-its
 * Make sure you can sign in to github.com with your own account
 * **Fork** this repo (so you can push your changes later)
-* Clone your fork: `git clone https://github.com/[your-username]/apprentice-boot-camp-fundamentals-2.git`
+* Clone your fork: `git clone https://github.com/[your-username]/apprentice-boot-camp-improving-code.git`
   * ⚠️ Don’t use the IDE to clone the project, as it will open the root of the project which is wrong
 * Follow the instructions in the README for your language under the `exercises` directory, **making sure that the tests run and pass**
   * [Java](exercises/java/README.md)
@@ -65,14 +70,14 @@ Books:
 
 Video:
 * [The Art of Giving and Receiving Code Reviews (Gracefully)](https://www.youtube.com/watch?v=hfrNmZIPq3E) (30 minutes)
-* [Decisions, decisions](https://vimeo.com/43536417)—a one hour talk by Dan North about trade-offs, and distinguishing decisions that matter a lot more than others
 
 Web:
 * [QWAN Code Smells and Refactoring Cue Cards](http://www.qwan.eu/shop)
 * [Refactoring Guru’s section on Code Smells](https://refactoring.guru/smells/)—this is an excellent site, and super accessible
 * [8 Tips for Great Code Reviews](https://kellysutton.com/2018/10/08/8-tips-for-great-code-reviews.html)—five minute read with some good top level tips, well communicated. Maybe share this at work if review doesn’t go so well?
 * [Awesome code review](https://github.com/joho/awesome-code-review): An "Awesome" list of code review resources - articles, papers, tools, etc
- 
+* [Reviewing proposed changes in a pull request]](https://help.github.com/en/articles/reviewing-proposed-changes-in-a-pull-request)
+
 ## Slides
 
 The slides can be viewed from the link at the top of the repository.
@@ -84,22 +89,6 @@ The slides can be viewed from the link at the top of the repository.
 * Setting up static analysis for codebase
 * Identifying and removing more code smells in Trivia code
 * Providing code review
-
-# Boot Camp Summary
-
-## Planned
-
-* Refactoring
-* Static Analysis
-* More on Coupling
-* Code Smells
-* Legacy Code
-* Design Patterns
-
-## Not covered
-
-* Design Patterns
-* More on Coupling
 
 # Briefing for organisation mentors
 

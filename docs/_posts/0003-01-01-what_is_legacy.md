@@ -117,9 +117,16 @@ We need to take ownership of legacy code and help ensure we don't leave behind a
 ## Reading code
 
 + Possibly your most important skill
-+ Great source of learning (if you read good code)
-+ Good developers spend ~10x as long reading
-+ Developers who only write create debt
++ Great source of learning
++ Good to be conscious about whether what you are reading is good code
++ Developers who only write and never read create more debt
++ You will spend much more time reading than writing code
+
+--
+
+> Indeed, the ratio of time spent reading versus writing is well over 10 to 1. We are constantly reading old code as part of the effort to write new code. ...[Therefore,] making it easy to read makes it easier to write.
+
+—Robert C. Martin, Clean Code: A Handbook of Agile Software Craftsmanship
 
 --
 

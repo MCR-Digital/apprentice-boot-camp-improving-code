@@ -1,10 +1,13 @@
 ## Code Review
 
++ What is it?
 + Another form of feedback
 + *Compliments* automated review
 + Yet another heuristic
 
-Notes: Who has received a review?  
+Notes:  
+    Ask people what it is.  
+    Who has received a review?  
     Who has delivered a review?  
 
 --
@@ -21,6 +24,7 @@ Notes: No such thing as perfection
 
 Notes:
     Experiences of code review are not positive  
+
 --
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Ask a programmer to review 10 lines of code, he&#39;ll find 10 issues. Ask him to do 500 lines and he&#39;ll say it looks good.</p>&mdash; Giray Özil (@girayozil) <a href="https://twitter.com/girayozil/status/306836785739210752?ref_src=twsrc%5Etfw">February 27, 2013</a></blockquote> 
@@ -39,117 +43,76 @@ Notes: Disclaimer: Smartbear are a code review product supplier
 
 --
 
-## Code review is critical
+## Why is code review a good thing?
 
++ Distributes knowledge and consensus
 + Great for personal development
 + Important for maintainability
-+ Distributes knowledge and consensus
 + Often part of a teams code workflow
+
+Note: Ask people why code review is important
 
 --
 
 ## When code review goes wrong…
 
-+ Poor work relationships
 + Damaged confidence
 + Low team moral
 + Lack of trust
++ Poor work relationships
 + Input shutdown
 
-Note: Important to establish culture of feedback in the team  
-    This is a two way street  
+Note: What do you think can happen when it goes wrong?  
+    Important to establish culture of feedback in the team  
+    People have to feel safe to be open and honest  
 
 --
 
 ## Code review done badly
 
-+ Opportunity to demonstrate experience
++ Used as opportunity to demonstrate experience
 + Linting
     + ‘Tabs -> spaces’
     + ‘Indentation is wrong’
 + Bikeshedding
     + Discussing name of a field in a class named `AbstractSingletonProxyFactoryBean`
-+ Contradictory advice
++ Inconsistent standards/subjective comments 
     + ‘But the last review suggested using enums!’
 
 Notes: Leave egos at the door  
     Linting should be done by an automated process  
-    Explain bikeshedding  
+    Explain bikeshedding (Parkinson’s law of triviality)  
     Possible to end up in a loop—consistency important  
 
 --
 
-## Empathy
+> … the time spent on any item of the agenda will be in inverse proportion to the sum involved.  
 
-+ Person behind the change
-    + People usually don’t set out to write bad code
-+ Don’t stamp on their hard work
-+ Were they under pressure?
-+ Consider your rapport
-
-Notes: Seniority can impact rapport  
-    Where is the other developer in their journey?  
-    What pressures were they under?  
+—Parkinson's Law: The Pursuit of Progress
 
 --
 
-## Opportunity to teach
+## A good code review is
 
-Teaching takes more interaction than a simple comment
-
-Notes: Might need a face-to-face conversation  
-    Drawing might help  
-    Consider repetition  
-
---
-
-## Focus on things that matter
-
-+ Signal / noise ratio important
-+ People can only absorb so much
-
-Notes: See further reading for ‘Decisions decisions’ talk about decisions that matter  
-
---
-
-## Good practices: How to approach
-
-+ Seek to understand the goal
-+ Ask less experienced people to review your code
-+ Read every line
-+ Ask for large changes to be split into smaller chunks
-+ Until you know each other, review in person
-+ Take breaks every hour
-+ Good to deliver reviews as well as receive
-
---
-
-### Good practices: What to write
-
-+ Be polite—read what you wrote and imagine being the audience
-+ Praise good code (at least once per review)
-+ Support rather than criticise
-    Be positive: ‘This might be easier to understand if…’ instead of negative: ‘This code is hard to understand’
-
---
-
-### Good practices: What to write (continued)
-
-+ Don’t comment on issues they didn’t introduce
-+ Avoid accusative language e.g. ‘why did you…’
-+ Include reasoning
-+ If nitpicking, be explicit e.g. `nit: this should be lower case`
++ Empathetic
+  + Understand goal, positive intent, their situation, async vs in person, include praise, give & take
++ Informative & reasoned
+  + ‘This might be easier to understand if…’ vs  
+    ‘This is hard to understand’
++ Relevant & objective
+  + Signal/noise ratio, concise, focused on changes, restrict to established norms, make `nitpick:` explicit
 
 Notes: Possible to look back beyond commit in GitHub to check if they introduced an issue  
+Be polite—read what you wrote and imagine being the audience
 
 --
 
 ## Code review is hard
 
-+ We are generally bad at this
++ We’re generally bad at this
 + Fact: you **will** receive bad reviews
-+ Only thing you are in control of is how you react
-+ You can make it easier
+  + Only thing you are in control of is how you react
++ You can make it easier to deliver
 
 Notes: arguably as important as how it’s delivered  
 
@@ -157,30 +120,13 @@ Notes: arguably as important as how it’s delivered
 
 ## How to receive a review
 
-+ Seek feedback early
-+ Appreciate the time given to you, help by making small changes
-+ Drop your ego and don’t be defensive—it’s just code
++ Appreciate the time given to you, submit small changes
 + Empathy just as important for you
-    + They might not be experienced
-    + English might not be their first language
-
---
-
-## How to receive a review (continued)
-
-+ Ask if you don’t understand—discussions are good
-+ Face time can be much more efficient
-+ Check back with the reviewer after addressing changes
-    + This should generate some positive comments!
-
---
-
-## A good code review is
-
-+ Supportive
-+ Concise
-+ Focused
-+ Objective
+  + Don’t be defensive—assume they’re trying to help
+  + Reviewer might not be experienced
+  + English might not be their first written language
++ Discussions what you don’t understand… face to face?
++ Resubmit to verify understanding—should get positive comments!
 
 --
 
@@ -196,55 +142,60 @@ Notes: arguably as important as how it’s delivered
 
 --
 
-## Ways to review: pairing
+## What ways do we have to review code?
 
-+ Review is done collaboratively and implicitly
-+ Navigator manages task list rather than interrupting flow
-+ Talk about design before doing it
-+ Shouldn’t feel like review
-+ Shared understanding can make you code blind
-+ Can be worth seeking external review
++ Synchronously: pairing
++ Asynchronously: GitHub
+
+Note: Ask people for ideas
 
 --
 
-## Another way: using GitHub to review code
+## Synchronous review: pairing
 
-+ Comment on single commits
++ Review done collaboratively and implicitly
++ Navigator buffers rather than interrupting
++ Communicate design before implementing it
++ Shouldn’t feel like review
++ Keep it fresh… seek external review
+
+--
+
+## Asynchronous review: GitHub
+
 + Create reviews on Pull Requests
 + Request reviews from other contributors
 + Enforce reviews using protected branches
-+ See status checks inline with the PR
 
---
-
-## Commenting on single commit
-
-+ From commit, hover over a line you want to attach a comment to
-+ Click blue `+` sign
-+ Write the comment, using Markdown
-+ Click ‘Add single comment’
-+ User is notified
+Note: 
 
 --
 
 ## Creating a Pull Request review
 
-See [detailed instructions from GitHub](https://help.github.com/en/articles/reviewing-proposed-changes-in-a-pull-request) for more
-
-+ In the pull request, click ‘Files changed’
-+ Hover over a line you want to attach a comment to
-+ Click blue `+` sign & write the comment, using Markdown
++ From pull request click ‘Files changed’
++ Drag blue `+` sign over relevant lines & add comment
+  + Suggestions are handy
+    + Applying on GitHub resolves conversations
+    + Can choose to batch into single commit
 + Click ‘Start a review’, then add more comments
 + Click ‘Review changes’ at the top right
 + Summarise & choose whether to ‘Approve’ or ‘Request changes’
-+ User is notified
 
-Notes: if finish early, get them to explore protected branches  
+Notes: Demo this using the dummy branch that exists  
+    Can also comment on single commits  
+    GH guide linked to in further reading  
 
 ---
 
 ## Exercise: use GitHub to review your neighbours code
 
-+ Need code to be pushed
++ Make sure your changes are all pushed
++ From your fork, click ‘Pull requests’
++ Click ‘New pull request’
+  + Note that the [default is populated with the parent repos default branch](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request#changing-the-branch-range-and-destination-repository)
++ Create a PR with a title like ‘Code review exercise: Jane Smith’
 
-Notes: Discuss how it felt to receive the review  
+Notes:  
+    If finish early, get them to explore protected branches  
+    Discuss how it felt to receive the review  
