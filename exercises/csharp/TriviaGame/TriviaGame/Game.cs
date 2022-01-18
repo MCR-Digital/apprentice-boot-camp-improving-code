@@ -23,7 +23,7 @@ namespace TriviaGame
         private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         private int currentPlayer;
-        private bool isGettingOutOfPenaltyBox; //redundant variable - are players ever removed from penalty box?
+        private bool isGettingOutOfPenaltyBox;
         
         public Game()
         {
@@ -75,7 +75,6 @@ namespace TriviaGame
         {
             var isOdd = numberRolled % 2 != 0;
             isGettingOutOfPenaltyBox = isOdd;
-            //inPenaltyBox[currentPlayer] = !isOdd;
             return isOdd;
         }
 
@@ -147,45 +146,20 @@ namespace TriviaGame
 
         public bool WasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayer]) //should just do else if in penalty box - is this repeated logic?
+            if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox) 
             {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    IncrementScore();
-
-                    bool winner = DidPlayerWin();
-                    MoveToNextPlayer();
-
-                    return winner;
-                }
-                else
-                {
                     MoveToNextPlayer();
                     return true;
-                }
             }
-            else
-            {
-                IncrementScore();
+            
+            IncrementScore();
 
-                bool winner = DidPlayerWin();
-                MoveToNextPlayer();
+            bool winner = DidPlayerWin();
+            MoveToNextPlayer();
 
-                return winner;
-            }
-
-            //if (inPenaltyBox[currentPlayer])
-            //{
-            //    MoveToNextPlayer();
-            //    return true;
-            //}
-            //IncrementScore();
-
-            //bool winner = DidPlayerWin();
-            //MoveToNextPlayer();
-
-            //return winner;
+            return winner;
         }
+
         public bool WasIncorrectlyAnswered()
         {
             Console.WriteLine("Question was incorrectly answered");
@@ -215,7 +189,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(playerScores[currentPlayer] == winningScore); //why return true when not won?? should be other way around?
+            return (playerScores[currentPlayer] != winningScore);
         }
     }
 
