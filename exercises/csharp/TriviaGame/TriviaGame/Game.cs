@@ -60,15 +60,12 @@ namespace TriviaGame
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (IsOdd(numberRolled))
-                {
-                    Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                }
-                else
+                if (!IsOdd(numberRolled))
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
                     return;
                 }
+                Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
             }
 
             PlayerTurn(numberRolled);
@@ -76,8 +73,9 @@ namespace TriviaGame
 
         private bool IsOdd(int numberRolled)
         {
-            isGettingOutOfPenaltyBox = numberRolled % 2 != 0;
-            return numberRolled % 2 != 0;
+            var isOdd = numberRolled % 2 != 0;
+            isGettingOutOfPenaltyBox = isOdd;
+            return isOdd;
         }
 
         private void PlayerTurn(int numberRolled)
@@ -100,26 +98,27 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop") //could you make this into a single method, passing in the list and string?
+            switch (CurrentCategory())
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                case "Pop":
+                    AskCategoryQuestion(popQuestions);
+                    break;
+                case "Science":
+                    AskCategoryQuestion(scienceQuestions);
+                    break;
+                case "Sports":
+                    AskCategoryQuestion(sportsQuestions);
+                    break;
+                case "Rock":
+                    AskCategoryQuestion(rockQuestions);
+                    break;
             }
-            if (CurrentCategory() == "Science")
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Sports")
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Rock")
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
-            }
+        }
+
+        private void AskCategoryQuestion(LinkedList<string> questions)
+        {
+            Console.WriteLine(questions.First());
+            questions.RemoveFirst();
         }
 
         private string CurrentCategory()
