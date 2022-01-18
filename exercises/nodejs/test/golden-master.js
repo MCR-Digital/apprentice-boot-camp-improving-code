@@ -1,5 +1,5 @@
 import fs from 'fs'
-import gameRunner from '../src/game'
+import gameRunner from '../src/game-runner'
 import captureOutput from './capture-console-output'
 
 function createFolder(foldername) {

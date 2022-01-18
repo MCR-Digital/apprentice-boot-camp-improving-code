@@ -1,7 +1,5 @@
 /* eslint-disable no-console */
 
-import generator from "random-seed";
-
 const Game = function () {
   const maxNumberOfPlayers = 6;
   const players = new Array();
@@ -218,4 +216,4 @@ const gameRunner = (i) => {
   } while (hasWonGame);
 };
 
-export default gameRunner;
+export default Game;
