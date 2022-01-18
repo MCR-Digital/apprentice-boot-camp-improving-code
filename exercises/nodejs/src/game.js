@@ -1,29 +1,23 @@
-
-
 const Game = function () {
   const players = new Array();
-  const minimumPlayers = 2;
   const maximumPlayers = 6;
-
   const boardPositions = new Array(maximumPlayers);
   const purses = new Array(maximumPlayers);
   const inPenaltyBox = new Array(maximumPlayers);
-
   const popQuestions = new Array();
   const scienceQuestions = new Array();
   const sportsQuestions = new Array();
   const rockQuestions = new Array();
 
   let numberOfCatagories = 4;
-
   let currentPlayer = 0;
   let isGettingOutOfPenaltyBox = false;
 
-  let didPlayerWin = function () {
+  const didPlayerWin = function () {
     return !(purses[currentPlayer] == 6);
   };
 
-  let currentCategory = function () {
+  const currentCategory = function () {
     if (boardPositions[currentPlayer] % numberOfCatagories === 0) {
       return "Pop";
     }
@@ -43,10 +37,6 @@ const Game = function () {
     rockQuestions.push("Rock Question " + i);
   }
 
-  // this.isPlayable = function (howManyPlayers) {
-  //   return howManyPlayers >= minimumPlayers;
-  // };
-
   this.add = function (playerName) {
     players.push(playerName);
     boardPositions[this.howManyPlayers() - 1] = 0;
@@ -63,7 +53,7 @@ const Game = function () {
     return players.length;
   };
 
-  let askQuestion = function () {
+  const askQuestion = function () {
     switch (currentCategory()) {
       case "Pop":
         console.log(popQuestions.shift());
@@ -121,49 +111,38 @@ const Game = function () {
     }
   };
 
-  function addGoldCoin() {
-    console.log("Answer was correct!!!!");
-    purses[currentPlayer] += 1;
-    console.log(
-      players[currentPlayer] +
-        " now has " +
-        purses[currentPlayer] +
-        " Gold Coins."
-    );
+  this.addGoldCoin = function() {
+    purses[currentPlayer] += 1
+    console.log(players[currentPlayer] + ' now has ' +
+        purses[currentPlayer] + ' Gold Coins.')
   }
 
-  function changePlayer() {
-    currentPlayer += 1;
-    if (currentPlayer == players.length) {
-      currentPlayer = 0;
-    }
+  this.getNextPlayer = function() {
+    currentPlayer += 1
+    if (currentPlayer == players.length) { currentPlayer = 0 }
+  }
+
+  this.canAnswerAQuestion = function() {
+    return !this.isInPenaltyBox() || isGettingOutOfPenaltyBox
   }
 
   this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
-      if (isGettingOutOfPenaltyBox) {
-        addGoldCoin();
-        let winner = didPlayerWin();
-        changePlayer();
-        return winner;
-      } else {
-        changePlayer();
-        return true;
-      }
-    } else {
-      addGoldCoin();
-      let winner = didPlayerWin();
-      changePlayer();
-      return winner;
+    if(!this.canAnswerAQuestion()) {
+      this.getNextPlayer()
+      return true
     }
-  };
+    console.log('Answer was correct!!!!')
+    this.addGoldCoin()
+    var winner = didPlayerWin()
+    this.getNextPlayer()
+    return winner
+  }
 
   this.wasIncorrectlyAnswered = function () {
     console.log("Question was incorrectly answered");
     console.log(players[currentPlayer] + " was sent to the penalty box");
     inPenaltyBox[currentPlayer] = true;
-
-    changePlayer();
+    this.getNextPlayer();
     return true;
   };
 };
