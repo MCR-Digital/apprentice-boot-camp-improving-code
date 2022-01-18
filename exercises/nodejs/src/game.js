@@ -2,9 +2,14 @@ import generator from 'random-seed'
 
 var Game = function () {
   var players = new Array()
-  var playersPositionOnTheBoard = new Array(6)
-  var playersScore = new Array(6)
-  var inPenaltyBox = new Array(6)
+  const maxNumberOfPlayers = 6;
+  const numberOfPositionsOnTheBoard = 12;
+
+  var playersPositionOnTheBoard = new Array(maxNumberOfPlayers)
+  var playersScore = new Array(maxNumberOfPlayers)
+  const maxScore = 6;
+
+  var inPenaltyBox = new Array(maxNumberOfPlayers)
 
   var popQuestions = new Array()
   var scienceQuestions = new Array()
@@ -15,7 +20,7 @@ var Game = function () {
   var isGettingOutOfPenaltyBox = false
 
   var didPlayerWin = function () {
-    return !(playersScore[currentPlayer] == 6)
+    return !(playersScore[currentPlayer] == maxScore)
     //is their purse not equal to 6?
     //returns true, their purse is NOT equal to 6
     //or false, their purse is equal to 6
@@ -24,17 +29,20 @@ var Game = function () {
 
 
   var currentCategory = function () {
-    if (playersPositionOnTheBoard[currentPlayer] == 0) { return 'Pop' }
-    if (playersPositionOnTheBoard[currentPlayer] == 4) { return 'Pop' }
-    if (playersPositionOnTheBoard[currentPlayer] == 8) { return 'Pop' }
-    if (playersPositionOnTheBoard[currentPlayer] == 1) { return 'Science' }
-    if (playersPositionOnTheBoard[currentPlayer] == 5) { return 'Science' }
-    if (playersPositionOnTheBoard[currentPlayer] == 9) { return 'Science' }
-    if (playersPositionOnTheBoard[currentPlayer] == 2) { return 'Sports' }
-    if (playersPositionOnTheBoard[currentPlayer] == 6) { return 'Sports' }
-    if (playersPositionOnTheBoard[currentPlayer] == 10) { return 'Sports' }
+    const playersCurrentPosition = playersPositionOnTheBoard[currentPlayer];
+    if ([0, 4, 8].includes(playersCurrentPosition)) {
+      return 'Pop';
+    }
+    if ([1, 5, 9].includes(playersCurrentPosition)) {
+      return 'Science';
+    }
+    if ([2, 6, 10].includes(playersCurrentPosition)) {
+      return 'Sports';
+    }
     return 'Rock'
   }
+
+  // + 4
 
   this.createRockQuestion = function (index) {
     return 'Rock Question ' + index
@@ -87,8 +95,8 @@ var Game = function () {
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
         playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll
         //their position gets set to their current place + the number they have rolled
-        if (playersPositionOnTheBoard[currentPlayer] > 11) {
-          playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - 12
+        if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard - 1) {
+          playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard;
         }
         // if their position is greater than 11, their new position is -12 
 
@@ -104,8 +112,8 @@ var Game = function () {
       }
     } else {
       playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] + roll
-      if (playersPositionOnTheBoard[currentPlayer] > 11) {
-        playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - 12
+      if (playersPositionOnTheBoard[currentPlayer] > numberOfPositionsOnTheBoard -1) {
+        playersPositionOnTheBoard[currentPlayer] = playersPositionOnTheBoard[currentPlayer] - numberOfPositionsOnTheBoard
       }
 
       console.log(players[currentPlayer] + "'s new location is " + playersPositionOnTheBoard[currentPlayer])
