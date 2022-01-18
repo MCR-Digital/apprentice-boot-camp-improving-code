@@ -76,6 +76,7 @@ namespace TriviaGame
         {
             var isOdd = numberRolled % 2 != 0;
             isGettingOutOfPenaltyBox = isOdd;
+            //inPenaltyBox[currentPlayer] = isOdd;
             return isOdd;
         }
 
@@ -124,22 +125,26 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            return playerPositions[currentPlayer] switch
+            switch (playerPositions[currentPlayer])
             {
-                0 => "Pop",
-                4 => "Pop",
-                8 => "Pop",
-                1 => "Science",
-                5 => "Science",
-                9 => "Science",
-                2 => "Sports",
-                6 => "Sports",
-                10 => "Sports",
-                _ => "Rock"
-            };
+                case 0:
+                case 4:
+                case 8:
+                    return "Pop";
+                case 1:
+                case 5:
+                case 9:
+                    return "Science";
+                case 2:
+                case 6:
+                case 10:
+                    return "Sports";
+                default:
+                    return "Rock";
+            }
         }
 
-        public bool WasCorrectlyAnswered() //correct and incorrect methods are named differently
+        public bool WasCorrectlyAnswered()
         {
             if (inPenaltyBox[currentPlayer]) //should just do else if in penalty box - is this repeated logic?
             {
@@ -168,7 +173,7 @@ namespace TriviaGame
                 return winner;
             }
         }
-        public bool WrongAnswer()
+        public bool WasIncorrectlyAnswered()
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
