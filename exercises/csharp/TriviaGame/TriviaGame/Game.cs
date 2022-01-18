@@ -1,30 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 
 namespace TriviaGame
 {
     public class Game
     {
-        readonly List<string> players = new List<string>();
+        private readonly List<string> players = new List<string>();
 
         private const int maxBoardSpaces = 12;
         private const int maxPlayerCount = 6;
         private const int questionCountPerCategory = 50;
         private const int winningScore = 6;
-        readonly int[] playerPositions = new int[maxPlayerCount];
-        readonly int[] playerScores = new int[maxPlayerCount];
+        private readonly int[] playerPositions = new int[maxPlayerCount];
+        private readonly int[] playerScores = new int[maxPlayerCount];
 
-        readonly bool[] inPenaltyBox = new bool[maxPlayerCount];
+        private readonly bool[] inPenaltyBox = new bool[maxPlayerCount];
 
-        readonly LinkedList<string> popQuestions = new LinkedList<string>();
-        readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
-        readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
-        readonly LinkedList<string> rockQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> popQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        private readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         private int currentPlayer;
-        bool isGettingOutOfPenaltyBox; //redundant variable - are players ever removed from penalty box?
+        private bool isGettingOutOfPenaltyBox; //redundant variable - are players ever removed from penalty box?
         
         public Game()
         {
@@ -76,7 +75,7 @@ namespace TriviaGame
         {
             var isOdd = numberRolled % 2 != 0;
             isGettingOutOfPenaltyBox = isOdd;
-            //inPenaltyBox[currentPlayer] = isOdd;
+            //inPenaltyBox[currentPlayer] = !isOdd;
             return isOdd;
         }
 
@@ -114,6 +113,8 @@ namespace TriviaGame
                 case "Rock":
                     AskCategoryQuestion(rockQuestions);
                     break;
+                default:
+                    throw new ArgumentException();
             }
         }
 
@@ -172,6 +173,18 @@ namespace TriviaGame
 
                 return winner;
             }
+
+            //if (inPenaltyBox[currentPlayer])
+            //{
+            //    MoveToNextPlayer();
+            //    return true;
+            //}
+            //IncrementScore();
+
+            //bool winner = DidPlayerWin();
+            //MoveToNextPlayer();
+
+            //return winner;
         }
         public bool WasIncorrectlyAnswered()
         {
