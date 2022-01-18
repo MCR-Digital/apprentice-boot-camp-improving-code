@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-	private static final int NUMBER_OF_BOARD_PLACES = 12;
-	ArrayList players = new ArrayList();
+	static final int NUMBER_OF_BOARD_PLACES = 12;
+	ArrayList<Player> players = new ArrayList<>();
     int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] penaltyShoes = new boolean[6];
@@ -32,14 +32,13 @@ public class Game {
 	public void addPlayer(Player newPlayer) {
 		
 		// Add player to the game and set default values
-	    players.add(newPlayer.getName());
+	    players.add(newPlayer);
 		int numberOfCurrentPlayers = players.size();
 
-		places[numberOfCurrentPlayers] = 0;
 	    purses[numberOfCurrentPlayers] = 0;
 	    penaltyShoes[numberOfCurrentPlayers] = false;
 	    
-	    System.out.println(newPlayer.getName() + " was added");
+	    System.out.println(newPlayer + " was added");
 	    System.out.println("They are player number " + numberOfCurrentPlayers);
 	}
 
@@ -55,15 +54,10 @@ public class Game {
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 
-				// Increase their number of places by their roll
-				places[currentPlayer] = places[currentPlayer] + roll;
-
-				// If their new number of places is 12 or more, reduce it by 12
-				if (places[currentPlayer] >= NUMBER_OF_BOARD_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_BOARD_PLACES;
-				
-				System.out.println(players.get(currentPlayer) 
+				int newPlayerPlaces = players.get(currentPlayer).movePlaces(roll);
+				System.out.println(players.get(currentPlayer)
 						+ "'s new location is " 
-						+ places[currentPlayer]);
+						+ newPlayerPlaces);
 				System.out.println("The category is " + currentCategory());
 
 				// Ask the player a question
@@ -78,15 +72,11 @@ public class Game {
 
 		// If the player is not in the penalty box
 		} else {
-			// Increase the player's places by their roll
-			places[currentPlayer] = places[currentPlayer] + roll;
-
-			// If the new number of places is 12 or more, reduce it by 12
-			if (places[currentPlayer] >= NUMBER_OF_BOARD_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_BOARD_PLACES;
+			int newPlayerPlaces = players.get(currentPlayer).movePlaces(roll);
 			
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
-					+ places[currentPlayer]);
+					+ newPlayerPlaces);
 			System.out.println("The category s " + currentCategory());
 
 			// Ask the player a question
@@ -115,15 +105,15 @@ public class Game {
 	// 2,6,10: Sports question
 	// 3,7,11: Rock question
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
+		if (players.get(currentPlayer).getPlaces() == 0) return "Pop";
+		if (players.get(currentPlayer).getPlaces() == 4) return "Pop";
+		if (players.get(currentPlayer).getPlaces() == 8) return "Pop";
+		if (players.get(currentPlayer).getPlaces() == 1) return "Science";
+		if (players.get(currentPlayer).getPlaces() == 5) return "Science";
+		if (players.get(currentPlayer).getPlaces() == 9) return "Science";
+		if (players.get(currentPlayer).getPlaces() == 2) return "Sports";
+		if (players.get(currentPlayer).getPlaces() == 6) return "Sports";
+		if (players.get(currentPlayer).getPlaces() == 10) return "Sports";
 		return "Rock";
 	}
 
