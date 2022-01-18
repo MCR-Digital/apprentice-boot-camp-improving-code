@@ -1,7 +1,7 @@
 import generator from "random-seed";
 
 var Player = function (name) {
-  var playerName = name;
+  this.playerName = name;
 }
 var Game = function () {
   const maxNumberOfPlayers = 6;
@@ -24,7 +24,10 @@ var Game = function () {
   var sportsQuestions = new Array();
   var rockQuestions = new Array();
 
-  
+  this.currentPlayerName = function () {
+    return players[currentPlayer].playerName
+  };
+
   var didPlayerWin = function () {
     return !(playersScore[currentPlayer] == maxScore);
     //is their purse not equal to 6?
@@ -118,7 +121,7 @@ var Game = function () {
       playersPositionOnTheBoard[currentPlayer] -= numberOfPositionsOnTheBoard;
     }
     console.log(
-      playerNames[currentPlayer] + "'s new location is " +playersPositionOnTheBoard[currentPlayer]
+      this.currentPlayerName() + "'s new location is " +playersPositionOnTheBoard[currentPlayer]
     );
     console.log("The category is " + currentCategory());
     askQuestion();
@@ -126,16 +129,16 @@ var Game = function () {
 
 
   this.actionAfterRoll = function (roll) {
-    console.log(playerNames[currentPlayer] + " is the current player");
+    console.log(this.currentPlayerName() + " is the current player");
     console.log("They have rolled a " + roll);
     if (this.playerIsInPenaltyBox() && this.playerGetsOutOfPenaltyBox(roll)) {
       isGettingOutOfPenaltyBox = true;
       console.log(
-        playerNames[currentPlayer] + " is getting out of the penalty box"
+        this.currentPlayerName() + " is getting out of the penalty box"
       );
       this.playerTakesTurn(roll);
     } else if (this.playerIsInPenaltyBox() & !this.playerGetsOutOfPenaltyBox(roll)) {
-      console.log( playerNames[currentPlayer] + " is not getting out of the penalty box" );
+      console.log( this.currentPlayerName() + " is not getting out of the penalty box" );
       isGettingOutOfPenaltyBox = false;
     } else {
       this.playerTakesTurn(roll);
@@ -155,7 +158,7 @@ var Game = function () {
       if (isGettingOutOfPenaltyBox) {
         console.log("Answer was correct!!!!");
         playersScore[currentPlayer] += 1;
-        console.log( playerNames[currentPlayer] + " now has " +  playersScore[currentPlayer] + " Gold Coins." );
+        console.log( this.currentPlayerName() + " now has " +  playersScore[currentPlayer] + " Gold Coins." );
         var winner = didPlayerWin();
         this.moveToNextPlayer();
         return winner;
@@ -166,7 +169,7 @@ var Game = function () {
     } else {
       console.log("Answer was correct!!!!");
       playersScore[currentPlayer] += 1;
-      console.log(playerNames[currentPlayer] + " now has " + playersScore[currentPlayer] +" Gold Coins." );
+      console.log(this.currentPlayerName() + " now has " + playersScore[currentPlayer] +" Gold Coins." );
       var winner = didPlayerWin(); //if true, they don’t have 6 coins
       //if false, they do have six coins?
       this.moveToNextPlayer();
@@ -176,7 +179,7 @@ var Game = function () {
   };
   this.answerWasWrongAndCheckThereIsNoWinner = function () {
     console.log("Question was incorrectly answered");
-    console.log(playerNames[currentPlayer] + " was sent to the penalty box");
+    console.log(this.currentPlayerName() + " was sent to the penalty box");
     inPenaltyBox[currentPlayer] = true;
     //they are in the penalty box, but can keep playing to get out of this
     currentPlayer += 1;
