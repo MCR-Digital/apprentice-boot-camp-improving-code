@@ -61,31 +61,38 @@ namespace TriviaGame
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (diceNumber % 2 != 0)
-                {
-                    isGettingOutOfPenaltyBox = true;
-
-                    Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    SetNewPosition(diceNumber);
-                  
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
-                }
-                else
+                if (!isOutOfPenaltyBox(diceNumber))
                 {
                     Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
+                    return;
                 }
+                Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
+            }
+            PlayTurn(diceNumber);
+        }
+
+        private bool isOutOfPenaltyBox(int diceNumber)
+        {
+            var diceIsOdd = (diceNumber % 2 != 0);
+
+            if (diceIsOdd)
+            {
+                isGettingOutOfPenaltyBox = true;
 
             }
             else
             {
-                SetNewPosition(diceNumber);
-
-                Console.WriteLine("The category is " + CurrentCategory());
-                AskQuestion();
+                isGettingOutOfPenaltyBox = false;
             }
+            return diceIsOdd;
+        }
 
+        public void PlayTurn(int diceNumber)
+        {
+            SetNewPosition(diceNumber);
+
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
         }
 
         public void SetNewPosition(int roll)
@@ -100,41 +107,51 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (CurrentCategory() == "Pop")
+            switch (CurrentCategory())
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Science")
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Sports")
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (CurrentCategory() == "Rock")
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
+                case "Pop":
+                    AskCategoryQuestion(popQuestions);
+                    break;
+
+                case "Science":
+                    AskCategoryQuestion(scienceQuestions);
+                    break;
+
+                case "Sports":
+                    AskCategoryQuestion(sportsQuestions);
+                    break;
+
+                case "Rock":
+                    AskCategoryQuestion(rockQuestions);
+                    break;
             }
         }
 
+        private void AskCategoryQuestion(LinkedList<string> questions)
+        {
+            Console.WriteLine(questions.First());
+            questions.RemoveFirst();
+        }
 
         private string CurrentCategory()
         {
-            if (playerPosition[currentPlayer] == 0) return "Pop";
-            if (playerPosition[currentPlayer] == 4) return "Pop";
-            if (playerPosition[currentPlayer] == 8) return "Pop";
-            if (playerPosition[currentPlayer] == 1) return "Science";
-            if (playerPosition[currentPlayer] == 5) return "Science";
-            if (playerPosition[currentPlayer] == 9) return "Science";
-            if (playerPosition[currentPlayer] == 2) return "Sports";
-            if (playerPosition[currentPlayer] == 6) return "Sports";
-            if (playerPosition[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            switch (playerPosition[currentPlayer])
+            {
+                case 0:
+                case 4:
+                case 8:
+                    return "Pop";
+                case 1:
+                case 5:
+                case 9:
+                    return "Science";
+                case 2:
+                case 6:
+                case 10:
+                    return "Sports";
+                default:
+                    return "Rock";
+            }
         }
 
         public bool WasCorrectlyAnswered()
@@ -143,12 +160,7 @@ namespace TriviaGame
             {
                 if (isGettingOutOfPenaltyBox)
                 {
-                    IncrementScore();
-
-                    bool winner = DidPlayerWin();
-
-                    MoveToNextPlayer();
-                    return winner;
+                    return IsPlayerWinner();
                 }
                 else
                 {
@@ -159,13 +171,18 @@ namespace TriviaGame
             }
             else
             {
-                IncrementScore();
-
-                bool winner = DidPlayerWin();
-                MoveToNextPlayer();
-
-                return winner;
+               return IsPlayerWinner();
             }
+        }
+
+        private bool IsPlayerWinner()
+        {
+            IncrementScore();
+
+            bool winner = DidPlayerWin();
+            MoveToNextPlayer();
+
+            return winner;
         }
 
         public void IncrementScore()
