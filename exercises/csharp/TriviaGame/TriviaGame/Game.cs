@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace TriviaGame
 {
@@ -123,17 +124,19 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            //a lot of repetition?
-            if (playerPositions[currentPlayer] == 0) return "Pop";
-            if (playerPositions[currentPlayer] == 4) return "Pop";
-            if (playerPositions[currentPlayer] == 8) return "Pop";
-            if (playerPositions[currentPlayer] == 1) return "Science";
-            if (playerPositions[currentPlayer] == 5) return "Science";
-            if (playerPositions[currentPlayer] == 9) return "Science";
-            if (playerPositions[currentPlayer] == 2) return "Sports";
-            if (playerPositions[currentPlayer] == 6) return "Sports";
-            if (playerPositions[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            return playerPositions[currentPlayer] switch
+            {
+                0 => "Pop",
+                4 => "Pop",
+                8 => "Pop",
+                1 => "Science",
+                5 => "Science",
+                9 => "Science",
+                2 => "Sports",
+                6 => "Sports",
+                10 => "Sports",
+                _ => "Rock"
+            };
         }
 
         public bool WasCorrectlyAnswered() //correct and incorrect methods are named differently
