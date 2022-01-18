@@ -89,8 +89,8 @@ namespace TriviaGame
 
         private void SetNewPlayerPosition(int numberRolled)
         {
-            playerPositions[currentPlayer] = playerPositions[currentPlayer] + numberRolled; //+=
-            if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - maxBoardSpaces; //-=
+            playerPositions[currentPlayer] += numberRolled;
+            if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] -= maxBoardSpaces;
 
             Console.WriteLine(players[currentPlayer]
                               + "'s new location is "

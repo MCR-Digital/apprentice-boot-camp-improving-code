@@ -3,7 +3,7 @@ using System.IO;
 
 namespace TriviaGame
 {
-    public class GoldenMaster
+    public static class GoldenMaster
     {
 
         public static string GetResult(int i)
@@ -32,7 +32,7 @@ namespace TriviaGame
 
             Console.SetOut(writer);
 
-            GameRunner.Main(new String[] { i.ToString() });
+            GameRunner.Main(new [] { i.ToString() });
             writer.Flush();
 
             try
