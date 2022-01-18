@@ -8,7 +8,6 @@ var Game = function () {
   const numberOfPositionsOnTheBoard = 12;
   const maxScore = 6;
 
-  var playerNames = new Array(); // we are trying to strangle this
   var players = new Array();
   var playersPositionOnTheBoard = new Array(maxNumberOfPlayers);
 
@@ -70,7 +69,6 @@ var Game = function () {
 
 
   this.addAPlayerToTheGame = function (playerName) {
-    playerNames.push(playerName);
     players.push(new Player(playerName))
     playersPositionOnTheBoard[this.howManyPlayers() - 1] = 0;
     playersScore[this.howManyPlayers() - 1] = 0;
