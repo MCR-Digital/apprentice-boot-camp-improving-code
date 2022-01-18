@@ -1,32 +1,39 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class Game {
 	static final int NUMBER_OF_BOARD_PLACES = 12;
 	ArrayList<Player> players = new ArrayList<>();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
+	int[] purses  = new int[6];
     boolean[] penaltyShoes = new boolean[6];
+	Board gameBoard = new Board();
 
 	// Create game categories - lists of questions
-    LinkedList<Question> popQuestions = new LinkedList();
-    LinkedList<Question> scienceQuestions = new LinkedList();
-    LinkedList<Question> sportsQuestions = new LinkedList();
-    LinkedList<Question> rockQuestions = new LinkedList();
+    Map<String, LinkedList<Question>> questionDecks = new HashMap<>();
     
     int currentPlayer = 0;
     boolean isTakingOffPenaltyShoes;
     
     public Game(){
+		LinkedList<Question> popDeck = new LinkedList<>();
+		LinkedList<Question> scienceDeck = new LinkedList<>();
+		LinkedList<Question> sportsDeck = new LinkedList<>();
+		LinkedList<Question> rockDeck = new LinkedList<>();
 		// Generate 50 questions for each game category
     	for (int questionIndex = 0; questionIndex < 50; questionIndex++) {
-			popQuestions.addLast(new Question("Pop", questionIndex));
-			scienceQuestions.addLast(new Question("Science", questionIndex));
-			sportsQuestions.addLast(new Question("Sports", questionIndex));
-			rockQuestions.addLast(new Question("Rock", questionIndex));
+			popDeck.addLast(new Question("Pop", questionIndex));
+			scienceDeck.addLast(new Question("Science", questionIndex));
+			sportsDeck.addLast(new Question("Sports", questionIndex));
+			rockDeck.addLast(new Question("Rock", questionIndex));
     	}
+		questionDecks.put("Pop",popDeck);
+		questionDecks.put("Science",scienceDeck);
+		questionDecks.put("Sports",sportsDeck);
+		questionDecks.put("Rock",rockDeck);
     }
 
 	public void addPlayer(Player newPlayer) {
@@ -90,14 +97,7 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());		
+		System.out.println(questionDecks.get(currentCategory()).removeFirst());
 	}
 
 	// 0,4,8: Pop question
@@ -105,16 +105,7 @@ public class Game {
 	// 2,6,10: Sports question
 	// 3,7,11: Rock question
 	private String currentCategory() {
-		if (players.get(currentPlayer).getPlaces() == 0) return "Pop";
-		if (players.get(currentPlayer).getPlaces() == 4) return "Pop";
-		if (players.get(currentPlayer).getPlaces() == 8) return "Pop";
-		if (players.get(currentPlayer).getPlaces() == 1) return "Science";
-		if (players.get(currentPlayer).getPlaces() == 5) return "Science";
-		if (players.get(currentPlayer).getPlaces() == 9) return "Science";
-		if (players.get(currentPlayer).getPlaces() == 2) return "Sports";
-		if (players.get(currentPlayer).getPlaces() == 6) return "Sports";
-		if (players.get(currentPlayer).getPlaces() == 10) return "Sports";
-		return "Rock";
+		return gameBoard.getCurrentCategory(players.get(currentPlayer).getPlaces());
 	}
 
 	public boolean wasCorrectlyAnswered() {
