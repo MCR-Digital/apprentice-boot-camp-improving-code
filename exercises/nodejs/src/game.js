@@ -2,17 +2,18 @@
 
 import generator from "random-seed";
 
-var Game = function () {
+const Game = function () {
+  const maxNumberOfPlayers = 6;
   const players = new Array();
-  const places = new Array(6);
-  const purses = new Array(6);
-  const inPenaltyBox = new Array(6);
-  
+  const places = new Array(maxNumberOfPlayers);
+  const purses = new Array(maxNumberOfPlayers);
+  const inPenaltyBox = new Array(maxNumberOfPlayers);
+
   const popQuestions = new Array();
   const scienceQuestions = new Array();
   const sportsQuestions = new Array();
   const rockQuestions = new Array();
-  
+
   const numberOfCategories = 4;
   const winningNumberofCoins = 6;
   const boardSize = 12;
@@ -71,11 +72,11 @@ var Game = function () {
     return `${category} Question ${index}`;
   };
 
-  for (var i = 0; i < 50; i++) {
-    popQuestions.push(createQuestion("Pop", i));
-    scienceQuestions.push(createQuestion("Science", i));
-    sportsQuestions.push(createQuestion("Sports", i));
-    rockQuestions.push(createQuestion("Rock", i));
+  for (let index = 0; index < 50; index++) {
+    popQuestions.push(createQuestion("Pop", index));
+    scienceQuestions.push(createQuestion("Science", index));
+    sportsQuestions.push(createQuestion("Sports", index));
+    rockQuestions.push(createQuestion("Rock", index));
   }
 
   this.checkIsPlayable = function (howManyPlayers) {
@@ -129,29 +130,23 @@ var Game = function () {
     return inPenaltyBox[currentPlayer];
   };
 
+  this.isLeavingPenaltyBox = function (isLeaving) {
+    isGettingOutOfPenaltyBox = isLeaving;
+    console.log(
+      players[currentPlayer] +
+        ` is ${!isLeaving ? "not " : ""}getting out of the penalty box`
+    );
+  };
+
   this.roll = function (roll) {
     console.log(players[currentPlayer] + " is the current player");
     console.log("They have rolled a " + roll);
     const rollIsOddNumber = roll % 2 !== 0;
+    const canMove = !(this.getInPenaltyBox() && !rollIsOddNumber);
 
-    if (this.getInPenaltyBox()) {
-      if (roll % 2 !== 0) {
-        isGettingOutOfPenaltyBox = true;
+    this.getInPenaltyBox() && this.isLeavingPenaltyBox(rollIsOddNumber);
 
-        console.log(
-          players[currentPlayer] + " is getting out of the penalty box"
-        );
-
-        movePlayer(roll);
-      } else {
-        console.log(
-          players[currentPlayer] + " is not getting out of the penalty box"
-        );
-        isGettingOutOfPenaltyBox = false;
-      }
-    } else {
-      movePlayer(roll);
-    }
+    canMove && movePlayer(roll);
   };
 
   const nextPlayer = () => {
@@ -176,7 +171,7 @@ var Game = function () {
           " Gold Coins."
       );
 
-      var winner = checkPlayerHasWon();
+      const winner = checkPlayerHasWon();
       currentPlayer += 1;
       if (currentPlayer === players.length) {
         currentPlayer = 0;
@@ -203,7 +198,7 @@ var Game = function () {
 
 const gameRunner = (i) => {
   const game = new Game();
-  
+
   let hasWonGame = false;
 
   game.addPlayer("Chet");
