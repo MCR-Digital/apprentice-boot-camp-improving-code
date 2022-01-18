@@ -1,6 +1,6 @@
-import fs from 'fs'
-import gameRunner from '../src/game'
-import captureOutput from './capture-console-output'
+import fs from "fs";
+import gameRunner from "../src/game";
+import captureOutput from "./capture-console-output";
 
 function createFolder(foldername) {
   try {
@@ -16,26 +16,24 @@ const generateExpectedResult = (i) => {
   createFolder("./resources");
 
   const masterFile = fs.createWriteStream(`./resources/output${i}.txt`, {
-    flags: 'w'
-  })
+    flags: "w",
+  });
 
-  const output = captureOutput(() => gameRunner(i))
+  const output = captureOutput(() => gameRunner(i));
 
-  masterFile.write(output)
+  masterFile.write(output);
 
-  return output
-}
+  return output;
+};
 
 const getResult = (i) => {
-  let result
+  let result;
   try {
-    result = fs.readFileSync(`./resources/output${i}.txt`, 'utf-8')
+    result = fs.readFileSync(`./resources/output${i}.txt`, "utf-8");
   } catch (error) {
-    result = generateExpectedResult(i)
+    result = generateExpectedResult(i);
   }
-  return result
-}
+  return result;
+};
 
-export default getResult
-
-
+export default getResult;
