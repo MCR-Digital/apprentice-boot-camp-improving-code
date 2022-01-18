@@ -1,5 +1,5 @@
 import getResult from './golden-master'
-import gameRunner from '../src/game'
+import gameRunner from '../src/gameRunner'
 import captureOutput from './capture-console-output'
 
 describe('Running the golden master', () => {

@@ -1,4 +1,4 @@
-import generator from "random-seed";
+
 
 const Game = function () {
   const players = new Array();
@@ -36,20 +36,16 @@ const Game = function () {
     return "Rock";
   };
 
-  this.createRockQuestion = function (index) {
-    return "Rock Question " + index;
-  };
-
   for (let i = 0; i < 50; i++) {
     popQuestions.push("Pop Question " + i);
     scienceQuestions.push("Science Question " + i);
     sportsQuestions.push("Sports Question " + i);
-    rockQuestions.push(this.createRockQuestion(i));
+    rockQuestions.push("Rock Question " + i);
   }
 
-  this.isPlayable = function (howManyPlayers) {
-    return howManyPlayers >= minimumPlayers;
-  };
+  // this.isPlayable = function (howManyPlayers) {
+  //   return howManyPlayers >= minimumPlayers;
+  // };
 
   this.add = function (playerName) {
     players.push(playerName);
@@ -172,26 +168,4 @@ const Game = function () {
   };
 };
 
-const gameRunner = (i) => {
-  let weHaveAWinner = false;
-
-  let game = new Game();
-
-  game.add("Chet");
-  game.add("Pat");
-  game.add("Sue");
-
-  const random = generator.create(i);
-
-  do {
-    game.roll(random.range(5) + 1);
-
-    if (random.range(9) == 7) {
-      weHaveAWinner = game.wasIncorrectlyAnswered();
-    } else {
-      weHaveAWinner = game.wasCorrectlyAnswered();
-    }
-  } while (weHaveAWinner);
-};
-
-export default gameRunner;
+export default Game;
