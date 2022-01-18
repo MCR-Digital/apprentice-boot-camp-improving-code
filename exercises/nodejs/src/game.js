@@ -1,18 +1,20 @@
 import generator from "random-seed";
 
-let Game = function () {
+const Game = function () {
   const players = new Array();
-  const boardPositions = new Array(6);
-  const purses = new Array(6);
-  const inPenaltyBox = new Array(6);
+  const minimumPlayers = 2;
+  const maximumPlayers = 6;
+
+  const boardPositions = new Array(maximumPlayers);
+  const purses = new Array(maximumPlayers);
+  const inPenaltyBox = new Array(maximumPlayers);
 
   const popQuestions = new Array();
   const scienceQuestions = new Array();
   const sportsQuestions = new Array();
   const rockQuestions = new Array();
 
-  const minimumPlayers = 2;
-  const numberOfCatagories = 4;
+  let numberOfCatagories = 4;
 
   let currentPlayer = 0;
   let isGettingOutOfPenaltyBox = false;
@@ -22,7 +24,7 @@ let Game = function () {
   };
 
   let currentCategory = function () {
-    if (boardPositions[currentPlayer] % numberOfCatagories === 0 ) {
+    if (boardPositions[currentPlayer] % numberOfCatagories === 0) {
       return "Pop";
     }
     if (boardPositions[currentPlayer] % numberOfCatagories === 1) {
@@ -66,36 +68,50 @@ let Game = function () {
   };
 
   let askQuestion = function () {
-     switch (currentCategory()) {
-      case 'Pop': console.log(popQuestions.shift()); break;
-      case 'Science': console.log(scienceQuestions.shift()); break;
-      case 'Sports': console.log(sportsQuestions.shift()); break;
-      case 'Rock': console.log(rockQuestions.shift()); break;
+    switch (currentCategory()) {
+      case "Pop":
+        console.log(popQuestions.shift());
+        break;
+      case "Science":
+        console.log(scienceQuestions.shift());
+        break;
+      case "Sports":
+        console.log(sportsQuestions.shift());
+        break;
+      case "Rock":
+        console.log(rockQuestions.shift());
+        break;
     }
+  };
+
+  this.movePlayer = function (roll) {
+    boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
+    if (boardPositions[currentPlayer] > 11) {
+      boardPositions[currentPlayer] = boardPositions[currentPlayer] - 12;
+    }
+    console.log(
+      players[currentPlayer] +
+        "'s new location is " +
+        boardPositions[currentPlayer]
+    );
+    console.log("The category is " + currentCategory());
+  };
+
+  this.isInPenaltyBox = function () {
+    return inPenaltyBox[currentPlayer];
   };
 
   this.roll = function (roll) {
     console.log(players[currentPlayer] + " is the current player");
     console.log("They have rolled a " + roll);
 
-    if (inPenaltyBox[currentPlayer]) {
-      if (roll % 2 !== 0) {
+    if (this.isInPenaltyBox()) {
+      if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true;
-
         console.log(
           players[currentPlayer] + " is getting out of the penalty box"
         );
-        boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
-        if (boardPositions[currentPlayer] > 11) {
-          boardPositions[currentPlayer] = boardPositions[currentPlayer] - 12;
-        }
-
-        console.log(
-          players[currentPlayer] +
-            "'s new location is " +
-            boardPositions[currentPlayer]
-        );
-        console.log("The category is " + currentCategory());
+        this.movePlayer(roll);
         askQuestion();
       } else {
         console.log(
@@ -104,17 +120,7 @@ let Game = function () {
         isGettingOutOfPenaltyBox = false;
       }
     } else {
-      boardPositions[currentPlayer] = boardPositions[currentPlayer] + roll;
-      if (boardPositions[currentPlayer] > 11) {
-        boardPositions[currentPlayer] = boardPositions[currentPlayer] - 12;
-      }
-
-      console.log(
-        players[currentPlayer] +
-          "'s new location is " +
-          boardPositions[currentPlayer]
-      );
-      console.log("The category is " + currentCategory());
+      this.movePlayer(roll);
       askQuestion();
     }
   };
@@ -141,9 +147,7 @@ let Game = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
         addGoldCoin();
-
         let winner = didPlayerWin();
-
         changePlayer();
         return winner;
       } else {
@@ -152,11 +156,8 @@ let Game = function () {
       }
     } else {
       addGoldCoin();
-
       let winner = didPlayerWin();
-
       changePlayer();
-
       return winner;
     }
   };
@@ -194,5 +195,3 @@ const gameRunner = (i) => {
 };
 
 export default gameRunner;
-
-//crikey
