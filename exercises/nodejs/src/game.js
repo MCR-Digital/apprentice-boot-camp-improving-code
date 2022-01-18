@@ -123,8 +123,15 @@ var Game = function () {
     }
   }
 
-  this.wasCorrectlyAnswered = function () {
+
+  this.moveToNextPlayer = function () {
+    currentPlayer += 1
+    if (currentPlayer == players.length) { currentPlayer = 0 }
+  }
+
+  this.answerWasCorrect = function () {
     if (inPenaltyBox[currentPlayer]) {
+      
       if (isGettingOutOfPenaltyBox) {
         console.log('Answer was correct!!!!')
         playersScore[currentPlayer] += 1
@@ -133,13 +140,11 @@ var Game = function () {
 
         var winner = didPlayerWin()
       
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
+        this.moveToNextPlayer()
 
         return winner
       } else {
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
+        this.moveToNextPlayer()
         return true
       }
     } else {
@@ -151,9 +156,7 @@ var Game = function () {
 
       var winner = didPlayerWin() //if true, they don't have 6 coins
       //if false, they do have six coins?
-
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
+      this.moveToNextPlayer();
       //turns - if the last player has been go back to player 0
 
       return winner
@@ -190,7 +193,7 @@ const gameRunner = (i) => {
     if (random.range(9) == 7) {
       notAWinner = game.answerWasWrongAndCheckThereIsNoWinner()
     } else {
-      notAWinner = game.wasCorrectlyAnswered()
+      notAWinner = game.answerWasCorrect()
     }
     //set notAWinner variable to point to true or false 
   } while (notAWinner) // while not a winner is true, keep rolling?
