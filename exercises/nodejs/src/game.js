@@ -1,34 +1,33 @@
 import generator from 'random-seed'
 
 var Game = function () {
-  var players = new Array()
-  var places = new Array(6)
-  var purses = new Array(6)
-  var inPenaltyBox = new Array(6)
+  const players = new Array()
+  const places = new Array(6)
+  const purses = new Array(6)
+  const inPenaltyBox = new Array(6)
 
-  var popQuestions = new Array()
-  var scienceQuestions = new Array()
-  var sportsQuestions = new Array()
-  var rockQuestions = new Array()
+  const popQuestions = new Array()
+  const scienceQuestions = new Array()
+  const sportsQuestions = new Array()
+  const rockQuestions = new Array()
 
-  var currentPlayer = 0
-  var isGettingOutOfPenaltyBox = false
+  const numberOfCategories = 4
+  let currentPlayer = 0
+  let isGettingOutOfPenaltyBox = false
 
   var didPlayerWin = function () {
     return !(purses[currentPlayer] == 6)
   }
 
   var currentCategory = function () {
-    if (places[currentPlayer] == 0) { return 'Pop' }
-    if (places[currentPlayer] == 4) { return 'Pop' }
-    if (places[currentPlayer] == 8) { return 'Pop' }
-    if (places[currentPlayer] == 1) { return 'Science' }
-    if (places[currentPlayer] == 5) { return 'Science' }
-    if (places[currentPlayer] == 9) { return 'Science' }
-    if (places[currentPlayer] == 2) { return 'Sports' }
-    if (places[currentPlayer] == 6) { return 'Sports' }
-    if (places[currentPlayer] == 10) { return 'Sports' }
-    return 'Rock'
+    const categoryNumber = places[currentPlayer] % numberOfCategories
+
+    switch (categoryNumber) {
+      case 0: return 'Pop'
+      case 1: return 'Science'
+      case 2: return 'Sports'
+      case 3: return 'Rock'
+    }
   }
 
   this.createRockQuestion = function (index) {
@@ -69,74 +68,74 @@ var Game = function () {
     if (currentCategory() == 'Rock') { console.log(rockQuestions.shift()) }
   }
 
+  this.movePlayer = function(roll) {
+    places[currentPlayer] = places[currentPlayer] + roll
+
+    if (places[currentPlayer] > 11) {
+      places[currentPlayer] = places[currentPlayer] - 12
+    }
+
+    console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
+    console.log('The category is ' + currentCategory())
+  }
+
+  this.isInPenaltyBox = function() {
+    return inPenaltyBox[currentPlayer]
+  }
+
   this.roll = function (roll) {
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
 
-    if (inPenaltyBox[currentPlayer]) {
+    if (this.isInPenaltyBox()) {
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > 11) {
-          places[currentPlayer] = places[currentPlayer] - 12
-        }
-
-        console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
-        console.log('The category is ' + currentCategory())
+        
+        this.movePlayer(roll)
         askQuestion()
       } else {
         console.log(players[currentPlayer] + ' is not getting out of the penalty box')
         isGettingOutOfPenaltyBox = false
       }
     } else {
-      places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > 11) {
-        places[currentPlayer] = places[currentPlayer] - 12
-      }
-
-      console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
-      console.log('The category is ' + currentCategory())
+      this.movePlayer(roll)
       askQuestion()
     }
   }
 
-  this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
-      if (isGettingOutOfPenaltyBox) {
-        console.log('Answer was correct!!!!')
-        purses[currentPlayer] += 1
-        console.log(players[currentPlayer] + ' now has ' +
-            purses[currentPlayer] + ' Gold Coins.')
-
-        var winner = didPlayerWin()
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
-
-        return winner
-      } else {
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
-        return true
-      }
-    } else {
-      console.log('Answer was correct!!!!')
-
-      purses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
-
-      var winner = didPlayerWin()
-
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
-
-      return winner
-    }
+  this.addGoldCoin = function() {
+    purses[currentPlayer] += 1
+    console.log(players[currentPlayer] + ' now has ' +
+        purses[currentPlayer] + ' Gold Coins.')
   }
 
-  this.wrongAnswer = function () {
+  this.getNextPlayer = function() {
+    currentPlayer += 1
+    if (currentPlayer == players.length) { currentPlayer = 0 }
+  }
+
+  this.canAnswerAQuestion = function() {
+    return !this.isInPenaltyBox() || isGettingOutOfPenaltyBox
+  }
+
+  this.wasCorrectlyAnswered = function () {
+    if(!this.canAnswerAQuestion()) {
+      this.getNextPlayer()
+      return true
+    }
+
+    console.log('Answer was correct!!!!')
+    this.addGoldCoin()
+
+    var winner = didPlayerWin()
+    this.getNextPlayer()
+
+    return winner
+  }
+
+  this.wasIncorrectlyAnswered = function () {
     console.log('Question was incorrectly answered')
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
@@ -162,7 +161,7 @@ const gameRunner = (i) => {
     game.roll(random.range(5) + 1)
 
     if (random.range(9) == 7) {
-      notAWinner = game.wrongAnswer()
+      notAWinner = game.wasIncorrectlyAnswered()
     } else {
       notAWinner = game.wasCorrectlyAnswered()
     }
