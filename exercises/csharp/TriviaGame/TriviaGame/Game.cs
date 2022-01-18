@@ -124,8 +124,7 @@ namespace TriviaGame
                     break;
 
                 default:
-                    break;
-                    //throw new ArgumentException("No categories for this question");
+                    throw new ArgumentException(message: "No category");
             }
         }
 
@@ -158,16 +157,12 @@ namespace TriviaGame
 
         public bool WasCorrectlyAnswered()
         {
-            if (inPenaltyBox[currentPlayer])
+            if (inPenaltyBox[currentPlayer] && !isGettingOutOfPenaltyBox)
             {
-                if (!isGettingOutOfPenaltyBox)
-                {
-                    MoveToNextPlayer();
-                    return true; 
-                }
-
+                MoveToNextPlayer();
+                return true;
             }
-               return IsPlayerWinner();
+            return IsPlayerWinner();
         }
 
         private bool IsPlayerWinner()
@@ -193,7 +188,10 @@ namespace TriviaGame
         public void MoveToNextPlayer()
         {
             currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            if (currentPlayer == players.Count)
+            {
+                currentPlayer = 0;
+            }
         }
 
         public bool WrongAnswer()
