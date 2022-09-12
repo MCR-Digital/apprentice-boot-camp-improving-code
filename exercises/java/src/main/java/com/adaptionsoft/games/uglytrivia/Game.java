@@ -5,9 +5,9 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] places = new int[6];
-    int[] purses  = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+    int[] playerPositions = new int[6];
+    int[] coinCounts = new int[6];
+    boolean[] isInPenaltyBox = new boolean[6];
     
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -15,7 +15,7 @@ public class Game {
     LinkedList rockQuestions = new LinkedList();
     
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
+    boolean isLeavingPenaltyBox;
     
     public  Game(){
     	for (int i = 0; i < 50; i++) {
@@ -25,6 +25,10 @@ public class Game {
 			rockQuestions.addLast(createRockQuestion(i));
     	}
     }
+
+//	public String createQuestion(int index, String subject) {
+//		return subject + "Question " + index;
+//	}
 
 	public String createRockQuestion(int index){
 		return "Rock Question " + index;
@@ -38,9 +42,9 @@ public class Game {
 		
 		
 	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
-	    inPenaltyBox[howManyPlayers()] = false;
+	    playerPositions[howManyPlayers()] = 0;
+	    coinCounts[howManyPlayers()] = 0;
+	    isInPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
@@ -51,36 +55,40 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	// how is the parameter different from the return valie of the function?
+	public void turn(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
-		if (inPenaltyBox[currentPlayer]) {
+		if (isInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
+				isLeavingPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				places[currentPlayer] = places[currentPlayer] + roll;
-				if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-				
+
+				// all this stuff on feels like it could be its own function
+				playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
+				if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
+
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
-						+ places[currentPlayer]);
+						+ playerPositions[currentPlayer]);
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
+				isLeavingPenaltyBox = false;
 				}
 			
 		} else {
-		
-			places[currentPlayer] = places[currentPlayer] + roll;
-			if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+
+			// yeah see? repeated code
+			playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
+			if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
 			
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
-					+ places[currentPlayer]);
+					+ playerPositions[currentPlayer]);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
@@ -100,26 +108,26 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
+		if (playerPositions[currentPlayer] == 0) return "Pop";
+		if (playerPositions[currentPlayer] == 4) return "Pop";
+		if (playerPositions[currentPlayer] == 8) return "Pop";
+		if (playerPositions[currentPlayer] == 1) return "Science";
+		if (playerPositions[currentPlayer] == 5) return "Science";
+		if (playerPositions[currentPlayer] == 9) return "Science";
+		if (playerPositions[currentPlayer] == 2) return "Sports";
+		if (playerPositions[currentPlayer] == 6) return "Sports";
+		if (playerPositions[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[currentPlayer]){
-			if (isGettingOutOfPenaltyBox) {
+		if (isInPenaltyBox[currentPlayer]){
+			if (isLeavingPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				purses[currentPlayer]++;
+				coinCounts[currentPlayer]++;
 				System.out.println(players.get(currentPlayer) 
 						+ " now has "
-						+ purses[currentPlayer]
+						+ coinCounts[currentPlayer]
 						+ " Gold Coins.");
 				
 				boolean winner = didPlayerWin();
@@ -138,10 +146,10 @@ public class Game {
 		} else {
 		
 			System.out.println("Answer was corrent!!!!");
-			purses[currentPlayer]++;
+			coinCounts[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
 					+ " now has "
-					+ purses[currentPlayer]
+					+ coinCounts[currentPlayer]
 					+ " Gold Coins.");
 			
 			boolean winner = didPlayerWin();
@@ -152,11 +160,12 @@ public class Game {
 		}
 	}
 	
-	public boolean wrongAnswer(){
+	public boolean isWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
-		
+		isInPenaltyBox[currentPlayer] = true;
+
+		// this is doing a slightly different thing. Extract to new method and include
 		currentPlayer++;
 		if (currentPlayer == players.size()) currentPlayer = 0;
 		return true;
@@ -164,6 +173,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return !(coinCounts[currentPlayer] == 6);
 	}
 }

@@ -7,30 +7,33 @@ import com.adaptionsoft.games.uglytrivia.Game;
 
 public class GameRunner {
 
-	private static boolean notAWinner;
+	private static boolean isAWinner;
 
 	public static void main(String[] args) {
-		Game aGame = new Game();
+		Game game = new Game();
 		
-		aGame.add("Chet");
-		aGame.add("Pat");
-		aGame.add("Sue");
-		
+		game.add("Chet");
+		game.add("Pat");
+		game.add("Sue");
+
+		// why is args[0] used here?
+		// numberGenerator? randomNumberGenerator
 		Random rand = new Random(Integer.parseInt(args[0]));
 	
 		do {
-			
-			aGame.roll(rand.nextInt(5) + 1);
+
+			// MAGIC NUMBERS!!
+			game.turn(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wrongAnswer();
+				isAWinner = game.isWrongAnswer();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				isAWinner = game.wasCorrectlyAnswered();
 			}
 			
 			
 			
-		} while (notAWinner);
+		} while (isAWinner);
 		
 	}
 }
