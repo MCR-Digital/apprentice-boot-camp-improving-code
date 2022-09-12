@@ -20,7 +20,7 @@ public class GameRunner {
 	
 		do {
 			
-			game.roll(diceRoll.nextInt(5) + 1);
+			game.turn(diceRoll.nextInt(5) + 1);
 			
 			if (diceRoll.nextInt(9) == 7) {
 				isAWinner = game.wrongAnswer();
