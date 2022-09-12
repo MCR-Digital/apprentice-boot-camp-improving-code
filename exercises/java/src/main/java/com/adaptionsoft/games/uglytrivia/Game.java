@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	public static final String POP = "Pop";
+	public static final String SCIENCE = "Science";
+	public static final String SPORTS = "Sports";
+	public static final String ROCK = "Rock";
+
+	ArrayList players = new ArrayList();
     int[] playerLocation = new int[6];
     int[] playerPurse = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
@@ -80,28 +85,28 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
+		if (currentCategory() == POP)
 			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
+		if (currentCategory() == SCIENCE)
 			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
+		if (currentCategory() == SPORTS)
 			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
+		if (currentCategory() == ROCK)
 			System.out.println(rockQuestions.removeFirst());		
 	}
 	
 	
 	private String currentCategory() {
-		if (currentPlayerLocation() == 0) return "Pop";
-		if (currentPlayerLocation() == 1) return "Science";
-		if (currentPlayerLocation() == 2) return "Sports";
-		if (currentPlayerLocation() == 4) return "Pop";
-		if (currentPlayerLocation() == 5) return "Science";
-		if (currentPlayerLocation() == 6) return "Sports";
-		if (currentPlayerLocation() == 8) return "Pop";
-		if (currentPlayerLocation() == 9) return "Science";
-		if (currentPlayerLocation() == 10) return "Sports";
-		return "Rock";
+		if (currentPlayerLocation() == 0) return POP;
+		if (currentPlayerLocation() == 1) return SCIENCE;
+		if (currentPlayerLocation() == 2) return SPORTS;
+		if (currentPlayerLocation() == 4) return POP;
+		if (currentPlayerLocation() == 5) return SCIENCE;
+		if (currentPlayerLocation() == 6) return SPORTS;
+		if (currentPlayerLocation() == 8) return POP;
+		if (currentPlayerLocation() == 9) return SCIENCE;
+		if (currentPlayerLocation() == 10) return SPORTS;
+		return ROCK;
 	}
 
 	private int currentPlayerLocation() {
