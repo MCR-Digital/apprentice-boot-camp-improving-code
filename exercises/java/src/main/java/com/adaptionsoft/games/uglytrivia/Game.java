@@ -30,7 +30,7 @@ public class Game {
 		return "Rock Question " + index;
 	}
 	
-	public boolean isPlayable() {
+	public boolean canGameBegin() {
 		return (howManyPlayers() >= 2);
 	}
 
