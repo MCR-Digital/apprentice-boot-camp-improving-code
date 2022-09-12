@@ -30,7 +30,7 @@ public class Game {
 		return "Rock Question " + index;
 	}
 	
-	public boolean canGameBegin() {
+	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
 
@@ -137,7 +137,7 @@ public class Game {
 			
 		} else {
 		
-			System.out.println("Answer was correct!!!!");
+			System.out.println("Answer was corrent!!!!");
 			playerPurse[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) 
 					+ " now has "
