@@ -19,8 +19,9 @@ namespace TriviaGame
 
             do
             {
+                var dieSideValue = randomNumber.Next(5) + 1;
 
-                game.Roll(randomNumber.Next(5) + 1);
+                game.Roll(dieSideValue);
 
                 if (randomNumber.Next(9) == 7)
                 {
@@ -30,9 +31,6 @@ namespace TriviaGame
                 {
                     isNotAWinner = game.IsCorrectAnswer();
                 }
-
-
-
             } while (isNotAWinner);
 
         }
