@@ -16,13 +16,13 @@ public class GameRunner {
 		aGame.add("Pat");
 		aGame.add("Sue");
 		
-		Random rand = new Random(Integer.parseInt(args[0]));
+		Random randomNumber = new Random(Integer.parseInt(args[0]));
 	
 		do {
 			
-			aGame.roll(rand.nextInt(5) + 1);
+			aGame.roll(randomNumber.nextInt(5) + 1);
 			
-			if (rand.nextInt(9) == 7) {
+			if (randomNumber.nextInt(9) == 7) {
 				notAWinner = aGame.wrongAnswer();
 			} else {
 				notAWinner = aGame.wasCorrectlyAnswered();

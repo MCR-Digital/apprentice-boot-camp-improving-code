@@ -18,11 +18,11 @@ public class Game {
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int count = 0; count < 50; count++) {
+			popQuestions.addLast("Pop Question " + count);
+			scienceQuestions.addLast(("Science Question " + count));
+			sportsQuestions.addLast(("Sports Question " + count));
+			rockQuestions.addLast(createRockQuestion(count));
     	}
     }
 
