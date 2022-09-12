@@ -120,16 +120,18 @@ public class Game {
 				return answeredCorrectly("Answer was correct!!!!");
 			} else {
 				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				return true;
+				return getNextPlayer();
 			}
-
-
 
 		} else {
 
 			return answeredCorrectly("Answer was corrent!!!!");
 		}
+	}
+
+	private boolean getNextPlayer() {
+		if (currentPlayer == players.size()) currentPlayer = 0;
+		return true;
 	}
 
 	private boolean answeredCorrectly(String s) {
@@ -153,8 +155,7 @@ public class Game {
 		inPenaltyBox[currentPlayer] = true;
 		
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
-		return true;
+		return getNextPlayer();
 	}
 
 
