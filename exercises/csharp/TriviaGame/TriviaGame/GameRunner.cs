@@ -10,35 +10,35 @@ namespace TriviaGame
    public class GameRunner
     {
 
-        private static bool notAWinner;
+        private static bool isNotAWinner;
 
         public static void Main(String[] args)
         {
-            Game aGame = new Game();
+            Game game = new Game();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            game.AddPlayer("Chet");
+            game.AddPlayer("Pat");
+            game.AddPlayer("Sue");
 
-            Random rand = new Random(Int32.Parse(args[0]));
+            Random randomNumber = new Random(Int32.Parse(args[0]));
 
             do
             {
 
-                aGame.Roll(rand.Next(5) + 1);
+                game.ProcessPlayerTurn(randomNumber.Next(5) + 1);
 
-                if (rand.Next(9) == 7)
+                if (randomNumber.Next(9) == 7)
                 {
-                    notAWinner = aGame.WrongAnswer();
+                    isNotAWinner = game.IsWrongAnswer();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    isNotAWinner = game.IsCorrectAnswer();
                 }
 
 
 
-            } while (notAWinner);
+            } while (isNotAWinner);
 
         }
     }
