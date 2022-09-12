@@ -57,7 +57,7 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				playerLocation[currentPlayer] = currentPlayerLocation() + roll;
+				movePlayerOnRoll(roll);
 				if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
 				
 				System.out.println(players.get(currentPlayer) 
@@ -71,8 +71,8 @@ public class Game {
 				}
 			
 		} else {
-		
-			playerLocation[currentPlayer] = currentPlayerLocation() + roll;
+
+			movePlayerOnRoll(roll);
 			if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
 			
 			System.out.println(players.get(currentPlayer) 
@@ -82,6 +82,10 @@ public class Game {
 			askQuestion();
 		}
 		
+	}
+
+	private void movePlayerOnRoll(int roll) {
+		playerLocation[currentPlayer] = currentPlayerLocation() + roll;
 	}
 
 	private void askQuestion() {
@@ -134,8 +138,8 @@ public class Game {
 		return true;
 	}
 
-	private boolean answeredCorrectly(String s) {
-		System.out.println(s);
+	private boolean answeredCorrectly(String correctAnswer) {
+		System.out.println(correctAnswer);
 		playerPurse[currentPlayer]++;
 		System.out.println(players.get(currentPlayer)
 				+ " now has "
