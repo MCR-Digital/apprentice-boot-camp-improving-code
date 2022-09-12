@@ -52,12 +52,12 @@ public class Game {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				playerLocation[currentPlayer] = playerLocation[currentPlayer] + roll;
-				if (playerLocation[currentPlayer] > 11) playerLocation[currentPlayer] = playerLocation[currentPlayer] - 12;
+				playerLocation[currentPlayer] = currentPlayerLocation() + roll;
+				if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
 				
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
-						+ playerLocation[currentPlayer]);
+						+ currentPlayerLocation());
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -67,12 +67,12 @@ public class Game {
 			
 		} else {
 		
-			playerLocation[currentPlayer] = playerLocation[currentPlayer] + roll;
-			if (playerLocation[currentPlayer] > 11) playerLocation[currentPlayer] = playerLocation[currentPlayer] - 12;
+			playerLocation[currentPlayer] = currentPlayerLocation() + roll;
+			if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
 			
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
-					+ playerLocation[currentPlayer]);
+					+ currentPlayerLocation());
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
@@ -92,16 +92,20 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (playerLocation[currentPlayer] == 0) return "Pop";
-		if (playerLocation[currentPlayer] == 4) return "Pop";
-		if (playerLocation[currentPlayer] == 8) return "Pop";
-		if (playerLocation[currentPlayer] == 1) return "Science";
-		if (playerLocation[currentPlayer] == 5) return "Science";
-		if (playerLocation[currentPlayer] == 9) return "Science";
-		if (playerLocation[currentPlayer] == 2) return "Sports";
-		if (playerLocation[currentPlayer] == 6) return "Sports";
-		if (playerLocation[currentPlayer] == 10) return "Sports";
+		if (currentPlayerLocation() == 0) return "Pop";
+		if (currentPlayerLocation() == 1) return "Science";
+		if (currentPlayerLocation() == 2) return "Sports";
+		if (currentPlayerLocation() == 4) return "Pop";
+		if (currentPlayerLocation() == 5) return "Science";
+		if (currentPlayerLocation() == 6) return "Sports";
+		if (currentPlayerLocation() == 8) return "Pop";
+		if (currentPlayerLocation() == 9) return "Science";
+		if (currentPlayerLocation() == 10) return "Sports";
 		return "Rock";
+	}
+
+	private int currentPlayerLocation() {
+		return playerLocation[currentPlayer];
 	}
 
 	public boolean wasCorrectlyAnswered() {
