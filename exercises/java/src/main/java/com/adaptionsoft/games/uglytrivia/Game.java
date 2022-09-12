@@ -52,40 +52,36 @@ public class Game {
 		return players.size();
 	}
 
-	public void roll(int roll) {
+	public void roll(int numberRolled) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
-		System.out.println("They have rolled a " + roll);
+		System.out.println("They have rolled a " + numberRolled);
 		
 		if (isInPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (numberRolled % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				currentTile[currentPlayer] = currentTile[currentPlayer] + roll;
-				if (currentTile[currentPlayer] > 11) currentTile[currentPlayer] = currentTile[currentPlayer] - 12;
-				
-				System.out.println(players.get(currentPlayer) 
-						+ "'s new location is " 
-						+ currentTile[currentPlayer]);
-				System.out.println("The category is " + currentCategoryOnTile());
+				playerRolls(numberRolled);
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
 				}
-			
 		} else {
-		
-			currentTile[currentPlayer] = currentTile[currentPlayer] + roll;
-			if (currentTile[currentPlayer] > 11) currentTile[currentPlayer] = currentTile[currentPlayer] - MAX_TILES;
-			
-			System.out.println(players.get(currentPlayer) 
-					+ "'s new location is " 
-					+ currentTile[currentPlayer]);
-			System.out.println("The category is " + currentCategoryOnTile());
+			playerRolls(numberRolled);
 			askQuestion();
 		}
 		
+	}
+
+	private void playerRolls(int roll) {
+		currentTile[currentPlayer] = currentTile[currentPlayer] + roll;
+		if (currentTile[currentPlayer] > 11) currentTile[currentPlayer] = currentTile[currentPlayer] - MAX_TILES;
+
+		System.out.println(players.get(currentPlayer)
+				+ "'s new location is "
+				+ currentTile[currentPlayer]);
+		System.out.println("The category is " + currentCategoryOnTile());
 	}
 
 	private void askQuestion() {
