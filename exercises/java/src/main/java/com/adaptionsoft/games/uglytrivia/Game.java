@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
-    int[] playerPlaces = new int[6];
-    int[] playerCoins = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
-    
+	public static final int MAX_PLAYERS = 6;
+	public static final int MIN_PLAYERS = 2;
+	public static final int STARTING_VALUE = 0;
+	public static final int AVAILABLE_SPACES = 11;
+
+	ArrayList players = new ArrayList();
+    int[] playerPlaces = new int[MAX_PLAYERS];
+    int[] playerCoins = new int[MAX_PLAYERS];
+    boolean[] inPenaltyBox  = new boolean[MAX_PLAYERS];
+
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
@@ -31,15 +36,15 @@ public class Game {
 	}
 	
 	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
+		return (howManyPlayers() >= MIN_PLAYERS);
 	}
 
 	public boolean addPlayer(String playerName) {
 		
 		
 	    players.add(playerName);
-	    playerPlaces[howManyPlayers()] = 0;
-	    playerCoins[howManyPlayers()] = 0;
+	    playerPlaces[howManyPlayers()] = STARTING_VALUE;
+	    playerCoins[howManyPlayers()] = STARTING_VALUE;
 	    inPenaltyBox[howManyPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
@@ -56,7 +61,7 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
+			if (isEven(roll)) {
 				leavingPenaltyBox = true;
 
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
@@ -68,17 +73,22 @@ public class Game {
 		}
 			
 		if (!inPenaltyBox[currentPlayer] || leavingPenaltyBox) {
-		
-			playerPlaces[currentPlayer] = playerPlaces[currentPlayer] + roll;
-			if (playerPlaces[currentPlayer] > 11) playerPlaces[currentPlayer] = playerPlaces[currentPlayer] - 12;
+
+			int currentPlayerPlace = playerPlaces[currentPlayer] + roll;
+			if (currentPlayerPlace > AVAILABLE_SPACES) currentPlayerPlace = currentPlayerPlace - 12;
 			
-			System.out.println(players.get(currentPlayer) 
+			System.out.println(players.get(currentPlayer)
 					+ "'s new location is " 
-					+ playerPlaces[currentPlayer]);
+					+ currentPlayerPlace);
+			playerPlaces[currentPlayer] = currentPlayerPlace;
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
 
+	}
+
+	private boolean isEven(int roll) {
+		return roll % 2 != 0;
 	}
 
 
@@ -116,18 +126,7 @@ public class Game {
 	public boolean correctAnswer() {
 		if (inPenaltyBox[currentPlayer]){
 			if (leavingPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				playerCoins[currentPlayer]++;
-				System.out.println(players.get(currentPlayer) 
-						+ " now has "
-						+ playerCoins[currentPlayer]
-						+ " Gold Coins.");
-				
-				boolean winner = didPlayerWin();
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				
-				return winner;
+				return answerWasCorrect("Answer was correct!!!!");
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
@@ -137,22 +136,25 @@ public class Game {
 			
 			
 		} else {
-		
-			System.out.println("Answer was corrent!!!!");
-			playerCoins[currentPlayer]++;
-			System.out.println(players.get(currentPlayer) 
-					+ " now has "
-					+ playerCoins[currentPlayer]
-					+ " Gold Coins.");
-			
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-			
-			return winner;
+			return answerWasCorrect("Answer was corrent!!!!");
 		}
 	}
-	
+
+	private boolean answerWasCorrect(String x) {
+		System.out.println(x);
+		playerCoins[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ playerCoins[currentPlayer]
+				+ " Gold Coins.");
+
+		boolean winner = didPlayerWin();
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
+
+		return winner;
+	}
+
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
