@@ -14,6 +14,8 @@ var Game = function () {
   var currentPlayer = 0
   var isGettingOutOfPenaltyBox = false
 
+  const NumberOfQuestions = 50;
+
   var didPlayerWin = function () {
     return !(playerPurses[currentPlayer] == 6)
   }
@@ -31,15 +33,15 @@ var Game = function () {
     return 'Rock'
   }
 
-  this.createRockQuestion = function (index) {
-    return 'Rock Question ' + index
+  this.createQuestion = function (category, index) {
+    return category + ' Question ' + index
   }
 
-  for (var i = 0; i < 50; i++) {
-    popQuestions.push('Pop Question ' + i)
-    scienceQuestions.push('Science Question ' + i)
-    sportsQuestions.push('Sports Question ' + i)
-    rockQuestions.push(this.createRockQuestion(i))
+  for (var i = 0; i < NumberOfQuestions; i++) {
+    popQuestions.push(this.createQuestion('Pop', i))
+    scienceQuestions.push(this.createQuestion('Science', i))
+    sportsQuestions.push(this.createQuestion('Sports', i))
+    rockQuestions.push(this.createQuestion('Rock', i))
   }
 
   this.canPlayGame = function (howManyPlayers) {
