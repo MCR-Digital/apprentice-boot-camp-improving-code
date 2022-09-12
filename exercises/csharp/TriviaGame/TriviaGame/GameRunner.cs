@@ -24,8 +24,8 @@ namespace TriviaGame
 
             do
             {
-
-                game.ProcessPlayerTurn(randomNumber.Next(5) + 1);
+                var dieSide = randomNumber.Next(5)+1;  
+                game.ProcessPlayerTurn(dieSide);
 
                 if (randomNumber.Next(9) == 7)
                 {
