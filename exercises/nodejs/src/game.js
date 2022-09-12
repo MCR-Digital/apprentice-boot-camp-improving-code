@@ -78,26 +78,16 @@ var Game = function () {
         isGettingOutOfPenaltyBox = true
 
         console.log(playerNames[currentPlayer] + ' is getting out of the penalty box')
-        playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll
-        if (playerPositions[currentPlayer] > 11) {
-          playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12
-        }
+        movePlayerPosition(playerPositions, currentPlayer, roll)
 
-        console.log(playerNames[currentPlayer] + "'s new location is " + playerPositions[currentPlayer])
-        console.log('The category is ' + currentCategory())
         askQuestion()
       } else {
         console.log(playerNames[currentPlayer] + ' is not getting out of the penalty box')
         isGettingOutOfPenaltyBox = false
       }
     } else {
-      playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll
-      if (playerPositions[currentPlayer] > 11) {
-        playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12
-      }
+      movePlayerPosition(playerPositions, currentPlayer, roll)
 
-      console.log(playerNames[currentPlayer] + "'s new location is " + playerPositions[currentPlayer])
-      console.log('The category is ' + currentCategory())
       askQuestion()
     }
   }
@@ -145,6 +135,16 @@ var Game = function () {
     if (currentPlayer == playerNames.length) { currentPlayer = 0 }
     return true
   }
+
+  function movePlayerPosition(playerPositions, currentPlayer, roll) {
+    playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll
+    if (playerPositions[currentPlayer] > 11) {
+      playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12
+    }
+
+    console.log(playerNames[currentPlayer] + "'s new location is " + playerPositions[currentPlayer])
+    console.log('The category is ' + currentCategory())
+  }
 }
 
 const gameRunner = (i) => {
@@ -170,3 +170,6 @@ const gameRunner = (i) => {
 }
 
 export default gameRunner
+
+
+
