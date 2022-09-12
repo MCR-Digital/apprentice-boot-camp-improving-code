@@ -18,28 +18,22 @@ var Game = function () {
     return !(purses[currentPlayer] == 6)
   }
 
-  var currentCategory = function () {
-    if (places[currentPlayer] == 0) { return 'Pop' }
-    if (places[currentPlayer] == 4) { return 'Pop' }
-    if (places[currentPlayer] == 8) { return 'Pop' }
-    if (places[currentPlayer] == 1) { return 'Science' }
-    if (places[currentPlayer] == 5) { return 'Science' }
-    if (places[currentPlayer] == 9) { return 'Science' }
-    if (places[currentPlayer] == 2) { return 'Sports' }
-    if (places[currentPlayer] == 6) { return 'Sports' }
-    if (places[currentPlayer] == 10) { return 'Sports' }
-    return 'Rock'
+  var currentCategory = function () { // every 4 fields
+    if (places[currentPlayer] % 4 == 0) { return 'Pop' }
+    if (places[currentPlayer] % 4 == 1) { return 'Science' }
+    if (places[currentPlayer] % 4 == 2) { return 'Sports' }
+    if (places[currentPlayer] % 4 == 3) { return 'Rock' }
   }
 
-  this.createRockQuestion = function (index) {
-    return 'Rock Question ' + index
+  this.createQuestion = function (category,index) {
+    return category + ' Question ' + index
   }
 
   for (var i = 0; i < 50; i++) {
-    popQuestions.push('Pop Question ' + i)
-    scienceQuestions.push('Science Question ' + i)
-    sportsQuestions.push('Sports Question ' + i)
-    rockQuestions.push(this.createRockQuestion(i))
+    popQuestions.push(this.createQuestion('Pop', i))
+    scienceQuestions.push(this.createQuestion('Science', i))
+    sportsQuestions.push(this.createQuestion('Sports', i))
+    rockQuestions.push(this.createQuestion('Rock', i))
   }
 
   this.isEnoughPlayers = function (howManyPlayers) {
