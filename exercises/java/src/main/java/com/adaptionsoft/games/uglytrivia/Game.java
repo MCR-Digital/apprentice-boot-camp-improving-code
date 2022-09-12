@@ -5,8 +5,8 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] playerPositions = new int[6];
-    int[] coinCounts = new int[6];
+    int[] playerPosition = new int[6];
+    int[] coinCount = new int[6];
     boolean[] isInPenaltyBox = new boolean[6];
     
     LinkedList popQuestions = new LinkedList();
@@ -18,20 +18,18 @@ public class Game {
     boolean isLeavingPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+		// this could be much better
+    	for (int index = 0; index < 50; index++) {
+			popQuestions.addLast(createQuestion("Pop", index));
+			scienceQuestions.addLast(createQuestion("Science", index));
+			sportsQuestions.addLast(createQuestion("Sports", index));
+			rockQuestions.addLast(createQuestion("Rock", index));
     	}
     }
 
-//	public String createQuestion(int index, String subject) {
-//		return subject + "Question " + index;
-//	}
-
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
+	//this should be in a Category class
+	public String createQuestion(String subject, int index) {
+		return subject + " Question " + index;
 	}
 	
 	public boolean isPlayable() {
@@ -41,12 +39,13 @@ public class Game {
 	public boolean add(String playerName) {
 
 	    players.add(playerName);
-	    playerPositions[amountOfPlayers()] = 0;
-	    coinCounts[amountOfPlayers()] = 0;
+	    playerPosition[amountOfPlayers()] = 0;
+	    coinCount[amountOfPlayers()] = 0;
 	    isInPenaltyBox[amountOfPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
+
 		return true;
 	}
 	
@@ -60,7 +59,6 @@ public class Game {
 		
 		if (isInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
-				// maybe make a bool which determines if player is leaving penalty box or not.
 				leavePenaltyBox();
 				movePlayer(roll);
 				askQuestion();
@@ -86,15 +84,15 @@ public class Game {
 	}
 
 	private void movePlayer(int roll) {
-		playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
-		if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
+		setPlayerPosition(getPlayerPosition() + roll);
+		if (getPlayerPosition() > 11) setPlayerPosition(getPlayerPosition() - 12);
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
-				+ playerPositions[currentPlayer]);
+				+ getPlayerPosition());
 		System.out.println("The category is " + currentCategory());
 	}
-	
+
 	private void askQuestion() {
 		// replace with switch?
 		if (currentCategory() == "Pop")
@@ -109,71 +107,81 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (playerPositions[currentPlayer] == 0) return "Pop";
-		if (playerPositions[currentPlayer] == 4) return "Pop";
-		if (playerPositions[currentPlayer] == 8) return "Pop";
-		if (playerPositions[currentPlayer] == 1) return "Science";
-		if (playerPositions[currentPlayer] == 5) return "Science";
-		if (playerPositions[currentPlayer] == 9) return "Science";
-		if (playerPositions[currentPlayer] == 2) return "Sports";
-		if (playerPositions[currentPlayer] == 6) return "Sports";
-		if (playerPositions[currentPlayer] == 10) return "Sports";
-		return "Rock";
+		// add a method in the enum that translates between int and string of pop
+//		if (playerPosition[currentPlayer] % AMOUNT_OF_CATEGORIES == Categories.POP) return "Pop";
+
+		if (getPlayerPosition() == 0) {
+			return "Pop";
+		} else if (getPlayerPosition() == 1) {
+			return "Science";
+		} else if (getPlayerPosition() == 2) {
+			return "Sports";
+		} else if (getPlayerPosition() == 3) {
+			return "Rock";
+		} else if (getPlayerPosition() == 4) {
+			return "Pop";
+		} else if (getPlayerPosition() == 5) {
+			return "Science";
+		} else if (getPlayerPosition() == 6) {
+			return "Sports";
+		} else if (getPlayerPosition() == 7) {
+			return "Rock";
+		} else if (getPlayerPosition() == 8) {
+			return "Pop";
+		} else if (getPlayerPosition() == 9) {
+			return "Science";
+		} else if (getPlayerPosition() == 10) {
+			return "Sports";
+		} else
+			return "invalid category";
+	}
+
+	private int getPlayerPosition() {
+		return playerPosition[currentPlayer];
+	}
+
+	private void setPlayerPosition(int newPosition) {
+		playerPosition[currentPlayer] = newPosition;
 	}
 
 	public boolean wasCorrectlyAnswered() {
 		if (isInPenaltyBox[currentPlayer]){
 			if (isLeavingPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				coinCounts[currentPlayer]++;
-				System.out.println(players.get(currentPlayer) 
-						+ " now has "
-						+ coinCounts[currentPlayer]
-						+ " Gold Coins.");
-				
-				boolean winner = didPlayerWin();
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				
-				return winner;
+				incrementCoinCount();
+				return didPlayerWin();
 			} else {
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
-			
-			
-			
 		} else {
-		
-			System.out.println("Answer was corrent!!!!");
-			coinCounts[currentPlayer]++;
-			System.out.println(players.get(currentPlayer) 
-					+ " now has "
-					+ coinCounts[currentPlayer]
-					+ " Gold Coins.");
-			
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-			
-			return winner;
+			incrementCoinCount();
+			return didPlayerWin();
 		}
 	}
-	
+
+	public void changePlayer() {
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
+	}
+
+	private void incrementCoinCount() {
+		System.out.println("Answer was correct!!!!");
+		coinCount[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ coinCount[currentPlayer]
+				+ " Gold Coins.");
+	}
+
 	public boolean isWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		isInPenaltyBox[currentPlayer] = true;
 
-		// this is doing a slightly different thing. Extract to new method and include
-		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
 		return true;
 	}
 
 
 	private boolean didPlayerWin() {
-		return !(coinCounts[currentPlayer] == 6);
+		return !(coinCount[currentPlayer] == 6);
 	}
 }

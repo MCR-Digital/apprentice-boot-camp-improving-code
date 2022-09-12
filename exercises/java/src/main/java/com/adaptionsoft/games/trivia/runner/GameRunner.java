@@ -7,7 +7,7 @@ import com.adaptionsoft.games.uglytrivia.Game;
 
 public class GameRunner {
 
-	private static boolean isAWinner;
+	private static boolean hasReachedWinCondition;
 
 	public static void main(String[] args) {
 		Game game = new Game();
@@ -16,24 +16,22 @@ public class GameRunner {
 		game.add("Pat");
 		game.add("Sue");
 
-		// why is args[0] used here?
-		// numberGenerator? randomNumberGenerator
 		Random rand = new Random(Integer.parseInt(args[0]));
 	
 		do {
-
-			// MAGIC NUMBERS!!
 			game.turn(rand.nextInt(5) + 1);
 			
 			if (rand.nextInt(9) == 7) {
-				isAWinner = game.isWrongAnswer();
+				hasReachedWinCondition = game.isWrongAnswer();
+				game.changePlayer();
 			} else {
-				isAWinner = game.wasCorrectlyAnswered();
+				hasReachedWinCondition = game.wasCorrectlyAnswered();
+				game.changePlayer();
 			}
 			
 			
 			
-		} while (isAWinner);
+		} while (hasReachedWinCondition);
 		
 	}
 }
