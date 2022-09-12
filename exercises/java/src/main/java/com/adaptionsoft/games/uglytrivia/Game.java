@@ -17,8 +17,8 @@ public class Game {
     int currentPlayer = 0;
     boolean isPlayerGettingOutOfPenaltyBox;
     
-    public  Game(){
-    	for (int count = 0; count < 50; count++) {
+    public  Game(int numberOfQuestions){
+    	for (int count = 0; count < numberOfQuestions; count++) {
 			popQuestions.addLast("Pop Question " + count);
 			scienceQuestions.addLast(("Science Question " + count));
 			sportsQuestions.addLast(("Sports Question " + count));
