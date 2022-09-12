@@ -58,22 +58,16 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
 				leavingPenaltyBox = true;
-				
+
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				playerPlaces[currentPlayer] = playerPlaces[currentPlayer] + roll;
-				if (playerPlaces[currentPlayer] > 11) playerPlaces[currentPlayer] = playerPlaces[currentPlayer] - 12;
-				
-				System.out.println(players.get(currentPlayer) 
-						+ "'s new location is " 
-						+ playerPlaces[currentPlayer]);
-				System.out.println("The category is " + currentCategory());
-				askQuestion();
+
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				leavingPenaltyBox = false;
-				}
+			}
+		}
 			
-		} else {
+		if (!inPenaltyBox[currentPlayer] || leavingPenaltyBox) {
 		
 			playerPlaces[currentPlayer] = playerPlaces[currentPlayer] + roll;
 			if (playerPlaces[currentPlayer] > 11) playerPlaces[currentPlayer] = playerPlaces[currentPlayer] - 12;
@@ -84,8 +78,9 @@ public class Game {
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
-		
+
 	}
+
 
 	private void askQuestion() {
 		if (currentCategory() == "Pop")
