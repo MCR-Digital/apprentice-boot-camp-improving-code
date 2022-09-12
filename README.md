@@ -15,6 +15,10 @@
 * **[B7](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#B7)**: Communicates effectively in a variety of situations to both a technical and non-technical audience
 * **[B4](https://www.instituteforapprenticeships.org/apprenticeship-standards/software-developer-v1-1#B4)**: Works collaboratively with a wide range of people in different roles, internally and externally, with a positive attitude to inclusion & diversity
 
+## Codacy Badge
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/2a089b366d714cda8b4d2da8726a828b)](https://www.codacy.com/gh/chris-cazaly-coop/apprentice-boot-camp-improving-code/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=chris-cazaly-coop/apprentice-boot-camp-improving-code&amp;utm_campaign=Badge_Grade)
+
 
 ## Resources 
 
