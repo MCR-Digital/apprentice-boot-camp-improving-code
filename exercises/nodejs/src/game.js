@@ -2,7 +2,7 @@ import generator from 'random-seed'
 
 var Game = function () {
   var playerNames = new Array()
-  var places = new Array(6)
+  var playerPositions = new Array(6)
   var purses = new Array(6)
   var inPenaltyBox = new Array(6)
 
@@ -19,15 +19,15 @@ var Game = function () {
   }
 
   var currentCategory = function () {
-    if (places[currentPlayer] == 0) { return 'Pop' }
-    if (places[currentPlayer] == 4) { return 'Pop' }
-    if (places[currentPlayer] == 8) { return 'Pop' }
-    if (places[currentPlayer] == 1) { return 'Science' }
-    if (places[currentPlayer] == 5) { return 'Science' }
-    if (places[currentPlayer] == 9) { return 'Science' }
-    if (places[currentPlayer] == 2) { return 'Sports' }
-    if (places[currentPlayer] == 6) { return 'Sports' }
-    if (places[currentPlayer] == 10) { return 'Sports' }
+    if (playerPositions[currentPlayer] == 0) { return 'Pop' }
+    if (playerPositions[currentPlayer] == 4) { return 'Pop' }
+    if (playerPositions[currentPlayer] == 8) { return 'Pop' }
+    if (playerPositions[currentPlayer] == 1) { return 'Science' }
+    if (playerPositions[currentPlayer] == 5) { return 'Science' }
+    if (playerPositions[currentPlayer] == 9) { return 'Science' }
+    if (playerPositions[currentPlayer] == 2) { return 'Sports' }
+    if (playerPositions[currentPlayer] == 6) { return 'Sports' }
+    if (playerPositions[currentPlayer] == 10) { return 'Sports' }
     return 'Rock'
   }
 
@@ -48,7 +48,7 @@ var Game = function () {
 
   this.addPlayer = function (playerName) {
     playerNames.push(playerName)
-    places[this.howManyPlayers() - 1] = 0
+    playerPositions[this.howManyPlayers() - 1] = 0
     purses[this.howManyPlayers() - 1] = 0
     inPenaltyBox[this.howManyPlayers() - 1] = false
 
@@ -78,12 +78,12 @@ var Game = function () {
         isGettingOutOfPenaltyBox = true
 
         console.log(playerNames[currentPlayer] + ' is getting out of the penalty box')
-        places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > 11) {
-          places[currentPlayer] = places[currentPlayer] - 12
+        playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll
+        if (playerPositions[currentPlayer] > 11) {
+          playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12
         }
 
-        console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
+        console.log(playerNames[currentPlayer] + "'s new location is " + playerPositions[currentPlayer])
         console.log('The category is ' + currentCategory())
         askQuestion()
       } else {
@@ -91,12 +91,12 @@ var Game = function () {
         isGettingOutOfPenaltyBox = false
       }
     } else {
-      places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > 11) {
-        places[currentPlayer] = places[currentPlayer] - 12
+      playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll
+      if (playerPositions[currentPlayer] > 11) {
+        playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12
       }
 
-      console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
+      console.log(playerNames[currentPlayer] + "'s new location is " + playerPositions[currentPlayer])
       console.log('The category is ' + currentCategory())
       askQuestion()
     }
