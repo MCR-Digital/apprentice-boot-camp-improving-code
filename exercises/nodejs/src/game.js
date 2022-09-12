@@ -101,13 +101,11 @@ var Game = function () {
             playerPurses[currentPlayer] + ' Gold Coins.')
 
         var winner = didPlayerWin()
-        currentPlayer += 1
-        if (currentPlayer == playerNames.length) { currentPlayer = 0 }
+        nextPlayer()
 
         return winner
       } else {
-        currentPlayer += 1
-        if (currentPlayer == playerNames.length) { currentPlayer = 0 }
+        nextPlayer()
         return true
       }
     } else {
@@ -119,21 +117,26 @@ var Game = function () {
 
       var winner = didPlayerWin()
 
-      currentPlayer += 1
-      if (currentPlayer == playerNames.length) { currentPlayer = 0 }
-
+      nextPlayer()
       return winner
     }
+
   }
+  
+ 
 
   this.questionAnsweredIncorrectly = function () {
     console.log('Question was incorrectly answered')
     console.log(playerNames[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
 
-    currentPlayer += 1
-    if (currentPlayer == playerNames.length) { currentPlayer = 0 }
+    nextPlayer()
     return true
+  }
+
+  function nextPlayer() {
+    currentPlayer += 1
+    if (currentPlayer == playerNames.length) { currentPlayer = 0} 
   }
 
   function movePlayerPosition(playerPositions, currentPlayer, roll) {
