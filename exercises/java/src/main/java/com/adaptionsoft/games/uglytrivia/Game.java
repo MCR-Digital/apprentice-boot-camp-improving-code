@@ -35,67 +35,68 @@ public class Game {
 	}
 	
 	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
+		return (amountOfPlayers() >= 2);
 	}
 
 	public boolean add(String playerName) {
-		
-		
+
 	    players.add(playerName);
-	    playerPositions[howManyPlayers()] = 0;
-	    coinCounts[howManyPlayers()] = 0;
-	    isInPenaltyBox[howManyPlayers()] = false;
+	    playerPositions[amountOfPlayers()] = 0;
+	    coinCounts[amountOfPlayers()] = 0;
+	    isInPenaltyBox[amountOfPlayers()] = false;
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
 	}
 	
-	public int howManyPlayers() {
+	public int amountOfPlayers() {
 		return players.size();
 	}
 
-	// how is the parameter different from the return valie of the function?
 	public void turn(int roll) {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
 		if (isInPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
-				isLeavingPenaltyBox = true;
-				
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-
-				// all this stuff on feels like it could be its own function
-				playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
-				if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
-
-				System.out.println(players.get(currentPlayer) 
-						+ "'s new location is " 
-						+ playerPositions[currentPlayer]);
-				System.out.println("The category is " + currentCategory());
+				// maybe make a bool which determines if player is leaving penalty box or not.
+				leavePenaltyBox();
+				movePlayer(roll);
 				askQuestion();
 			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isLeavingPenaltyBox = false;
-				}
+				remainInPenaltyBox();
+			}
 			
 		} else {
-
-			// yeah see? repeated code
-			playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
-			if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
-			
-			System.out.println(players.get(currentPlayer) 
-					+ "'s new location is " 
-					+ playerPositions[currentPlayer]);
-			System.out.println("The category is " + currentCategory());
+			movePlayer(roll);
 			askQuestion();
 		}
 		
 	}
 
+	private void leavePenaltyBox() {
+		isLeavingPenaltyBox = true;
+		System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+	}
+
+	private void remainInPenaltyBox() {
+		System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+		isLeavingPenaltyBox = false;
+	}
+
+	private void movePlayer(int roll) {
+		playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll;
+		if (playerPositions[currentPlayer] > 11) playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12;
+
+		System.out.println(players.get(currentPlayer)
+				+ "'s new location is "
+				+ playerPositions[currentPlayer]);
+		System.out.println("The category is " + currentCategory());
+	}
+	
 	private void askQuestion() {
+		// replace with switch?
 		if (currentCategory() == "Pop")
 			System.out.println(popQuestions.removeFirst());
 		if (currentCategory() == "Science")
