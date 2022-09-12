@@ -16,14 +16,15 @@ public class GameRunner {
 		game.addNewPlayer("Pat");
 		game.addNewPlayer("Sue");
 		
-		Random rand = new Random(Integer.parseInt(args[0]));
+		Random diceRoll = new Random(Integer.parseInt(args[0]));
 	
 		do {
 			
-			game.roll(rand.nextInt(5) + 1);
+			game.roll(diceRoll.nextInt(5) + 1);
 			
-			if (rand.nextInt(9) == 7) {
+			if (diceRoll.nextInt(9) == 7) {
 				isAWinner = game.wrongAnswer();
+
 			} else {
 				isAWinner = game.wasCorrectlyAnswered();
 			}
