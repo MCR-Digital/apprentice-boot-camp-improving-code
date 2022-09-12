@@ -6,6 +6,9 @@
 + Do try to understand
 + Drawing things will help… flow chart?
 
+Note: We do a recap after this, then another exercise where they create the board physically.  
+    Ask them not to add comments either for now.  
+
 --
 
 ## Recap - What have we discovered?
