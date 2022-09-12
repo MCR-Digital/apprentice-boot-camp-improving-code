@@ -66,7 +66,7 @@ public class Game {
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
 						+ gamesCurrentTile[currentPlayer]);
-				System.out.println("The category is " + currentCategory(gamesCurrentTile[currentPlayer]));
+				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
@@ -81,21 +81,21 @@ public class Game {
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
 					+ gamesCurrentTile[currentPlayer]);
-			System.out.println("The category is " + currentCategory(gamesCurrentTile[currentPlayer]));
+			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
 		
 	}
 
 	private void askQuestion() {
-		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Pop") {
+		if (currentCategory() == "Pop") {
 			printAndRemoveQuestion(popQuestions);
 		}
-		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Science")
+		if (currentCategory() == "Science")
 			printAndRemoveQuestion(scienceQuestions);
-		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Sports")
+		if (currentCategory() == "Sports")
 			printAndRemoveQuestion(sportsQuestions);
-		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Rock")
+		if (currentCategory() == "Rock")
 			printAndRemoveQuestion(rockQuestions);
 	}
 
@@ -104,16 +104,17 @@ public class Game {
 	}
 
 
-	private String currentCategory(int playerCurrentTile) {
+	private String currentCategory() {
+		int playerCurrentTile = gamesCurrentTile[currentPlayer];
 		if (playerCurrentTile == 0) return "Pop";
-		if (gamesCurrentTile[currentPlayer] == 4) return "Pop";
-		if (gamesCurrentTile[currentPlayer] == 8) return "Pop";
-		if (gamesCurrentTile[currentPlayer] == 1) return "Science";
-		if (gamesCurrentTile[currentPlayer] == 5) return "Science";
-		if (gamesCurrentTile[currentPlayer] == 9) return "Science";
-		if (gamesCurrentTile[currentPlayer] == 2) return "Sports";
-		if (gamesCurrentTile[currentPlayer] == 6) return "Sports";
-		if (gamesCurrentTile[currentPlayer] == 10) return "Sports";
+		if (playerCurrentTile == 4) return "Pop";
+		if (playerCurrentTile == 8) return "Pop";
+		if (playerCurrentTile == 1) return "Science";
+		if (playerCurrentTile == 5) return "Science";
+		if (playerCurrentTile == 9) return "Science";
+		if (playerCurrentTile == 2) return "Sports";
+		if (playerCurrentTile == 6) return "Sports";
+		if (playerCurrentTile == 10) return "Sports";
 		return "Rock";
 	}
 
