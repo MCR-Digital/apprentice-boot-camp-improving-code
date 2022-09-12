@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
-    int[] gameTiles = new int[6];
+    int[] gamesCurrentTile = new int[6];
     int[] playersPurses = new int[6];
     boolean[] isInPenatlyBox = new boolean[6];
     
@@ -38,7 +38,7 @@ public class Game {
 		
 		
 	    players.add(playerName);
-	    gameTiles[howManyPlayers()] = 0;
+	    gamesCurrentTile[howManyPlayers()] = 0;
 	    playersPurses[howManyPlayers()] = 0;
 	    isInPenatlyBox[howManyPlayers()] = false;
 	    
@@ -60,12 +60,12 @@ public class Game {
 				isPlayerGettingOutOfPenaltyBox = true;
 				
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				gameTiles[currentPlayer] = gameTiles[currentPlayer] + roll;
-				if (gameTiles[currentPlayer] > 11) gameTiles[currentPlayer] = gameTiles[currentPlayer] - 12;
+				gamesCurrentTile[currentPlayer] = gamesCurrentTile[currentPlayer] + roll;
+				if (gamesCurrentTile[currentPlayer] > 11) gamesCurrentTile[currentPlayer] = gamesCurrentTile[currentPlayer] - 12;
 				
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
-						+ gameTiles[currentPlayer]);
+						+ gamesCurrentTile[currentPlayer]);
 				System.out.println("The category is " + currentCategory());
 				askQuestion();
 			} else {
@@ -75,12 +75,12 @@ public class Game {
 			
 		} else {
 		
-			gameTiles[currentPlayer] = gameTiles[currentPlayer] + roll;
-			if (gameTiles[currentPlayer] > 11) gameTiles[currentPlayer] = gameTiles[currentPlayer] - 12;
+			gamesCurrentTile[currentPlayer] = gamesCurrentTile[currentPlayer] + roll;
+			if (gamesCurrentTile[currentPlayer] > 11) gamesCurrentTile[currentPlayer] = gamesCurrentTile[currentPlayer] - 12;
 			
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
-					+ gameTiles[currentPlayer]);
+					+ gamesCurrentTile[currentPlayer]);
 			System.out.println("The category is " + currentCategory());
 			askQuestion();
 		}
@@ -100,15 +100,15 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (gameTiles[currentPlayer] == 0) return "Pop";
-		if (gameTiles[currentPlayer] == 4) return "Pop";
-		if (gameTiles[currentPlayer] == 8) return "Pop";
-		if (gameTiles[currentPlayer] == 1) return "Science";
-		if (gameTiles[currentPlayer] == 5) return "Science";
-		if (gameTiles[currentPlayer] == 9) return "Science";
-		if (gameTiles[currentPlayer] == 2) return "Sports";
-		if (gameTiles[currentPlayer] == 6) return "Sports";
-		if (gameTiles[currentPlayer] == 10) return "Sports";
+		if (gamesCurrentTile[currentPlayer] == 0) return "Pop";
+		if (gamesCurrentTile[currentPlayer] == 4) return "Pop";
+		if (gamesCurrentTile[currentPlayer] == 8) return "Pop";
+		if (gamesCurrentTile[currentPlayer] == 1) return "Science";
+		if (gamesCurrentTile[currentPlayer] == 5) return "Science";
+		if (gamesCurrentTile[currentPlayer] == 9) return "Science";
+		if (gamesCurrentTile[currentPlayer] == 2) return "Sports";
+		if (gamesCurrentTile[currentPlayer] == 6) return "Sports";
+		if (gamesCurrentTile[currentPlayer] == 10) return "Sports";
 		return "Rock";
 	}
 
