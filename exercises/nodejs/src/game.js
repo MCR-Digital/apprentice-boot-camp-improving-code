@@ -46,11 +46,11 @@ var Game = function () {
     return numberOfPlayers >= 2
   }
 
-  this.add = function (playerName) {
+  this.addNewPlayer = function (playerName) {
     players.push(playerName)
-    places[this.howManyPlayers() - 1] = 0
-    purses[this.howManyPlayers() - 1] = 0
-    inPenaltyBox[this.howManyPlayers() - 1] = false
+    places[this.numberOfPlayers() - 1] = 0
+    purses[this.numberOfPlayers() - 1] = 0
+    inPenaltyBox[this.numberOfPlayers() - 1] = false
 
     console.log(playerName + ' was added')
     console.log('They are player number ' + players.length)
@@ -58,7 +58,7 @@ var Game = function () {
     return true
   }
 
-  this.howManyPlayers = function () {
+  this.numberOfPlayers = function () {
     return players.length
   }
 
@@ -152,9 +152,9 @@ const gameRunner = (i) => {
 
   var game = new Game()
 
-  game.add('Chet')
-  game.add('Pat')
-  game.add('Sue')
+  game.addNewPlayer('Chet')
+  game.addNewPlayer('Pat')
+  game.addNewPlayer('Sue')
 
   const random = generator.create(i)
 
