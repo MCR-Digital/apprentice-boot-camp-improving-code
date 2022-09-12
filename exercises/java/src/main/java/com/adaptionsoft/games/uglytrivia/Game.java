@@ -25,7 +25,7 @@ public class Game {
 		addQuestionsToCategories(50);
     }
 
-	public void addQuestionsToCategories(int maxQuestions) {
+	private void addQuestionsToCategories(int maxQuestions) {
 		for (int i = 0; i < maxQuestions; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
