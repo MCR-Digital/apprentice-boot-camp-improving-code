@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 public class Game {
 	public static final int MAX_TILES = 12;
+	public static final int NUMBER_OF_COINS_TO_WIN = 6;
 	ArrayList players = new ArrayList();
     int[] currentTile = new int[6];
     int[] coins = new int[6];
@@ -141,6 +142,6 @@ public class Game {
 	}
 
 	private boolean didPlayerWin() {
-		return !(coins[currentPlayer] == 6);
+		return !(coins[currentPlayer] == NUMBER_OF_COINS_TO_WIN);
 	}
 }
