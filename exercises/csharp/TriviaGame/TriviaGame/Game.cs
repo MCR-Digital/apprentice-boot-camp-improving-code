@@ -7,24 +7,25 @@ namespace TriviaGame
 {
     public class Game
     {
+        private const int maxPlayers = 6;
+        private const int minimumPlayers = 2;
+        private int numberOfQuestions = 50;
+
         List<string> playerNames = new List<string>();
-
-        int[] playerPlace = new int[6];
-        int[] playerPurse = new int[6];
-
-        bool[] inPenaltyBox = new bool[6];
-
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
         LinkedList<string> sportsQuestions = new LinkedList<string>();
         LinkedList<string> rockQuestions = new LinkedList<string>();
 
-        int currentPlayer = 0;
+        private int currentPlayer;
         bool isCurrentPlayerLeavingPenaltyBox;
+        int[] playerPlace = new int[maxPlayers];
+        int[] playerPurse = new int[maxPlayers];
+        bool[] inPenaltyBox = new bool[maxPlayers];
 
         public Game()
         {
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < numberOfQuestions; i++)
             {
                 popQuestions.AddLast(CreateQuestion("Pop", i));
                 scienceQuestions.AddLast(CreateQuestion("Science", i));
@@ -40,14 +41,12 @@ namespace TriviaGame
 
         public bool HasEnoughPlayers()
         {
-            return (GetTotalPlayers() >= 2);
+            return (GetTotalPlayers() >= minimumPlayers);
         }
 
         public bool AddPlayer(string playerName)
         {
             playerNames.Add(playerName);
-            playerPlace[GetTotalPlayers()] = 0;
-            playerPurse[GetTotalPlayers()] = 0;
             inPenaltyBox[GetTotalPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
@@ -67,7 +66,7 @@ namespace TriviaGame
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (rollResult % 2 != 0)
+                if (isEven(rollResult))
                 {
                     isCurrentPlayerLeavingPenaltyBox = true;
 
@@ -201,6 +200,11 @@ namespace TriviaGame
         private bool DidPlayerWin()
         {
             return !(playerPurse[currentPlayer] == 6);
+        }
+
+        private static bool isEven(int rollResult)
+        {
+            return rollResult % 2 != 0;
         }
     }
 
