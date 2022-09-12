@@ -42,8 +42,8 @@ var Game = function () {
     rockQuestions.push(this.createRockQuestion(i))
   }
 
-  this.isPlayable = function (howManyPlayers) {
-    return howManyPlayers >= 2
+  this.isPlayable = function (numberOfPlayers) {
+    return numberOfPlayers >= 2
   }
 
   this.add = function (playerName) {
