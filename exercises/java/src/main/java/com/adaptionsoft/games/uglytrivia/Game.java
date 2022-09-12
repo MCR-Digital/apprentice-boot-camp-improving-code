@@ -101,15 +101,9 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		if (currentTile[currentPlayer] == 0) return "Pop";
-		if (currentTile[currentPlayer] == 4) return "Pop";
-		if (currentTile[currentPlayer] == 8) return "Pop";
-		if (currentTile[currentPlayer] == 1) return "Science";
-		if (currentTile[currentPlayer] == 5) return "Science";
-		if (currentTile[currentPlayer] == 9) return "Science";
-		if (currentTile[currentPlayer] == 2) return "Sports";
-		if (currentTile[currentPlayer] == 6) return "Sports";
-		if (currentTile[currentPlayer] == 10) return "Sports";
+		if(currentTile[currentPlayer] % 4 == 0) return "Pop";
+		if(currentTile[currentPlayer] % 4 == 1) return "Science";
+		if(currentTile[currentPlayer] % 4 == 2) return "Sports";
 		return "Rock";
 	}
 
