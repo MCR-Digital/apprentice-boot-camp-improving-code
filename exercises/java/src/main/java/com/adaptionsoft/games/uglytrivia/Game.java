@@ -34,7 +34,7 @@ public class Game {
 		return (howManyPlayers() >= 2);
 	}
 
-	public boolean add(String playerName) {
+	public boolean addNewPlayerToGame(String playerName) {
 		
 		
 	    players.add(playerName);
