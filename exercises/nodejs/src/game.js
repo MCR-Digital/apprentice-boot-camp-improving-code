@@ -5,11 +5,18 @@ var Game = function () {
   var places = new Array(6)
   var purses = new Array(6)
   var inPenaltyBox = new Array(6)
+  var numberOfFields = 12
 
   var popQuestions = new Array()
   var scienceQuestions = new Array()
   var sportsQuestions = new Array()
   var rockQuestions = new Array()
+
+  // var questions = [popQuestions, scienceQuestions, sportsQuestions, rockQuestions]
+  // var categories = ['Pop', 'Science', 'Sports', 'Rock']
+  // var Questions = {Pop:popQuestions, Science:scienceQuestions, Sports:sportsQuestions,Rock: rockQuestions}
+
+  var maxQuestionsInCategory = 50
 
   var currentPlayer = 0
   var isGettingOutOfPenaltyBox = false
@@ -29,11 +36,21 @@ var Game = function () {
     return category + ' Question ' + index
   }
 
-  for (var i = 0; i < 50; i++) {
+  for (var i = 0; i < maxQuestionsInCategory; i++) {
     popQuestions.push(this.createQuestion('Pop', i))
     scienceQuestions.push(this.createQuestion('Science', i))
     sportsQuestions.push(this.createQuestion('Sports', i))
     rockQuestions.push(this.createQuestion('Rock', i))
+    
+    // for (var j = 0; j < questions.length; i++) {
+    //   questions[j].push(this.createQuestion(categories[j], i))
+    // }   // Good idea, but hard to implement
+
+    // TRY THIS ONE
+    // for (var j = 0; j < Object.keys(Questions).length; j++) {
+    //   Questions.Object.keys[j].push(this.createQuestion(Object.keys[j], i))
+    // }
+
   }
 
   this.isEnoughPlayers = function (howManyPlayers) {
@@ -73,8 +90,8 @@ var Game = function () {
 
         console.log(playerNames[currentPlayer] + ' is getting out of the penalty box')
         places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > 11) {
-          places[currentPlayer] = places[currentPlayer] - 12
+        if (places[currentPlayer] > (numberOfFields-1)) {
+          places[currentPlayer] = places[currentPlayer] - numberOfFields
         }
 
         console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
@@ -86,8 +103,8 @@ var Game = function () {
       }
     } else {
       places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > 11) {
-        places[currentPlayer] = places[currentPlayer] - 12
+      if (places[currentPlayer] > (numberOfFields-1)) {
+        places[currentPlayer] = places[currentPlayer] - numberOfFields
       }
 
       console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
