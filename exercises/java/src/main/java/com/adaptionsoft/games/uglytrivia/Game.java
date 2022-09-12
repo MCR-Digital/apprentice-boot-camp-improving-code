@@ -14,31 +14,32 @@ public class Game {
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
-
-
+    List<String> board = new ArrayList<>();
+    static final int NUMBER_OF_QUESTIONS = 50;
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
     public Game() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast(createRockQuestion(i));
+        for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
+            popQuestions.addLast(createQuestion(i,"Pop"));
+            scienceQuestions.addLast(createQuestion(i,"Science"));
+            sportsQuestions.addLast(createQuestion(i,"Sports"));
+            rockQuestions.addLast(createQuestion(i,"Rock"));
+        }
+        for (int i = 0; i < 3; i++) {
+            board.add("Pop");
+            board.add("Science");
+            board.add("Sports");
+            board.add("Rock");
         }
     }
 
-    public String createRockQuestion(int index) {
-        return "Rock Question " + index;
+    public String createQuestion(int index, String category) {
+        return  category + " Question " + index;
     }
 
-    public boolean isPlayable() {
-        return (numberOfPlayers() >= 2);
-    }
 
     public boolean addNewPlayer(String playerName) {
-
-
         players.add(playerName);
         places[numberOfPlayers()] = 0;
         cointCount[numberOfPlayers()] = 0;
@@ -87,7 +88,7 @@ public class Game {
 
     private void movePlayer(int roll) {
         places[currentPlayer] = places[currentPlayer] + roll;
-        if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+        if (places[currentPlayer] > board.size() - 1) places[currentPlayer] = places[currentPlayer] - board.size();
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
                 + places[currentPlayer]);
@@ -95,15 +96,7 @@ public class Game {
     }
 
     private String currentCategory() {
-        int categoryNumber = places[currentPlayer];
-        List<String> topics = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            topics.add("Pop");
-            topics.add("Science");
-            topics.add("Sports");
-            topics.add("Rock");
-        }
-        return topics.get(categoryNumber);
+        return board.get( places[currentPlayer]);
     }
 
     public boolean wasCorrectlyAnswered() {
