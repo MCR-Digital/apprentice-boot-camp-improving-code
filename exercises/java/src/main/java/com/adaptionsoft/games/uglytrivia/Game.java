@@ -36,8 +36,6 @@ public class Game {
 	}
 
 	public boolean addPlayerToGame(String playerName) {
-		
-		
 	    players.add(playerName);
 	    currentTile[howManyPlayers()] = 0;
 	    coins[howManyPlayers()] = 0;
@@ -71,7 +69,6 @@ public class Game {
 			playerRolls(numberRolled);
 			askQuestion();
 		}
-		
 	}
 
 	private void playerRolls(int roll) {
@@ -107,18 +104,18 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (isInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
-				return correctlyAnswered("Answer was correct!!!!");
+				return correctAnswer("Answer was correct!!!!");
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
 		} else {
-			return correctlyAnswered("Answer was corrent!!!!");
+			return correctAnswer("Answer was corrent!!!!");
 		}
 	}
 
-	private boolean correctlyAnswered(String message) {
+	private boolean correctAnswer(String message) {
 		System.out.println(message);
 		coins[currentPlayer]++;
 		System.out.println(players.get(currentPlayer)
@@ -142,7 +139,6 @@ public class Game {
 		if (currentPlayer == players.size()) currentPlayer = 0;
 		return true;
 	}
-
 
 	private boolean didPlayerWin() {
 		return !(coins[currentPlayer] == 6);
