@@ -136,7 +136,7 @@ var Game = function () {
     }
   }
 
-  this.wrongAnswer = function () {
+  this.wasWronglyAnswered = function () {
     console.log('Question was incorrectly answered')
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
@@ -162,7 +162,7 @@ const gameRunner = (i) => {
     game.roll(random.range(5) + 1)
 
     if (random.range(9) == 7) {
-      notAWinner = game.wrongAnswer()
+      notAWinner = game.wasWronglyAnswered()
     } else {
       notAWinner = game.wasCorrectlyAnswered()
     }
