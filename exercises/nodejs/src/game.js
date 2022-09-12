@@ -96,9 +96,7 @@ var Game = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
         console.log('Answer was correct!!!!')
-        playerPurses[currentPlayer] += 1
-        console.log(playerNames[currentPlayer] + ' now has ' +
-            playerPurses[currentPlayer] + ' Gold Coins.')
+        increasePurse()
 
         var winner = didPlayerWin()
         nextPlayer()
@@ -109,11 +107,9 @@ var Game = function () {
         return true
       }
     } else {
-      console.log('Answer was correct!!!!')
 
-      playerPurses[currentPlayer] += 1
-      console.log(playerNames[currentPlayer] + ' now has ' +
-          playerPurses[currentPlayer] + ' Gold Coins.')
+      console.log('Answer was correct!!!!')
+      increasePurse()
 
       var winner = didPlayerWin()
 
@@ -121,10 +117,14 @@ var Game = function () {
       return winner
     }
 
+
+    function increasePurse() {
+      playerPurses[currentPlayer] += 1
+      console.log(playerNames[currentPlayer] + ' now has ' +
+        playerPurses[currentPlayer] + ' Gold Coins.')
+    }
   }
   
- 
-
   this.questionAnsweredIncorrectly = function () {
     console.log('Question was incorrectly answered')
     console.log(playerNames[currentPlayer] + ' was sent to the penalty box')
