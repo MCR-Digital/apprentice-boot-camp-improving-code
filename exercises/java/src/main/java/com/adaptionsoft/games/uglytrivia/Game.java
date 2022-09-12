@@ -101,7 +101,7 @@ public class Game {
 		return "Rock";
 	}
 
-	public boolean wasCorrectlyAnswered() {
+	public boolean checkAnswer() {
 		if (isInPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				return correctAnswer("Answer was correct!!!!");
