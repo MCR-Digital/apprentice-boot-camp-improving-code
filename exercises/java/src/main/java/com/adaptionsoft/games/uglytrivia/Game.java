@@ -18,11 +18,11 @@ public class Game {
     boolean isPlayerGettingOutOfPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int count = 0; count < 50; count++) {
+			popQuestions.addLast("Pop Question " + count);
+			scienceQuestions.addLast(("Science Question " + count));
+			sportsQuestions.addLast(("Sports Question " + count));
+			rockQuestions.addLast(createRockQuestion(count));
     	}
     }
 
@@ -66,7 +66,7 @@ public class Game {
 				System.out.println(players.get(currentPlayer) 
 						+ "'s new location is " 
 						+ gamesCurrentTile[currentPlayer]);
-				System.out.println("The category is " + currentCategory());
+				System.out.println("The category is " + currentCategory(gamesCurrentTile[currentPlayer]));
 				askQuestion();
 			} else {
 				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
@@ -81,26 +81,31 @@ public class Game {
 			System.out.println(players.get(currentPlayer) 
 					+ "'s new location is " 
 					+ gamesCurrentTile[currentPlayer]);
-			System.out.println("The category is " + currentCategory());
+			System.out.println("The category is " + currentCategory(gamesCurrentTile[currentPlayer]));
 			askQuestion();
 		}
 		
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());		
+		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Pop") {
+			printAndRemoveQuestion(popQuestions);
+		}
+		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Science")
+			printAndRemoveQuestion(scienceQuestions);
+		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Sports")
+			printAndRemoveQuestion(sportsQuestions);
+		if (currentCategory(gamesCurrentTile[currentPlayer]) == "Rock")
+			printAndRemoveQuestion(rockQuestions);
 	}
-	
-	
-	private String currentCategory() {
-		if (gamesCurrentTile[currentPlayer] == 0) return "Pop";
+
+	private void printAndRemoveQuestion(LinkedList questions) {
+		System.out.println(questions.removeFirst());
+	}
+
+
+	private String currentCategory(int playerCurrentTile) {
+		if (playerCurrentTile == 0) return "Pop";
 		if (gamesCurrentTile[currentPlayer] == 4) return "Pop";
 		if (gamesCurrentTile[currentPlayer] == 8) return "Pop";
 		if (gamesCurrentTile[currentPlayer] == 1) return "Science";
@@ -151,7 +156,7 @@ public class Game {
 			return winner;
 		}
 	}
-	
+
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
