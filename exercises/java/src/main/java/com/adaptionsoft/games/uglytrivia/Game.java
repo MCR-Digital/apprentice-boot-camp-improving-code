@@ -21,14 +21,18 @@ public class Game {
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
     
-    public  Game(){
-    	for (int i = 0; i < 50; i++) {
+    public Game(){
+		addQuestionsToCategories(50);
+    }
+
+	public void addQuestionsToCategories(int maxQuestions) {
+		for (int i = 0; i < maxQuestions; i++) {
 			popQuestions.addLast("Pop Question " + i);
 			scienceQuestions.addLast(("Science Question " + i));
 			sportsQuestions.addLast(("Sports Question " + i));
 			rockQuestions.addLast(createRockQuestion(i));
-    	}
-    }
+		}
+	}
 
 	public String createRockQuestion(int index){
 		return "Rock Question " + index;
