@@ -72,20 +72,19 @@ var Game = function () {
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
 
-    if (inPenaltyBox[currentPlayer]) {
+    if (inPenaltyBox[currentPlayer]){
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        movePlayer()
-        askQuestion()
       } else {
         console.log(players[currentPlayer] + ' is not getting out of the penalty box')
         isGettingOutOfPenaltyBox = false
+        return
       }
-    } else {
-        movePlayer()
-        askQuestion()
-    }
+    } 
+
+    movePlayer()
+    askQuestion()
 
     function movePlayer() {
       places[currentPlayer] = places[currentPlayer] + roll
@@ -93,7 +92,6 @@ var Game = function () {
         places[currentPlayer] = places[currentPlayer] - 12
       }
       console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
-
     }
   }
 
