@@ -217,7 +217,7 @@ namespace TriviaGame
             return playerPurse[currentPlayer] != maxCoins;
         }
 
-        private static bool isEven(int rollResult)
+        private static bool isOdd(int rollResult)
         {
             return rollResult % 2 != 0;
         }
