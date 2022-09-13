@@ -6,11 +6,6 @@ var Game = function () {
   var playerPurses = new Array(6)
   var inPenaltyBox = new Array(6)
 
-  var popQuestions = new Array()
-  var scienceQuestions = new Array()
-  var sportsQuestions = new Array()
-  var rockQuestions = new Array()
-
   const questionCategories = {
     'Pop': new Array(),
     'Science': new Array(),
@@ -38,9 +33,11 @@ var Game = function () {
     return category + ' Question ' + index
   }
 
-  for (var i = 0; i < NumberOfQuestions; i++) {
-    for(let category of Object.keys(questionCategories)) {
-      questionCategories[category].push(this.createQuestion(category, i))
+  this.createQuestionSet = function () {
+    for (var i = 0; i < NumberOfQuestions; i++) {
+      for(let category of Object.keys(questionCategories)) {
+        questionCategories[category].push(this.createQuestion(category, i))
+      }
     }
   }
 
@@ -56,7 +53,6 @@ var Game = function () {
 
     console.log(playerName + ' was added')
     console.log('They are player number ' + playerNames.length)
-
     return true
   }
 
@@ -115,14 +111,11 @@ var Game = function () {
       nextPlayer()
       return winner
     }
-
-
   }
-  
+
   function increasePurse() {
     playerPurses[currentPlayer] += 1
-    console.log(playerNames[currentPlayer] + ' now has ' +
-      playerPurses[currentPlayer] + ' Gold Coins.')
+    console.log(playerNames[currentPlayer] + ' now has ' + playerPurses[currentPlayer] + ' Gold Coins.')
   }
   
   this.questionAnsweredIncorrectly = function () {
@@ -136,7 +129,7 @@ var Game = function () {
 
   function nextPlayer() {
     currentPlayer += 1
-    if (currentPlayer == playerNames.length) { currentPlayer = 0} 
+    if (currentPlayer == playerNames.length) { currentPlayer = 0}
   }
 
   function movePlayerPosition(playerPositions, currentPlayer, roll) {
@@ -154,6 +147,8 @@ const gameRunner = (i) => {
   var notAWinner = false
 
   var game = new Game()
+  
+  game.createQuestionSet()
 
   game.addPlayer('Chet')
   game.addPlayer('Pat')
