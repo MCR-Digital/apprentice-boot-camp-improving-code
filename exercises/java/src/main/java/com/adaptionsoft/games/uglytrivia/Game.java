@@ -6,18 +6,13 @@ import java.util.LinkedList;
 public class Game {
 	public static final int MAX_TILE_LIMIT = 11;
 	public static final int TOTAL_TILES = 12;
-	ArrayList players = new ArrayList();
-    int[] playerPosition = new int[6];
-    int[] coinCount = new int[6];
-    boolean[] isInPenaltyBox = new boolean[6];
-    
+	ArrayList<Player> players = new ArrayList<Player>();
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
     
     int currentPlayer = 0;
-    boolean isLeavingPenaltyBox;
 
 	String[] tiles =
 			new String[] {
@@ -27,7 +22,6 @@ public class Game {
 			};
     
     public  Game(){
-		// this could be much better
     	for (int index = 0; index < 50; index++) {
 			popQuestions.addLast(createQuestion("Pop", index));
 			scienceQuestions.addLast(createQuestion("Science", index));
@@ -35,8 +29,6 @@ public class Game {
 			rockQuestions.addLast(createQuestion("Rock", index));
     	}
     }
-
-	//this should be in a Category class
 	public String createQuestion(String subject, int index) {
 		return subject + " Question " + index;
 	}
@@ -46,11 +38,7 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-
-	    players.add(playerName);
-	    playerPosition[amountOfPlayers()] = 0;
-	    coinCount[amountOfPlayers()] = 0;
-	    isInPenaltyBox[amountOfPlayers()] = false;
+	    players.add(new Player(playerName));
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
@@ -63,10 +51,10 @@ public class Game {
 	}
 
 	public void turn(int roll) {
-		System.out.println(players.get(currentPlayer) + " is the current player");
+		System.out.println(players.get(currentPlayer).getName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 		
-		if (isInPenaltyBox[currentPlayer]) {
+		if (players.get(currentPlayer).isInPenaltyBox()) {
 			if (roll % 2 != 0) {
 				leavePenaltyBox();
 				movePlayer(roll);
@@ -83,29 +71,33 @@ public class Game {
 	}
 
 	private void leavePenaltyBox() {
-		isLeavingPenaltyBox = true;
-		System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+		players.get(currentPlayer).setIsLeavingPenaltyBox(true);
+		System.out.println(players.get(currentPlayer).getName() + " is getting out of the penalty box");
 	}
 
 	private void remainInPenaltyBox() {
-		System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-		isLeavingPenaltyBox = false;
+		players.get(currentPlayer).setIsLeavingPenaltyBox(false);
+		System.out.println(players.get(currentPlayer).getName() + " is not getting out of the penalty box");
 	}
 
 	private void movePlayer(int roll) {
-		//TODO: change TOTAL_TILES name
+		players.get(currentPlayer).setPlayerPosition(
+				players.get(currentPlayer).getPlayerPosition() + roll
+		);
 
-		setPlayerPosition(getPlayerPosition() + roll);
-		if (getPlayerPosition() > MAX_TILE_LIMIT) setPlayerPosition(getPlayerPosition() - TOTAL_TILES);
+		if (players.get(currentPlayer).getPlayerPosition() > MAX_TILE_LIMIT) {
+			players.get(currentPlayer).setPlayerPosition(
+					players.get(currentPlayer).getPlayerPosition() - TOTAL_TILES
+			);
+		}
 
-		System.out.println(players.get(currentPlayer)
+		System.out.println(players.get(currentPlayer).getName()
 				+ "'s new location is "
-				+ getPlayerPosition());
+				+ players.get(currentPlayer).getPlayerPosition());
 		System.out.println("The category is " + currentCategory());
 	}
 
 	private void askQuestion() {
-		// replace with switch?
 		if (currentCategory() == "Pop")
 			System.out.println(popQuestions.removeFirst());
 		if (currentCategory() == "Science")
@@ -118,33 +110,22 @@ public class Game {
 	
 	
 	private String currentCategory() {
-		// add a method in the enum that translates between int and string of pop
-//		if (playerPosition[currentPlayer] % AMOUNT_OF_CATEGORIES == Categories.POP) return "Pop";
-
-		if (tiles[getPlayerPosition()].equals("Pop")) {
+		if (tiles[players.get(currentPlayer).getPlayerPosition()].equals("Pop")) {
 			return "Pop";
-		} else if (tiles[getPlayerPosition()].equals("Science")) {
+		} else if (tiles[players.get(currentPlayer).getPlayerPosition()].equals("Science")) {
 			return "Science";
-		} else if (tiles[getPlayerPosition()].equals("Sports")) {
+		} else if (tiles[players.get(currentPlayer).getPlayerPosition()].equals("Sports")) {
 			return "Sports";
-		} else if (tiles[getPlayerPosition()].equals("Rock")) {
+		} else if (tiles[players.get(currentPlayer).getPlayerPosition()].equals("Rock")) {
 			return "Rock";
 		} else {
 			return "Invalid player position";
 		}
 	}
 
-	private int getPlayerPosition() {
-		return playerPosition[currentPlayer];
-	}
-
-	private void setPlayerPosition(int newPosition) {
-		playerPosition[currentPlayer] = newPosition;
-	}
-
 	public boolean wasCorrectlyAnswered() {
-		if (isInPenaltyBox[currentPlayer]){
-			if (isLeavingPenaltyBox) {
+		if (players.get(currentPlayer).isInPenaltyBox()){
+			if (players.get(currentPlayer).isLeavingPenaltyBox()) {
 				incrementCoinCount();
 				return didPlayerWin();
 			} else {
@@ -163,22 +144,24 @@ public class Game {
 
 	private void incrementCoinCount() {
 		System.out.println("Answer was correct!!!!");
-		coinCount[currentPlayer]++;
-		System.out.println(players.get(currentPlayer)
+		players.get(currentPlayer).setCoinCount(
+				players.get(currentPlayer).getCoinCount() + 1
+		);
+		System.out.println(players.get(currentPlayer).getName()
 				+ " now has "
-				+ coinCount[currentPlayer]
+				+  players.get(currentPlayer).getCoinCount()
 				+ " Gold Coins.");
 	}
 
 	public boolean isWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		isInPenaltyBox[currentPlayer] = true;
+		System.out.println(players.get(currentPlayer).getName() + " was sent to the penalty box");
+		players.get(currentPlayer).setIsInPenaltyBox(true);
 
 		return true;
 	}
 	
 	private boolean didPlayerWin() {
-		return !(coinCount[currentPlayer] == 6);
+		return !(players.get(currentPlayer).getCoinCount() == 6);
 	}
 }
