@@ -26,6 +26,9 @@ public class Player {
 
 
     }
+    public void turnPenltyTrue(){
+        penaltyBox = true;
+    }
 
 
     public int getCoins() {

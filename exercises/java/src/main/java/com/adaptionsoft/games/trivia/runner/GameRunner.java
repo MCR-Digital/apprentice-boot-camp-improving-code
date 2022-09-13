@@ -17,6 +17,7 @@ public class GameRunner {
 		aGame.addPlayers(new Player("Chet"));
 		aGame.addPlayers(new Player("Pat"));
 		aGame.addPlayers(new Player("Sue"));
+		aGame.startGame();
 		
 		Random rand = new Random(Integer.parseInt(args[0]));
 	
