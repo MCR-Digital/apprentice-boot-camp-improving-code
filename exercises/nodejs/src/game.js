@@ -74,6 +74,8 @@ var Game = function () {
   }
 
   var askQuestion = function () {
+    console.log('The category is ' + currentCategory())
+
     if (currentCategory() == 'Pop') { console.log(popQuestions.shift()) }
     if (currentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
     if (currentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
@@ -85,31 +87,27 @@ var Game = function () {
     console.log('They have rolled a ' + roll)
 
     if (inPenaltyBox[currentPlayer]) {
-      if (roll % 2 != 0) {
+      if (roll % 2 !== 0) {
         isGettingOutOfPenaltyBox = true
 
         console.log(playerNames[currentPlayer] + ' is getting out of the penalty box')
-        places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > (numberOfFields-1)) {
-          places[currentPlayer] = places[currentPlayer] - numberOfFields
-        }
-
-        console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
-        console.log('The category is ' + currentCategory())
+        movePlayer()
         askQuestion()
       } else {
         console.log(playerNames[currentPlayer] + ' is not getting out of the penalty box')
         isGettingOutOfPenaltyBox = false
       }
     } else {
+      movePlayer()
+      askQuestion()
+    }
+
+    function movePlayer() {
       places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > (numberOfFields-1)) {
+      if (places[currentPlayer] > (numberOfFields - 1)) {
         places[currentPlayer] = places[currentPlayer] - numberOfFields
       }
-
       console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
-      console.log('The category is ' + currentCategory())
-      askQuestion()
     }
   }
 
