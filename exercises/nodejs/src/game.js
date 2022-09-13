@@ -69,8 +69,7 @@ var Game = function () {
   }
 
   this.roll = function (roll) {
-    console.log(players[currentPlayer] + ' is the current player')
-    console.log('They have rolled a ' + roll)
+    displayGameState()
 
     if (inPenaltyBox[currentPlayer]){
       if (roll % 2 != 0) {
@@ -85,6 +84,11 @@ var Game = function () {
 
     movePlayer()
     askQuestion()
+
+    function displayGameState() {
+      console.log(players[currentPlayer] + ' is the current player')
+      console.log('They have rolled a ' + roll)
+    }
 
     function movePlayer() {
       places[currentPlayer] = places[currentPlayer] + roll
