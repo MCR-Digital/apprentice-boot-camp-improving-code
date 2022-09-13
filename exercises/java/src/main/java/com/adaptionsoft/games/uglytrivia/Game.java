@@ -59,16 +59,20 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
-				moveFromPenaltyBox(roll);
-			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
-				}
+			checkIfCanLeavePenaltyBox(roll);
 		} else {
 			movePlayer(roll);
 		}
+	}
+
+	private void checkIfCanLeavePenaltyBox(int roll) {
+		if (roll % 2 != 0) {
+			isGettingOutOfPenaltyBox = true;
+			moveFromPenaltyBox(roll);
+		} else {
+			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+			isGettingOutOfPenaltyBox = false;
+			}
 	}
 
 	private void movePlayer(int roll) {
@@ -116,18 +120,13 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]){
 			if (isGettingOutOfPenaltyBox) {
 				checkIfAnswerIsCorrect("Answer was correct!!!!");
-
 				return winner();
 			} else {
 				currentPlayer++;
 				if (currentPlayer == players.size()) currentPlayer = 0;
 				return true;
 			}
-			
-			
-			
 		} else {
-
 			checkIfAnswerIsCorrect("Answer was corrent!!!!");
 			return winner();
 		}
@@ -137,7 +136,6 @@ public class Game {
 		boolean winner = didPlayerWin();
 		currentPlayer++;
 		if (currentPlayer == players.size()) currentPlayer = 0;
-
 		return winner;
 	}
 
