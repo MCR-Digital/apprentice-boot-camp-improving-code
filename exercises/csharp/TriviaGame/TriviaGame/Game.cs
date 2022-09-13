@@ -2,14 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace TriviaGame
 {
     public class Game
     {
         private const int maxPlayers = 6;
+        private const int maxCoins = 6;
         private const int minimumPlayers = 2;
         private int numberOfQuestions = 50;
+
+        private const string popCategory = "Pop";
+        private const string sportsCategory = "Sports";
+        private const string scienceCategory = "Science";
+        private const string rockCategory = "Rock";
 
         List<string> playerNames = new List<string>();
         LinkedList<string> popQuestions = new LinkedList<string>();
@@ -22,15 +27,16 @@ namespace TriviaGame
         int[] playerPlace = new int[maxPlayers];
         int[] playerPurse = new int[maxPlayers];
         bool[] inPenaltyBox = new bool[maxPlayers];
+        private int _totalPlaces;
 
         public Game()
         {
             for (int i = 0; i < numberOfQuestions; i++)
             {
-                popQuestions.AddLast(CreateQuestion("Pop", i));
-                scienceQuestions.AddLast(CreateQuestion("Science", i));
-                sportsQuestions.AddLast(CreateQuestion("Sports", i));
-                rockQuestions.AddLast(CreateQuestion("Rock", i));
+                popQuestions.AddLast(CreateQuestion(popCategory, i));
+                scienceQuestions.AddLast(CreateQuestion(scienceCategory, i));
+                sportsQuestions.AddLast(CreateQuestion(sportsCategory, i));
+                rockQuestions.AddLast(CreateQuestion(rockCategory, i));
             }
         }
 
@@ -64,6 +70,7 @@ namespace TriviaGame
             Console.WriteLine(playerNames[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + rollResult);
 
+            _totalPlaces = 12;
             if (inPenaltyBox[currentPlayer])
             {
                 if (isEven(rollResult))
@@ -72,7 +79,7 @@ namespace TriviaGame
 
                     Console.WriteLine(playerNames[currentPlayer] + " is getting out of the penalty box");
                     playerPlace[currentPlayer] += rollResult;
-                    if (playerPlace[currentPlayer] > 11) playerPlace[currentPlayer] -= 12;
+                    if (playerPlace[currentPlayer] >= _totalPlaces) playerPlace[currentPlayer] -= _totalPlaces;
 
                     Console.WriteLine(playerNames[currentPlayer]
                             + "'s new location is "
@@ -89,7 +96,7 @@ namespace TriviaGame
             else
             {
                 playerPlace[currentPlayer] += rollResult;
-                if (playerPlace[currentPlayer] > 11) playerPlace[currentPlayer] -= 12;
+                if (playerPlace[currentPlayer] >= _totalPlaces) playerPlace[currentPlayer] -= _totalPlaces;
 
                 Console.WriteLine(playerNames[currentPlayer]
                         + "'s new location is "
@@ -102,22 +109,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (GetCurrentCategory() == "Pop")
+            if (GetCurrentCategory() == popCategory)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (GetCurrentCategory() == "Science")
+            if (GetCurrentCategory() == scienceCategory)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (GetCurrentCategory() == "Sports")
+            if (GetCurrentCategory() == sportsCategory)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (GetCurrentCategory() == "Rock")
+            if (GetCurrentCategory() == rockCategory)
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -127,16 +134,16 @@ namespace TriviaGame
 
         private string GetCurrentCategory()
         {
-            if (playerPlace[currentPlayer] == 0) return "Pop";
-            if (playerPlace[currentPlayer] == 4) return "Pop";
-            if (playerPlace[currentPlayer] == 8) return "Pop";
-            if (playerPlace[currentPlayer] == 1) return "Science";
-            if (playerPlace[currentPlayer] == 5) return "Science";
-            if (playerPlace[currentPlayer] == 9) return "Science";
-            if (playerPlace[currentPlayer] == 2) return "Sports";
-            if (playerPlace[currentPlayer] == 6) return "Sports";
-            if (playerPlace[currentPlayer] == 10) return "Sports";
-            return "Rock";
+            if (playerPlace[currentPlayer] == 0) return popCategory;
+            if (playerPlace[currentPlayer] == 4) return popCategory;
+            if (playerPlace[currentPlayer] == 8) return popCategory;
+            if (playerPlace[currentPlayer] == 1) return scienceCategory;
+            if (playerPlace[currentPlayer] == 5) return scienceCategory;
+            if (playerPlace[currentPlayer] == 9) return scienceCategory;
+            if (playerPlace[currentPlayer] == 2) return sportsCategory;
+            if (playerPlace[currentPlayer] == 6) return sportsCategory;
+            if (playerPlace[currentPlayer] == 10) return sportsCategory;
+            return rockCategory;
         }
 
         public bool IsCorrectAnswer()
@@ -199,7 +206,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(playerPurse[currentPlayer] == 6);
+            return playerPurse[currentPlayer] != maxCoins;
         }
 
         private static bool isEven(int rollResult)
