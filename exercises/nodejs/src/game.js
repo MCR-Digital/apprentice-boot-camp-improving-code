@@ -21,7 +21,7 @@ var Game = function () {
   var isGettingOutOfPenaltyBox = false
 
   var didPlayerWin = function () {
-    return !(purses[currentPlayer] == 6)
+    return !(players[currentPlayer].purse == 6)
   }
 
   var currentCategory = function () {
@@ -128,9 +128,9 @@ var Game = function () {
     }
 
     function addCoin() {
-      purses[currentPlayer] += 1
+      players[currentPlayer].purse += 1
       console.log(players[currentPlayer].playerName + ' now has ' +
-        purses[currentPlayer] + ' Gold Coins.')
+        players[currentPlayer].purse + ' Gold Coins.')
     }
   }
 
