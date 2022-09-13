@@ -21,10 +21,10 @@ public class Game {
 
     public Game() {
         for (int i = 0; i < NUMBER_OF_QUESTIONS; i++) {
-            popQuestions.addLast(createQuestion(i,"Pop"));
-            scienceQuestions.addLast(createQuestion(i,"Science"));
-            sportsQuestions.addLast(createQuestion(i,"Sports"));
-            rockQuestions.addLast(createQuestion(i,"Rock"));
+            popQuestions.addLast(createQuestion(i, "Pop"));
+            scienceQuestions.addLast(createQuestion(i, "Science"));
+            sportsQuestions.addLast(createQuestion(i, "Sports"));
+            rockQuestions.addLast(createQuestion(i, "Rock"));
         }
         for (int i = 0; i < 3; i++) {
             board.add("Pop");
@@ -35,7 +35,7 @@ public class Game {
     }
 
     public String createQuestion(int index, String category) {
-        return ( category + " Question " + index);
+        return (category + " Question " + index);
     }
 
     public void addNewPlayer(String playerName) {
@@ -73,6 +73,7 @@ public class Game {
         }
 
     }
+
     private void askQuestion() {
         if (currentCategory() == "Pop")
             System.out.println(popQuestions.removeFirst());
@@ -80,7 +81,7 @@ public class Game {
             System.out.println(scienceQuestions.removeFirst());
         if (currentCategory() == "Sports")
             System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory().equals( "Rock"))
+        if (currentCategory().equals("Rock"))
             System.out.println(rockQuestions.removeFirst());
     }
 
@@ -96,25 +97,9 @@ public class Game {
     }
 
     private String currentCategory() {
-        return board.get( places[currentPlayer]);
+        return board.get(places[currentPlayer]);
     }
 
-//    public boolean wasCorrectlyAnswered() {
-//        if (isInPenaltyBox[currentPlayer]) {
-//            if (isGettingOutOfPenaltyBox) {
-//                System.out.println("Answer was correct!!!!");
-//                return correctAnswer();
-//            } else {
-//                currentPlayer++;
-//                if (currentPlayer == players.size()) currentPlayer = 0;
-//                return true;
-//            }
-//
-//        } else {
-//            System.out.println("Answer was corrent!!!!");
-//            return correctAnswer();
-//        }
-//    }
     private boolean correctAnswer() {
         coinCount[currentPlayer]++;
         System.out.println(players.get(currentPlayer)
@@ -128,36 +113,30 @@ public class Game {
         return winner;
     }
 
-//    public boolean wrongAnswer() {
-//
-//        return true;
-//    }
-
-public boolean answer(int roll){
-        if( roll == 7 ){
-            System.out.println("Question was incorrectly answered");
-            System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-            isInPenaltyBox[currentPlayer] = true;
+    public boolean answer(int roll) {
+        if (roll == 7) {
+            wrongAnswer();
+        } else if (isInPenaltyBox[currentPlayer] && isGettingOutOfPenaltyBox) {
+            System.out.println("Answer was correct!!!!");
+            return correctAnswer();
+        } else if (isInPenaltyBox[currentPlayer]) {
             nextPlayer();
-
-        } else {
-            if (isInPenaltyBox[currentPlayer]) {
-                if (isGettingOutOfPenaltyBox) {
-                    System.out.println("Answer was correct!!!!");
-                    return correctAnswer();
-                } else {
-                    nextPlayer();
-                    return true;
-                }
-            } else {
-                System.out.println("Answer was corrent!!!!");
-                return correctAnswer();
-                }
-
+            return true;
         }
-    return true;
+        else {
+            System.out.println("Answer was corrent!!!!");
+            return correctAnswer();
+        }
+        return true;
 
-}
+    }
+
+    private void wrongAnswer() {
+        System.out.println("Question was incorrectly answered");
+        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+        isInPenaltyBox[currentPlayer] = true;
+        nextPlayer();
+    }
 
     private void nextPlayer() {
         currentPlayer++;
