@@ -21,7 +21,7 @@ namespace TriviaGame
             {
                 var dieSideValue = randomNumber.Next(5) + 1;
 
-                game.Roll(dieSideValue);
+                game.ProcessPlayerTurn(dieSideValue);
 
                 if (randomNumber.Next(9) == 7)
                 {

@@ -65,11 +65,11 @@ namespace TriviaGame
             return playerNames.Count;
         }
 
-        public void Roll(int rollResult)
+        public void ProcessPlayerTurn(int rollResult)
         {
             Console.WriteLine(playerNames[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + rollResult);
-
+            
             _totalPlaces = 12;
             if (inPenaltyBox[currentPlayer])
             {
@@ -77,60 +77,67 @@ namespace TriviaGame
                 {
                     isCurrentPlayerLeavingPenaltyBox = true;
 
-                    Console.WriteLine(playerNames[currentPlayer] + " is getting out of the penalty box");
-                    playerPlace[currentPlayer] += rollResult;
-                    if (playerPlace[currentPlayer] >= _totalPlaces) playerPlace[currentPlayer] -= _totalPlaces;
-
-                    Console.WriteLine(playerNames[currentPlayer]
-                            + "'s new location is "
-                            + playerPlace[currentPlayer]);
-                    Console.WriteLine("The category is " + GetCurrentCategory());
+                    SetPenaltyBoxStatus(isCurrentPlayerLeavingPenaltyBox);
+                    
+                    MoveCurrentPlayer(rollResult);
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(playerNames[currentPlayer] + " is not getting out of the penalty box");
                     isCurrentPlayerLeavingPenaltyBox = false;
+                    SetPenaltyBoxStatus(isCurrentPlayerLeavingPenaltyBox);
                 }
             }
             else
-            {
-                playerPlace[currentPlayer] += rollResult;
-                if (playerPlace[currentPlayer] >= _totalPlaces) playerPlace[currentPlayer] -= _totalPlaces;
-
-                Console.WriteLine(playerNames[currentPlayer]
-                        + "'s new location is "
-                        + playerPlace[currentPlayer]);
-                Console.WriteLine("The category is " + GetCurrentCategory());
+            { 
+                MoveCurrentPlayer(rollResult);
                 AskQuestion();
             }
 
         }
 
-        private void AskQuestion()
+        private void SetPenaltyBoxStatus(bool status)
         {
-            if (GetCurrentCategory() == popCategory)
+            if (status)
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                Console.WriteLine(playerNames[currentPlayer] + " is getting out of the penalty box");
             }
-            if (GetCurrentCategory() == scienceCategory)
+            else
             {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (GetCurrentCategory() == sportsCategory)
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (GetCurrentCategory() == rockCategory)
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
+                Console.WriteLine(playerNames[currentPlayer] + " is not getting out of the penalty box");
             }
         }
 
+        private void MoveCurrentPlayer(int rollResult)
+        {
+            playerPlace[currentPlayer] += rollResult;
+            if (playerPlace[currentPlayer] >= _totalPlaces) playerPlace[currentPlayer] -= _totalPlaces;
+            Console.WriteLine(playerNames[currentPlayer] + "'s new location is " + playerPlace[currentPlayer]);
+            Console.WriteLine("The category is " + GetCurrentCategory());
+        }
+
+        private void AskQuestion()
+        {
+            var currentQuestions = GetCategoryQuestions();
+
+                Console.WriteLine(currentQuestions.First());
+                currentQuestions.RemoveFirst();
+        }
+
+        private LinkedList<string> GetCategoryQuestions()
+        {
+            switch (GetCurrentCategory())
+            {
+                case "Pop":
+                    return popQuestions;
+                case "Science":
+                    return scienceQuestions;
+                case "Sports":
+                    return sportsQuestions;
+                default :
+                    return rockQuestions;
+            }
+        }
 
         private string GetCurrentCategory()
         {
@@ -161,13 +168,9 @@ namespace TriviaGame
                 {
                     Console.WriteLine("Answer was correct!!!!");
                     playerPurse[currentPlayer]++;
-                    Console.WriteLine(playerNames[currentPlayer]
-                            + " now has "
-                            + playerPurse[currentPlayer]
-                            + " Gold Coins.");
+                    Console.WriteLine(playerNames[currentPlayer] + " now has " + playerPurse[currentPlayer] + " Gold Coins.");
 
                     bool winner = DidPlayerWin();
-
                     MoveToNextPlayer();
 
                     return winner;
@@ -182,10 +185,7 @@ namespace TriviaGame
             {
                 Console.WriteLine("Answer was corrent!!!!");
                 playerPurse[currentPlayer]++;
-                Console.WriteLine(playerNames[currentPlayer]
-                        + " now has "
-                        + playerPurse[currentPlayer]
-                        + " Gold Coins.");
+                Console.WriteLine(playerNames[currentPlayer] + " now has " + playerPurse[currentPlayer] + " Gold Coins.");
 
                 bool winner = DidPlayerWin();
                 MoveToNextPlayer();
