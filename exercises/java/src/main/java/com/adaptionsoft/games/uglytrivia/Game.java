@@ -12,8 +12,8 @@ public class Game {
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
-    
-    int currentPlayer = 0;
+
+    int currentPlayerIndex = 0;
     boolean isGettingOutOfPenaltyBox;
     
     public  Game(){
@@ -45,24 +45,24 @@ public class Game {
 	}
 
 	public void roll(int numberRolled) {
-		System.out.println(players.get(currentPlayer).getPlayerName() + " is the current player");
+		System.out.println(players.get(currentPlayerIndex).getPlayerName() + " is the current player");
 		System.out.println("They have rolled a " + numberRolled);
 		
-		if (players.get(currentPlayer).isInPenaltyBox()) {
+		if (players.get(currentPlayerIndex).isInPenaltyBox()) {
 			if (numberRolled % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
 				
-				System.out.println(players.get(currentPlayer).getPlayerName() + " is getting out of the penalty box");
-				players.get(currentPlayer).playerMoves(numberRolled);
+				System.out.println(players.get(currentPlayerIndex).getPlayerName() + " is getting out of the penalty box");
+				players.get(currentPlayerIndex).playerMoves(numberRolled);
 
 				System.out.println("The category is " + currentCategoryOnTile());
 				askQuestion();
 			} else {
-				System.out.println(players.get(currentPlayer).getPlayerName() + " is not getting out of the penalty box");
+				System.out.println(players.get(currentPlayerIndex).getPlayerName() + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
 				}
 		} else {
-			players.get(currentPlayer).playerMoves(numberRolled);
+			players.get(currentPlayerIndex).playerMoves(numberRolled);
 
 			System.out.println("The category is " + currentCategoryOnTile());
 			askQuestion();
@@ -82,7 +82,7 @@ public class Game {
 	
 	
 	private String currentCategoryOnTile() {
-		int playersCurrentTile = players.get(currentPlayer).getCurrentTile();
+		int playersCurrentTile = players.get(currentPlayerIndex).getCurrentTile();
 		if(playersCurrentTile % 4 == 0) return "Pop";
 		if(playersCurrentTile % 4 == 1) return "Science";
 		if(playersCurrentTile % 4 == 2) return "Sports";
@@ -90,12 +90,12 @@ public class Game {
 	}
 
 	public boolean checkAnswer() {
-		if (players.get(currentPlayer).isInPenaltyBox()){
+		if (players.get(currentPlayerIndex).isInPenaltyBox()){
 			if (isGettingOutOfPenaltyBox) {
 				return correctAnswer("Answer was correct!!!!");
 			} else {
-				currentPlayer++;
-				if (currentPlayer == howManyPlayers()) currentPlayer = 0;
+				currentPlayerIndex++;
+				if (currentPlayerIndex == howManyPlayers()) currentPlayerIndex = 0;
 				return true;
 			}
 		} else {
@@ -105,26 +105,26 @@ public class Game {
 
 	private boolean correctAnswer(String message) {
 		System.out.println(message);
-		players.get(currentPlayer).addCoins(1);
-		players.get(currentPlayer).displayCoinCount();
+		players.get(currentPlayerIndex).addCoins(1);
+		players.get(currentPlayerIndex).displayCoinCount();
 		boolean isPlayerWinner = didPlayerWin();
-		currentPlayer++;
-		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
+		currentPlayerIndex++;
+		if (currentPlayerIndex == howManyPlayers()) currentPlayerIndex = 0;
 
 		return isPlayerWinner;
 	}
 
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
-		System.out.println(players.get(currentPlayer).getPlayerName() + " was sent to the penalty box");
-		players.get(currentPlayer).putInPenaltyBox();
+		System.out.println(players.get(currentPlayerIndex).getPlayerName() + " was sent to the penalty box");
+		players.get(currentPlayerIndex).putInPenaltyBox();
 		
-		currentPlayer++;
-		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
+		currentPlayerIndex++;
+		if (currentPlayerIndex == howManyPlayers()) currentPlayerIndex = 0;
 		return true;
 	}
 
 	private boolean didPlayerWin() {
-		return !(players.get(currentPlayer).getCoins() == NUMBER_OF_COINS_TO_WIN);
+		return !(players.get(currentPlayerIndex).getCoins() == NUMBER_OF_COINS_TO_WIN);
 	}
 }
