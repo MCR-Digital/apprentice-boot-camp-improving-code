@@ -10,6 +10,9 @@ var Game = function () {
   var scienceQuestions = new Array()
   var sportsQuestions = new Array()
   var rockQuestions = new Array()
+  const board = [
+    'Pop', 'Science', 'Sports', 'Rock','Pop', 'Science', 'Sports', 'Rock','Pop', 'Science', 'Sports', 'Rock',
+  ]
   
   var questions = [popQuestions, scienceQuestions, sportsQuestions, rockQuestions]
   var questionCategories = ['Pop', 'Science', 'Sports', 'Rock']
@@ -22,10 +25,7 @@ var Game = function () {
   }
 
   var currentCategory = function () {
-      if (players[currentPlayer].place % numberOfCategories === 0) { return 'Pop' }
-	    if (players[currentPlayer].place % numberOfCategories === 1) { return 'Science' }
-	    if (players[currentPlayer].place % numberOfCategories === 2) { return 'Sports' }
-	    else { return 'Rock' }
+    return board[players[currentPlayer].place]
   }
 
   this.createQuestion = function(category, index){
