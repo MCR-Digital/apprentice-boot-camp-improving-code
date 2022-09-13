@@ -54,11 +54,11 @@ public class Game {
 		
 		if (getCurrentPlayer().isInPenaltyBox()) {
 			if (roll % 2 != 0) {
-				leavePenaltyBox();
+				getCurrentPlayer().leavePenaltyBox();
 				movePlayer(roll);
 				askQuestion();
 			} else {
-				remainInPenaltyBox();
+				getCurrentPlayer().remainInPenaltyBox();
 			}
 			
 		} else {
@@ -68,19 +68,10 @@ public class Game {
 		
 	}
 
-	private void leavePenaltyBox() {
-		getCurrentPlayer().setIsLeavingPenaltyBox(true);
-		System.out.println(getCurrentPlayer().getName() + " is getting out of the penalty box");
-	}
-
 	private Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
 
-	private void remainInPenaltyBox() {
-		getCurrentPlayer().setIsLeavingPenaltyBox(false);
-		System.out.println(getCurrentPlayer().getName() + " is not getting out of the penalty box");
-	}
 
 	private void movePlayer(int roll) {
 		getCurrentPlayer().setPlayerPosition(
@@ -145,7 +136,6 @@ public class Game {
 
 	private void incrementCoinCount() {
 		System.out.println("Answer was correct!!!!");
-
 		getCurrentPlayer().setCoinCount(
 				getCurrentPlayer().getCoinCount() + 1
 		);
