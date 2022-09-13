@@ -12,10 +12,10 @@ namespace TriviaGame
         private const int totalPlaces = 12;
         private const int maxCoins = 6;
 
-        private readonly string popCategory = "Pop";
-        private readonly string scienceCategory = "Science";
-        private readonly string sportsCategory = "Sports";
-        private readonly string rockCategory = "Rock";
+        private const string popCategory = "Pop";
+        private const string scienceCategory = "Science";
+        private const string sportsCategory = "Sports";
+        private const string rockCategory = "Rock";
 
         List<string> playerNames = new List<string>();
 
@@ -78,18 +78,13 @@ namespace TriviaGame
             {
                 if (IsOdd(rollResult))
                 {
-                    isCurrentPlayerLeavingPenaltyBox = true;
-
-                    Console.WriteLine(playerNames[currentPlayer] + " is getting out of the penalty box");
-
+                    PlayerExitsPenaltyBox();
                     MoveCurrentPlayer(rollResult);
                     AskQuestion();
                 }
                 else
                 {
-                    Console.WriteLine(playerNames[currentPlayer] + " is not getting out of the penalty box");
-
-                    isCurrentPlayerLeavingPenaltyBox = false;
+                    PlayerStaysInPenaltyBox();
                 }
             }
             else
@@ -99,6 +94,21 @@ namespace TriviaGame
             }
 
         }
+
+        private void PlayerExitsPenaltyBox()
+        {
+            isCurrentPlayerLeavingPenaltyBox = true;
+
+            Console.WriteLine(playerNames[currentPlayer] + " is getting out of the penalty box");
+        }
+
+        private void PlayerStaysInPenaltyBox()
+        {
+            Console.WriteLine(playerNames[currentPlayer] + " is not getting out of the penalty box");
+
+            isCurrentPlayerLeavingPenaltyBox = false;
+        }
+
         public bool IsCorrectAnswer()
         {
             if (inPenaltyBox[currentPlayer])
@@ -158,26 +168,10 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (GetCurrentCategory() == popCategory)
-            {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
-            }
-            if (GetCurrentCategory() == scienceCategory)
-            {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
-            }
-            if (GetCurrentCategory() == sportsCategory)
-            {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
-            }
-            if (GetCurrentCategory() == rockCategory)
-            {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
-            }
+            var categoryQuestions = GetCategoryQuestions();
+
+                Console.WriteLine(categoryQuestions.First());
+                categoryQuestions.RemoveFirst();
         }
 
         private string GetCurrentCategory()
@@ -198,6 +192,21 @@ namespace TriviaGame
                     return sportsCategory;
                 default:
                     return rockCategory;
+            }
+        }
+
+        private LinkedList<string> GetCategoryQuestions()
+        {
+            switch (GetCurrentCategory())
+            {
+                case popCategory:
+                    return popQuestions;
+                case scienceCategory: 
+                    return scienceQuestions;
+                case sportsCategory:
+                    return sportsQuestions;
+                default:
+                    return rockQuestions;
             }
         }
 

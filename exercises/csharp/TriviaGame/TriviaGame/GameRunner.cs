@@ -24,8 +24,8 @@ namespace TriviaGame
 
             do
             {
-                var dieSide = randomNumber.Next(5)+1;  
-                game.ProcessPlayerTurn(dieSide);
+                var dieFaceValue = randomNumber.Next(5)+1;  
+                game.ProcessPlayerTurn(dieFaceValue);
 
                 if (randomNumber.Next(9) == 7)
                 {
@@ -35,8 +35,6 @@ namespace TriviaGame
                 {
                     isNotAWinner = game.IsCorrectAnswer();
                 }
-
-
 
             } while (isNotAWinner);
 
