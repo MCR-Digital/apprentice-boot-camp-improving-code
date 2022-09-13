@@ -22,12 +22,10 @@ var Game = function () {
   }
 
   var currentCategory = function () {
-    switch(places[currentPlayer]){
-      case 0: case 4: case 8: return 'Pop'
-      case 1: case 5: case 9: return 'Science'
-      case 2: case 6: case 10: return 'Sports'
-      default: return 'Rock';
-    }
+      if (places[currentPlayer] % 4 === 0) { return 'Pop' }
+	    if (places[currentPlayer] % 4 === 1) { return 'Science' }
+	    if (places[currentPlayer] % 4 === 2) { return 'Sports' }
+	    else { return 'Rock' }
   }
 
   this.createQuestion = function(category, index){
@@ -105,7 +103,7 @@ var Game = function () {
     } else {
       return nextPlayer();
     }
-    
+
     function allowedToAnswer() {return inPenaltyBox[currentPlayer] && isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]}
 
     function handleCorrectAnswer(){
