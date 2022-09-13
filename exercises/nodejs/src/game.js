@@ -1,25 +1,25 @@
 import generator from 'random-seed'
 
 var Game = function () {
-  var playerNames = new Array()
-  var places = new Array(6)
-  var purses = new Array(6)
-  var inPenaltyBox = new Array(6)
-  var numberOfFields = 12
+  let playerNames = new Array()
+  let places = new Array(6)
+  let purses = new Array(6)
+  let inPenaltyBox = new Array(6)
+  const numberOfFields = 12;
 
-  var popQuestions = new Array()
-  var scienceQuestions = new Array()
-  var sportsQuestions = new Array()
-  var rockQuestions = new Array()
+  let popQuestions = new Array()
+  let scienceQuestions = new Array()
+  let sportsQuestions = new Array()
+  let rockQuestions = new Array()
 
   // var questions = [popQuestions, scienceQuestions, sportsQuestions, rockQuestions]
   // var categories = ['Pop', 'Science', 'Sports', 'Rock']
   // var Questions = {Pop:popQuestions, Science:scienceQuestions, Sports:sportsQuestions,Rock: rockQuestions}
 
-  var maxQuestionsInCategory = 50
+  const maxQuestionsInCategory = 50;
 
-  var currentPlayer = 0
-  var isGettingOutOfPenaltyBox = false
+  let currentPlayer = 0
+  let isGettingOutOfPenaltyBox = false
 
   var didPlayerWin = function () {
     return !(purses[currentPlayer] == 6)
