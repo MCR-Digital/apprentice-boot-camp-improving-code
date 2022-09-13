@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game {
-    ArrayList players = new ArrayList();
+	public static final int MAX_TILE_LIMIT = 11;
+	public static final int TOTAL_TILES = 12;
+	ArrayList players = new ArrayList();
     int[] playerPosition = new int[6];
     int[] coinCount = new int[6];
     boolean[] isInPenaltyBox = new boolean[6];
@@ -16,6 +18,13 @@ public class Game {
     
     int currentPlayer = 0;
     boolean isLeavingPenaltyBox;
+
+	String[] tiles =
+			new String[] {
+					"Pop", "Science", "Sports", "Rock",
+					"Pop", "Science", "Sports", "Rock",
+					"Pop", "Science", "Sports", "Rock",
+			};
     
     public  Game(){
 		// this could be much better
@@ -84,8 +93,10 @@ public class Game {
 	}
 
 	private void movePlayer(int roll) {
+		//TODO: change TOTAL_TILES name
+
 		setPlayerPosition(getPlayerPosition() + roll);
-		if (getPlayerPosition() > 11) setPlayerPosition(getPlayerPosition() - 12);
+		if (getPlayerPosition() > MAX_TILE_LIMIT) setPlayerPosition(getPlayerPosition() - TOTAL_TILES);
 
 		System.out.println(players.get(currentPlayer)
 				+ "'s new location is "
@@ -110,30 +121,17 @@ public class Game {
 		// add a method in the enum that translates between int and string of pop
 //		if (playerPosition[currentPlayer] % AMOUNT_OF_CATEGORIES == Categories.POP) return "Pop";
 
-		if (getPlayerPosition() == 0) {
+		if (tiles[getPlayerPosition()].equals("Pop")) {
 			return "Pop";
-		} else if (getPlayerPosition() == 1) {
+		} else if (tiles[getPlayerPosition()].equals("Science")) {
 			return "Science";
-		} else if (getPlayerPosition() == 2) {
+		} else if (tiles[getPlayerPosition()].equals("Sports")) {
 			return "Sports";
-		} else if (getPlayerPosition() == 3) {
+		} else if (tiles[getPlayerPosition()].equals("Rock")) {
 			return "Rock";
-		} else if (getPlayerPosition() == 4) {
-			return "Pop";
-		} else if (getPlayerPosition() == 5) {
-			return "Science";
-		} else if (getPlayerPosition() == 6) {
-			return "Sports";
-		} else if (getPlayerPosition() == 7) {
-			return "Rock";
-		} else if (getPlayerPosition() == 8) {
-			return "Pop";
-		} else if (getPlayerPosition() == 9) {
-			return "Science";
-		} else if (getPlayerPosition() == 10) {
-			return "Sports";
-		} else
-			return "invalid category";
+		} else {
+			return "Invalid player position";
+		}
 	}
 
 	private int getPlayerPosition() {
@@ -179,8 +177,7 @@ public class Game {
 
 		return true;
 	}
-
-
+	
 	private boolean didPlayerWin() {
 		return !(coinCount[currentPlayer] == 6);
 	}
