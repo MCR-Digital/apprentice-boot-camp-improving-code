@@ -9,15 +9,15 @@ public class Game {
 	public static final String SPORTS = "Sports";
 	public static final String ROCK = "Rock";
 
-	ArrayList players = new ArrayList();
-    int[] playerLocation = new int[6];
-    int[] playerPurse = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
-    
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
+
+	ArrayList players = new ArrayList();
+	int[] playerLocation = new int[6];
+	int[] playerPurse = new int[6];
+	boolean[] inPenaltyBox  = new boolean[6];
     
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -55,33 +55,47 @@ public class Game {
 		if (inPenaltyBox[currentPlayer]) {
 			if (roll % 2 != 0) {
 				isGettingOutOfPenaltyBox = true;
-				
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+
+				displayPenaltyBoxStatus(isGettingOutOfPenaltyBox);
 				movePlayerOnRoll(roll);
-				if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
-				
-				System.out.println(players.get(currentPlayer) 
-						+ "'s new location is " 
-						+ currentPlayerLocation());
-				System.out.println("The category is " + currentCategory());
+				shouldPlayerReturnToStart();
+				displayPlayersNewLocation();
 				askQuestion();
 			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
 				isGettingOutOfPenaltyBox = false;
+
+				displayPenaltyBoxStatus(isGettingOutOfPenaltyBox);
 				}
 			
 		} else {
 
 			movePlayerOnRoll(roll);
-			if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
-			
-			System.out.println(players.get(currentPlayer) 
-					+ "'s new location is " 
-					+ currentPlayerLocation());
-			System.out.println("The category is " + currentCategory());
+			shouldPlayerReturnToStart();
+			displayPlayersNewLocation();
 			askQuestion();
 		}
 		
+	}
+
+	private void displayPenaltyBoxStatus(Boolean penaltyBoxStatus) {
+
+		String penaltyBoxMessage;
+
+		if (penaltyBoxStatus) { penaltyBoxMessage = " is getting out of the penalty box"; }
+		else { penaltyBoxMessage = " is not getting out of the penalty box"; }
+
+		System.out.println(players.get(currentPlayer) + penaltyBoxMessage);
+	}
+
+	private void displayPlayersNewLocation() {
+		System.out.println(players.get(currentPlayer)
+				+ "'s new location is "
+				+ currentPlayerLocation());
+		System.out.println("The category is " + currentCategory());
+	}
+
+	private void shouldPlayerReturnToStart() {
+		if (currentPlayerLocation() > 11) playerLocation[currentPlayer] = currentPlayerLocation() - 12;
 	}
 
 	private void movePlayerOnRoll(int roll) {
