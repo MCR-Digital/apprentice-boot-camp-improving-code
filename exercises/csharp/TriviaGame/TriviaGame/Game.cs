@@ -6,11 +6,18 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> playerNames = new List<string>();
-
         private const int maxPlayers = 6;
         private const int minimumPlayers = 2;
         private readonly int questionsPerCategory = 50;
+        private const int totalPlaces = 12;
+        private const int maxCoins = 6;
+
+        private readonly string popCategory = "Pop";
+        private readonly string scienceCategory = "Science";
+        private readonly string sportsCategory = "Sports";
+        private readonly string rockCategory = "Rock";
+
+        List<string> playerNames = new List<string>();
 
         readonly int[] playerPlace = new int[maxPlayers];
         readonly int[] playerPurse = new int[maxPlayers];
@@ -30,10 +37,10 @@ namespace TriviaGame
         {
             for (int i = 0; i < questionsPerCategory; i++)
             {
-                popQuestions.AddLast(CreateQuestion("Pop", i));
-                scienceQuestions.AddLast(CreateQuestion("Science", i));
-                sportsQuestions.AddLast(CreateQuestion("Sports", i));
-                rockQuestions.AddLast(CreateQuestion("Rock", i));
+                popQuestions.AddLast(CreateQuestion(popCategory, i));
+                scienceQuestions.AddLast(CreateQuestion(scienceCategory, i));
+                sportsQuestions.AddLast(CreateQuestion(sportsCategory, i));
+                rockQuestions.AddLast(CreateQuestion(rockCategory, i));
             }
         }
 
@@ -81,9 +88,9 @@ namespace TriviaGame
                 else
                 {
                     Console.WriteLine(playerNames[currentPlayer] + " is not getting out of the penalty box");
+
                     isCurrentPlayerLeavingPenaltyBox = false;
                 }
-
             }
             else
             {
@@ -91,6 +98,46 @@ namespace TriviaGame
                 AskQuestion();
             }
 
+        }
+        public bool IsCorrectAnswer()
+        {
+            if (inPenaltyBox[currentPlayer])
+            {
+                if (isCurrentPlayerLeavingPenaltyBox)
+                {
+                    Console.WriteLine("Answer was correct!!!!");
+                    AddCurrentPlayerCoins();
+
+                    bool winner = DidPlayerWin();
+
+                    MoveToNextPlayer();
+                    return winner;
+                }
+                else
+                {
+                    MoveToNextPlayer();
+                    return true;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Answer was corrent!!!!");
+                AddCurrentPlayerCoins();
+
+                bool winner = DidPlayerWin();
+
+                MoveToNextPlayer();
+                return winner;
+            }
+        }
+        public bool IsWrongAnswer()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(playerNames[currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[currentPlayer] = true;
+
+            MoveToNextPlayer();
+            return true;
         }
 
         private bool IsOdd(int rollResult)
@@ -101,7 +148,7 @@ namespace TriviaGame
         private void MoveCurrentPlayer(int rollResult)
         {
             playerPlace[currentPlayer] += rollResult;
-            if (playerPlace[currentPlayer] > 11) playerPlace[currentPlayer] -= 12;
+            if (playerPlace[currentPlayer] >= totalPlaces) playerPlace[currentPlayer] -= totalPlaces;
 
             Console.WriteLine(playerNames[currentPlayer]
                     + "'s new location is "
@@ -111,22 +158,22 @@ namespace TriviaGame
 
         private void AskQuestion()
         {
-            if (GetCurrentCategory() == "Pop")
+            if (GetCurrentCategory() == popCategory)
             {
                 Console.WriteLine(popQuestions.First());
                 popQuestions.RemoveFirst();
             }
-            if (GetCurrentCategory() == "Science")
+            if (GetCurrentCategory() == scienceCategory)
             {
                 Console.WriteLine(scienceQuestions.First());
                 scienceQuestions.RemoveFirst();
             }
-            if (GetCurrentCategory() == "Sports")
+            if (GetCurrentCategory() == sportsCategory)
             {
                 Console.WriteLine(sportsQuestions.First());
                 sportsQuestions.RemoveFirst();
             }
-            if (GetCurrentCategory() == "Rock")
+            if (GetCurrentCategory() == rockCategory)
             {
                 Console.WriteLine(rockQuestions.First());
                 rockQuestions.RemoveFirst();
@@ -140,53 +187,17 @@ namespace TriviaGame
                 case 0:
                 case 4:
                 case 8:
-                    return "Pop";
+                    return popCategory;
                 case 1:
                 case 5:
                 case 9:
-                    return "Science";
+                    return scienceCategory;
                 case 2:
                 case 6:
                 case 10:
-                    return "Sports";
+                    return sportsCategory;
                 default:
-                    return "Rock";
-            }
-        }
-
-        public bool IsCorrectAnswer()
-        {
-            if (inPenaltyBox[currentPlayer])
-            {
-                if (isCurrentPlayerLeavingPenaltyBox)
-                {
-                    Console.WriteLine("Answer was correct!!!!");
-                    AddCurrentPlayerCoins();
-
-                    bool winner = DidPlayerWin();
-
-                    MoveToNextPlayer();
-
-                    return winner;
-                }
-                else
-                {
-                    MoveToNextPlayer();
-
-                    return true;
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("Answer was corrent!!!!");
-                AddCurrentPlayerCoins();
-
-                bool winner = DidPlayerWin();
-
-                MoveToNextPlayer();
-
-                return winner;
+                    return rockCategory;
             }
         }
 
@@ -199,26 +210,19 @@ namespace TriviaGame
                     + " Gold Coins.");
         }
 
-        public bool IsWrongAnswer()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(playerNames[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
-
-            MoveToNextPlayer();
-            return true;
-        }
-
         private void MoveToNextPlayer()
         {
             currentPlayer++;
 
-            if (currentPlayer == playerNames.Count) currentPlayer = 0;
+            if (currentPlayer == playerNames.Count)
+            {
+                currentPlayer = 0;
+            }
         }
 
         private bool DidPlayerWin()
         {
-            return !(playerPurse[currentPlayer] == 6);
+            return playerPurse[currentPlayer] != maxCoins;
         }
     }
 
