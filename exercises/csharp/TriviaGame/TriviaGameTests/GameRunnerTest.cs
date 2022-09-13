@@ -38,5 +38,17 @@ namespace TriviaGame
                 _writer.GetStringBuilder().Clear();
             }
         }
+
+        [Test]
+        public void IsOdd_returns_true_when_odd_number()
+        {
+            var result = IsEven(3);
+            Assert.That(result, Is.True);
+        }
+
+        private bool IsEven(int rollResult)
+        {
+            return rollResult % 2 != 0;
+        }
     }
 }
