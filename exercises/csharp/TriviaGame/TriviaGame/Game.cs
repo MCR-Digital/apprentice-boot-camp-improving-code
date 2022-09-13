@@ -73,7 +73,7 @@ namespace TriviaGame
             _totalPlaces = 12;
             if (inPenaltyBox[currentPlayer])
             {
-                if (isEven(rollResult))
+                if (isOdd(rollResult))
                 {
                     isCurrentPlayerLeavingPenaltyBox = true;
 
