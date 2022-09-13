@@ -5,7 +5,7 @@ var Game = function () {
   let places = new Array(6)
   let purses = new Array(6)
   let inPenaltyBox = new Array(6)
-  const numberOfFields = 12;
+  const numberOfPlaces = 12;
 
   let popQuestions = new Array()
   let scienceQuestions = new Array()
@@ -100,8 +100,8 @@ var Game = function () {
 
     function movePlayer() {
       places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > (numberOfFields - 1)) {
-        places[currentPlayer] = places[currentPlayer] - numberOfFields
+      if (places[currentPlayer] > (numberOfPlaces - 1)) {
+        places[currentPlayer] = places[currentPlayer] - numberOfPlaces
       }
       console.log(playerNames[currentPlayer] + "'s new location is " + places[currentPlayer])
     }
