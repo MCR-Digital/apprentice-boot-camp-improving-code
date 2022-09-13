@@ -106,26 +106,28 @@ var Game = function () {
 
       var winner = didPlayerWin()
 
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
+      nextPlayer()
 
       return winner
       } else {
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
+        nextPlayer()
         return true
       }
     } else {
       console.log('Answer was correct!!!!')
 
-      addCoin();
+      addCoin()
 
       var winner = didPlayerWin()
 
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
+      nextPlayer()
 
       return winner
+    }
+
+    function nextPlayer() {
+      currentPlayer += 1
+      if (currentPlayer == players.length) { currentPlayer = 0} 
     }
 
     function addCoin() {
