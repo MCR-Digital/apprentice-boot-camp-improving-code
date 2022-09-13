@@ -142,23 +142,6 @@ namespace TriviaGame
 
         private string GetCurrentCategory()
         {
-            /*switch (playerPlace[currentPlayer])
-                {
-                    case 0:
-                    case 4:
-                    case 8:
-                        return popCategory;
-                    case 1:
-                    case 5:
-                    case 9:
-                        return scienceCategory;
-                    case 2:
-                    case 6:
-                    case 10:
-                        return sportsCategory;
-                    default:
-                        return rockCategory;
-                }*/
             if (playerPlace[currentPlayer] % 4 == 0)
             {
                 return popCategory;
@@ -173,10 +156,8 @@ namespace TriviaGame
             {
                 return sportsCategory;
             }
-            else
-            {
-                return rockCategory;
-            }
+
+            return rockCategory;
         }
 
         public bool IsCorrectAnswer()
