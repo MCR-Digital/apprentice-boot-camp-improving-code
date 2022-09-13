@@ -5,39 +5,27 @@ import java.util.LinkedList;
 
 public class Game {
 	public static final int MAX_PLAYERS = 6;
-	public static final int MIN_PLAYERS = 2;
 	public static final int STARTING_VALUE = 0;
 	public static final int AVAILABLE_SPACES = 11;
+	public static final int AMOUNT_OF_QUESTIONS = 50;
 
 	ArrayList players = new ArrayList();
     int[] playerPlaces = new int[MAX_PLAYERS];
     int[] playerCoins = new int[MAX_PLAYERS];
     boolean[] inPenaltyBox  = new boolean[MAX_PLAYERS];
 
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
-    
+	Category[] categories = {new Category("Pop"), new Category("Science"), new Category("Sports"), new Category("Rock")};
+
     int currentPlayer = 0;
     boolean leavingPenaltyBox;
     
     public  Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
+    	for (int count = 0; count < AMOUNT_OF_QUESTIONS; count++) {
+			for (Category category : categories) {
+				category.addQuestion(count);
+			}
     	}
     }
-
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
-	}
-	
-	public boolean isPlayable() {
-		return (howManyPlayers() >= MIN_PLAYERS);
-	}
 
 	public void addPlayer(String playerName) {
 		
@@ -92,22 +80,7 @@ public class Game {
 
 
 	private void askQuestion() {
-		switch (currentCategory()) {
-			case "Pop":
-				System.out.println(popQuestions.removeFirst());
-				break;
-			case "Science":
-				System.out.println(scienceQuestions.removeFirst());
-				break;
-			case "Sports":
-				System.out.println(sportsQuestions.removeFirst());
-				break;
-			case "Rock":
-				System.out.println(rockQuestions.removeFirst());
-				break;
-			default:
-				throw new IllegalArgumentException(String.format("Category invalid: %s", currentCategory()));
-		}
+		System.out.println(categories[playerPlaces[currentPlayer] % 4].askQuestion());
 	}
 	
 	
