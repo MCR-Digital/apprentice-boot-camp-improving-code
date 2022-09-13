@@ -26,10 +26,10 @@ var Game = function () {
   }
 
   var currentCategory = function () { // every 4 fields
-    if (places[currentPlayer] % 4 == 0) { return 'Pop' }
-    if (places[currentPlayer] % 4 == 1) { return 'Science' }
-    if (places[currentPlayer] % 4 == 2) { return 'Sports' }
-    if (places[currentPlayer] % 4 == 3) { return 'Rock' }
+    if (places[currentPlayer] % 4 === 0) { return 'Pop' }
+    if (places[currentPlayer] % 4 === 1) { return 'Science' }
+    if (places[currentPlayer] % 4 === 2) { return 'Sports' }
+    if (places[currentPlayer] % 4 === 3) { return 'Rock' }
   }
 
   this.createQuestion = function (category,index) {
