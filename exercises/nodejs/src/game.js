@@ -128,8 +128,7 @@ var Game = function () {
   }
 
   function nextPlayer() {
-    currentPlayer += 1
-    if (currentPlayer == playerNames.length) { currentPlayer = 0}
+    currentPlayer = (currentPlayer + 1) % playerNames.length;
   }
 
   function movePlayerPosition(playerPositions, currentPlayer, roll) {
@@ -147,7 +146,7 @@ const gameRunner = (i) => {
   var notAWinner = false
 
   var game = new Game()
-  
+
   game.createQuestionSet()
 
   game.addPlayer('Chet')
