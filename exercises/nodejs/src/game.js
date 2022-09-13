@@ -75,7 +75,6 @@ var Game = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
-
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
         movePlayer()
         askQuestion()
