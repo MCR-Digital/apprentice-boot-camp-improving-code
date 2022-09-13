@@ -100,16 +100,16 @@ var Game = function () {
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
-        console.log('Answer was correct!!!!')
-        purses[currentPlayer] += 1
-        console.log(players[currentPlayer] + ' now has ' +
-            purses[currentPlayer] + ' Gold Coins.')
+      console.log('Answer was correct!!!!')
 
-        var winner = didPlayerWin()
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
+      addCoin()
 
-        return winner
+      var winner = didPlayerWin()
+
+      currentPlayer += 1
+      if (currentPlayer == players.length) { currentPlayer = 0 }
+
+      return winner
       } else {
         currentPlayer += 1
         if (currentPlayer == players.length) { currentPlayer = 0 }
@@ -118,9 +118,7 @@ var Game = function () {
     } else {
       console.log('Answer was correct!!!!')
 
-      purses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
+      addCoin();
 
       var winner = didPlayerWin()
 
@@ -128,6 +126,12 @@ var Game = function () {
       if (currentPlayer == players.length) { currentPlayer = 0 }
 
       return winner
+    }
+
+    function addCoin() {
+      purses[currentPlayer] += 1
+      console.log(players[currentPlayer] + ' now has ' +
+        purses[currentPlayer] + ' Gold Coins.')
     }
   }
 
