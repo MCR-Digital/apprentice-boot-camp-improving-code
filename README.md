@@ -108,4 +108,4 @@ If you’d like to contribute changes to the slides or exercises, please see [ou
 
 # Badges
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/10e7e8c607d644498b9066f2e145323c)](https://www.codacy.com/gh/M4rt4M/apprentice-boot-camp-improving-code/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=M4rt4M/apprentice-boot-camp-improving-code&amp;utm_campaign=Badge_Grade)
+Started with category C on 2022/09/13 => [![Codacy Badge](https://app.codacy.com/project/badge/Grade/10e7e8c607d644498b9066f2e145323c)](https://www.codacy.com/gh/M4rt4M/apprentice-boot-camp-improving-code/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=M4rt4M/apprentice-boot-camp-improving-code&amp;utm_campaign=Badge_Grade)
