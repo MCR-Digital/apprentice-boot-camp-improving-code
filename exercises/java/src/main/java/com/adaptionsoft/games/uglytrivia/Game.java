@@ -39,7 +39,7 @@ public class Game {
 		return (howManyPlayers() >= MIN_PLAYERS);
 	}
 
-	public boolean addPlayer(String playerName) {
+	public void addPlayer(String playerName) {
 		
 		
 	    players.add(playerName);
@@ -49,7 +49,6 @@ public class Game {
 	    
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
-		return true;
 	}
 	
 	public int howManyPlayers() {
@@ -61,7 +60,7 @@ public class Game {
 		System.out.println("They have rolled a " + roll);
 		
 		if (inPenaltyBox[currentPlayer]) {
-			if (isEven(roll)) {
+			if (isLeavingPenaltyBox(roll)) {
 				leavingPenaltyBox = true;
 
 				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
@@ -87,20 +86,28 @@ public class Game {
 
 	}
 
-	private boolean isEven(int roll) {
+	private boolean isLeavingPenaltyBox(int roll) {
 		return roll % 2 != 0;
 	}
 
 
 	private void askQuestion() {
-		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());		
+		switch (currentCategory()) {
+			case "Pop":
+				System.out.println(popQuestions.removeFirst());
+				break;
+			case "Science":
+				System.out.println(scienceQuestions.removeFirst());
+				break;
+			case "Sports":
+				System.out.println(sportsQuestions.removeFirst());
+				break;
+			case "Rock":
+				System.out.println(rockQuestions.removeFirst());
+				break;
+			default:
+				throw new IllegalArgumentException(String.format("Category invalid: %s", currentCategory()));
+		}
 	}
 	
 	
