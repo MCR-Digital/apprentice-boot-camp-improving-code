@@ -7,7 +7,7 @@ import java.util.List;
 public class Game {
     ArrayList players = new ArrayList();
     int[] places = new int[6];
-    int[] cointCount = new int[6];
+    int[] coinCount = new int[6];
     boolean[] isInPenaltyBox = new boolean[6];
 
     LinkedList popQuestions = new LinkedList();
@@ -35,19 +35,18 @@ public class Game {
     }
 
     public String createQuestion(int index, String category) {
-        return  category + " Question " + index;
+        return ( category + " Question " + index);
     }
 
-
-    public boolean addNewPlayer(String playerName) {
+    public void addNewPlayer(String playerName) {
         players.add(playerName);
         places[numberOfPlayers()] = 0;
-        cointCount[numberOfPlayers()] = 0;
+        coinCount[numberOfPlayers()] = 0;
         isInPenaltyBox[numberOfPlayers()] = false;
 
         System.out.println(playerName + " was added");
         System.out.println("They are player number " + players.size());
-        return true;
+
     }
 
     public int numberOfPlayers() {
@@ -119,10 +118,10 @@ public class Game {
     }
 
     private boolean correctAnswer() {
-        cointCount[currentPlayer]++;
+        coinCount[currentPlayer]++;
         System.out.println(players.get(currentPlayer)
                 + " now has "
-                + cointCount[currentPlayer]
+                + coinCount[currentPlayer]
                 + " Gold Coins.");
 
         boolean winner = didPlayerWin();
@@ -144,6 +143,6 @@ public class Game {
 
 
     private boolean didPlayerWin() {
-        return !(cointCount[currentPlayer] == 6);
+        return !(coinCount[currentPlayer] == 6);
     }
 }
