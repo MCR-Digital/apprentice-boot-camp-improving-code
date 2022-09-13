@@ -1,5 +1,8 @@
 import generator from 'random-seed'
 
+const numberOfCategories = 4
+const numberOfQuestionsPerCategory = 50
+
 var Game = function () {
   var players = new Array()
   var places = new Array(6)
@@ -22,9 +25,9 @@ var Game = function () {
   }
 
   var currentCategory = function () {
-      if (places[currentPlayer] % 4 === 0) { return 'Pop' }
-	    if (places[currentPlayer] % 4 === 1) { return 'Science' }
-	    if (places[currentPlayer] % 4 === 2) { return 'Sports' }
+      if (places[currentPlayer] % numberOfCategories === 0) { return 'Pop' }
+	    if (places[currentPlayer] % numberOfCategories === 1) { return 'Science' }
+	    if (places[currentPlayer] % numberOfCategories === 2) { return 'Sports' }
 	    else { return 'Rock' }
   }
 
@@ -32,7 +35,7 @@ var Game = function () {
     return `${category} Question ${index}`
   }
 
-  for (var questionNumber = 0; questionNumber < 50; questionNumber++) {
+  for (var questionNumber = 0; questionNumber < numberOfQuestionsPerCategory; questionNumber++) {
     for(var j = 0; j < questionCategories.length; j++){
       questions[j].push(this.createQuestion(questionCategories[j], questionNumber))
     }
