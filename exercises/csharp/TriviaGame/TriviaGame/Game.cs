@@ -96,6 +96,7 @@ namespace TriviaGame
 
         }
 
+        // Can refactor into two methods, for sake of clarity
         private void SetPenaltyBoxStatus(bool status)
         {
             if (status)
