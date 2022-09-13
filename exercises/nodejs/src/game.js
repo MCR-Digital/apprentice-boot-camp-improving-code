@@ -46,7 +46,7 @@ var Game = function () {
   }
 
   this.addNewPlayer = function (playerName) {
-    players.push(playerName)
+    players.push({playerName})
     places[this.numberOfPlayers() - 1] = 0
     purses[this.numberOfPlayers() - 1] = 0
     inPenaltyBox[this.numberOfPlayers() - 1] = false
@@ -75,9 +75,9 @@ var Game = function () {
     if (inPenaltyBox[currentPlayer]){
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
-        console.log(players[currentPlayer] + ' is getting out of the penalty box')
+        console.log(players[currentPlayer].playerName + ' is getting out of the penalty box')
       } else {
-        console.log(players[currentPlayer] + ' is not getting out of the penalty box')
+        console.log(players[currentPlayer].playerName + ' is not getting out of the penalty box')
         isGettingOutOfPenaltyBox = false
         return
       }
@@ -87,7 +87,7 @@ var Game = function () {
     askQuestion()
 
     function displayGameState() {
-      console.log(players[currentPlayer] + ' is the current player')
+      console.log(players[currentPlayer].playerName + ' is the current player')
       console.log('They have rolled a ' + roll)
     }
 
@@ -96,7 +96,7 @@ var Game = function () {
       if (places[currentPlayer] > 11) {
         places[currentPlayer] = places[currentPlayer] - 12
       }
-      console.log(players[currentPlayer] + "'s new location is " + places[currentPlayer])
+      console.log(players[currentPlayer].playerName + "'s new location is " + places[currentPlayer])
     }
   }
 
@@ -125,14 +125,14 @@ var Game = function () {
 
     function addCoin() {
       purses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
+      console.log(players[currentPlayer].playerName + ' now has ' +
         purses[currentPlayer] + ' Gold Coins.')
     }
   }
 
   this.wasWronglyAnswered = function () {
     console.log('Question was incorrectly answered')
-    console.log(players[currentPlayer] + ' was sent to the penalty box')
+    console.log(players[currentPlayer].playerName + ' was sent to the penalty box')
     inPenaltyBox[currentPlayer] = true
 
     currentPlayer += 1
