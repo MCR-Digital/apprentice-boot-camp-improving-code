@@ -1,6 +1,7 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -111,33 +112,12 @@ public class Game {
 
 	private String currentCategory() {
 		int playerCurrentTile = gamesCurrentTile[currentPlayer];
-
-		List<String> gameBoard = new ArrayList<String>();
-		for(int i = 0; i<4 ; i++){
-			gameBoard.add("Pop");
-			gameBoard.add("Science");
-			gameBoard.add("Sports");
-			gameBoard.add("Rock");
-		}
+		List<String> gameBoard = Arrays.asList(
+				"Pop", "Science", "Sports", "Rock",
+				"Pop", "Science", "Sports", "Rock",
+				"Pop", "Science", "Sports", "Rock");
 
 		return gameBoard.get(playerCurrentTile);
-
-
-
-//		if (playerCurrentTile == 0) return "Pop";
-//		else if (playerCurrentTile == 1) return "Science";
-//		else if (playerCurrentTile == 2) return "Sports";
-//		else if (playerCurrentTile == 3) return "Rock";
-//		else if (playerCurrentTile == 4) return "Pop";
-//		else if (playerCurrentTile == 5) return "Science";
-//		else if (playerCurrentTile == 6) return "Sports";
-//		else if (playerCurrentTile == 7) return "Rock";
-//		else if (playerCurrentTile == 8) return "Pop";
-//		else if (playerCurrentTile == 9) return "Science";
-//		else if (playerCurrentTile == 10) return "Sports";
-//		else if (playerCurrentTile == 11) return "Rock";
-//		else{
-//		throw new IllegalStateException("No longer in the board"); }
 	};
 
 	public boolean wasCorrectlyAnswered() {
@@ -185,3 +165,5 @@ public class Game {
 		return !(playersPurses[currentPlayer] == 6);
 	}
 }
+
+
