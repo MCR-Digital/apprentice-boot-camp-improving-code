@@ -25,9 +25,9 @@ var Game = function () {
   }
 
   var currentCategory = function () {
-      if (places[currentPlayer] % numberOfCategories === 0) { return 'Pop' }
-	    if (places[currentPlayer] % numberOfCategories === 1) { return 'Science' }
-	    if (places[currentPlayer] % numberOfCategories === 2) { return 'Sports' }
+      if (players[currentPlayer].place % numberOfCategories === 0) { return 'Pop' }
+	    if (players[currentPlayer].place % numberOfCategories === 1) { return 'Science' }
+	    if (players[currentPlayer].place % numberOfCategories === 2) { return 'Sports' }
 	    else { return 'Rock' }
   }
 
@@ -46,8 +46,12 @@ var Game = function () {
   }
 
   this.addNewPlayer = function (playerName) {
-    players.push({playerName})
-    places[this.numberOfPlayers() - 1] = 0
+    players.push({
+      playerName,
+      place: 0,
+      purse: 0
+    })
+    // places[this.numberOfPlayers() - 1] = 0
     purses[this.numberOfPlayers() - 1] = 0
     inPenaltyBox[this.numberOfPlayers() - 1] = false
 
@@ -92,11 +96,11 @@ var Game = function () {
     }
 
     function movePlayer() {
-      places[currentPlayer] = places[currentPlayer] + roll
-      if (places[currentPlayer] > 11) {
-        places[currentPlayer] = places[currentPlayer] - 12
+      players[currentPlayer].place = players[currentPlayer].place + roll
+      if (players[currentPlayer].place > 11) {
+        players[currentPlayer].place = players[currentPlayer].place - 12
       }
-      console.log(players[currentPlayer].playerName + "'s new location is " + places[currentPlayer])
+      console.log(players[currentPlayer].playerName + "'s new location is " + players[currentPlayer].place)
     }
   }
 
