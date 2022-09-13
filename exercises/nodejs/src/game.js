@@ -68,9 +68,9 @@ var Game = function () {
   }
 
   this.createQuestionSet = function () {
-    for (var i = 0; i < NumberOfQuestions; i++) {
+    for (var questionNumber = 0; questionNumber < NumberOfQuestions; questionNumber++) {
       for(let category of Object.keys(questionCategories)) {
-        questionCategories[category].push(this.createQuestion(category, i))
+        questionCategories[category].push(this.createQuestion(category, questionNumber))
       }
     }
   }
