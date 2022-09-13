@@ -134,17 +134,24 @@ namespace TriviaGame
 
         private string GetCurrentCategory()
         {
-            if (playerPlace[currentPlayer] == 0) return popCategory;
-            if (playerPlace[currentPlayer] == 4) return popCategory;
-            if (playerPlace[currentPlayer] == 8) return popCategory;
-            if (playerPlace[currentPlayer] == 1) return scienceCategory;
-            if (playerPlace[currentPlayer] == 5) return scienceCategory;
-            if (playerPlace[currentPlayer] == 9) return scienceCategory;
-            if (playerPlace[currentPlayer] == 2) return sportsCategory;
-            if (playerPlace[currentPlayer] == 6) return sportsCategory;
-            if (playerPlace[currentPlayer] == 10) return sportsCategory;
-            return rockCategory;
-        }
+            switch (playerPlace[currentPlayer])
+                {
+                    case 0:
+                    case 4:
+                    case 8:
+                        return popCategory;
+                    case 1:
+                    case 5:
+                    case 9:
+                        return scienceCategory;
+                    case 2:
+                    case 6:
+                    case 10:
+                        return sportsCategory;
+                    default:
+                        return rockCategory;
+                }
+            }
 
         public bool IsCorrectAnswer()
         {
