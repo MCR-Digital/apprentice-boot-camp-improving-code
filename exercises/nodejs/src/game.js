@@ -100,15 +100,13 @@ var Game = function () {
   }
 
   this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
-      if (isGettingOutOfPenaltyBox) {
-        return handleCorrectAnswer()
-      } else {
-        return nextPlayer()
-      }
+    if (allowedToAnswer()) {
+      return handleCorrectAnswer();
     } else {
-      return handleCorrectAnswer()
+      return nextPlayer();
     }
+    
+    function allowedToAnswer() {return inPenaltyBox[currentPlayer] && isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]}
 
     function handleCorrectAnswer(){
       console.log('Answer was correct!!!!')
