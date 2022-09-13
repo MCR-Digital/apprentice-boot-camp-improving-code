@@ -61,6 +61,7 @@ var Game = function () {
   }
 
   var askQuestion = function () {
+    console.log('The category is ' + currentCategory())
     if (currentCategory() == 'Pop') { console.log(popQuestions.shift()) }
     if (currentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
     if (currentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
@@ -77,7 +78,6 @@ var Game = function () {
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
         movePlayer()
-        console.log('The category is ' + currentCategory())
         askQuestion()
       } else {
         console.log(players[currentPlayer] + ' is not getting out of the penalty box')
@@ -85,7 +85,6 @@ var Game = function () {
       }
     } else {
         movePlayer();
-        console.log('The category is ' + currentCategory())
         askQuestion()
     }
 
