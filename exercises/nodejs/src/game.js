@@ -83,7 +83,7 @@ var Game = function () {
         isGettingOutOfPenaltyBox = false
       }
     } else {
-        movePlayer();
+        movePlayer()
         askQuestion()
     }
 
