@@ -100,34 +100,26 @@ var Game = function () {
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
-      console.log('Answer was correct!!!!')
-
-      addCoin()
-
-      var winner = didPlayerWin()
-
-      nextPlayer()
-
-      return winner
+        return handleCorrectAnswer()
       } else {
-        nextPlayer()
-        return true
+        return nextPlayer()
       }
     } else {
+      return handleCorrectAnswer()
+    }
+
+    function handleCorrectAnswer(){
       console.log('Answer was correct!!!!')
-
       addCoin()
-
       var winner = didPlayerWin()
-
       nextPlayer()
-
       return winner
     }
 
     function nextPlayer() {
       currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0} 
+      if (currentPlayer == players.length) { currentPlayer = 0}
+      return true
     }
 
     function addCoin() {
