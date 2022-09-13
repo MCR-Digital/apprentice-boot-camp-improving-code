@@ -1,5 +1,39 @@
 import generator from 'random-seed'
 
+class Player {
+  constructor(name) {
+    this._name = name
+    this._purse = 0;
+    this._position = 0;
+    this._inPenaltyBox = false;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  get purse() {
+    return this._purse;
+  }
+
+  get position() {
+    return this._position;
+  }
+
+  get inPenaltyBox() {
+    return this._inPenaltyBox;
+  }
+
+  updatePenaltyBox() {
+    this._inPenaltyBox = !this._inPenaltyBox;
+  }
+
+  increasePurse() {
+    this.purse++;
+    console.log(this.name + ' now has ' + this.purse + ' Gold Coins.');
+  }
+}
+
 var Game = function () {
   var playerNames = new Array()
   var playerPositions = new Array(6)
@@ -73,7 +107,7 @@ var Game = function () {
         isGettingOutOfPenaltyBox = true
 
         console.log(playerNames[currentPlayer] + ' is getting out of the penalty box')
-        movePlayerPosition(playerPositions, currentPlayer, roll)
+        movePlayerPosition(roll)
 
         askQuestion(currentCategory())
       } else {
@@ -81,7 +115,7 @@ var Game = function () {
         isGettingOutOfPenaltyBox = false
       }
     } else {
-      movePlayerPosition(playerPositions, currentPlayer, roll)
+      movePlayerPosition(roll)
 
       askQuestion(currentCategory())
     }
@@ -131,7 +165,7 @@ var Game = function () {
     currentPlayer = (currentPlayer + 1) % playerNames.length;
   }
 
-  function movePlayerPosition(playerPositions, currentPlayer, roll) {
+  function movePlayerPosition(roll) {
     playerPositions[currentPlayer] = playerPositions[currentPlayer] + roll
     if (playerPositions[currentPlayer] > 11) {
       playerPositions[currentPlayer] = playerPositions[currentPlayer] - 12
