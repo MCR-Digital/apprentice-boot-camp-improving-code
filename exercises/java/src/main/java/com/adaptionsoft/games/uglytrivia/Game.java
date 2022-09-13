@@ -6,11 +6,7 @@ import java.util.List;
 
 public class Game {
 	public static final int NUMBER_OF_COINS_TO_WIN = 6;
-//	ArrayList players = new ArrayList();
 	List<Player> players = new ArrayList<>();
-//    int[] currentTile = new int[6];
-//    int[] coins = new int[6];
-//    boolean[] isInPenaltyBox = new boolean[6];
     
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -110,11 +106,7 @@ public class Game {
 	private boolean correctAnswer(String message) {
 		System.out.println(message);
 		players.get(currentPlayer).addCoins(1);
-		System.out.println(players.get(currentPlayer).getPlayerName()
-				+ " now has "
-				+ players.get(currentPlayer).getCoins()
-				+ " Gold Coins.");
-
+		players.get(currentPlayer).displayCoinCount();
 		boolean isPlayerWinner = didPlayerWin();
 		currentPlayer++;
 		if (currentPlayer == howManyPlayers()) currentPlayer = 0;

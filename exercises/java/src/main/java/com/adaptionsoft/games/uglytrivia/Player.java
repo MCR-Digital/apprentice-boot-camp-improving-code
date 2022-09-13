@@ -47,4 +47,11 @@ public class Player {
     public void addCoins (int coins) {
         this.coins += coins;
     }
+
+    public void displayCoinCount () {
+        System.out.println(playerName
+                + " now has "
+                + coins
+                + " Gold Coins.");
+    }
 }
