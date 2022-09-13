@@ -108,23 +108,18 @@ var Game = function () {
   }
 
   this.wasCorrectlyAnswered = function () {
-    if (inPenaltyBox[currentPlayer]) {
-      if (isGettingOutOfPenaltyBox) {
+    if (allowedToAnswer()) {
         awardCoins()
         let winner = didPlayerWin()
         getNextPlayer()
         return winner
-      } else {
+    } else {
         getNextPlayer()
         return true
-      }
-    } else {
-      awardCoins()
-      let winner = didPlayerWin()
-      getNextPlayer()
-      return winner
     }
 
+    function allowedToAnswer() {return inPenaltyBox[currentPlayer] && isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]}
+    
     function awardCoins() {
       console.log('Answer was correct!!!!')
       purses[currentPlayer] += 1
