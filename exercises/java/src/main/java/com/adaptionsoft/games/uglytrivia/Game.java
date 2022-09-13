@@ -73,7 +73,6 @@ public class Game {
         }
 
     }
-
     private void askQuestion() {
         if (currentCategory() == "Pop")
             System.out.println(popQuestions.removeFirst());
@@ -81,13 +80,15 @@ public class Game {
             System.out.println(scienceQuestions.removeFirst());
         if (currentCategory() == "Sports")
             System.out.println(sportsQuestions.removeFirst());
-        if (currentCategory() == "Rock")
+        if (currentCategory().equals( "Rock"))
             System.out.println(rockQuestions.removeFirst());
     }
 
     private void movePlayer(int roll) {
         places[currentPlayer] = places[currentPlayer] + roll;
-        if (places[currentPlayer] > board.size() - 1) places[currentPlayer] = places[currentPlayer] - board.size();
+        if (places[currentPlayer] > board.size() - 1) {
+            places[currentPlayer] = places[currentPlayer] - board.size();
+        }
         System.out.println(players.get(currentPlayer)
                 + "'s new location is "
                 + places[currentPlayer]);
@@ -98,25 +99,22 @@ public class Game {
         return board.get( places[currentPlayer]);
     }
 
-    public boolean wasCorrectlyAnswered() {
-        if (isInPenaltyBox[currentPlayer]) {
-            if (isGettingOutOfPenaltyBox) {
-                System.out.println("Answer was correct!!!!");
-                return correctAnswer();
-            } else {
-                currentPlayer++;
-                if (currentPlayer == players.size()) currentPlayer = 0;
-                return true;
-            }
-
-
-        } else {
-
-            System.out.println("Answer was corrent!!!!");
-            return correctAnswer();
-        }
-    }
-
+//    public boolean wasCorrectlyAnswered() {
+//        if (isInPenaltyBox[currentPlayer]) {
+//            if (isGettingOutOfPenaltyBox) {
+//                System.out.println("Answer was correct!!!!");
+//                return correctAnswer();
+//            } else {
+//                currentPlayer++;
+//                if (currentPlayer == players.size()) currentPlayer = 0;
+//                return true;
+//            }
+//
+//        } else {
+//            System.out.println("Answer was corrent!!!!");
+//            return correctAnswer();
+//        }
+//    }
     private boolean correctAnswer() {
         coinCount[currentPlayer]++;
         System.out.println(players.get(currentPlayer)
@@ -131,17 +129,40 @@ public class Game {
         return winner;
     }
 
-    public boolean wrongAnswer() {
-        System.out.println("Question was incorrectly answered");
-        System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
-        isInPenaltyBox[currentPlayer] = true;
+//    public boolean wrongAnswer() {
+//
+//        return true;
+//    }
 
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
-        return true;
-    }
+public boolean answer(int roll){
+        if( roll == 7 ){
+            System.out.println("Question was incorrectly answered");
+            System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
+            isInPenaltyBox[currentPlayer] = true;
 
+            currentPlayer++;
+            if (currentPlayer == players.size()) currentPlayer = 0;
 
+        } else {
+            if (isInPenaltyBox[currentPlayer]) {
+                if (isGettingOutOfPenaltyBox) {
+                    System.out.println("Answer was correct!!!!");
+                    return correctAnswer();
+                } else {
+                    currentPlayer++;
+                    if (currentPlayer == players.size()) currentPlayer = 0;
+                    return true;
+                }
+
+            } else {
+                System.out.println("Answer was corrent!!!!");
+                return correctAnswer();
+                }
+
+        }
+    return true;
+
+}
     private boolean didPlayerWin() {
         return !(coinCount[currentPlayer] == 6);
     }
