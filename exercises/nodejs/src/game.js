@@ -22,7 +22,7 @@ var Game = function () {
   let isGettingOutOfPenaltyBox = false
 
   var didPlayerWin = function () {
-    return !(purses[currentPlayer] == 6)
+    return !(purses[currentPlayer] === 6)
   }
 
   var currentCategory = function () { // every 4 fields
