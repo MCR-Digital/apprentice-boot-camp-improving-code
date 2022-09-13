@@ -119,10 +119,7 @@ var Game = function () {
         return true
       }
     } else {
-      console.log('Answer was correct!!!!')
-      purses[currentPlayer] += 1
-      console.log(playerNames[currentPlayer] + ' now has ' +
-          purses[currentPlayer] + ' Gold Coins.')
+      awardCoins()
       let winner = didPlayerWin()
       getNextPlayer()
       return winner
