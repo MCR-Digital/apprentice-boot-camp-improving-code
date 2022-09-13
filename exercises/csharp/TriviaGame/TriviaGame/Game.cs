@@ -142,7 +142,7 @@ namespace TriviaGame
 
         private string GetCurrentCategory()
         {
-            switch (playerPlace[currentPlayer])
+            /*switch (playerPlace[currentPlayer])
                 {
                     case 0:
                     case 4:
@@ -158,8 +158,26 @@ namespace TriviaGame
                         return sportsCategory;
                     default:
                         return rockCategory;
-                }
+                }*/
+            if (playerPlace[currentPlayer] % 4 == 0)
+            {
+                return popCategory;
             }
+
+            if (playerPlace[currentPlayer] % 4 == 1)
+            {
+                return scienceCategory;
+            }
+
+            if (playerPlace[currentPlayer] % 4 == 2)
+            {
+                return sportsCategory;
+            }
+            else
+            {
+                return rockCategory;
+            }
+        }
 
         public bool IsCorrectAnswer()
         {
