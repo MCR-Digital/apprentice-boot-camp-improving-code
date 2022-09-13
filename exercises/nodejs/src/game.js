@@ -5,9 +5,6 @@ const numberOfQuestionsPerCategory = 50
 
 var Game = function () {
   var players = new Array()
-  var places = new Array(6)
-  var purses = new Array(6)
-  var inPenaltyBox = new Array(6)
 
   var popQuestions = new Array()
   var scienceQuestions = new Array()
@@ -49,11 +46,9 @@ var Game = function () {
     players.push({
       playerName,
       place: 0,
-      purse: 0
+      purse: 0,
+      isInPenaltyBox: false
     })
-    // places[this.numberOfPlayers() - 1] = 0
-    purses[this.numberOfPlayers() - 1] = 0
-    inPenaltyBox[this.numberOfPlayers() - 1] = false
 
     console.log(playerName + ' was added')
     console.log('They are player number ' + players.length)
@@ -76,7 +71,7 @@ var Game = function () {
   this.roll = function (roll) {
     displayGameState()
 
-    if (inPenaltyBox[currentPlayer]){
+    if (players[currentPlayer].isInPenaltyBox){
       if (roll % 2 != 0) {
         isGettingOutOfPenaltyBox = true
         console.log(players[currentPlayer].playerName + ' is getting out of the penalty box')
@@ -111,7 +106,7 @@ var Game = function () {
       return nextPlayer();
     }
 
-    function allowedToAnswer() {return inPenaltyBox[currentPlayer] && isGettingOutOfPenaltyBox || !inPenaltyBox[currentPlayer]}
+    function allowedToAnswer() {return players[currentPlayer].isInPenaltyBox && isGettingOutOfPenaltyBox || !players[currentPlayer].isInPenaltyBox}
 
     function handleCorrectAnswer(){
       console.log('Answer was correct!!!!')
@@ -137,7 +132,7 @@ var Game = function () {
   this.wasWronglyAnswered = function () {
     console.log('Question was incorrectly answered')
     console.log(players[currentPlayer].playerName + ' was sent to the penalty box')
-    inPenaltyBox[currentPlayer] = true
+    players[currentPlayer].isInPenaltyBox = true
 
     currentPlayer += 1
     if (currentPlayer == players.length) { currentPlayer = 0 }
