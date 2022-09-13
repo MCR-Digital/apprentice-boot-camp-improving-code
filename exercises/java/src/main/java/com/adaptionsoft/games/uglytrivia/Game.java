@@ -123,8 +123,7 @@ public class Game {
                 + " Gold Coins.");
 
         boolean winner = didPlayerWin();
-        currentPlayer++;
-        if (currentPlayer == players.size()) currentPlayer = 0;
+        nextPlayer();
 
         return winner;
     }
@@ -139,9 +138,7 @@ public boolean answer(int roll){
             System.out.println("Question was incorrectly answered");
             System.out.println(players.get(currentPlayer) + " was sent to the penalty box");
             isInPenaltyBox[currentPlayer] = true;
-
-            currentPlayer++;
-            if (currentPlayer == players.size()) currentPlayer = 0;
+            nextPlayer();
 
         } else {
             if (isInPenaltyBox[currentPlayer]) {
@@ -149,11 +146,9 @@ public boolean answer(int roll){
                     System.out.println("Answer was correct!!!!");
                     return correctAnswer();
                 } else {
-                    currentPlayer++;
-                    if (currentPlayer == players.size()) currentPlayer = 0;
+                    nextPlayer();
                     return true;
                 }
-
             } else {
                 System.out.println("Answer was corrent!!!!");
                 return correctAnswer();
@@ -163,6 +158,12 @@ public boolean answer(int roll){
     return true;
 
 }
+
+    private void nextPlayer() {
+        currentPlayer++;
+        if (currentPlayer == players.size()) currentPlayer = 0;
+    }
+
     private boolean didPlayerWin() {
         return !(coinCount[currentPlayer] == 6);
     }
