@@ -34,9 +34,9 @@ var Game = function () {
     return `${category} Question ${index}`
   }
 
-  for (var i = 0; i < 50; i++) {
+  for (var questionNumber = 0; questionNumber < 50; questionNumber++) {
     for(var j = 0; j < questionCategories.length; j++){
-      questions[j].push(this.createQuestion(questionCategories[j], i))
+      questions[j].push(this.createQuestion(questionCategories[j], questionNumber))
     }
   }
 
