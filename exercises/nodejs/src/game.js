@@ -21,10 +21,6 @@ var Game = function () {
   let currentPlayer = 0
   let isGettingOutOfPenaltyBox = false
 
-  var didPlayerWin = function () {
-    return !(purses[currentPlayer] === 6)
-  }
-
   var currentCategory = function () { // every 4 fields
     if (places[currentPlayer] % 4 === 0) { return 'Pop' }
     if (places[currentPlayer] % 4 === 1) { return 'Science' }
@@ -114,34 +110,38 @@ var Game = function () {
   this.wasCorrectlyAnswered = function () {
     if (inPenaltyBox[currentPlayer]) {
       if (isGettingOutOfPenaltyBox) {
-        console.log('Answer was correct!!!!')
-        purses[currentPlayer] += 1
-        console.log(playerNames[currentPlayer] + ' now has ' +
-            purses[currentPlayer] + ' Gold Coins.')
-
-        var winner = didPlayerWin()
-        currentPlayer += 1
-        if (currentPlayer == playerNames.length) { currentPlayer = 0 }
-
+        awardCoins()
+        let winner = didPlayerWin()
+        getNextPlayer()
         return winner
       } else {
-        currentPlayer += 1
-        if (currentPlayer == playerNames.length) { currentPlayer = 0 }
+        getNextPlayer()
         return true
       }
     } else {
       console.log('Answer was correct!!!!')
-
       purses[currentPlayer] += 1
       console.log(playerNames[currentPlayer] + ' now has ' +
           purses[currentPlayer] + ' Gold Coins.')
-
-      var winner = didPlayerWin()
-
-      currentPlayer += 1
-      if (currentPlayer == playerNames.length) { currentPlayer = 0 }
-
+      let winner = didPlayerWin()
+      getNextPlayer()
       return winner
+    }
+
+    function awardCoins() {
+      console.log('Answer was correct!!!!')
+      purses[currentPlayer] += 1
+      console.log(playerNames[currentPlayer] + ' now has ' +
+        purses[currentPlayer] + ' Gold Coins.')
+    }
+
+    function getNextPlayer() {
+      currentPlayer += 1
+      if (currentPlayer == playerNames.length) { currentPlayer = 0} 
+    }
+
+    function didPlayerWin() {
+      return !(purses[currentPlayer] === 6)
     }
   }
 
