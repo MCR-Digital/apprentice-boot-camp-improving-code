@@ -7,6 +7,9 @@ var Game = function () {
   var playersInPenaltyBox = new Array(6)
 
   var popQuestions = new Array()
+  const popBoard = [0, 4, 8]
+  const scienceBoard = [1, 5, 9]
+  const sportsBoard = [2, 6, 10]
   var scienceQuestions = new Array()
   var sportsQuestions = new Array()
   var rockQuestions = new Array()
@@ -19,9 +22,8 @@ var Game = function () {
   }
 
   var getCurrentCategory = function () {
-    if (board[currentPlayer] == 0) { return 'Pop' }
-    if (board[currentPlayer] == 4) { return 'Pop' }
-    if (board[currentPlayer] == 8) { return 'Pop' }
+    if(popBoard.includes(board[currentPlayer])) { return 'Pop' }
+
     if (board[currentPlayer] == 1) { return 'Science' }
     if (board[currentPlayer] == 5) { return 'Science' }
     if (board[currentPlayer] == 9) { return 'Science' }
