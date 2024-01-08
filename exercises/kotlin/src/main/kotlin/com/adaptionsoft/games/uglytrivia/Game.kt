@@ -6,7 +6,7 @@ class Game {
     internal var players = ArrayList<Any>()
     internal var places = IntArray(6)
     internal var purses = IntArray(6)
-    internal var inPenaltyBox = BooleanArray(6)
+    internal var isInPenaltyBox = BooleanArray(6)
 
     internal var popQuestions = LinkedList<Any>()
     internal var scienceQuestions = LinkedList<Any>()
@@ -30,23 +30,23 @@ class Game {
     }
 
     fun isPlayable(): Boolean {
-        return howManyPlayers() >= 2
+        return getNumberOfPlayers() >= 2
     }
 
-    fun add(playerName: String): Boolean {
+    fun addPlayer(playerName: String): Boolean {
 
 
         players.add(playerName)
-        places[howManyPlayers()] = 0
-        purses[howManyPlayers()] = 0
-        inPenaltyBox[howManyPlayers()] = false
+        places[getNumberOfPlayers()] = 0
+        purses[getNumberOfPlayers()] = 0
+        isInPenaltyBox[getNumberOfPlayers()] = false
 
         println(playerName + " was added")
         println("They are player number " + players.size)
         return true
     }
 
-    fun howManyPlayers(): Int {
+    fun getNumberOfPlayers(): Int {
         return players.size
     }
 
@@ -54,7 +54,7 @@ class Game {
         println(players[currentPlayer].toString() + " is the current player")
         println("They have rolled a " + roll)
 
-        if (inPenaltyBox[currentPlayer]) {
+        if (isInPenaltyBox[currentPlayer]) {
             if (roll % 2 != 0) {
                 isGettingOutOfPenaltyBox = true
 
@@ -111,7 +111,7 @@ class Game {
     }
 
     fun wasCorrectlyAnswered(): Boolean {
-        if (inPenaltyBox[currentPlayer]) {
+        if (isInPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
                 println("Answer was correct!!!!")
                 purses[currentPlayer]++
@@ -149,10 +149,10 @@ class Game {
         }
     }
 
-    fun wrongAnswer(): Boolean {
+    fun wasIncorrectlyAnswered(): Boolean {
         println("Question was incorrectly answered")
         println(players[currentPlayer].toString() + " was sent to the penalty box")
-        inPenaltyBox[currentPlayer] = true
+        isInPenaltyBox[currentPlayer] = true
 
         currentPlayer++
         if (currentPlayer == players.size) currentPlayer = 0
