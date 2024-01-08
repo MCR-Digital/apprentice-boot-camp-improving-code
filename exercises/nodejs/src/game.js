@@ -16,7 +16,7 @@ var Game = function () {
   var isPlayerInPenaltyBox = false
 
   var isWinner = function () {
-    return !(playerPurses[currentPlayer] == 6)
+    return playerPurses[currentPlayer] !== 6
   }
 
   var getCurrentCategory = function () {
