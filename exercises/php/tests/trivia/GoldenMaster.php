@@ -24,8 +24,8 @@ class GoldenMaster
         // Your implementation to generate the expected result
         // ...
 
-        $originalOut = fopen('php://output', 'w');
-        $outContent = fopen('php://temp', 'w+');
+        $originalOut = fopen('php://output', 'wb');
+        $outContent = fopen('php://temp', 'wb+');
 
         try {
             ob_start();

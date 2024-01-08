@@ -12,7 +12,7 @@ class GameRunnerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->originalOut = fopen('php://output', 'w');
+        $this->originalOut = fopen('php://output', 'wb');
     }
 
     protected function tearDown(): void
