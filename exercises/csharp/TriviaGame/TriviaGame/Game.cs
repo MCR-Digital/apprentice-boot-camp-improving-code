@@ -149,16 +149,7 @@ namespace TriviaGame
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    purses[currentPlayer]++;
-                    Console.WriteLine(players[currentPlayer]
-                            + " now has "
-                            + purses[currentPlayer]
-                            + " Gold Coins.");
-
-                    bool winner = DidPlayerWin();
-                    CurrentPlayerCount();
-
-                    return winner;
+                    return isWinner();
                 }
                 else
                 {
@@ -170,17 +161,22 @@ namespace TriviaGame
             {
 
                 Console.WriteLine("Answer was corrent!!!!");
-                purses[currentPlayer]++;
-                Console.WriteLine(players[currentPlayer]
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.");
-
-                bool winner = DidPlayerWin();
-                CurrentPlayerCount();
-
-                return winner;
+                return isWinner();
             }
+        }
+
+        private bool isWinner()
+        {
+            purses[currentPlayer]++;
+            Console.WriteLine(players[currentPlayer]
+                    + " now has "
+                    + purses[currentPlayer]
+                    + " Gold Coins.");
+
+            bool winner = DidPlayerWin();
+            CurrentPlayerCount();
+
+            return winner;
         }
 
         public bool WrongAnswer()
