@@ -13,6 +13,7 @@ namespace TriviaGame
         private const int WINNING_TOTAL = 6;
         private const int MINIMUM_NUMBER_OF_PLAYERS = 2;
         private const int TOTAL_NUMBER_OF_QUESTIONS = 50;
+        private const int TOTAL_PLACES_OF_BOARD = 12;
         int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         
@@ -73,7 +74,8 @@ namespace TriviaGame
 
             if (inPenaltyBox[currentPlayer])
             {
-                if (roll % 2 != 0)
+                bool isRollOdd = roll % 2 != 0;
+                if (isRollOdd)
                 {
                     isGettingOutOfPenaltyBox = true;
 
@@ -97,7 +99,7 @@ namespace TriviaGame
         private void MoveToNewLocationAndAskQuestion(int roll)
         {
             places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - TOTAL_PLACES_OF_BOARD;
 
             Console.WriteLine(players[currentPlayer]
                     + "'s new location is "
