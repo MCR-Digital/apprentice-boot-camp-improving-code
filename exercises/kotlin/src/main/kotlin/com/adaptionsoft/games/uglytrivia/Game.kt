@@ -3,10 +3,15 @@ package com.adaptionsoft.games.uglytrivia
 import java.util.*
 
 class Game {
+    private val NUMBER_OF_PLAYERS = 6
+    private val NUMBER_OF_QUESTIONS = 50
+    private val NUMBER_OF_PLACES = 12
+    private val COINS_TO_WIN = 6
+
     internal var players = ArrayList<Any>()
-    internal var places = IntArray(6)
-    internal var purses = IntArray(6)
-    internal var isInPenaltyBox = BooleanArray(6)
+    internal var places = IntArray(NUMBER_OF_PLAYERS)
+    internal var purses = IntArray(NUMBER_OF_PLAYERS)
+    internal var isInPenaltyBox = BooleanArray(NUMBER_OF_PLAYERS)
 
     internal var popQuestions = LinkedList<Any>()
     internal var scienceQuestions = LinkedList<Any>()
@@ -17,7 +22,7 @@ class Game {
     internal var isGettingOutOfPenaltyBox: Boolean = false
 
     init {
-        for (questionIndex in 0..49) {
+        for (questionIndex in 0..<NUMBER_OF_QUESTIONS) {
             popQuestions.addLast(createQuestion("Pop", questionIndex))
             scienceQuestions.addLast(createQuestion("Science", questionIndex))
             sportsQuestions.addLast(createQuestion("Sports", questionIndex))
@@ -27,10 +32,6 @@ class Game {
 
     fun createQuestion(category: String, index: Int): String {
         return "$category Question " + index
-    }
-
-    fun isPlayable(): Boolean {
-        return getNumberOfPlayers() >= 2
     }
 
     fun addPlayer(playerName: String): Boolean {
@@ -76,7 +77,7 @@ class Game {
 
     private fun movePlayer(roll: Int) {
         places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12
+        if (places[currentPlayer] >= NUMBER_OF_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_PLACES
 
         println(
             players[currentPlayer].toString()
@@ -98,15 +99,9 @@ class Game {
     }
 
     private fun currentCategory(): String {
-        if (places[currentPlayer] == 0) return "Pop"
-        if (places[currentPlayer] == 4) return "Pop"
-        if (places[currentPlayer] == 8) return "Pop"
-        if (places[currentPlayer] == 1) return "Science"
-        if (places[currentPlayer] == 5) return "Science"
-        if (places[currentPlayer] == 9) return "Science"
-        if (places[currentPlayer] == 2) return "Sports"
-        if (places[currentPlayer] == 6) return "Sports"
-        if (places[currentPlayer] == 10) return "Sports"
+        if (places[currentPlayer] % 4 == 0) return "Pop"
+        if (places[currentPlayer] % 4 == 1) return "Science"
+        if (places[currentPlayer] % 4 == 2) return "Sports"
         return "Rock"
     }
 
@@ -163,6 +158,6 @@ class Game {
     }
 
     private fun didPlayerWin(): Boolean {
-        return purses[currentPlayer] != 6
+        return purses[currentPlayer] != COINS_TO_WIN
     }
 }
