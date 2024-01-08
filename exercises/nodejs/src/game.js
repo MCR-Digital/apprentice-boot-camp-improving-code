@@ -18,7 +18,7 @@ var Game = function () {
     return !(playerPurses[currentPlayer] == 6)
   }
 
-  var currentCategory = function () {
+  var getCurrentCategory = function () {
     if (board[currentPlayer] == 0) { return 'Pop' }
     if (board[currentPlayer] == 4) { return 'Pop' }
     if (board[currentPlayer] == 8) { return 'Pop' }
@@ -63,10 +63,10 @@ var Game = function () {
   }
 
   var askQuestion = function () {
-    if (currentCategory() == 'Pop') { console.log(popQuestions.shift()) }
-    if (currentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
-    if (currentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
-    if (currentCategory() == 'Rock') { console.log(rockQuestions.shift()) }
+    if (getCurrentCategory() == 'Pop') { console.log(popQuestions.shift()) }
+    if (getCurrentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
+    if (getCurrentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
+    if (getCurrentCategory() == 'Rock') { console.log(rockQuestions.shift()) }
   }
 
   this.roll = function (roll) {
@@ -84,7 +84,7 @@ var Game = function () {
         }
 
         console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
-        console.log('The category is ' + currentCategory())
+        console.log('The category is ' + getCurrentCategory())
         askQuestion()
       } else {
         console.log(players[currentPlayer] + ' is not getting out of the penalty box')
@@ -97,7 +97,7 @@ var Game = function () {
       }
 
       console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
-      console.log('The category is ' + currentCategory())
+      console.log('The category is ' + getCurrentCategory())
       askQuestion()
     }
   }
