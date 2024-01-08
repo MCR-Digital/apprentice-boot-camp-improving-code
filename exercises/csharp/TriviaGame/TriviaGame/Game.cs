@@ -74,7 +74,7 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    MoveInPlace(roll);
+                    MoveToNewLocationAndAskQuestion(roll);
                 }
                 else
                 {
@@ -85,12 +85,12 @@ namespace TriviaGame
             }
             else
             {
-                MoveInPlace(roll);
+                MoveToNewLocationAndAskQuestion(roll);
             }
 
         }
 
-        private void MoveInPlace(int roll)
+        private void MoveToNewLocationAndAskQuestion(int roll)
         {
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
