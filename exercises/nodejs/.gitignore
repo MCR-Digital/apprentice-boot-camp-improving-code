@@ -1,5 +1,5 @@
 node_modules
 coverage
-resources
+resources/output*.txt
 *.iml
 .idea
