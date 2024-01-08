@@ -73,11 +73,12 @@ var Game = function () {
   }
 
   this.roll = function (roll) {
+    const isRollOdd = roll % 2 != 0
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
 
     if (playersInPenaltyBox[currentPlayer]) {
-      if (roll % 2 != 0) {
+      if (isRollOdd) {
         isPlayerInPenaltyBox = true
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
