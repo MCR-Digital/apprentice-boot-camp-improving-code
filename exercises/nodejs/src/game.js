@@ -60,16 +60,19 @@ var Game = function () {
   this.playerCount = function () {
     return players.length
   }
+  const displayQuestion = (questions) => {
+    console.log(questions.shift())
+  }
 
   var askQuestion = function () {
-    if (getCurrentCategory() == 'Pop') { console.log(popQuestions.shift()) }
-    if (getCurrentCategory() == 'Science') { console.log(scienceQuestions.shift()) }
-    if (getCurrentCategory() == 'Sports') { console.log(sportsQuestions.shift()) }
-    if (getCurrentCategory() == 'Rock') { console.log(rockQuestions.shift()) }
+  const currentCategory = getCurrentCategory()
+    if (currentCategory == 'Pop') { displayQuestion(popQuestions) }
+    if (currentCategory == 'Science') { displayQuestion(scienceQuestions) }
+    if (currentCategory == 'Sports') { displayQuestion(sportsQuestions) }
+    if (currentCategory == 'Rock') { displayQuestion(rockQuestions) }
   }
 
   this.roll = function (roll) {
-    
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
 
