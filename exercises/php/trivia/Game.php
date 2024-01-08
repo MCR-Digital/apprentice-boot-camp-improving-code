@@ -78,7 +78,7 @@ class Game {
 				echoln($this->players[$this->currentPlayer]
 						. "'s new location is "
 						.$this->places[$this->currentPlayer]);
-				echoln("The category is " . $this->currentCategory());
+				echoln("The category is " . $this->getcurrentCategory());
 				$this->askQuestion();
 			} else {
 				echoln($this->players[$this->currentPlayer] . " is not getting out of the penalty box");
@@ -93,25 +93,25 @@ class Game {
 			echoln($this->players[$this->currentPlayer]
 					. "'s new location is "
 					.$this->places[$this->currentPlayer]);
-			echoln("The category is " . $this->currentCategory());
+			echoln("The category is " . $this->getcurrentCategory());
 			$this->askQuestion();
 		}
 
 	}
 
 	function  askQuestion() {
-		if ($this->currentCategory() == "Pop")
+		if ($this->getcurrentCategory() == "Pop")
 			echoln(array_shift($this->popQuestions));
-		if ($this->currentCategory() == "Science")
+		if ($this->getcurrentCategory() == "Science")
 			echoln(array_shift($this->scienceQuestions));
-		if ($this->currentCategory() == "Sports")
+		if ($this->getcurrentCategory() == "Sports")
 			echoln(array_shift($this->sportsQuestions));
-		if ($this->currentCategory() == "Rock")
+		if ($this->getcurrentCategory() == "Rock")
 			echoln(array_shift($this->rockQuestions));
 	}
 
 
-	function currentCategory() {
+	function getcurrentCategory() {
 		if ($this->places[$this->currentPlayer] == 0) return "Pop";
 		if ($this->places[$this->currentPlayer] == 4) return "Pop";
 		if ($this->places[$this->currentPlayer] == 8) return "Pop";
