@@ -3,15 +3,15 @@ package com.adaptionsoft.games.uglytrivia
 import java.util.*
 
 class Game {
-    private val NUMBER_OF_PLAYERS = 6
-    private val NUMBER_OF_QUESTIONS = 50
+    private val MAX_NUMBER_OF_PLAYERS = 6
+    private val MAX_NUMBER_OF_QUESTIONS = 50
     private val NUMBER_OF_PLACES = 12
     private val COINS_TO_WIN = 6
 
     internal var players = ArrayList<Any>()
-    internal var places = IntArray(NUMBER_OF_PLAYERS)
-    internal var purses = IntArray(NUMBER_OF_PLAYERS)
-    internal var isInPenaltyBox = BooleanArray(NUMBER_OF_PLAYERS)
+    internal var places = IntArray(MAX_NUMBER_OF_PLAYERS)
+    internal var purses = IntArray(MAX_NUMBER_OF_PLAYERS)
+    internal var isInPenaltyBox = BooleanArray(MAX_NUMBER_OF_PLAYERS)
 
     internal var popQuestions = LinkedList<Any>()
     internal var scienceQuestions = LinkedList<Any>()
@@ -22,7 +22,7 @@ class Game {
     internal var isGettingOutOfPenaltyBox: Boolean = false
 
     init {
-        for (questionIndex in 0..<NUMBER_OF_QUESTIONS) {
+        for (questionIndex in 0..<MAX_NUMBER_OF_QUESTIONS) {
             popQuestions.addLast(createQuestion("Pop", questionIndex))
             scienceQuestions.addLast(createQuestion("Science", questionIndex))
             sportsQuestions.addLast(createQuestion("Sports", questionIndex))
@@ -111,10 +111,10 @@ class Game {
                 println("Answer was correct!!!!")
                 addCoin()
 
-                val winner = didPlayerWin()
+                val shouldContinueGame = shouldContinueGame()
                 updateCurrentPlayer()
 
-                return winner
+                return shouldContinueGame
             } else {
                 updateCurrentPlayer()
                 return true
@@ -126,10 +126,10 @@ class Game {
             println("Answer was corrent!!!!")
             addCoin()
 
-            val winner = didPlayerWin()
+            val shouldContinueGame = shouldContinueGame()
             updateCurrentPlayer()
 
-            return winner
+            return shouldContinueGame
         }
     }
 
@@ -157,7 +157,7 @@ class Game {
         if (currentPlayer == players.size) currentPlayer = 0
     }
 
-    private fun didPlayerWin(): Boolean {
+    private fun shouldContinueGame(): Boolean {
         return purses[currentPlayer] != COINS_TO_WIN
     }
 }
