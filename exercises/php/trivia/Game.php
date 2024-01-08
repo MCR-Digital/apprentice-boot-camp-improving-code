@@ -128,11 +128,7 @@ class Game {
 		if ($this->inPenaltyBox[$this->currentPlayer]){
 			if ($this->isGettingOutOfPenaltyBox) {
 				echoln("Answer was correct!!!!");
-			$this->purses[$this->currentPlayer]++;
-				echoln($this->players[$this->currentPlayer]
-						. " now has "
-						.$this->purses[$this->currentPlayer]
-						. " Gold Coins.");
+				$this->getAnswerOutcome('correct');
 
 				$winner = $this->didPlayerWin();
 				$this->currentPlayer++;
@@ -148,13 +144,9 @@ class Game {
 
 
 		} else {
-
+						
 			echoln("Answer was corrent!!!!");
-		$this->purses[$this->currentPlayer]++;
-			echoln($this->players[$this->currentPlayer]
-					. " now has "
-					.$this->purses[$this->currentPlayer]
-					. " Gold Coins.");
+			$this->getAnswerOutcome('correct');
 
 			$winner = $this->didPlayerWin();
 			
@@ -165,12 +157,12 @@ class Game {
 	}
 
 	function wasNotCorrectlyAnswered(){
-		echoln("Question was incorrectly answered");
-		echoln($this->players[$this->currentPlayer] . " was sent to the penalty box");
+		$this->getAnswerOutcome('incorrect');
+
 	$this->inPenaltyBox[$this->currentPlayer] = true;
 
 		$this->nextPlayer();
-		
+
 		return true;
 	}
 
@@ -182,5 +174,18 @@ class Game {
 	function nextPlayer() {
 		$this->currentPlayer++;
 		if ($this->currentPlayer == count($this->players)) $this->currentPlayer = 0;
+	}
+
+	function getAnswerOutcome($answer){
+		if ($answer === "correct") {
+			$this->purses[$this->currentPlayer]++;
+				echoln($this->players[$this->currentPlayer]
+						. " now has "
+						.$this->purses[$this->currentPlayer]
+						. " Gold Coins.");
+		} else {
+			echoln("Question was incorrectly answered");
+			echoln($this->players[$this->currentPlayer] . " was sent to the penalty box");
+		}
 	}
 }
