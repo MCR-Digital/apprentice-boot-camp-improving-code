@@ -9,10 +9,13 @@ namespace TriviaGame
     {
         List<string> players = new List<string>();
 
-        int[] places = new int[6];
-        int[] purses = new int[6];
+        private const int MAXIMUM_NUMBER_OF_PLAYERS = 6;
+        private const int WINNING_TOTAL = 6;
 
-        bool[] inPenaltyBox = new bool[6];
+        int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
+        int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
+        
+        bool[] inPenaltyBox = new bool[MAXIMUM_NUMBER_OF_PLAYERS];
 
         LinkedList<string> popQuestions = new LinkedList<string>();
         LinkedList<string> scienceQuestions = new LinkedList<string>();
@@ -159,7 +162,6 @@ namespace TriviaGame
             }
             else
             {
-
                 Console.WriteLine("Answer was corrent!!!!");
                 return isWinner();
             }
@@ -196,7 +198,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(purses[currentPlayer] == 6);
+            return !(purses[currentPlayer] == WINNING_TOTAL);
         }
     }
 
