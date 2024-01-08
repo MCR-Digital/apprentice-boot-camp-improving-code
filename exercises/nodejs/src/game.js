@@ -44,9 +44,12 @@ var Game = function () {
 
   this.add = function (playerName) {
     players.push(playerName)
-    board[this.playerCount() - 1] = 0
-    playerPurses[this.playerCount() - 1] = 0
-    playersInPenaltyBox[this.playerCount() - 1] = false
+
+    const player = this.playerCount() -1
+
+    board[player] = 0
+    playerPurses[player] = 0
+    playersInPenaltyBox[player] = false
 
     console.log(playerName + ' was added')
     console.log('They are player number ' + players.length)
