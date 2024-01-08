@@ -7,9 +7,7 @@ var Game = function () {
   var playersInPenaltyBox = new Array(6)
 
   var popQuestions = new Array()
-  const popBoard = [0, 4, 8]
-  const scienceBoard = [1, 5, 9]
-  const sportsBoard = [2, 6, 10]
+
   var scienceQuestions = new Array()
   var sportsQuestions = new Array()
   var rockQuestions = new Array()
@@ -22,10 +20,11 @@ var Game = function () {
   }
 
   var getCurrentCategory = function () {
-    if(popBoard.includes(board[currentPlayer])) { return 'Pop' }
-    if(scienceBoard.includes(board[currentPlayer])) { return 'Science' }
-    if(sportsBoard.includes(board[currentPlayer])) { return 'Sports' }
-    return 'Rock'
+    const categoryIndex = board[currentPlayer] % 4
+    if (categoryIndex == 0) { return 'Pop' }
+    if (categoryIndex  == 1) { return 'Science' }
+    if (categoryIndex == 2) { return 'Sports' }
+    if (categoryIndex == 3) { return 'Rock' }
   }
 
   this.createRockQuestion = function (index) {
@@ -67,6 +66,7 @@ var Game = function () {
   }
 
   this.roll = function (roll) {
+    
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
 
