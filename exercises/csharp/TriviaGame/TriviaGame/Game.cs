@@ -11,6 +11,7 @@ namespace TriviaGame
 
         private const int MAXIMUM_NUMBER_OF_PLAYERS = 6;
         private const int WINNING_TOTAL = 6;
+        private const int MINIMUM_NUMBER_OF_PLAYERS = 2;
 
         int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
@@ -43,7 +44,7 @@ namespace TriviaGame
 
         public bool IsPlayable()
         {
-            return (NumberOfPlayers() >= 2);
+            return (NumberOfPlayers() >= MINIMUM_NUMBER_OF_PLAYERS);
         }
 
         public bool Add(string playerName)
