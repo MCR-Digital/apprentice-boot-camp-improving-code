@@ -45,21 +45,21 @@ class Game {
 	}
 
 	function isPlayable() {
-		return ($this->howManyPlayers() >= 2);
+		return ($this->getPlayerCount() >= 2);
 	}
 
 	function addPlayer($playerName) {
 	   array_push($this->players, $playerName);
-	   $this->places[$this->howManyPlayers()] = 0;
-	   $this->purses[$this->howManyPlayers()] = 0;
-	   $this->inPenaltyBox[$this->howManyPlayers()] = false;
+	   $this->places[$this->getPlayerCount()] = 0;
+	   $this->purses[$this->getPlayerCount()] = 0;
+	   $this->inPenaltyBox[$this->getPlayerCount()] = false;
 
 	    echoln($playerName . " was added");
 	    echoln("They are player number " . count($this->players));
 		return true;
 	}
 
-	function howManyPlayers() {
+	function getPlayerCount() {
 		return count($this->players);
 	}
 
