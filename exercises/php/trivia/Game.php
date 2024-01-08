@@ -164,7 +164,7 @@ class Game {
 		}
 	}
 
-	function wrongAnswer(){
+	function wasNotCorrectlyAnswered(){
 		echoln("Question was incorrectly answered");
 		echoln($this->players[$this->currentPlayer] . " was sent to the penalty box");
 	$this->inPenaltyBox[$this->currentPlayer] = true;
