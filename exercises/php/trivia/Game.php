@@ -63,7 +63,7 @@ class Game {
 		return count($this->players);
 	}
 
-	function  roll($roll) {
+	function  rollDice($roll) {
 		echoln($this->players[$this->currentPlayer] . " is the current player");
 		echoln("They have rolled a " . $roll);
 

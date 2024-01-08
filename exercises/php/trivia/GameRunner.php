@@ -16,7 +16,7 @@ class GameRunner {
     srand($seed);
     do {
       
-      $aGame->roll(rand(0,5) + 1);
+      $aGame->rollDice(rand(0,5) + 1);
       
       if (rand(0,9) == 7) {
         $notAWinner = $aGame->wrongAnswer();
