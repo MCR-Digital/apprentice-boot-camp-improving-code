@@ -14,6 +14,7 @@ namespace TriviaGame
         private const int MINIMUM_NUMBER_OF_PLAYERS = 2;
         private const int TOTAL_NUMBER_OF_QUESTIONS = 50;
         private const int TOTAL_PLACES_OF_BOARD = 12;
+
         int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         
@@ -99,7 +100,7 @@ namespace TriviaGame
         private void MoveToNewLocationAndAskQuestion(int roll)
         {
             places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - TOTAL_PLACES_OF_BOARD;
+            if (places[currentPlayer] > TOTAL_PLACES_OF_BOARD - 1) places[currentPlayer] = places[currentPlayer] - TOTAL_PLACES_OF_BOARD;
 
             Console.WriteLine(players[currentPlayer]
                     + "'s new location is "
