@@ -17,16 +17,16 @@ class Game {
     internal var isGettingOutOfPenaltyBox: Boolean = false
 
     init {
-        for (i in 0..49) {
-            popQuestions.addLast("Pop Question " + i)
-            scienceQuestions.addLast("Science Question " + i)
-            sportsQuestions.addLast("Sports Question " + i)
-            rockQuestions.addLast(createRockQuestion(i))
+        for (questionIndex in 0..49) {
+            popQuestions.addLast(createQuestion("Pop", questionIndex))
+            scienceQuestions.addLast(createQuestion("Science", questionIndex))
+            sportsQuestions.addLast(createQuestion("Sports", questionIndex))
+            rockQuestions.addLast(createQuestion("Rock", questionIndex))
         }
     }
 
-    fun createRockQuestion(index: Int): String {
-        return "Rock Question " + index
+    fun createQuestion(category: String, index: Int): String {
+        return "$category Question " + index
     }
 
     fun isPlayable(): Boolean {
