@@ -2,8 +2,6 @@
 
 namespace trivia;
 
-include __DIR__.'/Game.php';
-
 class GameRunner {
   public function runGame($seed): void
   {

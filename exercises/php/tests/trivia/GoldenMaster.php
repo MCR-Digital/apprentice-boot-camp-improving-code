@@ -1,8 +1,8 @@
 <?php
 
-namespace trivia;
+namespace Tests;
 
-//include __DIR__ . '/../../trivia/GameRunner.php';
+use trivia\GameRunner;
 
 class GoldenMaster
 {

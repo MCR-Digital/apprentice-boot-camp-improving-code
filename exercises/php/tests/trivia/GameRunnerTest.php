@@ -1,11 +1,9 @@
 <?php
 
-namespace trivia;
-
-include __DIR__ . '/GoldenMaster.php';
-include __DIR__ . '/../../trivia/GameRunner.php';
+namespace Tests;
 
 use PHPUnit\Framework\TestCase;
+use trivia\GameRunner;
 
 class GameRunnerTest extends TestCase
 {
