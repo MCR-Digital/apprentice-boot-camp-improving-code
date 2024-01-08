@@ -74,14 +74,7 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    places[currentPlayer] = places[currentPlayer] + roll;
-                    if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-
-                    Console.WriteLine(players[currentPlayer]
-                            + "'s new location is "
-                            + places[currentPlayer]);
-                    Console.WriteLine("The category is " + CurrentCategory());
-                    AskQuestion();
+                    MoveInPlace(roll);
                 }
                 else
                 {
@@ -92,17 +85,21 @@ namespace TriviaGame
             }
             else
             {
-
-                places[currentPlayer] = places[currentPlayer] + roll;
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
-
-                Console.WriteLine(players[currentPlayer]
-                        + "'s new location is "
-                        + places[currentPlayer]);
-                Console.WriteLine("The category is " + CurrentCategory());
-                AskQuestion();
+                MoveInPlace(roll);
             }
 
+        }
+
+        private void MoveInPlace(int roll)
+        {
+            places[currentPlayer] = places[currentPlayer] + roll;
+            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+
+            Console.WriteLine(players[currentPlayer]
+                    + "'s new location is "
+                    + places[currentPlayer]);
+            Console.WriteLine("The category is " + CurrentCategory());
+            AskQuestion();
         }
 
         private void AskQuestion()
@@ -158,20 +155,15 @@ namespace TriviaGame
                             + " Gold Coins.");
 
                     bool winner = DidPlayerWin();
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    CurrentPlayerCount();
 
                     return winner;
                 }
                 else
                 {
-                    currentPlayer++;
-                    if (currentPlayer == players.Count) currentPlayer = 0;
+                    CurrentPlayerCount();
                     return true;
                 }
-
-
-
             }
             else
             {
@@ -184,8 +176,7 @@ namespace TriviaGame
                         + " Gold Coins.");
 
                 bool winner = DidPlayerWin();
-                currentPlayer++;
-                if (currentPlayer == players.Count) currentPlayer = 0;
+                CurrentPlayerCount();
 
                 return winner;
             }
@@ -196,12 +187,15 @@ namespace TriviaGame
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
-
-            currentPlayer++;
-            if (currentPlayer == players.Count) currentPlayer = 0;
+            CurrentPlayerCount();
             return true;
         }
 
+        private void CurrentPlayerCount()
+        {
+            currentPlayer++;
+            if (currentPlayer == players.Count) currentPlayer = 0;
+        }
 
         private bool DidPlayerWin()
         {
