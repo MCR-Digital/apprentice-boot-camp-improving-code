@@ -121,7 +121,7 @@ var Game = function () {
         return true
       }
     } else {
-      console.log('Answer was correct!!!!')
+      console.log('Answer was corrent!!!!')
 
       purses[currentPlayer] += 1
       console.log(players[currentPlayer] + ' now has ' +
