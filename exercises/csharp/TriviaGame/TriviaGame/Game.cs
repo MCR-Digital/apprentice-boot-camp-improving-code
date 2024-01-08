@@ -106,26 +106,27 @@ namespace TriviaGame
         {
             if (CurrentCategory() == "Pop")
             {
-                Console.WriteLine(popQuestions.First());
-                popQuestions.RemoveFirst();
+                AskAndRemoveQuestion(popQuestions);
             }
             if (CurrentCategory() == "Science")
             {
-                Console.WriteLine(scienceQuestions.First());
-                scienceQuestions.RemoveFirst();
+                AskAndRemoveQuestion(scienceQuestions);
             }
             if (CurrentCategory() == "Sports")
             {
-                Console.WriteLine(sportsQuestions.First());
-                sportsQuestions.RemoveFirst();
+                AskAndRemoveQuestion(sportsQuestions);
             }
             if (CurrentCategory() == "Rock")
             {
-                Console.WriteLine(rockQuestions.First());
-                rockQuestions.RemoveFirst();
+                AskAndRemoveQuestion(rockQuestions);
             }
         }
 
+        private void AskAndRemoveQuestion(LinkedList<string> questions)
+        {
+            Console.WriteLine(questions.First());
+            questions.RemoveFirst();
+        }
 
         private string CurrentCategory()
         {
