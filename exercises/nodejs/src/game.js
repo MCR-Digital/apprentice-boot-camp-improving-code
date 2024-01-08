@@ -82,9 +82,9 @@ var Game = function () {
         isPlayerInPenaltyBox = true
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        board[currentPlayer] = board[currentPlayer] + roll
+        board[currentPlayer] += roll
         if (board[currentPlayer] > 11) {
-          board[currentPlayer] = board[currentPlayer] - 12
+          board[currentPlayer] -= 12
         }
 
         console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
