@@ -89,7 +89,7 @@ The slides can be viewed from the link at the top of the repository.
 
 # Briefing for organisation mentors
 
-* Familiarise yourself with following code smells using [this site](https://refactoring.guru/smells/)
+* Familiarise yourself with following code smells using [this site](https://refactoring.guru/refactoring/smells)
     * Uncommunicative Name
     * Duplicate Code
     * Magic Number
