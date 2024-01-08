@@ -1,16 +1,16 @@
 import generator from 'random-seed'
 
 var Game = function () {
-  var players = new Array()
+  var players = []
   var board = new Array(6)
   var playerPurses = new Array(6)
   var playersInPenaltyBox = new Array(6)
 
-  var popQuestions = new Array()
+  var popQuestions = []
 
-  var scienceQuestions = new Array()
-  var sportsQuestions = new Array()
-  var rockQuestions = new Array()
+  var scienceQuestions = []
+  var sportsQuestions = []
+  var rockQuestions = []
 
   var currentPlayer = 0
   var isPlayerInPenaltyBox = false
