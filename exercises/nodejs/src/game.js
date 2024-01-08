@@ -48,9 +48,9 @@ var Game = function () {
 
   this.add = function (playerName) {
     players.push(playerName)
-    board[this.howManyPlayers() - 1] = 0
-    playerPurses[this.howManyPlayers() - 1] = 0
-    playersInPenaltyBox[this.howManyPlayers() - 1] = false
+    board[this.playerCount() - 1] = 0
+    playerPurses[this.playerCount() - 1] = 0
+    playersInPenaltyBox[this.playerCount() - 1] = false
 
     console.log(playerName + ' was added')
     console.log('They are player number ' + players.length)
@@ -58,7 +58,7 @@ var Game = function () {
     return true
   }
 
-  this.howManyPlayers = function () {
+  this.playerCount = function () {
     return players.length
   }
 
