@@ -1,7 +1,7 @@
 ## Exercise: Fix these smells (90 mins)
 
 * Fix one smell at a time and run test after each change
-* Commit if green with useful message (don’t push!)
+* Commit if green with useful message
 * Revert if red (you shouldn’t get a failure with refactoring)
 
 | Smell | Refactorings |
