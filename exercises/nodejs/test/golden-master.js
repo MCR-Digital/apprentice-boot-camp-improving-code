@@ -1,5 +1,5 @@
 import fs from 'fs'
-import gameRunner from '../src/game'
+import runGame from '../src/game'
 import captureOutput from './capture-console-output'
 
 function createFolder(foldername) {
@@ -19,7 +19,7 @@ const generateExpectedResult = (i) => {
     flags: 'w'
   })
 
-  const output = captureOutput(() => gameRunner(i))
+  const output = captureOutput(() => runGame(i))
 
   masterFile.write(output)
 

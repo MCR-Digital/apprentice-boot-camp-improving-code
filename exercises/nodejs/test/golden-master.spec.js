@@ -1,5 +1,5 @@
 import getResult from './golden-master'
-import gameRunner from '../src/game'
+import runGame from '../src/game'
 import captureOutput from './capture-console-output'
 
 describe('Running the golden master', () => {
@@ -7,7 +7,7 @@ describe('Running the golden master', () => {
     for (let i = 0; i < 500; i++) {
       const result = getResult(i)
 
-      expect(result).toEqual(captureOutput(() => gameRunner(i)))
+      expect(result).toEqual(captureOutput(() => runGame(i)))
     }
   })
 })

@@ -102,7 +102,7 @@ var Game = function () {
     }
   }
 
-  this.wasCorrectlyAnswered = function () {
+  this.correctAnswer = function () {
     if (playersInPenaltyBox[currentPlayer]) {
       if (isPlayerInPenaltyBox) {
         console.log('Answer was correct!!!!')
@@ -147,8 +147,8 @@ var Game = function () {
   }
 }
 
-const gameRunner = (i) => {
-  var notAWinner = false
+const runGame = (i) => {
+  var isWinner = false
 
   var game = new Game()
 
@@ -162,11 +162,11 @@ const gameRunner = (i) => {
     game.roll(random.range(5) + 1)
 
     if (random.range(9) == 7) {
-      notAWinner = game.wrongAnswer()
+      isWinner = game.wrongAnswer()
     } else {
-      notAWinner = game.wasCorrectlyAnswered()
+      isWinner = game.correctAnswer()
     }
-  } while (notAWinner)
+  } while (isWinner)
 }
 
-export default gameRunner
+export default runGame
