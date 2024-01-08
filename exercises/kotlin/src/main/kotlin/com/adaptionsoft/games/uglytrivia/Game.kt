@@ -55,7 +55,8 @@ class Game {
         println("They have rolled a " + roll)
 
         if (isInPenaltyBox[currentPlayer]) {
-            if (roll % 2 != 0) {
+            val isRollOdd = roll % 2 != 0
+            if (isRollOdd) {
                 isGettingOutOfPenaltyBox = true
 
                 println(players[currentPlayer].toString() + " is getting out of the penalty box")
