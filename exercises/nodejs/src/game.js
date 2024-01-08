@@ -23,13 +23,8 @@ var Game = function () {
 
   var getCurrentCategory = function () {
     if(popBoard.includes(board[currentPlayer])) { return 'Pop' }
-
-    if (board[currentPlayer] == 1) { return 'Science' }
-    if (board[currentPlayer] == 5) { return 'Science' }
-    if (board[currentPlayer] == 9) { return 'Science' }
-    if (board[currentPlayer] == 2) { return 'Sports' }
-    if (board[currentPlayer] == 6) { return 'Sports' }
-    if (board[currentPlayer] == 10) { return 'Sports' }
+    if(scienceBoard.includes(board[currentPlayer])) { return 'Science' }
+    if(sportsBoard.includes(board[currentPlayer])) { return 'Sports' }
     return 'Rock'
   }
 
