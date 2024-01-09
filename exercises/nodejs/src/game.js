@@ -148,8 +148,7 @@ var Game = function () {
     console.log(players[currentPlayer] + ' was sent to the penalty box')
     playersInPenaltyBox[currentPlayer] = true
 
-    currentPlayer += 1
-    if (currentPlayer == players.length) { currentPlayer = 0 }
+    this.changePlayer()
     return true
   }
 }
