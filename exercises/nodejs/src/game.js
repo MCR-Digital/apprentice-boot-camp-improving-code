@@ -77,10 +77,14 @@ var Game = function () {
     if (currentCategory == 'Rock') { displayQuestion(rockQuestions) }
   }
 
-  this.roll = function (roll) {
-    const isRollOdd = roll % 2 != 0
+  this.logPlayerRoll = function (roll) {
     console.log(players[currentPlayer] + ' is the current player')
     console.log('They have rolled a ' + roll)
+  }
+
+  this.roll = function (roll) {
+    const isRollOdd = roll % 2 != 0
+    this.logPlayerRoll(roll)
 
     if (playersInPenaltyBox[currentPlayer]) {
       if (isRollOdd) {
