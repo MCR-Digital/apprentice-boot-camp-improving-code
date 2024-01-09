@@ -6,7 +6,6 @@ var Game = function () {
   const winningGoldCoins = 6
   var players = []
   var board = new Array(MAX_PLAYERS)
-  var playerPurses = new Array(MAX_PLAYERS)
   var playersInPenaltyBox = new Array(MAX_PLAYERS)
 
   var popQuestions = []
@@ -19,7 +18,7 @@ var Game = function () {
   var isPlayerInPenaltyBox = false
 
   var isWinner = function () {
-    return playerPurses[currentPlayer] !== winningGoldCoins
+    return players[currentPlayer].purse !== winningGoldCoins
   }
 
   var getCurrentCategory = function () {
@@ -54,7 +53,6 @@ var Game = function () {
   }
   this.initializePlayer = function (player) {
     board[player] = 0
-    playerPurses[player] = 0
     playersInPenaltyBox[player] = false
   }
 
@@ -118,9 +116,9 @@ var Game = function () {
   }
 
   this.addToPurse = function () {
-    playerPurses[currentPlayer] += 1
+    players[currentPlayer].purse += 1
     console.log(players[currentPlayer].name + ' now has ' +
-        playerPurses[currentPlayer] + ' Gold Coins.')
+        players[currentPlayer].purse + ' Gold Coins.')
   }
 
   this.correctAnswer = function () {
