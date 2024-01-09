@@ -63,7 +63,7 @@ namespace TriviaGame
             Console.WriteLine("They have rolled a " + roll);
 
             bool isRollOdd = roll % 2 != 0;
-            bool IsInPenaltyBox = inPenaltyBox[currentPlayer];
+            bool IsInPenaltyBox = players[currentPlayer].InPenaltyBox;
 
             if (IsInPenaltyBox)
             {
@@ -83,7 +83,7 @@ namespace TriviaGame
        
         public bool IsAnswerCorrect()
         {
-            if (inPenaltyBox[currentPlayer])
+            if (players[currentPlayer].InPenaltyBox)
             {
                 return DecideIfPlayerWon();
             }
@@ -99,7 +99,7 @@ namespace TriviaGame
         {
             Console.WriteLine("Question was incorrectly answered");
             Console.WriteLine(players[currentPlayer].Name + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
+            players[currentPlayer].InPenaltyBox = true;
             CurrentPlayerCount();
             return true;
         }
