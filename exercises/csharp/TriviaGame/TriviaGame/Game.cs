@@ -15,18 +15,16 @@ namespace TriviaGame
         private const int TOTAL_NUMBER_OF_QUESTIONS = 50;
         private const int TOTAL_PLACES_OF_BOARD = 12;
 
-        int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
-        int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
-        
-        bool[] inPenaltyBox = new bool[MAXIMUM_NUMBER_OF_PLAYERS];
+        readonly int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
+        readonly int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
+        readonly bool[] inPenaltyBox = new bool[MAXIMUM_NUMBER_OF_PLAYERS];
+        private int currentPlayer;
+        private bool isGettingOutOfPenaltyBox;
 
-        LinkedList<string> popQuestions = new LinkedList<string>();
-        LinkedList<string> scienceQuestions = new LinkedList<string>();
-        LinkedList<string> sportsQuestions = new LinkedList<string>();
-        LinkedList<string> rockQuestions = new LinkedList<string>();
-
-        int currentPlayer = 0;
-        bool isGettingOutOfPenaltyBox;
+        readonly LinkedList<string> popQuestions = new LinkedList<string>();
+        readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
+        readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
+        readonly LinkedList<string> rockQuestions = new LinkedList<string>();
 
         public Game()
         {
@@ -51,8 +49,6 @@ namespace TriviaGame
 
         public bool Add(string playerName)
         {
-
-
             players.Add(playerName);
             places[NumberOfPlayers()] = 0;
             purses[NumberOfPlayers()] = 0;
