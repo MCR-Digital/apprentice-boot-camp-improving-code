@@ -51,7 +51,28 @@ class Place (position: Int) {
     fun category(): String {
         return questionCategory.toString()
     }
+}
 
+class QuestionBank {
+    private val MAX_NUMBER_OF_QUESTIONS = 50
+
+    internal var pop = LinkedList<Any>()
+    internal var science = LinkedList<Any>()
+    internal var sports = LinkedList<Any>()
+    internal var rock = LinkedList<Any>()
+
+    init {
+        for (questionIndex in 0..<MAX_NUMBER_OF_QUESTIONS) {
+            pop.addLast(createQuestion("Pop", questionIndex))
+            science.addLast(createQuestion("Science", questionIndex))
+            sports.addLast(createQuestion("Sports", questionIndex))
+            rock.addLast(createQuestion("Rock", questionIndex))
+        }
+    }
+
+    private fun createQuestion(category: String, index: Int): String {
+        return "$category Question $index"
+    }
 }
 
 enum class Category {
@@ -59,38 +80,18 @@ enum class Category {
 }
 
 class Game {
-    private val board = Board()
-
-    private val MAX_NUMBER_OF_QUESTIONS = 50
     private val NUMBER_OF_PLACES = 12
     private val COINS_TO_WIN = 6
 
-    internal var players = ArrayList<Player>()
-
-    internal var popQuestions = LinkedList<Any>()
-    internal var scienceQuestions = LinkedList<Any>()
-    internal var sportsQuestions = LinkedList<Any>()
-    internal var rockQuestions = LinkedList<Any>()
+    private val board = Board()
+    private val questionBank = QuestionBank()
+    private var players = ArrayList<Player>()
 
     internal var currentPlayer = 0
     internal var isGettingOutOfPenaltyBox: Boolean = false
 
-    init {
-        for (questionIndex in 0..<MAX_NUMBER_OF_QUESTIONS) {
-            popQuestions.addLast(createQuestion("Pop", questionIndex))
-            scienceQuestions.addLast(createQuestion("Science", questionIndex))
-            sportsQuestions.addLast(createQuestion("Sports", questionIndex))
-            rockQuestions.addLast(createQuestion("Rock", questionIndex))
-        }
-    }
-
-    fun createQuestion(category: String, index: Int): String {
-        return "$category Question " + index
-    }
-
     fun addPlayer(playerName: String): Boolean {
         players.add(Player(playerName))
-
         println(playerName + " was added")
         println("They are player number " + players.size)
         return true
@@ -110,12 +111,10 @@ class Game {
                 println(players[currentPlayer].name + " is not getting out of the penalty box")
                 isGettingOutOfPenaltyBox = false
             }
-
         } else {
             movePlayer(roll)
             askQuestion()
         }
-
     }
 
     private fun isRollOdd(roll: Int) = roll % 2 != 0
@@ -134,17 +133,16 @@ class Game {
 
     private fun askQuestion() {
         if (getCurrentPlace().category() === "Pop")
-            println(popQuestions.removeFirst())
+            println(questionBank.pop.removeFirst())
         if (getCurrentPlace().category() === "Science")
-            println(scienceQuestions.removeFirst())
+            println(questionBank.science.removeFirst())
         if (getCurrentPlace().category() === "Sports")
-            println(sportsQuestions.removeFirst())
+            println(questionBank.sports.removeFirst())
         if (getCurrentPlace().category() === "Rock")
-            println(rockQuestions.removeFirst())
+            println(questionBank.rock.removeFirst())
     }
 
-    private fun getCurrentPlace() = board.getPlace(players.get(currentPlayer).position)
-
+    private fun getCurrentPlace() = board.getPlace(players[currentPlayer].position)
 
     fun wasCorrectlyAnswered(): Boolean {
         if (players[currentPlayer].isInPenaltyBox) {
@@ -167,8 +165,6 @@ class Game {
         updateCurrentPlayer()
         return shouldContinueGame
     }
-
-
 
     fun wasIncorrectlyAnswered(): Boolean {
         println("Question was incorrectly answered")
