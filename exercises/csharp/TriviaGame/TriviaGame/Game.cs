@@ -9,14 +9,10 @@ namespace TriviaGame
     {
         readonly List<Player> players = new List<Player>();
 
-
-        private const int MAXIMUM_NUMBER_OF_PLAYERS = 6;
         private const int WINNING_TOTAL = 6;
         private const int MINIMUM_NUMBER_OF_PLAYERS = 2;
         private const int TOTAL_NUMBER_OF_QUESTIONS = 50;
         private const int TOTAL_PLACES_OF_BOARD = 12;
-
-        readonly int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         private int currentPlayer;
         private bool isGettingOutOfPenaltyBox;
 
@@ -183,10 +179,10 @@ namespace TriviaGame
 
         private bool IsWinner()
         {
-            purses[currentPlayer]++;
+            players[currentPlayer].Purse++;
             Console.WriteLine(players[currentPlayer].Name
                     + " now has "
-                    + purses[currentPlayer]
+                    + players[currentPlayer].Purse
                     + " Gold Coins.");
 
             bool winner = DidPlayerWin();
@@ -203,7 +199,7 @@ namespace TriviaGame
 
         private bool DidPlayerWin()
         {
-            return !(purses[currentPlayer] == WINNING_TOTAL);
+            return !(players[currentPlayer].Purse == WINNING_TOTAL);
         }
     }
 
