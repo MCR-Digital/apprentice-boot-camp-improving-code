@@ -77,7 +77,7 @@ class Game {
 
 		if ($this->inPenaltyBox[$this->currentPlayer]) {
 		
-			$this->isRollOdd($roll);
+			$this->isRollOddAndDoesOtherThings($roll);
 
 		} else {
 			$this->movePlaces($roll);
@@ -179,7 +179,7 @@ class Game {
 		$this->askQuestion();
 	}
 
-	function isRollOdd($roll) {
+	function isRollOddAndDoesOtherThings($roll) {
 		if ($roll % 2 != 0) {
 			$this->isGettingOutOfPenaltyBox = true;
 
