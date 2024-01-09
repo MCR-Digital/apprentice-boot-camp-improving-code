@@ -76,15 +76,8 @@ class Game {
 		echoln("They have rolled a " . $roll);
 
 		if ($this->inPenaltyBox[$this->currentPlayer]) {
-			if ($roll % 2 != 0) {
-				$this->isGettingOutOfPenaltyBox = true;
-
-				echoln($this->players[$this->currentPlayer] . " is getting out of the penalty box");
-				$this->movePlaces($roll);
-			} else {
-				echoln($this->players[$this->currentPlayer] . " is not getting out of the penalty box");
-				$this->isGettingOutOfPenaltyBox = false;
-				}
+		
+			$this->isRollOdd($roll);
 
 		} else {
 			$this->movePlaces($roll);
@@ -184,5 +177,17 @@ class Game {
 		echoln("The category is " . $this->getcurrentCategory());
 
 		$this->askQuestion();
+	}
+
+	function isRollOdd($roll) {
+		if ($roll % 2 != 0) {
+			$this->isGettingOutOfPenaltyBox = true;
+
+			echoln($this->players[$this->currentPlayer] . " is getting out of the penalty box");
+			$this->movePlaces($roll);
+		} else {
+			echoln($this->players[$this->currentPlayer] . " is not getting out of the penalty box");
+			$this->isGettingOutOfPenaltyBox = false;
+		}
 	}
 }
