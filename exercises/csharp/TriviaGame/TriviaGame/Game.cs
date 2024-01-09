@@ -7,7 +7,7 @@ namespace TriviaGame
 {
     public class Game
     {
-        List<string> players = new List<string>();
+        readonly List<string> players = new List<string>();
 
         private const int MAXIMUM_NUMBER_OF_PLAYERS = 6;
         private const int WINNING_TOTAL = 6;
