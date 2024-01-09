@@ -111,36 +111,34 @@ var Game = function () {
     }
   }
 
+  this.changePlayer = function () {
+    currentPlayer += 1
+    if (currentPlayer == players.length) { currentPlayer = 0 }
+  }
+
+  this.addToPurse = function () {
+    playerPurses[currentPlayer] += 1
+    console.log(players[currentPlayer] + ' now has ' +
+        playerPurses[currentPlayer] + ' Gold Coins.')
+  }
+
   this.correctAnswer = function () {
     if (playersInPenaltyBox[currentPlayer]) {
       if (isPlayerInPenaltyBox) {
         console.log('Answer was correct!!!!')
-        playerPurses[currentPlayer] += 1
-        console.log(players[currentPlayer] + ' now has ' +
-            playerPurses[currentPlayer] + ' Gold Coins.')
-
+        this.addToPurse()
         var winner = isWinner()
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
-
+        this.changePlayer()
         return winner
       } else {
-        currentPlayer += 1
-        if (currentPlayer == players.length) { currentPlayer = 0 }
+        this.changePlayer()
         return true
       }
     } else {
       console.log('Answer was corrent!!!!')
-
-      playerPurses[currentPlayer] += 1
-      console.log(players[currentPlayer] + ' now has ' +
-          playerPurses[currentPlayer] + ' Gold Coins.')
-
+      this.addToPurse()
       var winner = isWinner()
-
-      currentPlayer += 1
-      if (currentPlayer == players.length) { currentPlayer = 0 }
-
+      this.changePlayer()
       return winner
     }
   }
