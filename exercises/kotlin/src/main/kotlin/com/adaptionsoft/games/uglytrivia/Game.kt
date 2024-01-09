@@ -70,6 +70,17 @@ class QuestionBank {
     private fun createQuestion(category: String, index: Int): String {
         return "$category Question $index"
     }
+
+    fun askQuestion(place: Place) {
+        if (place.category() === "Pop")
+            println(pop.removeFirst())
+        if (place.category() === "Science")
+            println(science.removeFirst())
+        if (place.category() === "Sports")
+            println(sports.removeFirst())
+        if (place.category() === "Rock")
+            println(rock.removeFirst())
+    }
 }
 
 enum class Category {
@@ -105,14 +116,14 @@ class Game {
                 isGettingOutOfPenaltyBox = true
                 println(currentPlayer.name + " is getting out of the penalty box")
                 movePlayer(roll)
-                askQuestion()
+                questionBank.askQuestion(getCurrentPlace())
             } else {
                 println(currentPlayer.name + " is not getting out of the penalty box")
                 isGettingOutOfPenaltyBox = false
             }
         } else {
             movePlayer(roll)
-            askQuestion()
+            questionBank.askQuestion(getCurrentPlace())
         }
     }
 
@@ -128,17 +139,6 @@ class Game {
                     + currentPlayer.position
         )
         println("The category is " + getCurrentPlace().category())
-    }
-
-    private fun askQuestion() {
-        if (getCurrentPlace().category() === "Pop")
-            println(questionBank.pop.removeFirst())
-        if (getCurrentPlace().category() === "Science")
-            println(questionBank.science.removeFirst())
-        if (getCurrentPlace().category() === "Sports")
-            println(questionBank.sports.removeFirst())
-        if (getCurrentPlace().category() === "Rock")
-            println(questionBank.rock.removeFirst())
     }
 
     private fun getCurrentPlace() = board.getPlace(currentPlayer.position)
@@ -168,7 +168,6 @@ class Game {
         println("Question was incorrectly answered")
         println(currentPlayer.name + " was sent to the penalty box")
         currentPlayer.isInPenaltyBox = true
-
         updateCurrentPlayer()
         return true
     }
