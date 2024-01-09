@@ -69,30 +69,36 @@ namespace TriviaGame
             Console.WriteLine(players[currentPlayer] + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
-            if (inPenaltyBox[currentPlayer])
-            {
-                bool isRollOdd = roll % 2 != 0;
-                if (isRollOdd)
-                {
-                    isGettingOutOfPenaltyBox = true;
+            bool isRollOdd = roll % 2 != 0;
+            bool IsInPenaltyBox = inPenaltyBox[currentPlayer];
 
-                    Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    MoveToNewLocation(roll);
-                    AskQuestion();
-                }
-                else
-                {
-                    Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
-                    isGettingOutOfPenaltyBox = false;
-                }
+            if (IsInPenaltyBox)
+            {
+                DecideIfPlayerGettingOutOfPenantyBox(isRollOdd);
 
             }
-            else
+            bool isInBoxButGettingOut = IsInPenaltyBox && isGettingOutOfPenaltyBox;
+            if (!IsInPenaltyBox || isInBoxButGettingOut)
             {
                 MoveToNewLocation(roll);
                 AskQuestion();
             }
 
+        }
+
+        private void DecideIfPlayerGettingOutOfPenantyBox(bool isRollOdd)
+        {
+            if (isRollOdd)
+            {
+                isGettingOutOfPenaltyBox = true;
+
+                Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
+            }
+            else
+            {
+                Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
+                isGettingOutOfPenaltyBox = false;
+            }
         }
 
         public bool IsAnswerCorrect()
