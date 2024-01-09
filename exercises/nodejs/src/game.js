@@ -15,7 +15,7 @@ var Game = function () {
 
   var currentPlayer = 0
 
-  var isWinner = function () {
+  var shouldContinueGame = function () {
     return players[currentPlayer].purse !== winningGoldCoins
   }
 
