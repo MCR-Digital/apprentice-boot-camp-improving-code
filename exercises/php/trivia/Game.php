@@ -23,8 +23,6 @@ class Game
 	var $currentPlayer = 0;
 	var $isGettingOutOfPenaltyBox;
 
-	private const MAX_QUESTIONS_PER_CATEGORY = 50;
-
 	function  __construct()
 	{
 		$this->board = new GameBoard();
@@ -34,18 +32,6 @@ class Game
 		$this->places = array(0);
 		$this->purses  = array(0);
 		$this->inPenaltyBox  = array(0);
-
-		$this->popQuestions = array();
-		$this->scienceQuestions = array();
-		$this->sportsQuestions = array();
-		$this->rockQuestions = array();
-
-		for ($index = 0; $index < self::MAX_QUESTIONS_PER_CATEGORY; $index++) {
-			array_push($this->popQuestions, "Pop Question " . $index);
-			array_push($this->scienceQuestions, ("Science Question " . $index));
-			array_push($this->sportsQuestions, ("Sports Question " . $index));
-			array_push($this->rockQuestions, $this->createRockQuestion($index));
-		}
 	}
 
 	function createRockQuestion($index)
@@ -87,20 +73,6 @@ class Game
 			$this->movePlaces($roll);
 		}
 	}
-
-	function  askQuestion()
-	{
-		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Pop")
-			echoln(array_shift($this->popQuestions));
-		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Science")
-			echoln(array_shift($this->scienceQuestions));
-		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Sports")
-			echoln(array_shift($this->sportsQuestions));
-		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Rock")
-			echoln(array_shift($this->rockQuestions));
-	}
-
-
 
 
 	function wasCorrectlyAnswered()
@@ -180,7 +152,7 @@ class Game
 			. $this->currentPlayerPlace());
 		echoln("The category is " . $this->board->getcurrentCategory($this->currentPlayerPlace()));
 
-		$this->askQuestion();
+		$this->board->askQuestion($this->currentPlayerPlace());
 	}
 
 	function currentPlayerPlace()
