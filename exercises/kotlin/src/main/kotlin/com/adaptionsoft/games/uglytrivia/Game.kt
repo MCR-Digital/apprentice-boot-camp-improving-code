@@ -29,10 +29,7 @@ class Player (val name: String){
     fun addCoin() {
         purse++
         println(
-            name
-                    + " now has "
-                    + purse
-                    + " Gold Coins."
+            "$name now has $purse Gold Coins."
         )
     }
 }
@@ -87,19 +84,19 @@ class Game {
     private val questionBank = QuestionBank()
     private var players = ArrayList<Player>()
 
-    internal var currentPlayer = 0
+    private var currentPlayer = 0
     internal var isGettingOutOfPenaltyBox: Boolean = false
 
     fun addPlayer(playerName: String): Boolean {
         players.add(Player(playerName))
-        println(playerName + " was added")
+        println("$playerName was added")
         println("They are player number " + players.size)
         return true
     }
 
     fun roll(roll: Int) {
         println(players[currentPlayer].name + " is the current player")
-        println("They have rolled a " + roll)
+        println("They have rolled a $roll")
 
         if (players[currentPlayer].isInPenaltyBox) {
             if (isRollOdd(roll)) {
@@ -148,22 +145,21 @@ class Game {
         if (players[currentPlayer].isInPenaltyBox) {
             if (isGettingOutOfPenaltyBox) {
                 println("Answer was correct!!!!")
-                return updateRoundAndCheckIfShouldContinue()
+                players[currentPlayer].addCoin()
+                val shouldContinueGame = shouldContinueGame()
+                updateCurrentPlayer()
+                return shouldContinueGame
             } else {
                 updateCurrentPlayer()
                 return true
             }
         } else {
             println("Answer was corrent!!!!")
-            return updateRoundAndCheckIfShouldContinue()
+            players[currentPlayer].addCoin()
+            val shouldContinueGame = shouldContinueGame()
+            updateCurrentPlayer()
+            return shouldContinueGame
         }
-    }
-
-    private fun updateRoundAndCheckIfShouldContinue(): Boolean {
-        players[currentPlayer].addCoin()
-        val shouldContinueGame = shouldContinueGame()
-        updateCurrentPlayer()
-        return shouldContinueGame
     }
 
     fun wasIncorrectlyAnswered(): Boolean {
