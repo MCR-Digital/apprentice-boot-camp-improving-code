@@ -21,25 +21,20 @@ namespace TriviaGame
         private int currentPlayer;
         private bool isGettingOutOfPenaltyBox;
 
-        readonly LinkedList<string> popQuestions = new LinkedList<string>();
-        readonly LinkedList<string> scienceQuestions = new LinkedList<string>();
-        readonly LinkedList<string> sportsQuestions = new LinkedList<string>();
-        readonly LinkedList<string> rockQuestions = new LinkedList<string>();
+        readonly Deck popQuestions = new Deck("Pop");
+        readonly Deck scienceQuestions = new Deck("Science");
+        readonly Deck sportsQuestions = new Deck("Sports");
+        readonly Deck rockQuestions = new Deck("Rock");
 
         public Game()
         {
             for (int questionNumber = 0; questionNumber < TOTAL_NUMBER_OF_QUESTIONS; questionNumber++)
             {
-                popQuestions.AddLast("Pop Question " + questionNumber);
-                scienceQuestions.AddLast(("Science Question " + questionNumber));
-                sportsQuestions.AddLast(("Sports Question " + questionNumber));
-                rockQuestions.AddLast(CreateRockQuestion(questionNumber));
+                popQuestions.AddQuestion(questionNumber);
+                scienceQuestions.AddQuestion(questionNumber);
+                sportsQuestions.AddQuestion(questionNumber);
+                rockQuestions.AddQuestion(questionNumber);
             }
-        }
-
-        public string CreateRockQuestion(int questionNumber)
-        {
-            return "Rock Question " + questionNumber;
         }
 
         public bool IsPlayable()
@@ -153,19 +148,19 @@ namespace TriviaGame
         {
             if (CurrentCategory() == "Pop")
             {
-                AskAndRemoveQuestion(popQuestions);
+                AskAndRemoveQuestion(popQuestions.Questions);
             }
             if (CurrentCategory() == "Science")
             {
-                AskAndRemoveQuestion(scienceQuestions);
+                AskAndRemoveQuestion(scienceQuestions.Questions);
             }
             if (CurrentCategory() == "Sports")
             {
-                AskAndRemoveQuestion(sportsQuestions);
+                AskAndRemoveQuestion(sportsQuestions.Questions);
             }
             if (CurrentCategory() == "Rock")
             {
-                AskAndRemoveQuestion(rockQuestions);
+                AskAndRemoveQuestion(rockQuestions.Questions);
             }
         }
 
