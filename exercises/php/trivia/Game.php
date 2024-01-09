@@ -6,8 +6,6 @@ function echoln($string) {
   echo $string."\n";
 }
 
-const MAX_QUESTIONS_PER_CATEGORY = 50;
-
 class Game {
     var $players;
     var $places;
@@ -22,6 +20,7 @@ class Game {
     var $currentPlayer = 0;
     var $isGettingOutOfPenaltyBox;
 
+	private const MAX_QUESTIONS_PER_CATEGORY = 50;
 
     function  __construct(){
 
@@ -35,7 +34,7 @@ class Game {
         $this->sportsQuestions = array();
         $this->rockQuestions = array();
 
-        for ($index = 0; $index < MAX_QUESTIONS_PER_CATEGORY; $index++) {
+        for ($index = 0; $index < self::MAX_QUESTIONS_PER_CATEGORY; $index++) {
 			array_push($this->popQuestions, "Pop Question " . $index);
 			array_push($this->scienceQuestions, ("Science Question " . $index));
 			array_push($this->sportsQuestions, ("Sports Question " . $index));
