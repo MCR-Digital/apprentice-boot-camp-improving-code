@@ -121,32 +121,32 @@ class Game {
                     + "'s new location is "
                     + players[currentPlayer].position
         )
-        println("The category is " + currentCategory())
+        println("The category is " + currentCategory(players[currentPlayer].position))
     }
 
     private fun askQuestion() {
-        if (currentCategory() === "Pop")
+        if (currentCategory(players[currentPlayer].position) === "Pop")
             println(popQuestions.removeFirst())
-        if (currentCategory() === "Science")
+        if (currentCategory(players[currentPlayer].position) === "Science")
             println(scienceQuestions.removeFirst())
-        if (currentCategory() === "Sports")
+        if (currentCategory(players[currentPlayer].position) === "Sports")
             println(sportsQuestions.removeFirst())
-        if (currentCategory() === "Rock")
+        if (currentCategory(players[currentPlayer].position) === "Rock")
             println(rockQuestions.removeFirst())
     }
 
-    private fun currentCategory(): String {
-        if (isPopRound()) return "Pop"
-        else if (isScienceRound()) return "Science"
-        else if (isSportsRound()) return "Sports"
+    private fun currentCategory(playerPosition: Int): String {
+        if (isPopRound(playerPosition)) return "Pop"
+        else if (isScienceRound(playerPosition)) return "Science"
+        else if (isSportsRound(playerPosition)) return "Sports"
         else return "Rock"
     }
 
-    private fun isSportsRound() = players[currentPlayer].position % 4 == 2
+    private fun isSportsRound(playerPosition: Int) = playerPosition % 4 == 2
 
-    private fun isScienceRound() = players[currentPlayer].position % 4 == 1
+    private fun isScienceRound(playerPosition: Int) = playerPosition % 4 == 1
 
-    private fun isPopRound() = players[currentPlayer].position % 4 == 0
+    private fun isPopRound(playerPosition: Int) = playerPosition % 4 == 0
 
     fun wasCorrectlyAnswered(): Boolean {
         if (players[currentPlayer].isInPenaltyBox) {
