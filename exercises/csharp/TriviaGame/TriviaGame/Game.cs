@@ -9,6 +9,7 @@ namespace TriviaGame
     {
         readonly List<Player> players = new List<Player>();
 
+
         private const int MAXIMUM_NUMBER_OF_PLAYERS = 6;
         private const int WINNING_TOTAL = 6;
         private const int MINIMUM_NUMBER_OF_PLAYERS = 2;
@@ -25,8 +26,6 @@ namespace TriviaGame
         readonly Deck scienceQuestions = new Deck("Science");
         readonly Deck sportsQuestions = new Deck("Sports");
         readonly Deck rockQuestions = new Deck("Rock");
-
-        public Player Player { get; set; }
 
         public Game()
         {
@@ -47,9 +46,6 @@ namespace TriviaGame
         public bool Add(string playerName)
         {
             players.Add(new Player(playerName));
-            places[NumberOfPlayers()] = 0;
-            purses[NumberOfPlayers()] = 0;
-            inPenaltyBox[NumberOfPlayers()] = false;
 
             Console.WriteLine(playerName + " was added");
             Console.WriteLine("They are player number " + players.Count);
@@ -74,6 +70,7 @@ namespace TriviaGame
                 DecideIfPlayerGettingOutOfPenantyBox(isRollOdd);
 
             }
+
             bool isInBoxButGettingOut = IsInPenaltyBox && isGettingOutOfPenaltyBox;
             if (!IsInPenaltyBox || isInBoxButGettingOut)
             {
