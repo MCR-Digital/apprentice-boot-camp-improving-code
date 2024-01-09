@@ -46,17 +46,20 @@ var Game = function () {
 
   this.add = function (playerName) {
     players.push(playerName)
-
     const player = this.playerCount() -1
-
+    this.initializePlayer(player)
+    this.logNewPlayer(playerName)
+    return true
+  }
+  this.initializePlayer = function (player) {
     board[player] = 0
     playerPurses[player] = 0
     playersInPenaltyBox[player] = false
+  }
 
+  this.logNewPlayer = function (playerName) {
     console.log(playerName + ' was added')
     console.log('They are player number ' + players.length)
-
-    return true
   }
 
   this.playerCount = function () {
