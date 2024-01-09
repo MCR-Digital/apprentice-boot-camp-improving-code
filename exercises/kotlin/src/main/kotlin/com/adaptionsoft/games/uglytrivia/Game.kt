@@ -54,8 +54,7 @@ class Game {
         println("They have rolled a " + roll)
 
         if (isInPenaltyBox[currentPlayer]) {
-            val isRollOdd = roll % 2 != 0
-            if (isRollOdd) {
+            if (isRollOdd(roll)) {
                 isGettingOutOfPenaltyBox = true
                 println(players[currentPlayer].toString() + " is getting out of the penalty box")
                 movePlayer(roll)
@@ -71,6 +70,8 @@ class Game {
         }
 
     }
+
+    private fun isRollOdd(roll: Int) = roll % 2 != 0
 
     private fun movePlayer(roll: Int) {
         places[currentPlayer] = places[currentPlayer] + roll
@@ -97,9 +98,9 @@ class Game {
 
     private fun currentCategory(): String {
         if (isPopRound()) return "Pop"
-        if (isScienceRound()) return "Science"
-        if (isSportsRound()) return "Sports"
-        return "Rock"
+        else if (isScienceRound()) return "Science"
+        else if (isSportsRound()) return "Sports"
+        else return "Rock"
     }
 
     private fun isSportsRound() = places[currentPlayer] % 4 == 2
