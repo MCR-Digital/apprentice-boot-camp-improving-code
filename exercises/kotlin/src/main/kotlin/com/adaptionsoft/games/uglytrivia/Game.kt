@@ -35,8 +35,6 @@ class Game {
     }
 
     fun addPlayer(playerName: String): Boolean {
-
-
         players.add(playerName)
         places[getNumberOfPlayers()] = 0
         purses[getNumberOfPlayers()] = 0
@@ -59,7 +57,6 @@ class Game {
             val isRollOdd = roll % 2 != 0
             if (isRollOdd) {
                 isGettingOutOfPenaltyBox = true
-
                 println(players[currentPlayer].toString() + " is getting out of the penalty box")
                 movePlayer(roll)
                 askQuestion()
@@ -99,11 +96,17 @@ class Game {
     }
 
     private fun currentCategory(): String {
-        if (places[currentPlayer] % 4 == 0) return "Pop"
-        if (places[currentPlayer] % 4 == 1) return "Science"
-        if (places[currentPlayer] % 4 == 2) return "Sports"
+        if (isPopRound()) return "Pop"
+        if (isScienceRound()) return "Science"
+        if (isSportsRound()) return "Sports"
         return "Rock"
     }
+
+    private fun isSportsRound() = places[currentPlayer] % 4 == 2
+
+    private fun isScienceRound() = places[currentPlayer] % 4 == 1
+
+    private fun isPopRound() = places[currentPlayer] % 4 == 0
 
     fun wasCorrectlyAnswered(): Boolean {
         if (isInPenaltyBox[currentPlayer]) {
@@ -114,7 +117,6 @@ class Game {
                 updateCurrentPlayer()
                 return true
             }
-
         } else {
             println("Answer was corrent!!!!")
             return updateRoundAndCheckIfShouldContinue()
