@@ -86,6 +86,43 @@ namespace TriviaGame
 
         }
 
+       
+        public bool IsAnswerCorrect()
+        {
+            if (inPenaltyBox[currentPlayer])
+            {
+                return DecideIfPlayerWon();
+            }
+            else
+            {
+                Console.WriteLine("Answer was corrent!!!!");
+                return IsWinner();
+            }
+        }
+
+        private bool DecideIfPlayerWon()
+        {
+            if (isGettingOutOfPenaltyBox)
+            {
+                Console.WriteLine("Answer was correct!!!!");
+                return IsWinner();
+            }
+            else
+            {
+                CurrentPlayerCount();
+                return true;
+            }
+        }
+
+        public bool IsAnswerWrong()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[currentPlayer] = true;
+            CurrentPlayerCount();
+            return true;
+        }
+
         private void DecideIfPlayerGettingOutOfPenantyBox(bool isRollOdd)
         {
             if (isRollOdd)
@@ -99,37 +136,6 @@ namespace TriviaGame
                 Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
-        }
-
-        public bool IsAnswerCorrect()
-        {
-            if (inPenaltyBox[currentPlayer])
-            {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    Console.WriteLine("Answer was correct!!!!");
-                    return IsWinner();
-                }
-                else
-                {
-                    CurrentPlayerCount();
-                    return true;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Answer was corrent!!!!");
-                return IsWinner();
-            }
-        }
-
-        public bool IsAnswerWrong()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
-            CurrentPlayerCount();
-            return true;
         }
 
         private void MoveToNewLocation(int roll)
