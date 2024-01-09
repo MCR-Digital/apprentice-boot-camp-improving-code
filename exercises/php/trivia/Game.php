@@ -9,6 +9,12 @@ function echoln($string) {
 class Game {
     var $players;
     var $places;
+	var $board = [
+		"Pop", "Science", "Sports",
+		"Rock", "Pop", "Science",
+		"Sports", "Rock", "Pop",
+		"Science", "Sports", "Rock"
+	];
     var $purses ;
     var $inPenaltyBox ;
 
@@ -99,16 +105,8 @@ class Game {
 
 
 	function getcurrentCategory() {
-		if ($this->places[$this->currentPlayer] == 0) return "Pop";
-		if ($this->places[$this->currentPlayer] == 4) return "Pop";
-		if ($this->places[$this->currentPlayer] == 8) return "Pop";
-		if ($this->places[$this->currentPlayer] == 1) return "Science";
-		if ($this->places[$this->currentPlayer] == 5) return "Science";
-		if ($this->places[$this->currentPlayer] == 9) return "Science";
-		if ($this->places[$this->currentPlayer] == 2) return "Sports";
-		if ($this->places[$this->currentPlayer] == 6) return "Sports";
-		if ($this->places[$this->currentPlayer] == 10) return "Sports";
-		return "Rock";
+		$playerPlace = $this->places[$this->currentPlayer];
+		return $this->board[$playerPlace];
 	}
 
 	function wasCorrectlyAnswered() {
