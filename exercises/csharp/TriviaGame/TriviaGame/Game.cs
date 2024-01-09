@@ -7,7 +7,7 @@ namespace TriviaGame
 {
     public class Game
     {
-        readonly List<string> players = new List<string>();
+        readonly List<Player> players = new List<Player>();
 
         private const int MAXIMUM_NUMBER_OF_PLAYERS = 6;
         private const int WINNING_TOTAL = 6;
@@ -25,6 +25,8 @@ namespace TriviaGame
         readonly Deck scienceQuestions = new Deck("Science");
         readonly Deck sportsQuestions = new Deck("Sports");
         readonly Deck rockQuestions = new Deck("Rock");
+
+        public Player Player { get; set; }
 
         public Game()
         {
@@ -44,7 +46,7 @@ namespace TriviaGame
 
         public bool Add(string playerName)
         {
-            players.Add(playerName);
+            players.Add(new Player(playerName));
             places[NumberOfPlayers()] = 0;
             purses[NumberOfPlayers()] = 0;
             inPenaltyBox[NumberOfPlayers()] = false;
@@ -61,7 +63,7 @@ namespace TriviaGame
 
         public void Roll(int roll)
         {
-            Console.WriteLine(players[currentPlayer] + " is the current player");
+            Console.WriteLine(players[currentPlayer].Name + " is the current player");
             Console.WriteLine("They have rolled a " + roll);
 
             bool isRollOdd = roll % 2 != 0;
@@ -99,7 +101,7 @@ namespace TriviaGame
         public bool IsAnswerWrong()
         {
             Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+            Console.WriteLine(players[currentPlayer].Name + " was sent to the penalty box");
             inPenaltyBox[currentPlayer] = true;
             CurrentPlayerCount();
             return true;
@@ -111,11 +113,11 @@ namespace TriviaGame
             {
                 isGettingOutOfPenaltyBox = true;
 
-                Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
+                Console.WriteLine(players[currentPlayer].Name + " is getting out of the penalty box");
             }
             else
             {
-                Console.WriteLine(players[currentPlayer] + " is not getting out of the penalty box");
+                Console.WriteLine(players[currentPlayer].Name + " is not getting out of the penalty box");
                 isGettingOutOfPenaltyBox = false;
             }
         }
@@ -125,7 +127,7 @@ namespace TriviaGame
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > TOTAL_PLACES_OF_BOARD - 1) places[currentPlayer] = places[currentPlayer] - TOTAL_PLACES_OF_BOARD;
 
-            Console.WriteLine(players[currentPlayer]
+            Console.WriteLine(players[currentPlayer].Name
                     + "'s new location is "
                     + places[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
@@ -187,7 +189,7 @@ namespace TriviaGame
         private bool IsWinner()
         {
             purses[currentPlayer]++;
-            Console.WriteLine(players[currentPlayer]
+            Console.WriteLine(players[currentPlayer].Name
                     + " now has "
                     + purses[currentPlayer]
                     + " Gold Coins.");

@@ -36,8 +36,6 @@ namespace TriviaGame
                     notAWinner = round.IsAnswerCorrect();
                 }
 
-
-
             } while (notAWinner);
 
         }
