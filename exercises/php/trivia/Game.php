@@ -90,13 +90,13 @@ class Game
 
 	function  askQuestion()
 	{
-		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Pop")
+		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Pop")
 			echoln(array_shift($this->popQuestions));
-		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Science")
+		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Science")
 			echoln(array_shift($this->scienceQuestions));
-		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Sports")
+		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Sports")
 			echoln(array_shift($this->sportsQuestions));
-		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Rock")
+		if ($this->board->getcurrentCategory($this->currentPlayerPlace()) == "Rock")
 			echoln(array_shift($this->rockQuestions));
 	}
 
@@ -172,7 +172,6 @@ class Game
 
 	function movePlaces($places)
 	{
-
 		$this->places[$this->currentPlayer] = $this->currentPlayerPlace()  + $places;
 		if ($this->places[$this->currentPlayer] > 11) $this->places[$this->currentPlayer] = $this->currentPlayerPlace() - 12;
 
