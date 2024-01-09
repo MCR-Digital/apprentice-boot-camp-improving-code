@@ -1,10 +1,12 @@
 import generator from 'random-seed'
 
 var Game = function () {
+  const MAX_PLAYERS = 6
+  const winningGoldCoins = 6
   var players = []
-  var board = new Array(6)
-  var playerPurses = new Array(6)
-  var playersInPenaltyBox = new Array(6)
+  var board = new Array(MAX_PLAYERS)
+  var playerPurses = new Array(MAX_PLAYERS)
+  var playersInPenaltyBox = new Array(MAX_PLAYERS)
 
   var popQuestions = []
 
@@ -16,7 +18,7 @@ var Game = function () {
   var isPlayerInPenaltyBox = false
 
   var isWinner = function () {
-    return playerPurses[currentPlayer] !== 6
+    return playerPurses[currentPlayer] !== winningGoldCoins
   }
 
   var getCurrentCategory = function () {
