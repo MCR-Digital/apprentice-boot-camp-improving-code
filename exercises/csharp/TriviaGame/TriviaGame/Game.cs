@@ -100,20 +100,7 @@ namespace TriviaGame
             }
         }
 
-        private bool DecideIfPlayerWon()
-        {
-            if (isGettingOutOfPenaltyBox)
-            {
-                Console.WriteLine("Answer was correct!!!!");
-                return IsWinner();
-            }
-            else
-            {
-                CurrentPlayerCount();
-                return true;
-            }
-        }
-
+        
         public bool IsAnswerWrong()
         {
             Console.WriteLine("Question was incorrectly answered");
@@ -147,6 +134,19 @@ namespace TriviaGame
                     + "'s new location is "
                     + places[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
+        }
+        private bool DecideIfPlayerWon()
+        {
+            if (isGettingOutOfPenaltyBox)
+            {
+                Console.WriteLine("Answer was correct!!!!");
+                return IsWinner();
+            }
+            else
+            {
+                CurrentPlayerCount();
+                return true;
+            }
         }
 
         private void AskQuestion()
