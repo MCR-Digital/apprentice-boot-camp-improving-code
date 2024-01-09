@@ -9,12 +9,7 @@ function echoln($string) {
 class Game {
     var $players;
     var $places;
-	var $board = [
-		"Pop", "Science", "Sports",
-		"Rock", "Pop", "Science",
-		"Sports", "Rock", "Pop",
-		"Science", "Sports", "Rock"
-	];
+	var $board;
     var $purses ;
     var $inPenaltyBox ;
 
@@ -29,6 +24,8 @@ class Game {
 	private const MAX_QUESTIONS_PER_CATEGORY = 50;
 
     function  __construct(){
+		$this->board = new GameBoard();
+
 
    	$this->players = array();
         $this->places = array(0);
@@ -86,21 +83,18 @@ class Game {
 	}
 
 	function  askQuestion() {
-		if ($this->getcurrentCategory() == "Pop")
+		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Pop")
 			echoln(array_shift($this->popQuestions));
-		if ($this->getcurrentCategory() == "Science")
+		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Science")
 			echoln(array_shift($this->scienceQuestions));
-		if ($this->getcurrentCategory() == "Sports")
+		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Sports")
 			echoln(array_shift($this->sportsQuestions));
-		if ($this->getcurrentCategory() == "Rock")
+		if ($this->board->getcurrentCategory($this->places[$this->currentPlayer]) == "Rock")
 			echoln(array_shift($this->rockQuestions));
 	}
 
 
-	function getcurrentCategory() {
-		$playerPlace = $this->places[$this->currentPlayer];
-		return $this->board[$playerPlace];
-	}
+	
 
 	function wasCorrectlyAnswered() {
 		if ($this->inPenaltyBox[$this->currentPlayer]){
@@ -174,7 +168,7 @@ class Game {
 		echoln($this->players[$this->currentPlayer]
 			. "'s new location is "
 			. $this->places[$this->currentPlayer]);
-		echoln("The category is " . $this->getcurrentCategory());
+		echoln("The category is " . $this->board->getcurrentCategory($this->places[$this->currentPlayer]));
 
 		$this->askQuestion();
 	}
