@@ -16,9 +16,7 @@ namespace TriviaGame
         private const int TOTAL_NUMBER_OF_QUESTIONS = 50;
         private const int TOTAL_PLACES_OF_BOARD = 12;
 
-        readonly int[] places = new int[MAXIMUM_NUMBER_OF_PLAYERS];
         readonly int[] purses = new int[MAXIMUM_NUMBER_OF_PLAYERS];
-        readonly bool[] inPenaltyBox = new bool[MAXIMUM_NUMBER_OF_PLAYERS];
         private int currentPlayer;
         private bool isGettingOutOfPenaltyBox;
 
@@ -121,12 +119,12 @@ namespace TriviaGame
 
         private void MoveToNewLocation(int roll)
         {
-            places[currentPlayer] = places[currentPlayer] + roll;
-            if (places[currentPlayer] > TOTAL_PLACES_OF_BOARD - 1) places[currentPlayer] = places[currentPlayer] - TOTAL_PLACES_OF_BOARD;
+            players[currentPlayer].Place = players[currentPlayer].Place + roll;
+            if (players[currentPlayer].Place > TOTAL_PLACES_OF_BOARD - 1) players[currentPlayer].Place = players[currentPlayer].Place - TOTAL_PLACES_OF_BOARD;
 
             Console.WriteLine(players[currentPlayer].Name
                     + "'s new location is "
-                    + places[currentPlayer]);
+                    + players[currentPlayer].Place);
             Console.WriteLine("The category is " + CurrentCategory());
         }
         private bool DecideIfPlayerWon()
@@ -171,15 +169,15 @@ namespace TriviaGame
 
         private string CurrentCategory()
         {
-            if (places[currentPlayer] == 0) return "Pop";
-            if (places[currentPlayer] == 4) return "Pop";
-            if (places[currentPlayer] == 8) return "Pop";
-            if (places[currentPlayer] == 1) return "Science";
-            if (places[currentPlayer] == 5) return "Science";
-            if (places[currentPlayer] == 9) return "Science";
-            if (places[currentPlayer] == 2) return "Sports";
-            if (places[currentPlayer] == 6) return "Sports";
-            if (places[currentPlayer] == 10) return "Sports";
+            if (players[currentPlayer].Place == 0) return "Pop";
+            if (players[currentPlayer].Place == 4) return "Pop";
+            if (players[currentPlayer].Place == 8) return "Pop";
+            if (players[currentPlayer].Place == 1) return "Science";
+            if (players[currentPlayer].Place == 5) return "Science";
+            if (players[currentPlayer].Place == 9) return "Science";
+            if (players[currentPlayer].Place == 2) return "Sports";
+            if (players[currentPlayer].Place == 6) return "Sports";
+            if (players[currentPlayer].Place == 10) return "Sports";
             return "Rock";
         }
 
