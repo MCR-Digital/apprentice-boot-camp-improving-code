@@ -1,4 +1,5 @@
 import generator from 'random-seed'
+import { Player } from './player'
 
 var Game = function () {
   const MAX_PLAYERS = 6
@@ -45,7 +46,7 @@ var Game = function () {
   }
 
   this.add = function (playerName) {
-    players.push(playerName)
+    players.push(new Player(playerName))
     const player = this.playerCount() -1
     this.initializePlayer(player)
     this.logNewPlayer(playerName)
@@ -78,7 +79,7 @@ var Game = function () {
   }
 
   this.logPlayerRoll = function (roll) {
-    console.log(players[currentPlayer] + ' is the current player')
+    console.log(players[currentPlayer].name + ' is the current player')
     console.log('They have rolled a ' + roll)
   }
 
@@ -87,7 +88,7 @@ var Game = function () {
     if (board[currentPlayer] > 11) {
       board[currentPlayer] -= 12
     }
-    console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
+    console.log(players[currentPlayer].name + "'s new location is " + board[currentPlayer])
     console.log('The category is ' + getCurrentCategory())
   }
 
@@ -98,11 +99,11 @@ var Game = function () {
     if (playersInPenaltyBox[currentPlayer]) {
       if (isRollOdd) {
         isPlayerInPenaltyBox = true
-        console.log(players[currentPlayer] + ' is getting out of the penalty box')
+        console.log(players[currentPlayer].name + ' is getting out of the penalty box')
         this.movePlayer(roll)
         this.askQuestion()
       } else {
-        console.log(players[currentPlayer] + ' is not getting out of the penalty box')
+        console.log(players[currentPlayer].name + ' is not getting out of the penalty box')
         isPlayerInPenaltyBox = false
       }
     } else {
@@ -118,7 +119,7 @@ var Game = function () {
 
   this.addToPurse = function () {
     playerPurses[currentPlayer] += 1
-    console.log(players[currentPlayer] + ' now has ' +
+    console.log(players[currentPlayer].name + ' now has ' +
         playerPurses[currentPlayer] + ' Gold Coins.')
   }
 
@@ -145,7 +146,7 @@ var Game = function () {
 
   this.wrongAnswer = function () {
     console.log('Question was incorrectly answered')
-    console.log(players[currentPlayer] + ' was sent to the penalty box')
+    console.log(players[currentPlayer].name + ' was sent to the penalty box')
     playersInPenaltyBox[currentPlayer] = true
 
     this.changePlayer()
