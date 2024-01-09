@@ -15,6 +15,10 @@ class Board {
             places.add(Place(i))
         }
     }
+
+    fun getPlace(position: Int): Place {
+        return places[position]
+    }
 }
 
 class Player (val name: String){
@@ -44,6 +48,10 @@ class Place (position: Int) {
             else -> Category.Rock
         }
     }
+    fun category(): String {
+        return questionCategory.toString()
+    }
+
 }
 
 enum class Category {
@@ -121,32 +129,22 @@ class Game {
                     + "'s new location is "
                     + players[currentPlayer].position
         )
-        println("The category is " + currentCategory(players[currentPlayer].position))
+        println("The category is " + getCurrentPlace().category())
     }
 
     private fun askQuestion() {
-        if (currentCategory(players[currentPlayer].position) === "Pop")
+        if (getCurrentPlace().category() === "Pop")
             println(popQuestions.removeFirst())
-        if (currentCategory(players[currentPlayer].position) === "Science")
+        if (getCurrentPlace().category() === "Science")
             println(scienceQuestions.removeFirst())
-        if (currentCategory(players[currentPlayer].position) === "Sports")
+        if (getCurrentPlace().category() === "Sports")
             println(sportsQuestions.removeFirst())
-        if (currentCategory(players[currentPlayer].position) === "Rock")
+        if (getCurrentPlace().category() === "Rock")
             println(rockQuestions.removeFirst())
     }
 
-    private fun currentCategory(playerPosition: Int): String {
-        if (isPopRound(playerPosition)) return "Pop"
-        else if (isScienceRound(playerPosition)) return "Science"
-        else if (isSportsRound(playerPosition)) return "Sports"
-        else return "Rock"
-    }
+    private fun getCurrentPlace() = board.getPlace(players.get(currentPlayer).position)
 
-    private fun isSportsRound(playerPosition: Int) = playerPosition % 4 == 2
-
-    private fun isScienceRound(playerPosition: Int) = playerPosition % 4 == 1
-
-    private fun isPopRound(playerPosition: Int) = playerPosition % 4 == 0
 
     fun wasCorrectlyAnswered(): Boolean {
         if (players[currentPlayer].isInPenaltyBox) {
