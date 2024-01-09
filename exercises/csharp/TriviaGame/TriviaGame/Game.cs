@@ -145,14 +145,14 @@ namespace TriviaGame
             return "Rock";
         }
 
-        public bool WasCorrectlyAnswered()
+        public bool IsAnswerCorrect()
         {
             if (inPenaltyBox[currentPlayer])
             {
                 if (isGettingOutOfPenaltyBox)
                 {
                     Console.WriteLine("Answer was correct!!!!");
-                    return isWinner();
+                    return IsWinner();
                 }
                 else
                 {
@@ -163,11 +163,20 @@ namespace TriviaGame
             else
             {
                 Console.WriteLine("Answer was corrent!!!!");
-                return isWinner();
+                return IsWinner();
             }
         }
 
-        private bool isWinner()
+        public bool IsAnswerWrong()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[currentPlayer] = true;
+            CurrentPlayerCount();
+            return true;
+        }
+
+        private bool IsWinner()
         {
             purses[currentPlayer]++;
             Console.WriteLine(players[currentPlayer]
@@ -179,15 +188,6 @@ namespace TriviaGame
             CurrentPlayerCount();
 
             return winner;
-        }
-
-        public bool WrongAnswer()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
-            CurrentPlayerCount();
-            return true;
         }
 
         private void CurrentPlayerCount()

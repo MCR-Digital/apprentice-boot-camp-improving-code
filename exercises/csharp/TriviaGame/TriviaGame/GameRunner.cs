@@ -29,11 +29,11 @@ namespace TriviaGame
 
                 if (rand.Next(9) == 7)
                 {
-                    notAWinner = round.WrongAnswer();
+                    notAWinner = round.IsAnswerWrong();
                 }
                 else
                 {
-                    notAWinner = round.WasCorrectlyAnswered();
+                    notAWinner = round.IsAnswerCorrect();
                 }
 
 
