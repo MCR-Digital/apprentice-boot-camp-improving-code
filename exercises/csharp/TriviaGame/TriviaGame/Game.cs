@@ -93,6 +93,37 @@ namespace TriviaGame
 
         }
 
+        public bool IsAnswerCorrect()
+        {
+            if (inPenaltyBox[currentPlayer])
+            {
+                if (isGettingOutOfPenaltyBox)
+                {
+                    Console.WriteLine("Answer was correct!!!!");
+                    return IsWinner();
+                }
+                else
+                {
+                    CurrentPlayerCount();
+                    return true;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Answer was corrent!!!!");
+                return IsWinner();
+            }
+        }
+
+        public bool IsAnswerWrong()
+        {
+            Console.WriteLine("Question was incorrectly answered");
+            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
+            inPenaltyBox[currentPlayer] = true;
+            CurrentPlayerCount();
+            return true;
+        }
+
         private void MoveToNewLocationAndAskQuestion(int roll)
         {
             places[currentPlayer] = places[currentPlayer] + roll;
@@ -143,37 +174,6 @@ namespace TriviaGame
             if (places[currentPlayer] == 6) return "Sports";
             if (places[currentPlayer] == 10) return "Sports";
             return "Rock";
-        }
-
-        public bool IsAnswerCorrect()
-        {
-            if (inPenaltyBox[currentPlayer])
-            {
-                if (isGettingOutOfPenaltyBox)
-                {
-                    Console.WriteLine("Answer was correct!!!!");
-                    return IsWinner();
-                }
-                else
-                {
-                    CurrentPlayerCount();
-                    return true;
-                }
-            }
-            else
-            {
-                Console.WriteLine("Answer was corrent!!!!");
-                return IsWinner();
-            }
-        }
-
-        public bool IsAnswerWrong()
-        {
-            Console.WriteLine("Question was incorrectly answered");
-            Console.WriteLine(players[currentPlayer] + " was sent to the penalty box");
-            inPenaltyBox[currentPlayer] = true;
-            CurrentPlayerCount();
-            return true;
         }
 
         private bool IsWinner()
