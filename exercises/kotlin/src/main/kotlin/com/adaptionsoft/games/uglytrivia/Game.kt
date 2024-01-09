@@ -2,16 +2,64 @@ package com.adaptionsoft.games.uglytrivia
 
 import java.util.*
 
+class Board {
+    private val places = ArrayList<Place>()
+    private val boardSize = 12
+
+    init {
+        createBoard(boardSize)
+    }
+
+    private fun createBoard(boardSize: Int) {
+        for (i in 0..boardSize) {
+            places.add(Place(i))
+        }
+    }
+}
+
+class Player (val name: String){
+    var purse: Int = 0
+    var isInPenaltyBox: Boolean = false
+
+    fun addCoin() {
+        purse++
+        println(
+            name
+                    + " now has "
+                    + purse
+                    + " Gold Coins."
+        )
+    }
+}
+
+class Place (position: Int) {
+    val questionCategory: Category
+
+    init {
+        questionCategory = when (position % 4) {
+            0 -> Category.Pop
+            1 -> Category.Science
+            2 -> Category.Sports
+            else -> Category.Rock
+        }
+    }
+}
+
+enum class Category {
+    Pop, Science, Sports, Rock
+}
+
 class Game {
+    private val board = Board()
+
     private val MAX_NUMBER_OF_PLAYERS = 6
     private val MAX_NUMBER_OF_QUESTIONS = 50
     private val NUMBER_OF_PLACES = 12
     private val COINS_TO_WIN = 6
 
-    internal var players = ArrayList<Any>()
+    internal var players = ArrayList<Player>()
     internal var places = IntArray(MAX_NUMBER_OF_PLAYERS)
     internal var purses = IntArray(MAX_NUMBER_OF_PLAYERS)
-    internal var isInPenaltyBox = BooleanArray(MAX_NUMBER_OF_PLAYERS)
 
     internal var popQuestions = LinkedList<Any>()
     internal var scienceQuestions = LinkedList<Any>()
@@ -35,10 +83,9 @@ class Game {
     }
 
     fun addPlayer(playerName: String): Boolean {
-        players.add(playerName)
+        players.add(Player(playerName))
         places[getNumberOfPlayers()] = 0
         purses[getNumberOfPlayers()] = 0
-        isInPenaltyBox[getNumberOfPlayers()] = false
 
         println(playerName + " was added")
         println("They are player number " + players.size)
@@ -50,17 +97,17 @@ class Game {
     }
 
     fun roll(roll: Int) {
-        println(players[currentPlayer].toString() + " is the current player")
+        println(players[currentPlayer].name + " is the current player")
         println("They have rolled a " + roll)
 
-        if (isInPenaltyBox[currentPlayer]) {
+        if (players[currentPlayer].isInPenaltyBox) {
             if (isRollOdd(roll)) {
                 isGettingOutOfPenaltyBox = true
-                println(players[currentPlayer].toString() + " is getting out of the penalty box")
+                println(players[currentPlayer].name + " is getting out of the penalty box")
                 movePlayer(roll)
                 askQuestion()
             } else {
-                println(players[currentPlayer].toString() + " is not getting out of the penalty box")
+                println(players[currentPlayer].name + " is not getting out of the penalty box")
                 isGettingOutOfPenaltyBox = false
             }
 
@@ -78,7 +125,7 @@ class Game {
         if (places[currentPlayer] >= NUMBER_OF_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_PLACES
 
         println(
-            players[currentPlayer].toString()
+            players[currentPlayer].name
                     + "'s new location is "
                     + places[currentPlayer]
         )
@@ -110,7 +157,7 @@ class Game {
     private fun isPopRound() = places[currentPlayer] % 4 == 0
 
     fun wasCorrectlyAnswered(): Boolean {
-        if (isInPenaltyBox[currentPlayer]) {
+        if (players[currentPlayer].isInPenaltyBox) {
             if (isGettingOutOfPenaltyBox) {
                 println("Answer was correct!!!!")
                 return updateRoundAndCheckIfShouldContinue()
@@ -125,26 +172,18 @@ class Game {
     }
 
     private fun updateRoundAndCheckIfShouldContinue(): Boolean {
-        addCoin()
+        players[currentPlayer].addCoin()
         val shouldContinueGame = shouldContinueGame()
         updateCurrentPlayer()
         return shouldContinueGame
     }
 
-    private fun addCoin() {
-        purses[currentPlayer]++
-        println(
-            players[currentPlayer].toString()
-                    + " now has "
-                    + purses[currentPlayer]
-                    + " Gold Coins."
-        )
-    }
+
 
     fun wasIncorrectlyAnswered(): Boolean {
         println("Question was incorrectly answered")
-        println(players[currentPlayer].toString() + " was sent to the penalty box")
-        isInPenaltyBox[currentPlayer] = true
+        println(players[currentPlayer].name + " was sent to the penalty box")
+        players[currentPlayer].isInPenaltyBox = true
 
         updateCurrentPlayer()
         return true
@@ -156,6 +195,6 @@ class Game {
     }
 
     private fun shouldContinueGame(): Boolean {
-        return purses[currentPlayer] != COINS_TO_WIN
+        return players[currentPlayer].purse != COINS_TO_WIN
     }
 }
