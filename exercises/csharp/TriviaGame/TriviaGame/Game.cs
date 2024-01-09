@@ -77,7 +77,8 @@ namespace TriviaGame
                     isGettingOutOfPenaltyBox = true;
 
                     Console.WriteLine(players[currentPlayer] + " is getting out of the penalty box");
-                    MoveToNewLocationAndAskQuestion(roll);
+                    MoveToNewLocation(roll);
+                    AskQuestion();
                 }
                 else
                 {
@@ -88,7 +89,8 @@ namespace TriviaGame
             }
             else
             {
-                MoveToNewLocationAndAskQuestion(roll);
+                MoveToNewLocation(roll);
+                AskQuestion();
             }
 
         }
@@ -124,7 +126,7 @@ namespace TriviaGame
             return true;
         }
 
-        private void MoveToNewLocationAndAskQuestion(int roll)
+        private void MoveToNewLocation(int roll)
         {
             places[currentPlayer] = places[currentPlayer] + roll;
             if (places[currentPlayer] > TOTAL_PLACES_OF_BOARD - 1) places[currentPlayer] = places[currentPlayer] - TOTAL_PLACES_OF_BOARD;
@@ -133,7 +135,6 @@ namespace TriviaGame
                     + "'s new location is "
                     + places[currentPlayer]);
             Console.WriteLine("The category is " + CurrentCategory());
-            AskQuestion();
         }
 
         private void AskQuestion()
