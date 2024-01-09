@@ -88,10 +88,6 @@ class Game {
         return true
     }
 
-    fun getNumberOfPlayers(): Int {
-        return players.size
-    }
-
     fun roll(roll: Int) {
         println(players[currentPlayer].name + " is the current player")
         println("They have rolled a " + roll)
