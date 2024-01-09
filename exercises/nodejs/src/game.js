@@ -6,7 +6,6 @@ var Game = function () {
   const winningGoldCoins = 6
   var players = []
   var board = new Array(MAX_PLAYERS)
-  var playersInPenaltyBox = new Array(MAX_PLAYERS)
 
   var popQuestions = []
 
@@ -32,6 +31,10 @@ var Game = function () {
     return 'Rock Question ' + index
   }
 
+  this.getCurrentPlayer = function () {
+    return players[currentPlayer]
+  }
+
   for (var index = 0; index < 50; index++) {
     popQuestions.push('Pop Question ' + index)
     scienceQuestions.push('Science Question ' + index)
@@ -52,7 +55,7 @@ var Game = function () {
   }
   this.initializePlayer = function (player) {
     board[player] = 0
-    playersInPenaltyBox[player] = false
+    
   }
 
   this.logNewPlayer = function (playerName) {
@@ -93,7 +96,7 @@ var Game = function () {
     const isRollOdd = roll % 2 != 0
     this.logPlayerRoll(roll)
 
-    if (playersInPenaltyBox[currentPlayer]) {
+    if (players[currentPlayer].inPenaltyBox) {
       if (isRollOdd) {
         players[currentPlayer].isGettingOutOfPenaltyBox = true
         console.log(players[currentPlayer].name + ' is getting out of the penalty box')
@@ -128,10 +131,10 @@ var Game = function () {
   }
 
   this.correctAnswer = function () {
-    if(playersInPenaltyBox[currentPlayer] && !players[currentPlayer].isGettingOutOfPenaltyBox) {
+    if(players[currentPlayer].inPenaltyBox && !players[currentPlayer].isGettingOutOfPenaltyBox) {
       this.changePlayer()
       return true
-    } if(!playersInPenaltyBox[currentPlayer]){
+    } if(!players[currentPlayer].inPenaltyBox){
       console.log('Answer was corrent!!!!')
     }else {
       console.log('Answer was correct!!!!')
@@ -142,7 +145,7 @@ var Game = function () {
   this.wrongAnswer = function () {
     console.log('Question was incorrectly answered')
     console.log(players[currentPlayer].name + ' was sent to the penalty box')
-    playersInPenaltyBox[currentPlayer] = true
+    players[currentPlayer].inPenaltyBox = true
 
     this.changePlayer()
     return true
