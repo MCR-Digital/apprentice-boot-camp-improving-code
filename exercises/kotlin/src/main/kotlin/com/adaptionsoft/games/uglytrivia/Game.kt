@@ -20,6 +20,7 @@ class Board {
 class Player (val name: String){
     var purse: Int = 0
     var isInPenaltyBox: Boolean = false
+    var position: Int = 0
 
     fun addCoin() {
         purse++
@@ -52,13 +53,11 @@ enum class Category {
 class Game {
     private val board = Board()
 
-    private val MAX_NUMBER_OF_PLAYERS = 6
     private val MAX_NUMBER_OF_QUESTIONS = 50
     private val NUMBER_OF_PLACES = 12
     private val COINS_TO_WIN = 6
 
     internal var players = ArrayList<Player>()
-    internal var places = IntArray(MAX_NUMBER_OF_PLAYERS)
 
     internal var popQuestions = LinkedList<Any>()
     internal var scienceQuestions = LinkedList<Any>()
@@ -83,7 +82,6 @@ class Game {
 
     fun addPlayer(playerName: String): Boolean {
         players.add(Player(playerName))
-        places[getNumberOfPlayers()] = 0
 
         println(playerName + " was added")
         println("They are player number " + players.size)
@@ -119,13 +117,13 @@ class Game {
     private fun isRollOdd(roll: Int) = roll % 2 != 0
 
     private fun movePlayer(roll: Int) {
-        places[currentPlayer] = places[currentPlayer] + roll
-        if (places[currentPlayer] >= NUMBER_OF_PLACES) places[currentPlayer] = places[currentPlayer] - NUMBER_OF_PLACES
+        players[currentPlayer].position += roll
+        if (players[currentPlayer].position >= NUMBER_OF_PLACES) players[currentPlayer].position -= NUMBER_OF_PLACES
 
         println(
             players[currentPlayer].name
                     + "'s new location is "
-                    + places[currentPlayer]
+                    + players[currentPlayer].position
         )
         println("The category is " + currentCategory())
     }
@@ -148,11 +146,11 @@ class Game {
         else return "Rock"
     }
 
-    private fun isSportsRound() = places[currentPlayer] % 4 == 2
+    private fun isSportsRound() = players[currentPlayer].position % 4 == 2
 
-    private fun isScienceRound() = places[currentPlayer] % 4 == 1
+    private fun isScienceRound() = players[currentPlayer].position % 4 == 1
 
-    private fun isPopRound() = places[currentPlayer] % 4 == 0
+    private fun isPopRound() = players[currentPlayer].position % 4 == 0
 
     fun wasCorrectlyAnswered(): Boolean {
         if (players[currentPlayer].isInPenaltyBox) {
