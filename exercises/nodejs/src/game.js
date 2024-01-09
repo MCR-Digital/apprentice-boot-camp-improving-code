@@ -15,7 +15,6 @@ var Game = function () {
   var rockQuestions = []
 
   var currentPlayer = 0
-  var isPlayerGettingOutOfPenaltyBox = false
 
   var isWinner = function () {
     return players[currentPlayer].purse !== winningGoldCoins
@@ -96,13 +95,13 @@ var Game = function () {
 
     if (playersInPenaltyBox[currentPlayer]) {
       if (isRollOdd) {
-        isPlayerGettingOutOfPenaltyBox = true
+        players[currentPlayer].isGettingOutOfPenaltyBox = true
         console.log(players[currentPlayer].name + ' is getting out of the penalty box')
         this.movePlayer(roll)
         this.askQuestion()
       } else {
         console.log(players[currentPlayer].name + ' is not getting out of the penalty box')
-        isPlayerGettingOutOfPenaltyBox = false
+        players[currentPlayer].isGettingOutOfPenaltyBox = false
       }
     } else {
       this.movePlayer(roll)
@@ -129,7 +128,7 @@ var Game = function () {
   }
 
   this.correctAnswer = function () {
-    if(playersInPenaltyBox[currentPlayer] && !isPlayerGettingOutOfPenaltyBox) {
+    if(playersInPenaltyBox[currentPlayer] && !players[currentPlayer].isGettingOutOfPenaltyBox) {
       this.changePlayer()
       return true
     } if(!playersInPenaltyBox[currentPlayer]){
