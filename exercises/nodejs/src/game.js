@@ -15,7 +15,7 @@ var Game = function () {
   var rockQuestions = []
 
   var currentPlayer = 0
-  var isPlayerInPenaltyBox = false
+  var isPlayerGettingOutOfPenaltyBox = false
 
   var isWinner = function () {
     return players[currentPlayer].purse !== winningGoldCoins
@@ -96,13 +96,13 @@ var Game = function () {
 
     if (playersInPenaltyBox[currentPlayer]) {
       if (isRollOdd) {
-        isPlayerInPenaltyBox = true
+        isPlayerGettingOutOfPenaltyBox = true
         console.log(players[currentPlayer].name + ' is getting out of the penalty box')
         this.movePlayer(roll)
         this.askQuestion()
       } else {
         console.log(players[currentPlayer].name + ' is not getting out of the penalty box')
-        isPlayerInPenaltyBox = false
+        isPlayerGettingOutOfPenaltyBox = false
       }
     } else {
       this.movePlayer(roll)
@@ -121,25 +121,23 @@ var Game = function () {
         players[currentPlayer].purse + ' Gold Coins.')
   }
 
+  this.addToPurseCheckWinnerChangePlayer = function () {
+    this.addToPurse()
+    var winner = isWinner()
+    this.changePlayer()
+    return winner
+  }
+
   this.correctAnswer = function () {
-    if (playersInPenaltyBox[currentPlayer]) {
-      if (isPlayerInPenaltyBox) {
-        console.log('Answer was correct!!!!')
-        this.addToPurse()
-        var winner = isWinner()
-        this.changePlayer()
-        return winner
-      } else {
-        this.changePlayer()
-        return true
-      }
-    } else {
-      console.log('Answer was corrent!!!!')
-      this.addToPurse()
-      var winner = isWinner()
+    if(playersInPenaltyBox[currentPlayer] && !isPlayerGettingOutOfPenaltyBox) {
       this.changePlayer()
-      return winner
+      return true
+    } if(!playersInPenaltyBox[currentPlayer]){
+      console.log('Answer was corrent!!!!')
+    }else {
+      console.log('Answer was correct!!!!')
     }
+    return this.addToPurseCheckWinnerChangePlayer()
   }
 
   this.wrongAnswer = function () {
