@@ -69,7 +69,7 @@ var Game = function () {
     console.log(questions.shift())
   }
 
-  var askQuestion = function () {
+  this.askQuestion = function () {
   const currentCategory = getCurrentCategory()
     if (currentCategory == 'Pop') { displayQuestion(popQuestions) }
     if (currentCategory == 'Science') { displayQuestion(scienceQuestions) }
@@ -87,6 +87,8 @@ var Game = function () {
     if (board[currentPlayer] > 11) {
       board[currentPlayer] -= 12
     }
+    console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
+    console.log('The category is ' + getCurrentCategory())
   }
 
   this.roll = function (roll) {
@@ -96,26 +98,16 @@ var Game = function () {
     if (playersInPenaltyBox[currentPlayer]) {
       if (isRollOdd) {
         isPlayerInPenaltyBox = true
-
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
         this.movePlayer(roll)
-
-        console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
-        console.log('The category is ' + getCurrentCategory())
-        askQuestion()
+        this.askQuestion()
       } else {
         console.log(players[currentPlayer] + ' is not getting out of the penalty box')
         isPlayerInPenaltyBox = false
       }
     } else {
-      board[currentPlayer] += roll
-      if (board[currentPlayer] > 11) {
-        board[currentPlayer] -= 12
-      }
-
-      console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
-      console.log('The category is ' + getCurrentCategory())
-      askQuestion()
+      this.movePlayer(roll)
+      this.askQuestion()
     }
   }
 
