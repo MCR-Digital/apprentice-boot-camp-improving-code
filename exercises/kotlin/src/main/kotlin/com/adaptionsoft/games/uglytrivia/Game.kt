@@ -84,28 +84,30 @@ class Game {
     private val questionBank = QuestionBank()
     private var players = ArrayList<Player>()
 
-    private var currentPlayer = 0
-    internal var isGettingOutOfPenaltyBox: Boolean = false
+    private var currentPlayerIndex = 0
+    private lateinit var currentPlayer: Player
+    private var isGettingOutOfPenaltyBox: Boolean = false
 
     fun addPlayer(playerName: String): Boolean {
         players.add(Player(playerName))
         println("$playerName was added")
         println("They are player number " + players.size)
+        currentPlayer = players[currentPlayerIndex]
         return true
     }
 
     fun roll(roll: Int) {
-        println(players[currentPlayer].name + " is the current player")
+        println(currentPlayer.name + " is the current player")
         println("They have rolled a $roll")
 
-        if (players[currentPlayer].isInPenaltyBox) {
+        if (currentPlayer.isInPenaltyBox) {
             if (isRollOdd(roll)) {
                 isGettingOutOfPenaltyBox = true
-                println(players[currentPlayer].name + " is getting out of the penalty box")
+                println(currentPlayer.name + " is getting out of the penalty box")
                 movePlayer(roll)
                 askQuestion()
             } else {
-                println(players[currentPlayer].name + " is not getting out of the penalty box")
+                println(currentPlayer.name + " is not getting out of the penalty box")
                 isGettingOutOfPenaltyBox = false
             }
         } else {
@@ -117,13 +119,13 @@ class Game {
     private fun isRollOdd(roll: Int) = roll % 2 != 0
 
     private fun movePlayer(roll: Int) {
-        players[currentPlayer].position += roll
-        if (players[currentPlayer].position >= NUMBER_OF_PLACES) players[currentPlayer].position -= NUMBER_OF_PLACES
+        currentPlayer.position += roll
+        if (currentPlayer.position >= NUMBER_OF_PLACES) currentPlayer.position -= NUMBER_OF_PLACES
 
         println(
-            players[currentPlayer].name
+            currentPlayer.name
                     + "'s new location is "
-                    + players[currentPlayer].position
+                    + currentPlayer.position
         )
         println("The category is " + getCurrentPlace().category())
     }
@@ -139,13 +141,13 @@ class Game {
             println(questionBank.rock.removeFirst())
     }
 
-    private fun getCurrentPlace() = board.getPlace(players[currentPlayer].position)
+    private fun getCurrentPlace() = board.getPlace(currentPlayer.position)
 
     fun wasCorrectlyAnswered(): Boolean {
-        if (players[currentPlayer].isInPenaltyBox) {
+        if (currentPlayer.isInPenaltyBox) {
             if (isGettingOutOfPenaltyBox) {
                 println("Answer was correct!!!!")
-                players[currentPlayer].addCoin()
+                currentPlayer.addCoin()
                 val shouldContinueGame = shouldContinueGame()
                 updateCurrentPlayer()
                 return shouldContinueGame
@@ -155,7 +157,7 @@ class Game {
             }
         } else {
             println("Answer was corrent!!!!")
-            players[currentPlayer].addCoin()
+            currentPlayer.addCoin()
             val shouldContinueGame = shouldContinueGame()
             updateCurrentPlayer()
             return shouldContinueGame
@@ -164,19 +166,20 @@ class Game {
 
     fun wasIncorrectlyAnswered(): Boolean {
         println("Question was incorrectly answered")
-        println(players[currentPlayer].name + " was sent to the penalty box")
-        players[currentPlayer].isInPenaltyBox = true
+        println(currentPlayer.name + " was sent to the penalty box")
+        currentPlayer.isInPenaltyBox = true
 
         updateCurrentPlayer()
         return true
     }
 
     private fun updateCurrentPlayer() {
-        currentPlayer++
-        if (currentPlayer == players.size) currentPlayer = 0
+        currentPlayerIndex++
+        if (currentPlayerIndex == players.size) currentPlayerIndex = 0
+        currentPlayer = players[currentPlayerIndex]
     }
 
     private fun shouldContinueGame(): Boolean {
-        return players[currentPlayer].purse != COINS_TO_WIN
+        return currentPlayer.purse != COINS_TO_WIN
     }
 }
