@@ -109,28 +109,23 @@ class Game {
         if (isInPenaltyBox[currentPlayer]) {
             if (isGettingOutOfPenaltyBox) {
                 println("Answer was correct!!!!")
-                addCoin()
-
-                val shouldContinueGame = shouldContinueGame()
-                updateCurrentPlayer()
-
-                return shouldContinueGame
+                return updateRoundAndCheckIfShouldContinue()
             } else {
                 updateCurrentPlayer()
                 return true
             }
 
-
         } else {
-
             println("Answer was corrent!!!!")
-            addCoin()
-
-            val shouldContinueGame = shouldContinueGame()
-            updateCurrentPlayer()
-
-            return shouldContinueGame
+            return updateRoundAndCheckIfShouldContinue()
         }
+    }
+
+    private fun updateRoundAndCheckIfShouldContinue(): Boolean {
+        addCoin()
+        val shouldContinueGame = shouldContinueGame()
+        updateCurrentPlayer()
+        return shouldContinueGame
     }
 
     private fun addCoin() {
