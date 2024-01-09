@@ -33,7 +33,7 @@ class Player (val name: String){
 }
 
 class Place (position: Int) {
-    val questionCategory: Category
+    private val questionCategory: Category
 
     init {
         questionCategory = when (position % 4) {
@@ -59,7 +59,6 @@ class Game {
 
     internal var players = ArrayList<Player>()
     internal var places = IntArray(MAX_NUMBER_OF_PLAYERS)
-    internal var purses = IntArray(MAX_NUMBER_OF_PLAYERS)
 
     internal var popQuestions = LinkedList<Any>()
     internal var scienceQuestions = LinkedList<Any>()
@@ -85,7 +84,6 @@ class Game {
     fun addPlayer(playerName: String): Boolean {
         players.add(Player(playerName))
         places[getNumberOfPlayers()] = 0
-        purses[getNumberOfPlayers()] = 0
 
         println(playerName + " was added")
         println("They are player number " + players.size)
