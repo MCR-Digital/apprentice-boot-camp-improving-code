@@ -82,6 +82,13 @@ var Game = function () {
     console.log('They have rolled a ' + roll)
   }
 
+  this.movePlayer = function (roll) {
+    board[currentPlayer] += roll
+    if (board[currentPlayer] > 11) {
+      board[currentPlayer] -= 12
+    }
+  }
+
   this.roll = function (roll) {
     const isRollOdd = roll % 2 != 0
     this.logPlayerRoll(roll)
@@ -91,10 +98,7 @@ var Game = function () {
         isPlayerInPenaltyBox = true
 
         console.log(players[currentPlayer] + ' is getting out of the penalty box')
-        board[currentPlayer] += roll
-        if (board[currentPlayer] > 11) {
-          board[currentPlayer] -= 12
-        }
+        this.movePlayer(roll)
 
         console.log(players[currentPlayer] + "'s new location is " + board[currentPlayer])
         console.log('The category is ' + getCurrentCategory())
