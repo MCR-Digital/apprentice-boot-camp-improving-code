@@ -7,9 +7,9 @@ object GameRunner {
     fun main(args: Array<String>) {
         val aGame = Game()
 
-        aGame.add("Chet")
-        aGame.add("Pat")
-        aGame.add("Sue")
+        aGame.addPlayer("Chet")
+        aGame.addPlayer("Pat")
+        aGame.addPlayer("Sue")
 
         val rand = Random(args[0].toLong())
 
@@ -18,7 +18,7 @@ object GameRunner {
             aGame.roll(rand.nextInt(5) + 1)
 
             if (rand.nextInt(9) == 7) {
-                GameRunner.notAWinner = aGame.wrongAnswer()
+                GameRunner.notAWinner = aGame.wasIncorrectlyAnswered()
             } else {
                 GameRunner.notAWinner = aGame.wasCorrectlyAnswered()
             }

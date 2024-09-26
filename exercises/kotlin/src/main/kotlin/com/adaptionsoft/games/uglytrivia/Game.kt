@@ -2,164 +2,183 @@ package com.adaptionsoft.games.uglytrivia
 
 import java.util.*
 
-class Game {
-    internal var players = ArrayList<Any>()
-    internal var places = IntArray(6)
-    internal var purses = IntArray(6)
-    internal var inPenaltyBox = BooleanArray(6)
-
-    internal var popQuestions = LinkedList<Any>()
-    internal var scienceQuestions = LinkedList<Any>()
-    internal var sportsQuestions = LinkedList<Any>()
-    internal var rockQuestions = LinkedList<Any>()
-
-    internal var currentPlayer = 0
-    internal var isGettingOutOfPenaltyBox: Boolean = false
+class Board {
+    private val places = ArrayList<Place>()
+    private val boardSize = 12
 
     init {
-        for (i in 0..49) {
-            popQuestions.addLast("Pop Question " + i)
-            scienceQuestions.addLast("Science Question " + i)
-            sportsQuestions.addLast("Sports Question " + i)
-            rockQuestions.addLast(createRockQuestion(i))
+        createBoard(boardSize)
+    }
+
+    private fun createBoard(boardSize: Int) {
+        for (i in 0..boardSize) {
+            places.add(Place(i))
         }
     }
 
-    fun createRockQuestion(index: Int): String {
-        return "Rock Question " + index
+    fun getPlace(position: Int): Place {
+        return places[position]
+    }
+}
+
+class Player (val name: String){
+    var purse: Int = 0
+    var isInPenaltyBox: Boolean = false
+    var position: Int = 0
+
+    fun addCoin() {
+        purse++
+        println(
+            "$name now has $purse Gold Coins."
+        )
+    }
+}
+
+class Place (position: Int) {
+    private val questionCategory: Category
+
+    init {
+        questionCategory = when (position % 4) {
+            0 -> Category.Pop
+            1 -> Category.Science
+            2 -> Category.Sports
+            else -> Category.Rock
+        }
+    }
+    fun category(): String {
+        return questionCategory.toString()
+    }
+}
+
+class QuestionBank {
+    private val MAX_NUMBER_OF_QUESTIONS = 50
+
+    internal var pop = LinkedList<Any>()
+    internal var science = LinkedList<Any>()
+    internal var sports = LinkedList<Any>()
+    internal var rock = LinkedList<Any>()
+
+    init {
+        for (questionIndex in 0..<MAX_NUMBER_OF_QUESTIONS) {
+            pop.addLast(createQuestion("Pop", questionIndex))
+            science.addLast(createQuestion("Science", questionIndex))
+            sports.addLast(createQuestion("Sports", questionIndex))
+            rock.addLast(createQuestion("Rock", questionIndex))
+        }
     }
 
-    fun isPlayable(): Boolean {
-        return howManyPlayers() >= 2
+    private fun createQuestion(category: String, index: Int): String {
+        return "$category Question $index"
     }
 
-    fun add(playerName: String): Boolean {
+    fun askQuestion(place: Place) {
+        if (place.category() === "Pop")
+            println(pop.removeFirst())
+        if (place.category() === "Science")
+            println(science.removeFirst())
+        if (place.category() === "Sports")
+            println(sports.removeFirst())
+        if (place.category() === "Rock")
+            println(rock.removeFirst())
+    }
+}
 
+enum class Category {
+    Pop, Science, Sports, Rock
+}
 
-        players.add(playerName)
-        places[howManyPlayers()] = 0
-        purses[howManyPlayers()] = 0
-        inPenaltyBox[howManyPlayers()] = false
+class Game {
+    private val NUMBER_OF_PLACES = 12
+    private val COINS_TO_WIN = 6
 
-        println(playerName + " was added")
+    private val board = Board()
+    private val questionBank = QuestionBank()
+    private var players = ArrayList<Player>()
+
+    private var currentPlayerIndex = 0
+    private lateinit var currentPlayer: Player
+    private var isGettingOutOfPenaltyBox: Boolean = false
+
+    fun addPlayer(playerName: String): Boolean {
+        players.add(Player(playerName))
+        println("$playerName was added")
         println("They are player number " + players.size)
+        currentPlayer = players[currentPlayerIndex]
         return true
-    }
-
-    fun howManyPlayers(): Int {
-        return players.size
     }
 
     fun roll(roll: Int) {
-        println(players[currentPlayer].toString() + " is the current player")
-        println("They have rolled a " + roll)
+        println(currentPlayer.name + " is the current player")
+        println("They have rolled a $roll")
 
-        if (inPenaltyBox[currentPlayer]) {
-            if (roll % 2 != 0) {
+        if (currentPlayer.isInPenaltyBox) {
+            if (isRollOdd(roll)) {
                 isGettingOutOfPenaltyBox = true
-
-                println(players[currentPlayer].toString() + " is getting out of the penalty box")
-                places[currentPlayer] = places[currentPlayer] + roll
-                if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12
-
-                println(players[currentPlayer].toString()
-                        + "'s new location is "
-                        + places[currentPlayer])
-                println("The category is " + currentCategory())
-                askQuestion()
+                println(currentPlayer.name + " is getting out of the penalty box")
+                movePlayer(roll)
+                questionBank.askQuestion(getCurrentPlace())
             } else {
-                println(players[currentPlayer].toString() + " is not getting out of the penalty box")
+                println(currentPlayer.name + " is not getting out of the penalty box")
                 isGettingOutOfPenaltyBox = false
             }
-
         } else {
-
-            places[currentPlayer] = places[currentPlayer] + roll
-            if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12
-
-            println(players[currentPlayer].toString()
-                    + "'s new location is "
-                    + places[currentPlayer])
-            println("The category is " + currentCategory())
-            askQuestion()
+            movePlayer(roll)
+            questionBank.askQuestion(getCurrentPlace())
         }
-
     }
 
-    private fun askQuestion() {
-        if (currentCategory() === "Pop")
-            println(popQuestions.removeFirst())
-        if (currentCategory() === "Science")
-            println(scienceQuestions.removeFirst())
-        if (currentCategory() === "Sports")
-            println(sportsQuestions.removeFirst())
-        if (currentCategory() === "Rock")
-            println(rockQuestions.removeFirst())
+    private fun isRollOdd(roll: Int) = roll % 2 != 0
+
+    private fun movePlayer(roll: Int) {
+        currentPlayer.position += roll
+        if (currentPlayer.position >= NUMBER_OF_PLACES) currentPlayer.position -= NUMBER_OF_PLACES
+
+        println(
+            currentPlayer.name
+                    + "'s new location is "
+                    + currentPlayer.position
+        )
+        println("The category is " + getCurrentPlace().category())
     }
 
-    private fun currentCategory(): String {
-        if (places[currentPlayer] == 0) return "Pop"
-        if (places[currentPlayer] == 4) return "Pop"
-        if (places[currentPlayer] == 8) return "Pop"
-        if (places[currentPlayer] == 1) return "Science"
-        if (places[currentPlayer] == 5) return "Science"
-        if (places[currentPlayer] == 9) return "Science"
-        if (places[currentPlayer] == 2) return "Sports"
-        if (places[currentPlayer] == 6) return "Sports"
-        if (places[currentPlayer] == 10) return "Sports"
-        return "Rock"
-    }
+    private fun getCurrentPlace() = board.getPlace(currentPlayer.position)
 
     fun wasCorrectlyAnswered(): Boolean {
-        if (inPenaltyBox[currentPlayer]) {
+        if (currentPlayer.isInPenaltyBox) {
             if (isGettingOutOfPenaltyBox) {
                 println("Answer was correct!!!!")
-                purses[currentPlayer]++
-                println(players[currentPlayer].toString()
-                        + " now has "
-                        + purses[currentPlayer]
-                        + " Gold Coins.")
-
-                val winner = didPlayerWin()
-                currentPlayer++
-                if (currentPlayer == players.size) currentPlayer = 0
-
-                return winner
+                currentPlayer.addCoin()
+                val shouldContinueGame = shouldContinueGame()
+                updateCurrentPlayer()
+                return shouldContinueGame
             } else {
-                currentPlayer++
-                if (currentPlayer == players.size) currentPlayer = 0
+                updateCurrentPlayer()
                 return true
             }
-
-
         } else {
-
             println("Answer was corrent!!!!")
-            purses[currentPlayer]++
-            println(players[currentPlayer].toString()
-                    + " now has "
-                    + purses[currentPlayer]
-                    + " Gold Coins.")
-
-            val winner = didPlayerWin()
-            currentPlayer++
-            if (currentPlayer == players.size) currentPlayer = 0
-
-            return winner
+            currentPlayer.addCoin()
+            val shouldContinueGame = shouldContinueGame()
+            updateCurrentPlayer()
+            return shouldContinueGame
         }
     }
 
-    fun wrongAnswer(): Boolean {
+    fun wasIncorrectlyAnswered(): Boolean {
         println("Question was incorrectly answered")
-        println(players[currentPlayer].toString() + " was sent to the penalty box")
-        inPenaltyBox[currentPlayer] = true
-
-        currentPlayer++
-        if (currentPlayer == players.size) currentPlayer = 0
+        println(currentPlayer.name + " was sent to the penalty box")
+        currentPlayer.isInPenaltyBox = true
+        updateCurrentPlayer()
         return true
     }
 
-    private fun didPlayerWin(): Boolean {
-        return purses[currentPlayer] != 6
+    private fun updateCurrentPlayer() {
+        currentPlayerIndex++
+        if (currentPlayerIndex == players.size) currentPlayerIndex = 0
+        currentPlayer = players[currentPlayerIndex]
+    }
+
+    private fun shouldContinueGame(): Boolean {
+        return currentPlayer.purse != COINS_TO_WIN
     }
 }
