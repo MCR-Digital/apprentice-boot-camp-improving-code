@@ -14,29 +14,27 @@ namespace TriviaGame
 
         public static void Main(String[] args)
         {
-            Game aGame = new Game();
+            Game round = new Game();
 
-            aGame.Add("Chet");
-            aGame.Add("Pat");
-            aGame.Add("Sue");
+            round.Add("Chet");
+            round.Add("Pat");
+            round.Add("Sue");
 
             Random rand = new Random(Int32.Parse(args[0]));
 
             do
             {
 
-                aGame.Roll(rand.Next(5) + 1);
+                round.Roll(rand.Next(5) + 1);
 
                 if (rand.Next(9) == 7)
                 {
-                    notAWinner = aGame.WrongAnswer();
+                    notAWinner = round.IsAnswerWrong();
                 }
                 else
                 {
-                    notAWinner = aGame.WasCorrectlyAnswered();
+                    notAWinner = round.IsAnswerCorrect();
                 }
-
-
 
             } while (notAWinner);
 
